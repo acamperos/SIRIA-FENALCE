@@ -207,7 +207,7 @@ public class FarmsDao
 //                Date asign = new Date(valIdent);
 //                sql += " or (r.fecha_ras like '%"+asign+"%')";
                 try {
-                    String dateAsign = new SimpleDateFormat("yyyy-dd-MM").format(new Date(valIdent));
+                    String dateAsign = new SimpleDateFormat("yyyy-MM-dd").format(new Date(valIdent));
 //                    sql += " or (r.fecha_ras like '%"+dateAsign+"%')";
                 } catch (IllegalArgumentException ex) {
 //                    Logger.getLogger(RastasDao.class.getName()).log(Level.SEVERE, null, ex);

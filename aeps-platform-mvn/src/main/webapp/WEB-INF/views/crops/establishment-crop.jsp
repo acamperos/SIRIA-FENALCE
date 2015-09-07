@@ -17,6 +17,7 @@
                 <s:hidden name="typeCrop"/>
                 <s:hidden name="actExe"/>
                 <s:hidden name="sowing.idSow"/>
+                <s:hidden name="lanSel"/>
                 <div class="control-group">
                     <label for="formCropSow_sowing_dateSow" class="control-label req">
                         <s:property value="getText('text.sowdate.crop')" />:
@@ -32,7 +33,7 @@
             <div class="span4" style="padding-left: 28px">
                 <div class="control-group">
                     <label for="formCropSow_sowing_sowingTypes_idSowTyp" class="control-label req">
-                        <s:property value="getText('text.datesow.crop')" />:
+                        <s:property value="getText('text.sowmethod.crop')" />:
                     </label>
                     <div class="controls">
                         <s:select
@@ -50,16 +51,10 @@
             <div class="span5">
                 <div class="control-group">
                     <label for="formCropSow_event_expected_production_pro_eve" class="control-label">
-                        <s:property value="getText('text.bestperform.crop')" /> (kg/ha):
+                        <s:property value="getText('text.bestperform.crop')" /> <button type="button" class="btn btn-initial"><b>(kg/ha)</b></button>:
                         <i class="icon-info-sign s2b_tooltip pop-over" data-content="Ingrese el rendimiento histórico obtenido." data-title="Información" data-placement="right" data-trigger="hover"></i>
                     </label>
                     <div class="controls">
-                        <s:hidden name="event.idProEve"/>
-                        <s:hidden name="event.fields.idFie"/>
-                        <s:hidden name="event.cropsTypes.idCroTyp"/>
-                        <s:hidden name="event.idProjectFie"/>
-                        <s:hidden name="event.formerCropProEve"/>
-                        <s:hidden name="event.status"/>
                         <s:number name="event.expectedProductionProEve" type="integer" var="performanceCrop" />
                         <s:textfield name="event.expectedProductionProEve" value="%{#performanceCrop}"/>
                     </div>                  
@@ -84,7 +79,7 @@
                             <s:property value="getText('text.kgseedha.crop')" />:
                             <i class="icon-info-sign s2b_tooltip pop-over" data-content="Por favor hacer la conversión a número de semillas." data-title="Información" data-placement="right" data-trigger="hover"></i> 
                         <% } else if (typeCrop==2) { %>
-                            <s:property value="getText('text.seednumber.crop')" />:
+                            <s:property value="getText('text.seednumber.crop')" /> <button type="button" class="btn btn-initial"><b>(kg/ha)</b></button>:
                         <% } %>                        
                     </label>
                     <div class="controls">
@@ -148,7 +143,7 @@
             <div class="span5">
                 <div class="control-group">
                     <label for="formCropSow_sowing_furrowsDistanceSow" class="control-label req">
-                        <s:property value="getText('text.furrowdistance.crop')" /> (m):
+                        <s:property value="getText('text.furrowdistance.crop')" /> <button type="button" class="btn btn-initial"><b>(m)</b></button>:
                     </label>
                     <div class="controls">
                         <s:textfield name="sowing.furrowsDistanceSow"/>
@@ -158,7 +153,7 @@
             <div class="span4" style="padding-left: 28px">
                 <div class="control-group">
                     <label for="formCropSow_sowing_sitesDistanceSow" class="control-label req">
-                        <s:property value="getText('text.sitesdistance.crop')" /> (m):
+                        <s:property value="getText('text.sitesdistance.crop')" /> <button type="button" class="btn btn-initial"><b>(m)</b></button>:
                     </label>
                     <div class="controls">
                         <s:textfield name="sowing.sitesDistanceSow"/>
@@ -262,7 +257,6 @@
                                 listValue="nameSeeIno"            
                                 headerKey="-1" 
                                 headerValue="---"
-                                onchange="showOtherElement(this.value, 'divNewInoculationSeed')"
                             />
                         </div>
                     </div>                         
@@ -270,7 +264,7 @@
                 <% String classInoculation="hide"; %>
                 <s:set name="seedInoculation" value="beans.seedsInoculations.idSeeIno"/>
                 <s:if test="%{#seedInoculation==1000000}">
-                    <% classInoculation = "";%>
+                    <% // onchange="showOtherElement(this.value, 'divNewInoculationSeed')" classInoculation = "";%>
                 </s:if>
                 <div class="span4 <%= classInoculation %>" style="padding-left: 28px" id="divNewInoculationSeed">
                     <div class="control-group">
@@ -350,9 +344,12 @@
             $("#formCropSow_sowing_sitesDistanceSow").numeric({negative: false});
             $("#formCropSow_beans_seedsNumberSiteBea").numeric({ decimal: false, negative: false });
             
-            $("#formCropSow_sowing_seedsNumberSow").val(parsePointSeparated($("#formCropSow_sowing_seedsNumberSow").val())); 
+            //$("#formCropSow_sowing_seedsNumberSow").val(parsePointSeparated($("#formCropSow_sowing_seedsNumberSow").val())); 
             $("#formCropSow_sowing_furrowsDistanceSow").val(parsePointSeparated($("#formCropSow_sowing_furrowsDistanceSow").val())); 
             $("#formCropSow_sowing_sitesDistanceSow").val(parsePointSeparated($("#formCropSow_sowing_sitesDistanceSow").val())); 
+            if($('.pop-over').length) {
+                $('.pop-over').popover();
+            }
         </script>
     </fieldset>
 </s:form>
@@ -363,7 +360,16 @@
     </div>
 <% } %>
 <script>
-    $.subscribe('completeSowing', function(event, data) {
-        completeFormCrop('', 'formCropSow', 'divMessSowing', event.originalEvent.request.responseText);
+    var idCropSow = $("#formCropSow_idCrop").val();
+    if (idCropSow!=null && idCropSow!="" && idCropSow!="null") {
+        showTimeline("/crop/getInfoTime.action?idCrop="+idCropSow, "divInfoTimeline", "timeline");
+    }
+    $.subscribe('completeSowing', function(event, data) {        
+        if (idCropSow!=null && idCropSow!="" && idCropSow!="null") {
+            completeFormCrop('', 'formCropSow', 'divMessSowing', event.originalEvent.request.responseText);
+            showTimeline("/crop/getInfoTime.action?idCrop="+idCropSow, "divInfoTimeline", "timeline");
+        } else {
+            location.reload();
+        }
     });
 </script>

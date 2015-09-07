@@ -19,6 +19,7 @@
                 <legend>Formulario de un productor</legend>
                 <div class="control-group">
                     <s:hidden name="idProducer"/>
+                    <s:hidden name="lanSel"/>
                     <label for="formProducer_typeIdent" class="control-label req">
                         Tipo de documento:
                         <i class="icon-info-sign s2b_tooltip pop-over" data-content="Seleccione un tipo de documento." data-title="Información" data-placement="right" data-trigger="hover"></i>

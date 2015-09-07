@@ -23,6 +23,7 @@
                         <div class="span5">
                             <s:hidden name="idCrop"/>
                             <s:hidden name="typeCrop"/>
+                            <s:hidden name="lanSel"/>
                             <s:hidden name="actExe"/>
                             <s:hidden name="resMan.idResMan"/>                          
                             <div class="control-group">
@@ -93,6 +94,7 @@
                     completeFormGetting('dialog-form', 'formCropRes', 'divRes', event.originalEvent.request.responseText);
                     setTimeout(function() {
                         showInfo("/crop/searchResidual.action?idCrop="+$("#formCropRes_idCrop").val(), "divListRes");
+                        showTimeline("/crop/getInfoTime.action?idCrop="+$("#formCropRes_idCrop").val(), "divInfoTimeline", "timeline");
                     }, 2000);
                 });
             </script>

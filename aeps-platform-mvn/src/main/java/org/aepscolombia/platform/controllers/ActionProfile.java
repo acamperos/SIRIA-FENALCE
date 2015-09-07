@@ -326,6 +326,16 @@ public class ActionProfile extends BaseAction {
         this.city_producer = city_producer;
     }
     
+    private String lanSel;
+
+    public String getLanSel() {
+        return lanSel;
+    }
+
+    public void setLanSel(String lanSel) {
+        this.lanSel = lanSel;
+    }
+    
     
     @Override
     public void prepare() throws Exception {
@@ -339,6 +349,7 @@ public class ActionProfile extends BaseAction {
         mun.add(new Municipalities());         
         this.setTypeDocument("-1");
         this.setCity_producer(mun);
+        lanSel  = ActionContext.getContext().getLocale().getLanguage();
     }
     
 

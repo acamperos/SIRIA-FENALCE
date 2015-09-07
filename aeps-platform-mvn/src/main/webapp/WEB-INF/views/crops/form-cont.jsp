@@ -24,6 +24,7 @@
                             <s:hidden name="idCrop"/>
                             <s:hidden name="typeCrop"/>
                             <s:hidden name="actExe"/>
+                            <s:hidden name="lanSel"/>
                             <s:hidden name="con.idCon"/>
                             <div class="control-group">
                                 <label for="formCropCon_con_dateCon" class="control-label req">

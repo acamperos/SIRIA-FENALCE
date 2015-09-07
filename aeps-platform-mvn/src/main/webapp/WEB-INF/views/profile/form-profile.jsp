@@ -6,6 +6,7 @@
     <legend>Informacion Basica</legend>    
     <s:form id="formProfile" action="saveProfile.action">
         <s:hidden name="actExe" value="configProfile"/>
+        <s:hidden name="lanSel"/>
         <div class="control-group">
             <label for="formProfile_typeDocument" class="control-label">Tipo de documento:</label>
             <div class="controls">

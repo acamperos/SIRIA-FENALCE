@@ -381,6 +381,21 @@ form {
     color: #FFFFFF;
 }
 
+.btn-register {
+    background-color: #A4C305;
+    background-image: linear-gradient(to bottom, #A4C305, #A4C305);
+    background-repeat: repeat-x;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    color: #FFFFFF;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+
+.btn-register:hover, .btn-register:focus, .btn-register:active, .btn-register.active, .btn-register.disabled, .btn-register[disabled] {
+    background-color: #b8cf59;
+    background-image: linear-gradient(to bottom, #b8cf59, #b8cf59);
+    color: #FFFFFF;
+}
+
 .thumbnail {
     border: 1px solid #DDDDDD;
     border-radius: 10px;

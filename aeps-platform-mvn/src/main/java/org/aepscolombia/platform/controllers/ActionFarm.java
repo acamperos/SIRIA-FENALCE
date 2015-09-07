@@ -405,6 +405,16 @@ public class ActionFarm extends BaseAction {
         this.typeEnt = typeEnt;
     }   
     
+    private String lanSel;
+
+    public String getLanSel() {
+        return lanSel;
+    }
+
+    public void setLanSel(String lanSel) {
+        this.lanSel = lanSel;
+    }   
+    
     
     @Override
     public void prepare() throws Exception {
@@ -414,6 +424,7 @@ public class ActionFarm extends BaseAction {
         EntitiesDao entDao = new EntitiesDao();
         Entities entTemp = entDao.findById(idEntSystem);
         typeEnt = entTemp.getEntitiesTypes().getIdEntTyp();
+        lanSel  = ActionContext.getContext().getLocale().getLanguage();
         if (entTemp.getEntitiesTypes().getIdEntTyp()==2) {
             ProducersDao proDao = new ProducersDao();
             Producers proTemp   = new Producers();

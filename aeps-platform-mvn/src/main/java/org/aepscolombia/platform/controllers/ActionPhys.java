@@ -138,6 +138,16 @@ public class ActionPhys extends BaseAction {
         this.logDao = logDao;
     }       
     
+    private String lanSel;
+
+    public String getLanSel() {
+        return lanSel;
+    }
+
+    public void setLanSel(String lanSel) {
+        this.lanSel = lanSel;
+    }
+    
     @Override
     public String execute() throws Exception {
         return SUCCESS;
@@ -149,6 +159,7 @@ public class ActionPhys extends BaseAction {
         idEntSystem = UsersDao.getEntitySystem(user.getIdUsr());  
         usrDao = new UsersDao();
         idUsrSystem = user.getIdUsr();
+        lanSel  = ActionContext.getContext().getLocale().getLanguage();
     }
     
     
@@ -170,9 +181,9 @@ public class ActionPhys extends BaseAction {
             sowing = sowDao.objectById(this.getIdCrop());
             
             HashMap required = new HashMap();
-//            required.put("phys.emergencePhyMon", phys.getEmergencePhyMon());
+            required.put("phys.emergencePhyMon", phys.getEmergencePhyMon());
 //            required.put("phys.daysPopulationMonFis", phys.getDaysPopulationMonFis());
-//            required.put("phys.floweringDatePhyMon", phys.getFloweringDatePhyMon());            
+            required.put("phys.floweringDatePhyMon", phys.getFloweringDatePhyMon());            
             
             for (Iterator it = required.keySet().iterator(); it.hasNext();) {
                 String sK = (String) it.next();

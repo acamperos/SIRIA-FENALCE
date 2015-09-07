@@ -10,6 +10,7 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.MongoClient;
 import com.mongodb.WriteResult;
+import com.opensymphony.xwork2.ActionContext;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -404,6 +405,16 @@ public class ActionRasta extends BaseAction {
         this.typeEnt = typeEnt;
     }
     
+    private String lanSel;
+
+    public String getLanSel() {
+        return lanSel;
+    }
+
+    public void setLanSel(String lanSel) {
+        this.lanSel = lanSel;
+    }
+    
     @Override
     public String execute() throws Exception {
         return SUCCESS;
@@ -423,6 +434,7 @@ public class ActionRasta extends BaseAction {
         Entities entTemp = entDao.findById(idEntSystem);
         typeEnt = entTemp.getEntitiesTypes().getIdEntTyp();
         assDao = new AssociationDao();
+        lanSel  = ActionContext.getContext().getLocale().getLanguage();
 //        rowNew = (String)(this.getRequest().getParameter("rowNew"));
 //        if (rowNew!=null && rowNew.equals("true")) {
 //            System.out.println("entreeeee");
@@ -1167,10 +1179,7 @@ public class ActionRasta extends BaseAction {
             rasta.setFechaRas(dateRasta);            
             rasta.setStatus(true);
 //            rasta.setCreatedBy(sfUser.getId().intValue());
-            session.saveOrUpdate(rasta);    
-            
-            rasta.setNumeroCajuelaRas(rasta.getIdRas());
-            session.saveOrUpdate(rasta);
+            session.saveOrUpdate(rasta);   
             
 //            rastaDao.save(lot);
             
@@ -1208,7 +1217,8 @@ public class ActionRasta extends BaseAction {
                     }
                 }
             }
-            valHor += "]";            
+            valHor += "]";      
+            rasta.setNumeroCajuelaRas(rasta.getIdRas());
             rasta.setNumeroCapasRas(numCaj);
             session.saveOrUpdate(rasta);
             

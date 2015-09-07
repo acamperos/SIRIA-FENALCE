@@ -564,8 +564,8 @@ public class GlobalFunctions {
 
         try {
             JSONParser parser = new JSONParser();
-            obj = (JSONObject) parser.parse(new FileReader("/var/www/document/producerStructure.json"));
-//            obj = (JSONObject) parser.parse(new FileReader("C:/producerStructure.json"));
+//            obj = (JSONObject) parser.parse(new FileReader("/var/www/document/producerStructure.json"));
+            obj = (JSONObject) parser.parse(new FileReader("C:/producerStructure.json"));
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
         } catch (IOException ex) {
@@ -808,8 +808,8 @@ public class GlobalFunctions {
 
         try {
             JSONParser parser = new JSONParser();
-            obj = (JSONObject) parser.parse(new FileReader("/var/www/document/farmStructure.json"));
-//            obj = (JSONObject) parser.parse(new FileReader("C:/farmStructure.json"));
+//            obj = (JSONObject) parser.parse(new FileReader("/var/www/document/farmStructure.json"));
+            obj = (JSONObject) parser.parse(new FileReader("C:/farmStructure.json"));
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
         } catch (IOException ex) {
@@ -907,8 +907,8 @@ public class GlobalFunctions {
 
         try {
             JSONParser parser = new JSONParser();
-            obj = (JSONObject) parser.parse(new FileReader("/var/www/document/fieldStructure.json"));
-//            obj = (JSONObject) parser.parse(new FileReader("C:/fieldStructure.json"));
+//            obj = (JSONObject) parser.parse(new FileReader("/var/www/document/fieldStructure.json"));
+            obj = (JSONObject) parser.parse(new FileReader("C:/fieldStructure.json"));
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
         } catch (IOException ex) {
@@ -1018,8 +1018,8 @@ public class GlobalFunctions {
 
         try {
             JSONParser parser = new JSONParser();
-            obj = (JSONObject) parser.parse(new FileReader("/var/www/document/soilStructure.json"));
-//            obj = (JSONObject) parser.parse(new FileReader("C:/soilStructure.json"));
+//            obj = (JSONObject) parser.parse(new FileReader("/var/www/document/soilStructure.json"));
+            obj = (JSONObject) parser.parse(new FileReader("C:/soilStructure.json"));
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
         } catch (IOException ex) {
@@ -1368,8 +1368,8 @@ public class GlobalFunctions {
 
         try {
             JSONParser parser = new JSONParser();
-            obj = (JSONObject) parser.parse(new FileReader("/var/www/document/cropStructure.json"));
-//            obj = (JSONObject) parser.parse(new FileReader("C:/cropStructure.json"));
+//            obj = (JSONObject) parser.parse(new FileReader("/var/www/document/cropStructure.json"));
+            obj = (JSONObject) parser.parse(new FileReader("C:/cropStructure.json"));
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
         } catch (IOException ex) {
@@ -1586,8 +1586,8 @@ public class GlobalFunctions {
 
         try {
             JSONParser parser = new JSONParser();
-            obj = (JSONObject) parser.parse(new FileReader("/var/www/document/cropBeanStructure.json"));
-//            obj = (JSONObject) parser.parse(new FileReader("C:/cropBeanStructure.json"));
+//            obj = (JSONObject) parser.parse(new FileReader("/var/www/document/cropBeanStructure.json"));
+            obj = (JSONObject) parser.parse(new FileReader("C:/cropBeanStructure.json"));
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
         } catch (IOException ex) {
@@ -1772,16 +1772,22 @@ public class GlobalFunctions {
             java.lang.String password = "ciat001";
             java.lang.String teldestino = telDes;
             java.lang.String mensaje = mess;
-            com.sigmamovil.smsapp.soap.sigmamovilservice.SigmaMovilService service = new com.sigmamovil.smsapp.soap.sigmamovilservice.SigmaMovilService(new URL("http://www.open-aeps.org/sigmaservices.wsdl"));
-            com.sigmamovil.smsapp.soap.sigmamovilservice.SigmaMovilServicePortType port = service.getSigmaMovilServicePort();
-            //            System.out.println("port=>"+port);
-            // TODO process result here
-            com.sigmamovil.smsapp.soap.sigmamovilservice.WSResSendSMS result = port.newSendSMS(user, password, teldestino, mensaje);
-            System.out.println("Result = " + result);
+//            com.sigmamovil.smsapp.soap.sigmamovilservice.SigmaMovilService service = new com.sigmamovil.smsapp.soap.sigmamovilservice.SigmaMovilService(new URL("http://www.open-aeps.org/sigmaservices.wsdl"));
+//            com.sigmamovil.smsapp.soap.sigmamovilservice.SigmaMovilServicePortType port = service.getSigmaMovilServicePort();
+//            //            System.out.println("port=>"+port);
+//            // TODO process result here
+//            com.sigmamovil.smsapp.soap.sigmamovilservice.WSResSendSMS result = port.newSendSMS(user, password, teldestino, mensaje);
+//            System.out.println("Result = " + result);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
 
     }
+    
+    public static long daysBetween(Date one, Date two) { 
+        long difference = (one.getTime()-two.getTime())/86400000; 
+        return Math.abs(difference); 
+    }
+
 
 }

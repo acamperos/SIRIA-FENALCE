@@ -319,6 +319,16 @@ public class ActionCon extends BaseAction {
         this.logDao = logDao;
     }      
     
+    private String lanSel;
+
+    public String getLanSel() {
+        return lanSel;
+    }
+
+    public void setLanSel(String lanSel) {
+        this.lanSel = lanSel;
+    }
+    
     @Override
     public String execute() throws Exception {
         return SUCCESS;
@@ -330,6 +340,7 @@ public class ActionCon extends BaseAction {
         idEntSystem = UsersDao.getEntitySystem(user.getIdUsr());  
         idUsrSystem = user.getIdUsr();
         usrDao = new UsersDao();
+        lanSel  = ActionContext.getContext().getLocale().getLanguage();
     }
     
     

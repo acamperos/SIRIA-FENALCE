@@ -2,11 +2,14 @@ package org.aepscolombia.platform.models.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.aepscolombia.platform.models.entity.Entities;
 //import org.aepscolombia.plataforma.models.dao.IEventoDao;
 import org.hibernate.Transaction;
@@ -206,6 +209,51 @@ public class MonitoringDao
 		}
         return result;
     }    
+    
+    public String getMonitoringsInfo(Integer idEvent) {
+        SessionFactory sessions = HibernateUtil.getSessionFactory();
+        Session session = sessions.openSession();
+        List<Object[]> events = null;
+        Transaction tx = null;
+        String result  = "";
+        
+        String sql = "";     
+        String sqlAdd = "";     
+                      
+        sql += "select m.id_mon, m.date_mon, m.monitor_pests_mon, m.monitor_diseases_mon, m.monitor_weeds_mon,";    
+        sql += "m.otro_weed_mon from monitoring m";    
+        sql += " where m.status=1";
+        if (idEvent!=null && idEvent!=-1) {
+            sql += " and m.id_production_event_mon="+idEvent;
+        }
+        sqlAdd += " order by m.id_mon ASC";
+        sql += sqlAdd;
+        try {
+            tx = session.beginTransaction();
+            Query query  = session.createSQLQuery(sql);
+            events = query.list(); 
+            int cont=1;
+
+            for (Object[] data : events) {
+                String valIdent  = String.valueOf(data[1]);
+                Date date        = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse(valIdent);
+                String dateAsign = new SimpleDateFormat("yyyy-MM-dd").format(date);
+                result += "{\"content\": \"Mon. "+cont+"\", \"start\": \""+dateAsign+"\", \"className\": \"monitorings\"},";
+                cont++;
+            }
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return result;
+    }
     
     public Monitoring objectById(Integer id) {
         SessionFactory sessions = HibernateUtil.getSessionFactory();

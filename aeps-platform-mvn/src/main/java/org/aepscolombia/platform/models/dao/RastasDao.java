@@ -199,7 +199,7 @@ public class RastasDao
 //                Date asign = new Date(valIdent);
 //                sql += " or (r.fecha_ras like '%"+asign+"%')";
                 try {
-                    String dateAsign = new SimpleDateFormat("yyyy-dd-MM").format(new Date(valIdent));
+                    String dateAsign = new SimpleDateFormat("yyyy-MM-dd").format(new Date(valIdent));
                     sql += " or (r.fecha_ras like '%"+dateAsign+"%')";
 //                    sql += " or (r.fecha_ras like '%"+dateAsign+"%')";
                 } catch (IllegalArgumentException ex) {
@@ -224,7 +224,7 @@ public class RastasDao
             String valIdent = String.valueOf(args.get("date"));            
 //            SimpleDateFormat dmyFormat = new SimpleDateFormat("yyyy-MM-dd");            
             if(!valIdent.equals(" ") && !valIdent.equals("") && !valIdent.equals("null")) {
-                String dateAsign = new SimpleDateFormat("yyyy-dd-MM").format(new Date(valIdent));
+                String dateAsign = new SimpleDateFormat("yyyy-MM-dd").format(new Date(valIdent));
                 sql += " and r.fecha_ras like '%"+dateAsign+"%'";
 //                try {
                     //                Date myDate = (Date)args.get("date");

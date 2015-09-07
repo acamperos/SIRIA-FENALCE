@@ -222,7 +222,7 @@ public class ProducersDao
 //                Date asign = new Date(valIdent);
 //                sql += " or (r.fecha_ras like '%"+asign+"%')";
                 try {
-                    String dateAsign = new SimpleDateFormat("yyyy-dd-MM").format(new Date(valIdent));
+                    String dateAsign = new SimpleDateFormat("yyyy-MM-dd").format(new Date(valIdent));
 //                    sql += " or (r.fecha_ras like '%"+dateAsign+"%')";
                 } catch (IllegalArgumentException ex) {
 //                    Logger.getLogger(RastasDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -535,13 +535,13 @@ public class ProducersDao
             }
         }
         sql += " and le.id_object_log_ent not in (";
-        sql += "﻿  select le.id_object_log_ent from log_entities le ";
+        sql += "  select le.id_object_log_ent from log_entities le ";
         if (entType.equals("3")) {
-            sql += "﻿  inner join entities entLe on (le.id_entity_log_ent=entLe.id_ent)";
-            sql += "﻿  inner join extension_agents ext on (ext.id_entity_ext_age=entLe.id_ent)";
-            sql += "﻿  inner join association ass on (ass.id_asc=ext.id_asso_ext_age)";
+            sql += "  inner join entities entLe on (le.id_entity_log_ent=entLe.id_ent)";
+            sql += "  inner join extension_agents ext on (ext.id_entity_ext_age=entLe.id_ent)";
+            sql += "  inner join association ass on (ass.id_asc=ext.id_asso_ext_age)";
         }
-        sql += "﻿  where le.action_type_log_ent = 'D' AND le.table_log_ent = 'producers'";
+        sql += "  where le.action_type_log_ent = 'D' AND le.table_log_ent = 'producers'";
         if (!entType.equals("3") && args.containsKey("idEntUser")) {
             sql += " and le.id_entity_log_ent="+args.get("idEntUser");
         } else {

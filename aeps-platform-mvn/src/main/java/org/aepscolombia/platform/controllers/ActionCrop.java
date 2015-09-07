@@ -7,13 +7,14 @@ package org.aepscolombia.platform.controllers;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
 import com.mongodb.MongoClient;
 import com.mongodb.WriteResult;
+import com.opensymphony.xwork2.ActionContext;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.UnknownHostException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -93,6 +94,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.json.simple.JSONObject;
 
 /**
  * Clase ActionCrop
@@ -116,6 +118,11 @@ public class ActionCrop extends BaseAction {
     private String nameTypeCrop;
     private String lastTypeCrop;
     private String nameDrainPlot;
+    private Double areaCrop;
+    private Integer typeArea;
+    private Double availableArea;
+    private Boolean totallyArea;
+    private Double areaField;
     
     private String name_producer;
     private String type_doc;
@@ -561,8 +568,56 @@ public class ActionCrop extends BaseAction {
     public void setName_field(String name_field) {
         this.name_field = name_field;
     }
+
+    public Double getAreaCrop() {
+        return areaCrop;
+    }
+
+    public void setAreaCrop(Double areaCrop) {
+        this.areaCrop = areaCrop;
+    }   
+
+    public Double getAvailableArea() {
+        return availableArea;
+    }
+
+    public void setAvailableArea(Double availableArea) {
+        this.availableArea = availableArea;
+    }   
+
+    public Double getAreaField() {
+        return areaField;
+    }
+
+    public void setAreaField(Double areaField) {
+        this.areaField = areaField;
+    }   
+
+    public Boolean isTotallyArea() {
+        return totallyArea;
+    }
+
+    public void setTotallyArea(Boolean totallyArea) {
+        this.totallyArea = totallyArea;
+    }    
+
+    public Integer getTypeArea() {
+        return typeArea;
+    }
+
+    public void setTypeArea(Integer typeArea) {
+        this.typeArea = typeArea;
+    }   
     
-    
+    private boolean checkSowing;
+
+    public boolean isCheckSowing() {
+        return checkSowing;
+    }
+
+    public void setCheckSowing(boolean checkSowing) {
+        this.checkSowing = checkSowing;
+    } 
     
     
     //Atributos generales de clase
@@ -684,6 +739,16 @@ public class ActionCrop extends BaseAction {
         this.typeEnt = typeEnt;
     }
     
+    private String lanSel;
+
+    public String getLanSel() {
+        return lanSel;
+    }
+
+    public void setLanSel(String lanSel) {
+        this.lanSel = lanSel;
+    }
+    
     @Override
     public void prepare() throws Exception {
         user = (Users) this.getSession().get(APConstants.SESSION_USER);
@@ -696,6 +761,7 @@ public class ActionCrop extends BaseAction {
         Entities entTemp = entDao.findById(idEntSystem);
         typeEnt = entTemp.getEntitiesTypes().getIdEntTyp();
         assDao = new AssociationDao();
+        lanSel  = ActionContext.getContext().getLocale().getLanguage();
 //        if (user.getIdUsr()!=null) idEntSystem = UsersDao.getEntitySystem(user.getIdUsr());
     }
     
@@ -719,6 +785,10 @@ public class ActionCrop extends BaseAction {
             required.put("nameField", nameField);
             required.put("typeCrop", typeCrop);
             required.put("lastCrop", lastCrop);
+            if (totallyArea) {
+                required.put("typeArea", typeArea);
+                required.put("areaCrop", areaCrop);
+            }
 //            required.put("drainPlot", drainPlot);    
             boolean enter = false;
             
@@ -740,7 +810,35 @@ public class ActionCrop extends BaseAction {
                 addActionError("Faltan campos por ingresar por favor digitelos");
             }
             
-//            System.out.println("performObj->"+performObj);
+            HashMap fieldInfo = lotDao.findById(this.getIdField());
+            double availableArea = Double.parseDouble(String.valueOf(fieldInfo.get("available_area")));
+            double areaOld = Double.parseDouble(String.valueOf(fieldInfo.get("area_lot")));
+            if (!totallyArea) {
+                if (typeArea==1) {
+                    areaCrop = ((areaCrop*areaOld)/100);
+                }
+                if (idCrop!=null && idCrop>0) {
+                    HashMap temp  = cropDao.findById(idCrop);
+                    Double areaCropTemp  = Double.parseDouble(String.valueOf(temp.get("quant_area")));
+//                    Integer typeAreaTemp = Integer.parseInt(String.valueOf(temp.get("type_area")));
+//                    if (typeAreaTemp==1) areaCropTemp = (areaCropTemp*areaOld)/100;
+                    if (areaCropTemp>0) availableArea = availableArea + areaCropTemp;
+                }
+                /* 
+                1-Porcentaje ((Area del lote * porcentaje/100)) = Area)
+                2-Hectarea	 ((Area/Area del lote)*100=porcentaje)
+                */
+                if (areaCrop>availableArea) {
+                    if (typeArea==1) {
+                        addFieldError("areaCrop", "Dato invalido, valor entre 1 y "+availableArea+" ha");
+                    } else if (typeArea==2) {
+                        addFieldError("areaCrop", "Dato invalido, valor entre 1 y "+availableArea+" ha");
+                    }                
+                    addActionError("Se ingreso un area a sembrar por fuera del area del lote disponible");
+                }
+            } else {
+                areaCrop = areaOld;
+            }
         }
     }
     
@@ -773,6 +871,24 @@ public class ActionCrop extends BaseAction {
 //        if (this.getOtherCrop()!=null && !this.getOtherCrop().equals("")) {
 //            this.setLastCrop(1000000);
 //        }        
+        /* 
+        1-Porcentaje ((Area del lote * porcentaje/100)) = Area)
+        2-Hectarea	 ((Area/Area del lote)*100=porcentaje)
+        */
+        String areaTemp = String.valueOf(cropInfo.get("quant_area"));
+        String typeTemp = String.valueOf(cropInfo.get("type_area"));
+        if (!areaTemp.equals("null")) this.setAreaCrop(Double.parseDouble(areaTemp));
+        if (!typeTemp.equals("null")) this.setTypeArea(Integer.parseInt(typeTemp));
+        HashMap fieldInfo = lotDao.findById(this.getIdField());
+        double areaOld = Double.parseDouble(String.valueOf(fieldInfo.get("area_lot")));
+        double avaArea = Double.parseDouble(String.valueOf(fieldInfo.get("available_area")));
+        Boolean totArea = (Boolean)(fieldInfo.get("totally_area"));
+        if (this.getTypeArea()!=null && this.getTypeArea()==1) {
+            this.setAreaCrop((this.getAreaCrop()/areaOld)*100);
+        } 
+        this.setAreaField(areaOld);
+        this.setAvailableArea(avaArea);
+        this.setTotallyArea(totArea);
         this.setNameTypeCrop(new CropsTypesDao().objectById(typeCrop).getNameCroTyp());
         if (this.getLastCrop()==1000000) {
             lastTypeCrop = this.getOtherCrop();
@@ -843,10 +959,11 @@ public class ActionCrop extends BaseAction {
             listFert = fertDao.findByParams(findParams);
             listCont = conDao.findByParams(findParams);
             listMont = monDao.findByParams(findParams);
+            checkSowing = prepDao.haveDirectSowing(findParams);
             
             beans  = beansDao.objectById(this.getIdCrop());
             cass   = cassDao.objectById(this.getIdCrop());
-            harv   = harDao.objectById(this.getIdCrop());
+            harv   = harDao.objectById(this.getIdCrop());  
             maize  = maizeDao.objectById(this.getIdCrop());
             phys   = physDao.objectById(this.getIdCrop());
             sowing = sowDao.objectById(this.getIdCrop());
@@ -864,8 +981,7 @@ public class ActionCrop extends BaseAction {
                     this.setType_genotypes(new GenotypesDao().findAllByTypeCrop(typeCrop, beans.getGrowingEnvironment().getIdGroEnv()));
                 } else if(typeCrop==3) {
                     this.setType_genotypes(new GenotypesDao().findAllByTypeCrop(typeCrop, 0));
-                }       
-                 
+                }                 
             }
             
             HashMap fieldInfo = lotDao.findById(this.getIdField());
@@ -897,6 +1013,98 @@ public class ActionCrop extends BaseAction {
             
         }       
         return SUCCESS;
+    }
+    
+    private JSONObject objInfo;
+
+    public JSONObject getObjInfo() {
+        return objInfo;
+    }
+
+    public void setObjInfo(JSONObject objInfo) {
+        this.objInfo = objInfo;
+    }   
+    
+    public String getInfoTime() {
+        if (!usrDao.getPrivilegeUser(idUsrSystem, "crop/create") || !usrDao.getPrivilegeUser(idUsrSystem, "crop/modify")) {
+            return BaseAction.NOT_AUTHORIZED;
+        }
+        try {
+            this.setIdCrop(Integer.parseInt(this.getRequest().getParameter("idCrop")));
+        } catch (NumberFormatException e) {
+//            LOG.error("There was an error trying to parse the activityId parameter");
+            this.setIdCrop(-1);
+        }  
+        state = "failure";
+        if (this.getIdCrop()!= -1) {      
+            objInfo = new JSONObject();      
+            phys   = physDao.objectById(this.getIdCrop());
+            sowing = sowDao.objectById(this.getIdCrop());
+            harv   = harDao.objectById(this.getIdCrop());  
+            event  = cropDao.objectById(this.getIdCrop());
+            typeCrop = event.getCropsTypes().getIdCroTyp();
+            String showTimeline = "0";
+            String result       = "";
+            String beginning    = "";            
+            if (sowing!=null) {
+                state                = "success";
+                showTimeline         = "1";
+                String dateSowing    = new SimpleDateFormat("yyyy-MM-dd").format(sowing.getDateSow()); 
+                String yearSowing    = new SimpleDateFormat("yyyy").format(sowing.getDateSow());
+                String dateStart     = ""+yearSowing+"-01-01";
+                String dateEnd       = ""+yearSowing+"-12-31";
+                beginning            = "{\"start\": \""+dateStart+"\", \"end\": \""+dateEnd+"\", \"editable\": false}";
+                result += "{\"content\": \"<div>Siembra</div><img src='../img/sowing.png' style='width:32px; height:32px;'>\", \"start\": \""+dateSowing+"\", \"className\": \"sowing\"},";     
+
+                if (phys!=null && phys.getEmergencePhyMon()!=null) {
+                    String dateEmergence = new SimpleDateFormat("yyyy-MM-dd").format(phys.getEmergencePhyMon());
+                    long diffEmergence   = GlobalFunctions.daysBetween(sowing.getDateSow(), phys.getEmergencePhyMon());
+                    result += "{\"content\": \"Emergencia\", \"start\": \""+dateEmergence+"\", \"className\": \"emergency\", \"title\": \"Se dio emergencia en "+diffEmergence+" dias despues de siembra\"},";
+//                    result += "{\"content\": \"Se dio emergencia en "+diffEmergence+" dias <br> despues de siembra\", \"start\": \""+dateSowing+"\", \"end\": \""+dateEmergence+"\"},";
+                }
+
+                if (phys!=null && phys.getFloweringDatePhyMon()!=null) {
+                    String dateFlowering = new SimpleDateFormat("yyyy-MM-dd").format(phys.getFloweringDatePhyMon());
+                    long diffFlowering   = GlobalFunctions.daysBetween(sowing.getDateSow(), phys.getFloweringDatePhyMon());
+                    result += "{\"content\": \"Floracion\", \"start\": \""+dateFlowering+"\", \"className\": \"flowering\", \"title\": \"Se dio floracion en "+diffFlowering+" dias despues de siembra\"},";
+//                    result += "{\"content\": \"Se dio floracion en "+diffFlowering+" dias <br> despues de siembra\", \"start\": \""+dateSowing+"\", \"end\": \""+dateFlowering+"\"},";
+                }
+                
+                result += prepDao.getPrep(this.getIdCrop());
+                result += resDao.getResidualsInfo(this.getIdCrop());
+                result += irrDao.getIrrigationsInfo(this.getIdCrop());
+                result += fertDao.getFertilizationsInfo(this.getIdCrop());
+                result += conDao.getControlsInfo(this.getIdCrop());
+                result += monDao.getMonitoringsInfo(this.getIdCrop());
+                
+                if (harv!=null && harv.getDateHar()!=null) {
+                    String dateHarvest   = new SimpleDateFormat("yyyy-MM-dd").format(harv.getDateHar());
+                    long diffHarvest     = GlobalFunctions.daysBetween(sowing.getDateSow(), harv.getDateHar());
+                    String classHar      = "";
+                    String imageHar      = "";
+                    if(typeCrop==1) {
+                        classHar      = "maize";
+                        imageHar      = "../img/maize.png";
+                    } else if(typeCrop==2) {
+                        classHar      = "beans";
+                        imageHar      = "../img/beans.png";
+                    } else if(typeCrop==4) {
+                        classHar      = "rice";
+                        imageHar      = "../img/rice.png";
+                    }
+//                    result += "{\"content\": \"Se hizo cosecha en "+diffHarvest+" dias <br> despues de siembra\", \"start\": \""+dateSowing+"\", \"end\": \""+dateHarvest+"\"},";
+                    result += "{\"content\": \"<div>Cosecha</div><img src='"+imageHar+"' style='width:32px; height:32px;'>\", \"start\": \""+dateHarvest+"\", \"className\": \""+classHar+"\", \"title\": \"Se hizo cosecha en "+diffHarvest+" dias despues de siembra\"},";
+                }
+            }
+            objInfo.put("timeline", showTimeline);
+            objInfo.put("content", result);
+            objInfo.put("beginning", beginning);
+            phys   = null;
+            sowing = null;
+            harv   = null;
+            event  = null;
+        }
+        return "states";
     }
     
     /**
@@ -1104,7 +1312,7 @@ public class ActionCrop extends BaseAction {
         } catch (NumberFormatException e) {
 //            LOG.error("There was an error trying to parse the activityId parameter");
             this.setIdCrop(-1);
-        }
+        }       
 
         this.setType_ident_producer(new DocumentsTypesDao().findAll());
         this.setType_crops(new CropsTypesDao().findAll());
@@ -1147,16 +1355,35 @@ public class ActionCrop extends BaseAction {
 
         try {
             tx = session.beginTransaction();
-            
+            double areaCropSel = 0.0;
             ProductionEvents pro = null;
             if (idCrop==null || idCrop<=0) {
                 pro = new ProductionEvents();
                 pro.setIdProEve(null);
             } else {
                 pro = cropDao.objectById(idCrop);
+                areaCropSel = pro.getQuantAreaProEve();
             }                        
+            Fields lot = lotDao.objectById(this.getIdField()); 
+//            double areaOld = lot.getAreaFie();
+            double areaAvaOld = lot.getAvailableAreaFie();
+            /* 
+             1-Porcentaje ((Area del lote * porcentaje/100)) = Area)
+             2-Hectarea   ((Area/Area del lote)*100=porcentaje)
+             */
+            double availableArea = areaAvaOld + areaCropSel;
+            if (!totallyArea) {
+                availableArea -= areaCrop;
+            } else {
+                typeArea = 2;
+            }
+            lot.setTotallyAreaFie(totallyArea);
+            lot.setAvailableAreaFie(availableArea);
+            session.saveOrUpdate(lot);            
+//            throw new HibernateException("Perros");
             
-            
+            pro.setQuantAreaProEve(areaCrop);
+            pro.setTypeAreaProEve(typeArea);           
             pro.setFields(new Fields(idField));
             pro.setCropsTypes(new CropsTypes(typeCrop));
             pro.setIdProjectProEve(1);            
@@ -1207,17 +1434,17 @@ public class ActionCrop extends BaseAction {
                 }
             }
             
-            if (typeCrop==1) {
+            if (typeCrop==1 && maize==null) {
                 Maize ma = new Maize();
                 ma.setIdMai(null);
                 ma.setProductionEvents(pro);
                 session.saveOrUpdate(ma);            
-            } else if (typeCrop==2) {
+            } else if (typeCrop==2 && beans==null) {
                 Beans be = new Beans();
                 be.setIdBea(null);
                 be.setProductionEvents(pro);
                 session.saveOrUpdate(be);
-            } else if (typeCrop==3) {
+            } else if (typeCrop==3 && cass==null) {
                 Cassavas ca = new Cassavas();
                 ca.setIdCas(null);
                 ca.setProductionEvents(pro);
@@ -1296,9 +1523,20 @@ public class ActionCrop extends BaseAction {
         try {
             tx = session.beginTransaction();            
             ProductionEvents pro = cropDao.objectById(idCrop);      
-            pro.setStatus(false);
+            pro.setStatus(false);            
 //            session.delete(pro);        
             session.saveOrUpdate(pro);
+            
+            areaCrop = pro.getQuantAreaProEve();
+            typeArea = pro.getTypeAreaProEve();
+            Fields lot = lotDao.objectById(pro.getFields().getIdFie());   
+            double areaOld = lot.getAreaFie();
+            if (typeArea==1) {
+                areaCrop = ((areaOld*areaCrop)/100);
+            }  
+            double availableArea = areaOld + areaCrop;
+            lot.setAvailableAreaFie(availableArea);
+            session.saveOrUpdate(lot);
             
             LogEntities log = new LogEntities();
             log.setIdLogEnt(null);

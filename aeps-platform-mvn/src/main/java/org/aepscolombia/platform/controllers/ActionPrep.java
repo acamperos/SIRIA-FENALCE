@@ -174,6 +174,26 @@ public class ActionPrep extends BaseAction {
         this.logDao = logDao;
     }      
     
+    private boolean checkSowing;
+
+    public boolean isCheckSowing() {
+        return checkSowing;
+    }
+
+    public void setCheckSowing(boolean checkSowing) {
+        this.checkSowing = checkSowing;
+    }
+    
+    private String lanSel;
+
+    public String getLanSel() {
+        return lanSel;
+    }
+
+    public void setLanSel(String lanSel) {
+        this.lanSel = lanSel;
+    }
+    
     @Override
     public String execute() throws Exception {
         return SUCCESS;
@@ -185,6 +205,7 @@ public class ActionPrep extends BaseAction {
         idEntSystem = UsersDao.getEntitySystem(user.getIdUsr());
         usrDao = new UsersDao();
         idUsrSystem = user.getIdUsr();
+        lanSel  = ActionContext.getContext().getLocale().getLanguage();
     }
     
     
@@ -289,6 +310,7 @@ public class ActionPrep extends BaseAction {
         findParams.put("idEntUser", idEntSystem);
         findParams.put("idEvent", this.getIdCrop());
         listPrep = prepDao.findByParams(findParams);
+        checkSowing = prepDao.haveDirectSowing(findParams);
         return SUCCESS;
     }
     

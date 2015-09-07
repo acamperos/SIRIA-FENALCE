@@ -24,6 +24,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.aepscolombia.platform.controllers.ActionField;
 import org.aepscolombia.platform.models.entity.Entities;
+import org.aepscolombia.platform.models.entity.Fields;
 import org.aepscolombia.platform.models.entity.LogEntities;
 //import org.aepscolombia.plataforma.models.dao.IEventoDao;
 import org.hibernate.Transaction;
@@ -59,7 +60,8 @@ public class ProductionEventsDao
         String sqlAdd = "";    
         
         sql += "select pe.id_pro_eve, l.id_fie, l.name_fie, pe.id_crop_type_pro_eve, pe.expected_production_pro_eve,";
-        sql += " pe.former_crop_pro_eve, pe.draining_pro_eve, pe.status, pe.other_former_crop_pro_eve";
+        sql += " pe.former_crop_pro_eve, pe.draining_pro_eve, pe.status, pe.other_former_crop_pro_eve, ";
+        sql += " pe.quant_area_pro_eve, pe.type_area_pro_eve";
         sql += " from production_events pe";
         sql += " inner join log_entities le on le.id_object_log_ent=pe.id_pro_eve and le.table_log_ent='production_events' and le.action_type_log_ent='C'";   
         sql += " inner join fields l on l.id_fie=pe.id_field_pro_eve";
@@ -96,6 +98,8 @@ public class ProductionEventsDao
                     }
                     temp.put("otherCrop", "");
                 }
+                temp.put("quant_area", data[9]);
+                temp.put("type_area", data[10]);
                 result = temp;
             }
             tx.commit();
@@ -187,7 +191,7 @@ public class ProductionEventsDao
             if(!valIdent.equals(" ") && !valIdent.equals("-1") && !valIdent.equals("") && !valIdent.equals("null")) { 
                 sql += " and ((e.name_ent like '%"+valIdent+"%')";
                 try {
-                    String dateAsign = new SimpleDateFormat("yyyy-dd-MM").format(new Date(valIdent));
+                    String dateAsign = new SimpleDateFormat("yyyy-MM-dd").format(new Date(valIdent));
                     sql += " or (s.date_sow like '%"+dateAsign+"%')";
                     sql += " or (har.date_har like '%"+dateAsign+"%')";
                 } catch (IllegalArgumentException ex) {
@@ -207,7 +211,7 @@ public class ProductionEventsDao
         if (args.containsKey("date_sowing")) {
             String valIdent = String.valueOf(args.get("date_sowing"));            
             if(!valIdent.equals(" ") && !valIdent.equals("") && !valIdent.equals("null")) {
-                String dateAsign = new SimpleDateFormat("yyyy-dd-MM").format(new Date(valIdent));
+                String dateAsign = new SimpleDateFormat("yyyy-MM-dd").format(new Date(valIdent));
                 sql += " and s.date_sow like '%"+dateAsign+"%'";
             }
         }
@@ -215,7 +219,7 @@ public class ProductionEventsDao
         if (args.containsKey("date_harvest")) {
             String valIdent = String.valueOf(args.get("date_harvest"));            
             if(!valIdent.equals(" ") && !valIdent.equals("") && !valIdent.equals("null")) {
-                String dateAsign = new SimpleDateFormat("yyyy-dd-MM").format(new Date(valIdent));
+                String dateAsign = new SimpleDateFormat("yyyy-MM-dd").format(new Date(valIdent));
                 sql += " and har.date_har like '%"+dateAsign+"%'";
             }
         }
@@ -1210,6 +1214,18 @@ public class ProductionEventsDao
                 log.setDateLogEnt(new Date());
                 log.setActionTypeLogEnt("D");
                 session.saveOrUpdate(log);
+                
+                FieldsDao lotDao  = new FieldsDao();
+                Double areaCrop   = pro.getQuantAreaProEve();
+                Integer typeArea  = pro.getTypeAreaProEve();
+                Fields lot = lotDao.objectById(pro.getFields().getIdFie());   
+                double areaOld    = lot.getAreaFie();
+                if (typeArea==1) {
+                    areaCrop = ((areaOld*areaCrop)/100);
+                }  
+                double availableArea = areaOld + areaCrop;                
+                lot.setAvailableAreaFie(availableArea);
+                session.saveOrUpdate(lot);
 
                 BasicDBObject queryMongo = new BasicDBObject();
                 queryMongo.put("InsertedId", ""+pro.getIdProEve());        

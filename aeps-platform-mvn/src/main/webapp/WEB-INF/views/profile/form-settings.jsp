@@ -6,6 +6,7 @@
     <legend>Informacion del Usuario</legend>
     <s:form id="formSetting" action="saveSetting.action">
         <s:hidden name="actExe" value="configSetting"/>
+        <s:hidden name="lanSel"/>
 <!--        <div class="control-group">
             <label for="formSetting_emailUser" class="control-label">Correo electrónico:</label>
             <div class="controls">

@@ -19,7 +19,8 @@
                 <s:form id="formField" action="saveField.action" cssClass="form-horizontal formClassLot">
                     <fieldset>
                         <legend>Formulario de un lote</legend>
-                        <s:hidden name="idProducer"/>                           
+                        <s:hidden name="idProducer"/>        
+                        <s:hidden name="lanSel"/>
                         <s:hidden name="idField"/>
 <!--                        <div class="control-group">
                             <label for="formField_name_producer_lot" class="control-label req">

@@ -36,6 +36,8 @@
         <!--<link rel="stylesheet" href="scripts/css/colorbox/colorbox.css"/>-->			
         <!--<script src="scripts/js/generals/main.js"></script>-->				
         <script src="scripts/js/generals/responsiveslides.js"></script>        
+        <link rel="stylesheet" href="scripts/css/generals/timesheet.min.css">
+        <script src="scripts/js/generals/timesheet.min.js"></script>
     </head>
     <body>
         <div id="divMessage"></div>

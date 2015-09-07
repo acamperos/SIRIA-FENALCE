@@ -4,7 +4,7 @@ function setPropertyVal(url, nameData, valData, valName, valId, title, width, he
         alert("Debe tener un productor seleccionado previamente");
     } else {
         listInfo(url, nameData, valData, valName, valId, title, width, height);
-// ﻿  ﻿  ﻿  $("#"+fieldFill).val(valAdd);
+//       $("#"+fieldFill).val(valAdd);
 //       alert(1)
 //       $("#"+fieldFill).html(valAdd);
 
@@ -18,7 +18,7 @@ function setPropertyVal(url, nameData, valData, valName, valId, title, width, he
         // if (obj.state == 'failure') {
         // $('.msg').text('Error').addClass('msg_error').fadeOut(1000);
         // } else if (obj.state == 'success') { 
-        // }﻿  ﻿  ﻿  ﻿  ﻿  ﻿  ﻿  ﻿  ﻿  
+        // }                  
 
         // }
         // });
@@ -305,10 +305,10 @@ function showOtherElementPrep(valSel, divShowA, divShowB, lblDepth) {
         $("#" + divShowA).show();
         $("#" + divShowB).show();
         $("#" + lblDepth).addClass("req");
-    } else if ((valSel >= 1 && valSel <= 5) || (valSel >= 12 && valSel <= 16)) {
+    } else if ((valSel >= 1 && valSel <= 5) || (valSel >= 13 && valSel <= 16)) {
         $("#" + divShowA).show();
         $("#" + divShowB).hide();
-        if ((valSel >= 12 && valSel <= 16)) {
+        if ((valSel >= 13 && valSel <= 16)) {
             $("#" + lblDepth).removeClass("req");
         } else {
             $("#" + lblDepth).addClass("req");
@@ -348,7 +348,7 @@ function setCropVal(url, field, fieldFill) {
         // if (obj.state == 'failure') {
         // $('.msg').text('Error').addClass('msg_error').fadeOut(1000);
         // } else if (obj.state == 'success') { 
-        // }﻿  ﻿  ﻿  ﻿  ﻿  ﻿  ﻿  ﻿  ﻿  
+        // }                  
 
         // }
         // });
@@ -459,7 +459,7 @@ function setPropertyGeneral(url, nameData, valData, valName, valId, divShow, div
     //                showWindow(title, width, height, obj.info);
     //                // $("#window-productor")
     //                // .button()
-    //                // .click(function() {﻿  ﻿  ﻿  ﻿  
+    //                // .click(function() {        
     //                // $( "#dialog-form" ).removeClass("hide");
     //                // });                   
     //            }
@@ -500,7 +500,7 @@ function setPropertyGeneral(url, nameData, valData, valName, valId, divShow, div
 //                showWindow(title, width, height, obj.info);
 //                // $("#window-productor")
 //                // .button()
-//                // .click(function() {﻿  ﻿  ﻿  ﻿  
+//                // .click(function() {        
 //                // $( "#dialog-form" ).removeClass("hide");
 //                // });                   
 //            }
@@ -510,7 +510,7 @@ function setPropertyGeneral(url, nameData, valData, valName, valId, divShow, div
 //
 //    // $("#window-productor")
 //    // .button()
-//    // .click(function() {﻿  ﻿  ﻿  ﻿  
+//    // .click(function() {        
 //    // // $( "#dialog-form" ).removeClass("hide");
 //    // // $( "#dialog-form" ).dialog( "open" );
 //    // });
@@ -780,6 +780,7 @@ function showInfoPage(url, valFill)
 
 function chargeValues(url, valName, valSend, valFill, formId)
 {
+    addMessageProcess();
     var data;
     // if (valSend) {
     data = '&' + valName + '=' + valSend;
@@ -790,6 +791,7 @@ function chargeValues(url, valName, valSend, valFill, formId)
         url: url,
         data: data,
         success: function(information) {
+            $.unblockUI();
             var json = jQuery.parseJSON(information);
             if (json.state == 'failure') {
                 showMessError(formId, json.info);
@@ -954,11 +956,11 @@ function chargeValuesControls(url, valName, valSendId, valNameCon, valSenIdCon, 
 }
 
 function hideInformationControls(divPes, divWee, divDis, divChe, divOrg) {
-﻿  $('#'+divPes).removeClass('hide').addClass('hide');
-﻿  $('#'+divWee).removeClass('hide').addClass('hide');
-﻿  $('#'+divDis).removeClass('hide').addClass('hide');
-﻿  $('#'+divChe).removeClass('hide').addClass('hide');
-﻿  $('#'+divOrg).removeClass('hide').addClass('hide');
+  $('#'+divPes).removeClass('hide').addClass('hide');
+  $('#'+divWee).removeClass('hide').addClass('hide');
+  $('#'+divDis).removeClass('hide').addClass('hide');
+  $('#'+divChe).removeClass('hide').addClass('hide');
+  $('#'+divOrg).removeClass('hide').addClass('hide');
 }
 
 
@@ -1066,6 +1068,51 @@ function selectItem(namField, idField, valName, valId, divShow, divHide)
     $("#" + idField).val(valId);
     toggleAndClean(divShow, divHide);
 //    closeWindow();
+}
+
+function selectItemCrop(namField, idField, avaField, totField, valName, valId, valArea, valTotal, divShow, divHide, divArea)
+{
+    $("#" + namField).val(valName);
+    $("#" + namField).focus();
+//     $("#"+namField).html(valName);
+    $("#" + idField).val(valId);
+//    $("#" + avaField).val(valArea);
+    $("#" + totField).text(valTotal+' ha');
+    $("#" + avaField).text(valArea+' ha');
+    $("#"+divArea).show();
+    toggleAndClean(divShow, divHide);
+//    closeWindow();
+}
+
+
+function selectArea(typeArea, areaSelId, areaAvailable) 
+{
+    
+/* 
+1-Porcentaje ((Area del lote * porcentaje/100)) = Area)
+2-Area			 ((Area/Area del lote)*100=porcentaje)
+*/
+//    var tyArea  = $("#"+typeArea).val();
+//    var areaSel = $("#"+areaSelId).val();
+//    var areaAva = $("#"+areaAvailable).val();
+//    alert(tyArea)
+//    alert(areaSel)
+//    alert(areaAva)
+////    double availableArea = areaOld - areaCrop;
+//    if (areaSel>0) {
+//        if (tyArea == 1) {
+//            $("#"+areaSel).val(areaAva*(areaSel/100));
+//            areaSel = $("#"+areaSelId).val();
+//            $("#"+areaSel).val(areaAva-areaSel);
+//            alert(areaAva-areaSel)
+//        } else if (tyArea == 2) {
+//            $("#"+areaSel).val((areaSel/areaAva)*100);
+//            areaSel = $("#"+areaSelId).val();
+//            $("#"+areaSel).val(areaAva-areaSel);
+//            alert(areaAva-areaSel)
+//        }
+//    }
+    
 }
 
 function resetForm(formId)
@@ -1354,23 +1401,33 @@ function validationForm(form, errors)
 }
 
 function searchDecimalNumber(formId) {
-    
+    var lanSel=$('#'+formId+'_lanSel').val();
+//    alert(lanSel)
     $('#'+formId+' *').filter(':input').each(function(key, elem){
         var decimal=  /^[-+]?[0-9]+\.[0-9]+$/;   
         var valTemp = elem.value;
-        if (elem.value!='' && valTemp.match(decimal)) elem.value = elem.value.replace('.',',');
+        if (elem.value!='' && valTemp.match(decimal)) elem.value = settingVal(lanSel, elem.value);
     });
     
 }
 
-function restoreDecimalNumber(formId) {
-    
+function restoreDecimalNumber(formId) {    
     $('#'+formId+' *').filter(':input').each(function(key, elem){
         var decimal=  /^[-+]?[0-9]+\,[0-9]+$/;   
-        var valTemp = elem.value;
+        var valTemp = elem.value;   
+//        alert(valTemp)
         if (elem.value!='' && valTemp.match(decimal)) elem.value = elem.value.replace(',','.');
     });
     
+}
+
+function settingVal(lanSel, valSel) {
+    if(lanSel==='es') {
+        valSel = valSel.replace('.',',');
+    } else if(lanSel==='en') {
+        valSel = valSel.replace(',','.');
+    }    
+    return valSel;
 }
 
 function saveData(url, urlAction, formId, divShow)
@@ -1417,7 +1474,7 @@ function saveData(url, urlAction, formId, divShow)
 
 function sendForm(url, formId, message)
 {
-    // $(".bt_send").click(function() {﻿  ﻿  
+    // $(".bt_send").click(function() {    
     // var nombre = $(".nombre").val();
     // email = $(".email").val();
     // // validacion_email = /^[a-zA-Z0-9_\.\-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-\.]+$/;
@@ -1484,7 +1541,7 @@ function sendForm(url, formId, message)
 
         }
         // , error: function() {
-        // $('.msg').text('Error').addClass('msg_error').fadeOut(1000);﻿  
+        // $('.msg').text('Error').addClass('msg_error').fadeOut(1000);  
         // }
     });
     // alert(1)
@@ -1529,12 +1586,12 @@ function sendFormRasta(url, formId, divTable, message)
                 window.parent.closeWindow();
                 // $('#'+message).html(json.info);
                 // $('#'+message).focus();
-                // $("#"+formId)[0].reset();﻿  ﻿  ﻿  ﻿  ﻿  ﻿  ﻿  ﻿  ﻿  
+                // $("#"+formId)[0].reset();                  
             }
 
         }
         // , error: function() {
-        // $('.msg').text('Error').addClass('msg_error').fadeOut(1000);﻿  
+        // $('.msg').text('Error').addClass('msg_error').fadeOut(1000);  
         // }
     });
 }
@@ -1842,6 +1899,7 @@ function changeChemicalFoliar(typeAppId, lblProductId, lblText) {
 }
 
 function generateDecimals(valDec, valDegrees, valMinutes, valSeconds) {
+//    var lanSel = $('#'+valLan).val();
     var valNumDegrees = parseFloat($('#'+valDegrees).val());
     var valNumMinutes = $('#'+valMinutes).val();
     var valNumSeconds = $('#'+valSeconds).val();
@@ -1860,8 +1918,8 @@ function generateDecimals(valDec, valDegrees, valMinutes, valSeconds) {
 }
 
 function generateDegrees(valDec, valDegrees, valMinutes, valSeconds) {
-    
-//    alert(navigator.language);
+//    var lanSel = $('#'+valLan).val();
+//    alert(lenSel);
 //    var valNumDecimal = $('#'+valDec).val(); 
 //    alert(navigator.language);    
     var valNumDecimal = parseCommaSeparated($('#'+valDec).val());
@@ -1893,13 +1951,16 @@ function generateDegrees(valDec, valDegrees, valMinutes, valSeconds) {
 
 function parsePointSeparated( strVal ) {
 //    alert(strVal)
-    var decimal=  /^[-+]?[0-9]+\,[0-9]+$/;   
+    var decimal;   
+    if(strVal!=null) {
+//        decimal=  /^[-+]?[0-9]+\,[0-9]+$/;   
+        strVal = strVal.replace(',','.');
+    }
+    
     if (strVal=="") {
         strVal = "";
-//    } else if ((!isNaN(strVal)) && strVal.match(decimal)) {
-    } else if (strVal!=null && strVal.match(decimal)) {
-        return strVal.replace(',','.');
     }
+    
     return strVal;
 //    if (strVal!=null) {
 //        if(navigator.language=='es-ES' || navigator.language=='es') {return strVal.replace('.',','); } // remove commas before parse
@@ -1908,8 +1969,8 @@ function parsePointSeparated( strVal ) {
 }
 
 function parseCommaSeparated( strVal ) {
-    if(navigator.language=='es-ES' || navigator.language=='es') return parseFloat(strVal.replace(',','.')); // remove commas before parse
-    if(navigator.language=='en-EN' || navigator.language=='en') return parseFloat(strVal.replace('.',',')); // remove commas before parse
+//    alert(navigator.language)
+    return strVal.replace(',','.');
 }
 
 function parseValueInt(strVal) {
@@ -2243,3 +2304,126 @@ function showDialogDeleteAll(divDialog, classNum, hRef, url, urlAction, divTable
         }
     }); 
 }
+
+function checkArea(valSelId, divInfo) {
+    var valSel = $("input[name='"+valSelId+"']:checked").val();
+    if (valSel=='false') {
+       $("#"+divInfo).show();         
+    } else {
+       $("#"+divInfo).hide();
+    }
+}
+
+function showInfoArea(infoId, areaFieldId, areaAvaId, areaCropId, totField, avaField, typeAreaId, divInfo) {
+    var idCrop   = $("#"+infoId).val();
+    var valTotal = $("#"+areaFieldId).val();
+    var valArea  = $("#"+areaAvaId).val();
+    var valCrop  = $("#"+areaCropId).val();
+    var valTypeArea  = $("#"+typeAreaId).val();
+    
+    var str   = navigator.language;
+    var valEs = str.search("es");
+    var valEn = str.search("en");
+    /* 
+    1-Porcentaje ((Area del lote * porcentaje/100)) = Area)
+    2-Hectarea   ((Area/Area del lote)*100=porcentaje)
+    */
+    if (valTypeArea=='1') {
+        valCrop = ((valTotal*valCrop)/100);        
+    }
+    
+    if (valEs!=-1) {
+        valCrop  = ' + '+valCrop+' usado ';
+    } else if (valEn!=-1) {
+        valCrop  = ' + '+valCrop+' using ';
+    }
+    if (idCrop!=null && idCrop!=-1) {
+        $("#"+divInfo).show();         
+        $("#"+totField).text(valTotal+' ha');
+        $("#"+avaField).text(valArea+' ('+valCrop+') ha');
+    }
+}
+
+function showTimeline(url, divGraph, divTimeline)
+{
+    $.ajax({
+        type: "POST",
+        url: url,
+        success: function(json) {
+//            var obj = jQuery.parseJSON(information);
+            if (json.state == 'failure') {
+                $('#'+divGraph).hide();
+            } else if (json.state == 'success') {
+//                alert(1);
+                var jsonTimeline = json.objInfo;
+                if (jsonTimeline.timeline=="1"){
+                    $('#'+divGraph).show();
+                    buildTimeline(jsonTimeline.content, jsonTimeline.beginning);
+                }
+            }
+
+        }
+    });
+}
+
+function buildTimeline(content, beginning) {
+    var str = content+"";
+//    var res = eval("["+str.substring(0,(str.length-1))+"]");
+    $("#timeline").html("");
+    var res       = JSON.parse("["+str.substring(0,(str.length-1))+"]");
+    var options   = JSON.parse(beginning);    
+    /*var options   = {
+        editable: true,
+        onUpdate: function(item, callback) {
+            prettyPrompt('Update item', 'Edit items text:', item.content, function(value) {
+                if (value) {
+                    item.content = value;
+                    callback(item);
+                }
+                else {
+                    callback(null);
+                }
+            });
+        }
+    };
+    
+    function prettyPrompt(title, text, inputValue, callback) {
+        swal({
+            title: title,
+            text: text,
+            type: 'input',
+            showCancelButton: true,
+            inputValue: inputValue
+        }, callback);
+    }*/
+    var items     = new vis.DataSet(res);
+    /*var items = new vis.DataSet([
+        {id: 1, content: 'item 1', start: '2014-04-20', tooltip: 'This is item 1'},
+        {id: 2, content: 'item 2', start: '2014-04-14'},
+        {id: 3, content: 'item 3', start: '2014-04-18'},
+        {id: 4, content: 'item 4', start: '2014-04-16', end: '2014-04-19'},
+        {id: 5, content: 'item 5', start: '2014-04-25'},
+        {id: 6, content: 'item 6', start: '2014-04-27', type: 'point', tooltip: 'This is item 6'}
+    ]);
+
+    var options = {dataAttributes: ['tooltip', 'id']};*/
+    
+    var container = document.getElementById('timeline');
+//    var infoHei   = $( "#timeline" ).attr("height");
+    var timeline  = new vis.Timeline(container, items, options);    
+    
+//    timeline.on('select', function (properties) {
+//        logEvent('select', properties);
+//    });
+
+
+    function logEvent(event, properties) {
+        var log = document.getElementById('log');
+        var msg = document.createElement('div');
+        msg.innerHTML = 'event=' + JSON.stringify(event) + ', ' +
+            'properties=' + JSON.stringify(properties);
+        log.firstChild ? log.insertBefore(msg, log.firstChild) : log.appendChild(msg);
+    }
+}
+
+

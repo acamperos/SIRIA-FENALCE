@@ -19,6 +19,7 @@
                     <fieldset>
                         <legend>Formulario de una finca</legend>
                         <s:hidden name="typeEnt"/>
+                        <s:hidden name="lanSel"/>
                         <s:if test="%{typeEnt==2}">
                             <!--<div class="control-group">-->
                                 <s:hidden name="idProducer"/>                                
@@ -180,7 +181,7 @@
                                 <i class="icon-info-sign s2b_tooltip pop-over" data-content="Ingrese la direccion de la finca." data-title="Información" data-placement="right" data-trigger="hover"></i>
                             </label>
                             <div class="controls">
-                                <s:textfield name="direction_property" />
+                                <s:textarea rows="5" cssClass="span6" name="direction_property"></s:textarea>
                             </div>  
                         </div>   
                     </fieldset>

@@ -1,10 +1,15 @@
 package org.aepscolombia.platform.models.dao;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 //import org.aepscolombia.plataforma.models.dao.IEventoDao;
 import org.hibernate.Transaction;
 import org.hibernate.HibernateException;
@@ -164,6 +169,51 @@ public class FertilizationsDao
 //        }
         return result;
     }    
+    
+    public String getFertilizationsInfo(Integer idEvent) {
+        SessionFactory sessions = HibernateUtil.getSessionFactory();
+        Session session = sessions.openSession();
+        List<Object[]> events = null;
+        Transaction tx = null;
+        String result  = "";
+        
+        String sql = "";     
+        String sqlAdd = "";     
+                      
+        sql += "select p.id_fer, p.date_fer";
+        sql += " from fertilizations p"; 
+        sql += " where p.status=1";
+        if (idEvent!=null && idEvent!=-1) {
+            sql += " and p.id_production_event_fer="+idEvent;
+        }
+        sqlAdd += " order by p.id_fer ASC";
+        sql += sqlAdd;
+        try {
+            tx = session.beginTransaction();
+            Query query  = session.createSQLQuery(sql);
+            events = query.list(); 
+            int cont=1;
+
+            for (Object[] data : events) {
+                String valIdent  = String.valueOf(data[1]);
+                Date date        = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse(valIdent);
+                String dateAsign = new SimpleDateFormat("yyyy-MM-dd").format(date);
+                result += "{\"content\": \"Fert. "+cont+"\", \"start\": \""+dateAsign+"\", \"className\": \"fertilizations\"},";
+                cont++;
+            }
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return result;
+    }
     
     public List getChemicals(HashMap args) {
         SessionFactory sessions = HibernateUtil.getSessionFactory();

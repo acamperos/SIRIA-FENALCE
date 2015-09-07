@@ -25,9 +25,11 @@
         <legend>Lista de preparaciones</legend>
         <% if (usrPrpDao.getPrivilegeUser(userPrp.getIdUsr(), "crop/create")) { %>
             <% if (entTypePrpId!=3) { %>
-                <button type="button" class="btn btn-initial btn-space" onclick="viewForm('/crop/showPrep.action?action=create', 'idCrop', '${idCrop}', 'Crear Preparación', 1050, 550);">
-                    <i class="icon-plus"></i> Agregar Preparación
-                </button>
+                <s:if test="checkSowing!=true">   
+                    <button type="button" class="btn btn-initial btn-space" onclick="viewForm('/crop/showPrep.action?action=create', 'idCrop', '${idCrop}', 'Crear Preparación', 1050, 550);">
+                        <i class="icon-plus"></i> Agregar Preparación
+                    </button>
+                </s:if>
             <% } %>
         <% } %>
         <table class="table table-bordered table-hover" style="<%= table %>" id='tblPrep'>

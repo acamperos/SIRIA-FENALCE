@@ -39,6 +39,7 @@
                 <fieldset>         
                     <legend>Caracteristicas y Observaciones</legend>
                     <s:hidden name="rasta.idRas"/>    
+                    <s:hidden name="lanSel"/>
                     <div class="control-group">
                         <label for="formRasta_nameField" class="control-label req">
                             Seleccione el lote al cual pertenece:

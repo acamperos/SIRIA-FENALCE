@@ -1,8 +1,13 @@
 package org.aepscolombia.platform.models.dao;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 //import org.aepscolombia.plataforma.models.dao.IEventoDao;
 import org.hibernate.Transaction;
 import org.hibernate.HibernateException;
@@ -107,6 +112,51 @@ public class ResidualsManagementDao
 		}
         return result;
     }    
+    
+    public String getResidualsInfo(Integer idEvent) {
+        SessionFactory sessions = HibernateUtil.getSessionFactory();
+        Session session = sessions.openSession();
+        List<Object[]> events = null;
+        Transaction tx = null;
+        String result  = "";
+        
+        String sql = "";     
+        String sqlAdd = "";     
+                      
+        sql  += "select p.id_res_man, p.date_res_man, p.other_residuals_management_res_man";
+        sql += " from residuals_management p"; 
+        sql += " where p.status=1";
+        if (idEvent!=null && idEvent!=-1) {
+            sql += " and p.id_production_event_res_man="+idEvent;
+        }
+        sqlAdd += " order by p.id_res_man ASC";
+        sql += sqlAdd;
+        try {
+            tx = session.beginTransaction();
+            Query query  = session.createSQLQuery(sql);
+            events = query.list(); 
+            int cont=1;
+
+            for (Object[] data : events) {
+                String valIdent  = String.valueOf(data[1]);
+                Date date        = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse(valIdent);
+                String dateAsign = new SimpleDateFormat("yyyy-MM-dd").format(date);
+                result += "{\"content\": \"Rastro. "+cont+"\", \"start\": \""+dateAsign+"\", \"className\": \"residuals\"},";
+                cont++;
+            }
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return result;
+    }
     
     public ResidualsManagement objectById(Integer id) {
         SessionFactory sessions = HibernateUtil.getSessionFactory();

@@ -4,6 +4,7 @@
  */
 package org.aepscolombia.platform.controllers;
 
+import com.opensymphony.xwork2.ActionContext;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -305,11 +306,6 @@ public class ActionReport extends BaseAction {
         return additionals;
     }    
     
-    @Override
-    public String execute() throws Exception {
-        return SUCCESS;
-    }    
-    
     private Integer typeEnt;
 
     public Integer getTypeEnt() {
@@ -319,6 +315,21 @@ public class ActionReport extends BaseAction {
     public void setTypeEnt(Integer typeEnt) {
         this.typeEnt = typeEnt;
     }
+    
+    private String lanSel;
+
+    public String getLanSel() {
+        return lanSel;
+    }
+
+    public void setLanSel(String lanSel) {
+        this.lanSel = lanSel;
+    }
+    
+    @Override
+    public String execute() throws Exception {
+        return SUCCESS;
+    }       
     
     @Override
     public void prepare() throws Exception {
@@ -331,6 +342,7 @@ public class ActionReport extends BaseAction {
         EntitiesDao entDao = new EntitiesDao();
         Entities entTemp = entDao.findById(idEntSystem);
         typeEnt = entTemp.getEntitiesTypes().getIdEntTyp();
+        lanSel  = ActionContext.getContext().getLocale().getLanguage();
     }
     
     

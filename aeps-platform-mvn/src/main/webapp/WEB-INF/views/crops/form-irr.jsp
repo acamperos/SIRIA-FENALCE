@@ -24,6 +24,7 @@
                             <div class="span5">
                                 <s:hidden name="idCrop"/>
                                 <s:hidden name="typeCrop"/>
+                                <s:hidden name="lanSel"/>
                                 <s:hidden name="actExe"/>
                                 <s:hidden name="irr.idIrr"/>
                                 <div class="control-group">
@@ -62,7 +63,7 @@
                             <div class="span5">
                                 <div class="control-group">
                                     <label for="formCropIrr_irr_amountIrr" class="control-label">
-                                        Cantidad aportada por hectarea (metros cúbicos):
+                                        Cantidad aportada por hectarea <button type="button" class="btn btn-initial"><b>(metros cúbicos)</b></button>:
                                     </label>
                                     <div class="controls">
                                         <s:textfield name="irr.amountIrr"/>
@@ -94,6 +95,7 @@
                     completeFormGetting('dialog-form', 'formCropIrr', 'divIrr', event.originalEvent.request.responseText);
                     setTimeout(function() {
                         showInfo("/crop/searchIrr.action?idCrop="+$("#formCropIrr_idCrop").val(), "divListIrr");
+                        showTimeline("/crop/getInfoTime.action?idCrop="+$("#formCropIrr_idCrop").val(), "divInfoTimeline", "timeline");
                     }, 2000);
                 });
             </script>

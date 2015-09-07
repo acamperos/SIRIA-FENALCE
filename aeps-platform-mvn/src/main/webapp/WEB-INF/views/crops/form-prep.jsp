@@ -23,6 +23,7 @@
                         <div class="span5">
                             <s:hidden name="idCrop"/>
                             <s:hidden name="typeCrop"/>
+                            <s:hidden name="lanSel"/>
                             <s:hidden name="actExe"/>
                             <s:hidden name="prep.idPrep"/>
                             <div class="control-group">
@@ -60,7 +61,7 @@
                         <div class="span5">
                             <div class="control-group">
                                 <label for="formCropPrep_prep_depthPrep" id="lblDepthPrep" class="control-label req">
-                                     Profundidad del trabajo (cm): 
+                                     Profundidad del trabajo <button type="button" class="btn btn-initial"><b>(cm)</b></button>: 
                                 </label>
                                 <div class="controls">
                                     <s:number name="prep.depthPrep" type="integer" var="depthPreparation" />
@@ -117,6 +118,7 @@
                     completeFormGetting('dialog-form', 'formCropPrep', 'divPrep', event.originalEvent.request.responseText);
                     setTimeout(function() {
                         showInfo("/crop/searchPrep.action?idCrop="+$("#formCropPrep_idCrop").val(), "divListPrep");
+                        showTimeline("/crop/getInfoTime.action?idCrop="+$("#formCropPrep_idCrop").val(), "divInfoTimeline", "timeline");
                     }, 2000);
                 });
             </script>

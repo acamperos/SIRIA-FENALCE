@@ -35,6 +35,8 @@ public class Fields  implements java.io.Serializable {
      private double latitudeFie;
      private double longitudeFie;
      private double areaFie;
+     private double availableAreaFie;
+     private Boolean totallyAreaFie;
      private String measureUnitFie;
      private Boolean pestsControlFie;
      private Boolean diseasesControlFie;
@@ -57,7 +59,7 @@ public class Fields  implements java.io.Serializable {
         this.areaFie = areaFie;
         this.status = status;
     }
-    public Fields(FieldTypes fieldTypes, Farms farms, String nameFie, double altitudeFie, double latitudeFie, double longitudeFie, double areaFie, String measureUnitFie, Boolean pestsControlFie, Boolean diseasesControlFie, boolean status, String idProjectFie, Integer createdBy) {
+    public Fields(FieldTypes fieldTypes, Farms farms, String nameFie, double altitudeFie, double latitudeFie, double longitudeFie, double areaFie, double availableAreaFie, Boolean totallyAreaFie, String measureUnitFie, Boolean pestsControlFie, Boolean diseasesControlFie, boolean status, String idProjectFie, Integer createdBy) {
        this.fieldTypes = fieldTypes;
        this.farms = farms;
        this.nameFie = nameFie;
@@ -65,6 +67,8 @@ public class Fields  implements java.io.Serializable {
        this.latitudeFie = latitudeFie;
        this.longitudeFie = longitudeFie;
        this.areaFie = areaFie;
+       this.availableAreaFie = availableAreaFie;
+       this.totallyAreaFie = totallyAreaFie;
        this.measureUnitFie = measureUnitFie;
        this.pestsControlFie = pestsControlFie;
        this.diseasesControlFie = diseasesControlFie;
@@ -145,6 +149,24 @@ public class Fields  implements java.io.Serializable {
     
     public void setAreaFie(double areaFie) {
         this.areaFie = areaFie;
+    }
+    
+    @Column(name="available_area_fie", precision=22, scale=0)
+    public double getAvailableAreaFie() {
+        return this.availableAreaFie;
+    }
+    
+    public void setAvailableAreaFie(double availableAreaFie) {
+        this.availableAreaFie = availableAreaFie;
+    }
+    
+    @Column(name="totally_area_fie")
+    public Boolean getTotallyAreaFie() {
+        return this.totallyAreaFie;
+    }
+    
+    public void setTotallyAreaFie(Boolean totallyAreaFie) {
+        this.totallyAreaFie = totallyAreaFie;
     }
     
     @Column(name="measure_unit_fie", length=10)

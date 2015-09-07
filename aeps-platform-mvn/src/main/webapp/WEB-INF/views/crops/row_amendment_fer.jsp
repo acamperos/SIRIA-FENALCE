@@ -55,7 +55,7 @@
                 <div class="span5">
                     <div class="control-group">
                         <label for="${formAmenId}__amountProductUsedAmeFer" class="control-label req">
-                            Cantidad de producto (kg/ha):
+                            Cantidad de producto <button type="button" class="btn btn-initial"><b>(kg/ha)</b></button>:
                         </label>
                         <div class="controls">
                             <s:textfield name="%{#attr.formAmen}.amountProductUsedAmeFer" value="%{#attr.amountProductUsedAmeFer}"/>
