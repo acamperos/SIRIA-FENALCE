@@ -131,6 +131,16 @@ public class ActionPhys extends BaseAction {
         this.logDao = logDao;
     }       
     
+    private String lanSel;
+
+    public String getLanSel() {
+        return lanSel;
+    }
+
+    public void setLanSel(String lanSel) {
+        this.lanSel = lanSel;
+    }
+    
     @Override
     public String execute() throws Exception {
         return SUCCESS;
@@ -143,6 +153,7 @@ public class ActionPhys extends BaseAction {
         coCode = (String) this.getSession().get(APConstants.COUNTRY_CODE);
         usrDao = new UsersDao();
         idUsrSystem = user.getIdUsr();
+        lanSel  = ActionContext.getContext().getLocale().getLanguage();
     }
     
     

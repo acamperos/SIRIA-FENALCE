@@ -21,6 +21,7 @@
                 <s:hidden name="typeCrop"/>
                 <s:hidden name="actExe"/>
                 <s:hidden name="sowing.idSow"/>
+                <s:hidden name="lanSel"/>
                 <div class="control-group">
                     <label for="formCropSow_sowing_dateSow" class="control-label req">
                         <s:property value="getText('text.sowdate.crop')" />:
@@ -54,17 +55,11 @@
             <div class="span5">
                 <div class="control-group">
                     <label for="formCropSow_event_expected_production_pro_eve" class="control-label">
-                        <s:property value="getText('text.bestyield.crop')" />:
+                        <s:property value="getText('text.bestyield.crop')" /> <button type="button" class="btn btn-initial"><b>(kg/ha)</b></button>:
                         <i class="icon-info-sign s2b_tooltip pop-over" data-content="<s:property value="getText('desc.bestyield.crop')" />." data-title="<s:property value="getText('help.bestyield.crop')" />" data-placement="right" data-trigger="hover"></i>
                     </label>
                     <div class="controls">
-                        <s:hidden name="event.idProEve"/>
-                        <s:hidden name="event.fields.idFie"/>
-                        <s:hidden name="event.cropsTypes.idCroTyp"/>
-                        <s:hidden name="event.idProjectProEve"/>
-                        <s:hidden name="event.formerCropProEve"/>
-                        <s:hidden name="event.status"/>
-                        <s:number name="event.expectedProductionProEve" maximumFractionDigits="10" type="number" var="performanceCrop" />
+                        <s:number name="event.expectedProductionProEve" maximumFractionDigits="9" type="number" var="performanceCrop" />
                         <s:textfield name="event.expectedProductionProEve" value="%{#performanceCrop}"/>
                     </div>                  
                 </div>                          
@@ -155,7 +150,7 @@
                 <div class="span5">
                     <div class="control-group">
                         <label for="formCropSow_sowing_furrowsDistanceSow" class="control-label req">
-                            <s:property value="getText('text.furrowdistance.crop')" /> (m):
+                            <s:property value="getText('text.furrowdistance.crop')" /> <button type="button" class="btn btn-initial"><b>(m)</b></button>:
                         </label>
                         <div class="controls">
                             <s:textfield name="sowing.furrowsDistanceSow"/>
@@ -165,7 +160,7 @@
                 <div class="span4" style="padding-left: 28px">
                     <div class="control-group">
                         <label for="formCropSow_sowing_sitesDistanceSow" class="control-label req">
-                            <s:property value="getText('text.sitesdistance.crop')" /> (m):
+                            <s:property value="getText('text.sitesdistance.crop')" /> <button type="button" class="btn btn-initial"><b>(m)</b></button>:
                         </label>
                         <div class="controls">
                             <s:textfield name="sowing.sitesDistanceSow"/>
@@ -397,9 +392,12 @@
             $("#formCropSow_sowing_sitesDistanceSow").numeric({negative: false});
             $("#formCropSow_beans_seedsNumberSiteBea").numeric({ decimal: false, negative: false });
             
-            $("#formCropSow_sowing_seedsNumberSow").val(parsePointSeparated($("#formCropSow_sowing_seedsNumberSow").val())); 
+//            $("#formCropSow_sowing_seedsNumberSow").val(parsePointSeparated($("#formCropSow_sowing_seedsNumberSow").val())); 
             $("#formCropSow_sowing_furrowsDistanceSow").val(parsePointSeparated($("#formCropSow_sowing_furrowsDistanceSow").val())); 
             $("#formCropSow_sowing_sitesDistanceSow").val(parsePointSeparated($("#formCropSow_sowing_sitesDistanceSow").val())); 
+            if($('.pop-over').length) {
+                $('.pop-over').popover();
+            }
         </script>
     </fieldset>
 </s:form>
@@ -412,7 +410,16 @@
     <% } %>
 <% } %>
 <script>
+    var idCropSow = $("#formCropSow_idCrop").val();
+    if (idCropSow!=null && idCropSow!="" && idCropSow!="null") {
+        showTimeline("/crop/getInfoTime.action?idCrop="+idCropSow, "divInfoTimeline", "timeline");
+    }
     $.subscribe('completeSowing', function(event, data) {
-        completeFormCrop('', 'formCropSow', 'divMessSowing', event.originalEvent.request.responseText);
+        if (idCropSow!=null && idCropSow!="" && idCropSow!="null") {
+            completeFormCrop('', 'formCropSow', 'divMessSowing', event.originalEvent.request.responseText);
+            showTimeline("/crop/getInfoTime.action?idCrop="+idCropSow, "divInfoTimeline", "timeline");
+        } else {
+            location.reload();
+        }
     });
 </script>

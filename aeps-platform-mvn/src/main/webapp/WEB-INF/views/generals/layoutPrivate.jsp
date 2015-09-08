@@ -20,6 +20,10 @@
         <link href='http://fonts.googleapis.com/css?family=Istok+Web:500,700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="<%= request.getContextPath() %>/scripts/css/geoxml/gmap.css"/>
         <link rel="stylesheet" href="<%= request.getContextPath() %>/scripts/css/generals/multiple-select.css"/>        
+        <script src="<%= request.getContextPath() %>/scripts/js/generals/vis.min.js"></script>
+        <link href="<%= request.getContextPath() %>/scripts/css/generals/vis.min.css" rel="stylesheet" type="text/css" />
+        <!--<script src="http://t4t5.github.io/sweetalert/dist/sweetalert.min.js"></script>-->
+        <!--<link href="http://t4t5.github.io/sweetalert/dist/sweetalert.css" rel="stylesheet" type="text/css"/>-->
     </head>
     <body>
         <div id="divMessage"></div>

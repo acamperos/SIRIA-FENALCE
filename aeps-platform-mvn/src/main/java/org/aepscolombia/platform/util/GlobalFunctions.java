@@ -1879,15 +1879,20 @@ public class GlobalFunctions {
             java.lang.String password = "ciat001";
             java.lang.String teldestino = telDes;
             java.lang.String mensaje = mess;
-            com.sigmamovil.smsapp.soap.sigmamovilservice.SigmaMovilService service = new com.sigmamovil.smsapp.soap.sigmamovilservice.SigmaMovilService(new URL("http://www.open-aeps.org/sigmaservices.wsdl"));
-            com.sigmamovil.smsapp.soap.sigmamovilservice.SigmaMovilServicePortType port = service.getSigmaMovilServicePort();
-            // TODO process result here
-            com.sigmamovil.smsapp.soap.sigmamovilservice.WSResSendSMS result = port.newSendSMS(user, password, teldestino, mensaje);
-            System.out.println("Result = " + result);
+//            com.sigmamovil.smsapp.soap.sigmamovilservice.SigmaMovilService service = new com.sigmamovil.smsapp.soap.sigmamovilservice.SigmaMovilService(new URL("http://www.open-aeps.org/sigmaservices.wsdl"));
+//            com.sigmamovil.smsapp.soap.sigmamovilservice.SigmaMovilServicePortType port = service.getSigmaMovilServicePort();
+//            // TODO process result here
+//            com.sigmamovil.smsapp.soap.sigmamovilservice.WSResSendSMS result = port.newSendSMS(user, password, teldestino, mensaje);
+//            System.out.println("Result = " + result);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
 
+    }
+    
+    public static long daysBetween(Date one, Date two) { 
+        long difference = (one.getTime()-two.getTime())/86400000; 
+        return Math.abs(difference); 
     }
     
     // Obtiene el lenguaje para un pais seleccionado

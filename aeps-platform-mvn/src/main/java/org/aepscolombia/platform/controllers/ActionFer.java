@@ -1,6 +1,7 @@
 
 package org.aepscolombia.platform.controllers;
 
+import com.opensymphony.xwork2.ActionContext;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -337,6 +338,16 @@ public class ActionFer extends BaseAction {
         this.additionalsElem = additionalsElem;
     }
     
+    private String lanSel;
+
+    public String getLanSel() {
+        return lanSel;
+    }
+
+    public void setLanSel(String lanSel) {
+        this.lanSel = lanSel;
+    }
+    
     @Override
     public String execute() throws Exception {
         return SUCCESS;
@@ -353,7 +364,7 @@ public class ActionFer extends BaseAction {
         coCode = (String) this.getSession().get(APConstants.COUNTRY_CODE);
         usrDao =  new UsersDao();
         idUsrSystem = user.getIdUsr();
-//        user.setCountryUsr(null);
+        lanSel  = ActionContext.getContext().getLocale().getLanguage();
     }
     
     /**

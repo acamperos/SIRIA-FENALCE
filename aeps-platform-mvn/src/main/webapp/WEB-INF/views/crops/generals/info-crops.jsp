@@ -43,16 +43,16 @@
     <% if (usrCropDao.getPrivilegeUser(userCrop.getIdUsr(), "crop/create")) { %>
         <% if (entTypeCropId!=3) { %>
             <% if (value.equals("crop")) {  %>
+                <button type="button" class="btn btn-large btn-register btn-space" onclick="viewForm('/crop/showCrop.action?action=create', 'idCrop', '', '<s:property value="getText('title.addcrop.crop')" />', 1050, 700)">
+                    <i class="icon-plus"></i> <s:property value="getText('button.addcrop.crop')" />
+                </button>
                 <div class="btn btn-group btn-space" onclick="clickSelAll('chkSelectAll', 'chkNumber', 'btnDelCrop');">
                     <input type="checkbox" class="chkSelectAll textFloat" />
                     <label class="textFloat" style="padding-left: 7px; margin-bottom: 0;"><s:property value="getText('label.selectall.crop')" /></label>
                 </div>
                 <button type="button" id="btnDelCrop" disabled="disabled" class="btn btn-initial btn-space btnGetAll disabled" onclick="showDialogDeleteAll(this, 'chkNumber', 'confirm_dialog_crop', '/crop/deleteAllCrop.action', '/crop/searchCrop.action?page=<%=pageNow%>', 'divCrops', '<%=divHide%>');">
                     <i class="icon-trash"></i> <s:property value="getText('button.deletesel.crop')" />
-                </button>
-                <button type="button" class="btn btn-initial btn-space" onclick="viewForm('/crop/showCrop.action?action=create', 'idCrop', '', '<s:property value="getText('title.addcrop.crop')" />', 1050, 700)">
-                    <i class="icon-plus"></i> <s:property value="getText('button.addcrop.crop')" />
-                </button>
+                </button>                
             <% } %>
         <% } %>
     <% } %>

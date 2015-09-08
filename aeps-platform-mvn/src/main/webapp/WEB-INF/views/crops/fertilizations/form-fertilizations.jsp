@@ -26,6 +26,7 @@
                             <% String rowNew    = String.valueOf(request.getAttribute("rowNew"));%>
                             <s:hidden name="idCrop"/>
                             <s:hidden name="typeCrop"/>
+                            <s:hidden name="lanSel"/>
                             <s:hidden name="actExe"/>
                             <s:hidden name="fer.idFer"/>
                             <div class="control-group">
@@ -158,6 +159,7 @@
                     completeFormGetting('dialog-form', 'formCropFer', 'divFer', event.originalEvent.request.responseText);
                     setTimeout(function() {
                         showInfo("/crop/searchFer.action?idCrop="+$("#formCropFer_idCrop").val(), "divListFer");
+                        showTimeline("/crop/getInfoTime.action?idCrop="+$("#formCropFer_idCrop").val(), "divInfoTimeline", "timeline");
                     }, 2000);
                 });
             </script>

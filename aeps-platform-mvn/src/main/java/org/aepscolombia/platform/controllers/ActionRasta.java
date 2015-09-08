@@ -7,6 +7,7 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.MongoClient;
 import com.mongodb.WriteResult;
+import com.opensymphony.xwork2.ActionContext;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -396,6 +397,16 @@ public class ActionRasta extends BaseAction {
         this.typeEnt = typeEnt;
     }
     
+    private String lanSel;
+
+    public String getLanSel() {
+        return lanSel;
+    }
+
+    public void setLanSel(String lanSel) {
+        this.lanSel = lanSel;
+    }
+    
     @Override
     public String execute() throws Exception {
         return SUCCESS;
@@ -416,6 +427,7 @@ public class ActionRasta extends BaseAction {
         typeEnt = entTemp.getEntitiesTypes().getIdEntTyp();
         assDao = new AssociationDao();
         coCode = (String) this.getSession().get(APConstants.COUNTRY_CODE);
+        lanSel  = ActionContext.getContext().getLocale().getLanguage();
 //        rowNew = (String)(this.getRequest().getParameter("rowNew"));
 //        if (rowNew!=null && rowNew.equals("true")) {
 //            System.out.println("entreeeee");
@@ -1186,9 +1198,6 @@ public class ActionRasta extends BaseAction {
 //            rasta.setCreatedBy(sfUser.getId().intValue());
             session.saveOrUpdate(rasta);    
             
-            rasta.setNumeroCajuelaRas(rasta.getIdRas());
-            session.saveOrUpdate(rasta);
-            
 //            rastaDao.save(lot);
             
             //Agregar los horizontes
@@ -1230,6 +1239,7 @@ public class ActionRasta extends BaseAction {
                     }
             }
             valHor += "]";            
+            rasta.setNumeroCajuelaRas(rasta.getIdRas());
             rasta.setNumeroCapasRas(numCaj);
             session.saveOrUpdate(rasta);
             

@@ -10,6 +10,7 @@
             <div class="span5">
                 <s:hidden name="idCrop"/>
                 <s:hidden name="typeCrop"/>
+                <s:hidden name="lanSel"/>
                 <s:hidden name="actExe"/>
                 <s:hidden name="harv.idHar"/>
                 <div class="control-group">
@@ -67,7 +68,7 @@
             <div class="span5">
                 <div class="control-group">
                     <label for="formCropHar_harv_yieldHar" class="control-label req">
-                        <s:property value="getText('text.yieldhar.harvest')" />:
+                        <s:property value="getText('text.yieldhar.harvest')" /> <button type="button" class="btn btn-initial"><b>(kg/ha)</b></button>:
                     </label>
                     <div class="controls">
                         <s:textfield name="harv.yieldHar"/>
@@ -77,7 +78,7 @@
             <div class="span4" style="padding-left: 28px">
                 <div class="control-group">
                     <label for="formCropHar_harv_productionHar" class="control-label">
-                        <s:property value="getText('text.productionhar.harvest')" />:
+                        <s:property value="getText('text.productionhar.harvest')" /> <button type="button" class="btn btn-initial"><b>(Kg)</b></button>:
                     </label>
                     <div class="controls">
                         <s:textfield name="harv.productionHar"/>
@@ -89,7 +90,7 @@
             <div class="span5">
                 <div class="control-group">
                     <label for="formCropHar_harv_humidityPercentageHar" class="control-label req">
-                         <s:property value="getText('text.humiditypercentage.harvest')" />:
+                         <button type="button" class="btn btn-initial"><b>(%)</b></button> <s:property value="getText('text.humiditypercentage.harvest')" />:
                     </label>
                     <div class="controls">
                         <s:textfield name="harv.humidityPercentageHar" />
@@ -111,7 +112,7 @@
             <div class="span5">
                 <div class="control-group">
                     <label for="formCropHar_harv_numberSacksSow" id="harvNumberSacks" class="control-label req">
-                         <s:property value="getText('text.numbersacks.harvest')" />:
+                         <s:property value="getText('text.numbersacks.harvest')" /> <button type="button" class="btn btn-initial"><b>(ha)</b></button>:
                     </label>
                     <div class="controls">
                         <s:textfield name="harv.numberSacksSow" />
@@ -121,7 +122,7 @@
             <div class="span4" style="padding-left: 28px">
                 <div class="control-group">
                     <label for="formCropHar_harv_weightAvgSacksSow" id="harvWeightAvg" class="control-label">
-                        <s:property value="getText('text.weightavgsacks.harvest')" />:
+                        <s:property value="getText('text.weightavgsacks.harvest')" /> <button type="button" class="btn btn-initial"><b>(kg/bulto)</b></button>:
                     </label>
                     <div class="controls radioSelect">
                         <s:textfield name="harv.weightAvgSacksSow" />
@@ -178,5 +179,6 @@
 <script>
     $.subscribe('completeHarvest', function(event, data) {
         completeFormCrop('', 'formCropHar', 'divMessHarvest', event.originalEvent.request.responseText);
+        showTimeline("/crop/getInfoTime.action?idCrop="+$("#formCropHar_idCrop").val(), "divInfoTimeline", "timeline");
     });
 </script>

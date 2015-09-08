@@ -1,13 +1,11 @@
 package org.aepscolombia.platform.models.dao;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import org.aepscolombia.platform.models.entity.Entities;
 //import org.aepscolombia.plataforma.models.dao.IEventoDao;
 import org.hibernate.Transaction;
 import org.hibernate.HibernateException;
@@ -172,6 +170,51 @@ public class IrrigationDao
 		}
         return result;
     }    
+    
+    public String getIrrigationsInfo(Integer idEvent) {
+        SessionFactory sessions = HibernateUtil.getSessionFactory();
+        Session session = sessions.openSession();
+        List<Object[]> events = null;
+        Transaction tx = null;
+        String result  = "";
+        
+        String sql = "";     
+        String sqlAdd = "";     
+                      
+        sql += "select p.id_irr, p.date_irr, p.amount_irr, p.irrigation_type_irr, p.use_irrigation_irr";
+        sql += " from irrigation p"; 
+        sql += " where p.status=1";
+        if (idEvent!=null && idEvent!=-1) {
+            sql += " and p.id_production_event_irr="+idEvent;
+        }
+        sqlAdd += " order by p.id_irr ASC";
+        sql += sqlAdd;
+        try {
+            tx = session.beginTransaction();
+            Query query  = session.createSQLQuery(sql);
+            events = query.list(); 
+            int cont=1;
+
+            for (Object[] data : events) {
+                String valIdent  = String.valueOf(data[1]);
+                Date date        = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse(valIdent);
+                String dateAsign = new SimpleDateFormat("yyyy-MM-dd").format(date);
+                result += "{\"content\": \"Riego. "+cont+"\", \"start\": \""+dateAsign+"\", \"className\": \"irrigations\"},";
+                cont++;
+            }
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return result;
+    }
     
     public Irrigation objectById(Integer id) {
         SessionFactory sessions = HibernateUtil.getSessionFactory();

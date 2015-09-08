@@ -2,6 +2,7 @@ package org.aepscolombia.platform.models.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -158,6 +159,86 @@ public class PreparationsDao
 		} finally {
             session.close();
 		}
+        return result;
+    }        
+    
+    public boolean haveDirectSowing(HashMap args) {
+        SessionFactory sessions = HibernateUtil.getSessionFactory();
+        Session session = sessions.openSession();
+        Object[] events = null;
+        Transaction tx  = null;
+        Integer result  = 0;
+        boolean check   = false;
+        
+        String sql = "";     
+        sql  += "select count(p.id_prep), p.id_prep";
+        sql += " from preparations p"; 
+        sql += " where p.status=1 and p.preparation_type_prep=12";
+        if (args.containsKey("idEvent")) {
+            sql += " and p.id_production_event_prep="+args.get("idEvent");
+        }
+        
+        try {
+            tx = session.beginTransaction();
+            Query query  = session.createSQLQuery(sql);
+            events = (Object[])query.uniqueResult();
+            result = Integer.parseInt(String.valueOf(events[0]));
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        if (result>0) {
+            check = true;
+        }
+        return check;
+    }
+    
+    public String getPrep(Integer idEvent) {
+        SessionFactory sessions = HibernateUtil.getSessionFactory();
+        Session session = sessions.openSession();
+        List<Object[]> events = null;
+        Transaction tx = null;
+        String result  = "";
+        
+        String sql = "";     
+        String sqlAdd = "";     
+                      
+        sql  += "select p.id_prep, p.date_prep, p.other_preparation_type_prep, p.depth_prep, p.passings_number_prep";
+        sql += " from preparations p"; 
+        sql += " where p.status=1";
+        if (idEvent!=null && idEvent!=-1) {
+            sql += " and p.id_production_event_prep="+idEvent;
+        }
+        sqlAdd += " order by p.id_prep ASC";
+        sql += sqlAdd;
+        try {
+            tx = session.beginTransaction();
+            Query query  = session.createSQLQuery(sql);
+            events = query.list(); 
+            int cont=1;            
+            for (Object[] data : events) {
+                String valIdent  = String.valueOf(data[1]);
+                Date date        = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse(valIdent);
+                String dateAsign = new SimpleDateFormat("yyyy-MM-dd").format(date);
+                result += "{\"content\": \"Prep. "+cont+"\", \"start\": \""+dateAsign+"\", \"className\": \"preparations\"},";
+                cont++;
+            }
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
         return result;
     }    
     

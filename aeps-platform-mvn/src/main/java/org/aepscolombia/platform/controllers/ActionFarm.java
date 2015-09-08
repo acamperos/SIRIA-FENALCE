@@ -411,12 +411,14 @@ public class ActionFarm extends BaseAction {
         this.typeEnt = typeEnt;
     }   
 
-    public String getCoCode() {
-        return coCode;
+    private String lanSel;
+
+    public String getLanSel() {
+        return lanSel;
     }
 
-    public String getPoints() {
-        return points;
+    public void setLanSel(String lanSel) {
+        this.lanSel = lanSel;
     }   
     
     
@@ -430,6 +432,7 @@ public class ActionFarm extends BaseAction {
         EntitiesDao entDao = new EntitiesDao();
         Entities entTemp = entDao.findById(idEntSystem);
         typeEnt = entTemp.getEntitiesTypes().getIdEntTyp();
+        lanSel  = ActionContext.getContext().getLocale().getLanguage();
         if (entTemp.getEntitiesTypes().getIdEntTyp()==2) {
             ProducersDao proDao = new ProducersDao();
             Producers proTemp   = new Producers();

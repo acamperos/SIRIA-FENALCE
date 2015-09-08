@@ -309,6 +309,16 @@ public class ActionCon extends BaseAction {
         this.logDao = logDao;
     }      
     
+    private String lanSel;
+
+    public String getLanSel() {
+        return lanSel;
+    }
+
+    public void setLanSel(String lanSel) {
+        this.lanSel = lanSel;
+    }
+    
     @Override
     public String execute() throws Exception {
         return SUCCESS;
@@ -322,7 +332,7 @@ public class ActionCon extends BaseAction {
 //        coCode = (String) user.getCountryUsr().getAcronymIdCo();
         coCode = (String) ActionContext.getContext().getSession().get(APConstants.COUNTRY_CODE);
         usrDao = new UsersDao();
-//        user.setCountryUsr(null);
+        lanSel  = ActionContext.getContext().getLocale().getLanguage();
     }
     
     
@@ -557,7 +567,6 @@ public class ActionCon extends BaseAction {
         type_prod_che_con = new ChemicalsControlsDao().findAllByTargetType(0, tyCro, coCode);
         this.setType_tar_typ(new TargetsTypesDao().findAll(coCode));
         this.setType_dose_units(new DoseUnitsDao().findByParams("2,3,5", coCode));
-        System.out.println("coCode=>"+coCode);
         this.setType_con_typ(new ControlsTypesDao().findAllByTypeCrop(tyCro, coCode));
         this.setType_dis_con(new DiseasesDao().findAllByTypeCrop(tyCro, coCode));
         this.setType_pest_con(new PestsDao().findAllByTypeCrop(tyCro, coCode));

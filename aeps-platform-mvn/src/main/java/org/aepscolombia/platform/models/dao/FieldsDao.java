@@ -67,7 +67,7 @@ public class FieldsDao
         sql += "select l.id_fie, l.id_farm_fie, l.contract_type_fie, l.name_fie, l.altitude_fie,";
         sql += " l.latitude_fie, l.longitude_fie, l.area_fie, l.status, lp.id_producer_fie_pro,";
         sql += " e.name_ent, e.document_number_ent, e.document_type_ent, f.name_far,";
-        sql += " mun.name_mun, d.name_dep, f.name_commune_far";
+        sql += " mun.name_mun, d.name_dep, f.name_commune_far, l.available_area_fie, l.totally_area_fie";
         sql += " from fields l";
         sql += " inner join log_entities le on le.id_object_log_ent=l.id_fie and le.table_log_ent='fields' and le.action_type_log_ent='C'";   
         sql += " inner join fields_producers lp on lp.id_field_fie_pro=l.id_fie";        
@@ -108,7 +108,9 @@ public class FieldsDao
                 temp.put("name_farm", data[13]);       
                 temp.put("name_mun", data[14]);       
                 temp.put("name_dep", data[15]);       
-                temp.put("name_commune", data[16]);       
+                temp.put("name_commune", data[16]);  
+                temp.put("available_area", data[17]);       
+                temp.put("totally_area", data[18]);
                 result = (temp);
             }
             tx.commit();
@@ -171,7 +173,7 @@ public class FieldsDao
 //         ft.name_fie_typ
         sql += "select l.id_fie, l.id_farm_fie, l.contract_type_fie, l.name_fie, l.altitude_fie,";
         sql += " l.latitude_fie, l.longitude_fie, l.area_fie, l.status, l.id_project_fie, e.name_ent, f.name_far, ft.name_fie_typ,";
-        sql += " e.entity_type_ent, m.name_mun,";
+        sql += " e.entity_type_ent, m.name_mun, l.available_area_fie, l.totally_area_fie,";
         if (entType.equals("3")) {
             sql += " le.date_log_ent, entLe.name_ent as nameAgro";
         } else {
@@ -223,6 +225,10 @@ public class FieldsDao
             }
         }
         
+        if (args.containsKey("selected")) {
+            String valSel = String.valueOf(args.get("selected"));
+            if (!valSel.equals("lot")) sql += " and l.available_area_fie>0";
+        }
         
         if (args.containsKey("search_field")) {
             String valIdent = String.valueOf(args.get("search_field"));
@@ -322,9 +328,11 @@ public class FieldsDao
                 temp.put("name_type_lot", data[12]);
                 temp.put("typeEnt", data[13]);
                 temp.put("city", data[14]);
-                temp.put("dateLog", data[15]);
+                temp.put("available_area", data[15]);
+                temp.put("totally_area", data[16]);
+                temp.put("dateLog", data[17]);
                 if (entType.equals("3")) {
-                    temp.put("nameAgro", data[16]);
+                    temp.put("nameAgro", data[18]);
                 }
                 result.add(temp);
             }

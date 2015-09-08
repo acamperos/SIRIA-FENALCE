@@ -55,7 +55,7 @@
                 <div class="span5">
                     <div class="control-group">
                         <label for="${formOrgId}__amountProductUsedOrgFer" class="control-label req">
-                            <s:property value="getText('text.amountproductorg.fertilization')" />:
+                            <s:property value="getText('text.amountproductorg.fertilization')" /> <button type="button" class="btn btn-initial"><b>(kg/ha)</b></button>:
                         </label>
                         <div class="controls">
                             <s:textfield name="%{#attr.formOrg}.amountProductUsedOrgFer" value="%{#attr.amountProductUsedOrgFer}"/>

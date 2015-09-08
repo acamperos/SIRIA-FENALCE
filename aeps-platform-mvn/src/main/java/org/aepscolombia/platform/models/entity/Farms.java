@@ -117,7 +117,7 @@ public class Farms  implements java.io.Serializable {
         this.nameFar = nameFar;
     }
     
-    @Column(name="address_far", nullable=false, length=45)
+    @Column(name="address_far", length=65535)
     public String getAddressFar() {
         return this.addressFar;
     }

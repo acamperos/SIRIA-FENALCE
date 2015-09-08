@@ -65,6 +65,7 @@ public class ProductionEventsDao
         
         sql += "select pe.id_pro_eve, l.id_fie, l.name_fie, pe.id_crop_type_pro_eve, pe.expected_production_pro_eve,";
         sql += " pe.former_crop_pro_eve, pe.draining_pro_eve, pe.status, pe.other_former_crop_pro_eve, ct.name_cro_typ";
+        sql += " pe.quant_area_pro_eve, pe.type_area_pro_eve";
         sql += " from production_events pe";
         sql += " inner join log_entities le on le.id_object_log_ent=pe.id_pro_eve and le.table_log_ent='production_events' and le.action_type_log_ent='C'";   
         sql += " inner join fields l on l.id_fie=pe.id_field_pro_eve";
@@ -102,6 +103,8 @@ public class ProductionEventsDao
                     }
                     temp.put("otherCrop", "");
                 }
+                temp.put("quant_area", data[10]);
+                temp.put("type_area", data[11]);
                 result = temp;
             }
             tx.commit();
@@ -1316,6 +1319,18 @@ public class ProductionEventsDao
                 log.setDateLogEnt(new Date());
                 log.setActionTypeLogEnt("D");
                 session.saveOrUpdate(log);
+
+                FieldsDao lotDao  = new FieldsDao();
+                Double areaCrop   = pro.getQuantAreaProEve();
+                Integer typeArea  = pro.getTypeAreaProEve();
+                Fields lot = lotDao.objectById(pro.getFields().getIdFie());   
+                double areaOld    = lot.getAreaFie();
+                if (typeArea==1) {
+                    areaCrop = ((areaOld*areaCrop)/100);
+                }  
+                double availableArea = areaOld + areaCrop;                
+                lot.setAvailableAreaFie(availableArea);
+                session.saveOrUpdate(lot);
 
                 BasicDBObject queryMongo = new BasicDBObject();
                 queryMongo.put("InsertedId", ""+pro.getIdProEve());        

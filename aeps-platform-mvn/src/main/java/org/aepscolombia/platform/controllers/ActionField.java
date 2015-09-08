@@ -8,6 +8,7 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.WriteResult;
+import com.opensymphony.xwork2.ActionContext;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -372,6 +373,16 @@ public class ActionField extends BaseAction {
         this.typeEnt = typeEnt;
     }
     
+    private String lanSel;
+
+    public String getLanSel() {
+        return lanSel;
+    }
+
+    public void setLanSel(String lanSel) {
+        this.lanSel = lanSel;
+    }
+    
     @Override
     public String execute() throws Exception {
 //        this.setType_ident_producer(new TiposDocumentosDao().findAll());
@@ -393,7 +404,7 @@ public class ActionField extends BaseAction {
         Entities entTemp = entDao.findById(idEntSystem);
         typeEnt = entTemp.getEntitiesTypes().getIdEntTyp();
         assDao = new AssociationDao();
-//        user.setCountryUsr(null);
+        lanSel  = ActionContext.getContext().getLocale().getLanguage();
     }
     
     private Map fieldError;
@@ -675,6 +686,7 @@ public class ActionField extends BaseAction {
         additionals.put("selected", selected);
         HashMap findParams = new HashMap();
         findParams.put("selAll", selAll);
+        findParams.put("selected", selected);
         findParams.put("selItem", selectItemname_agronomist);
         Integer entTypeId = new EntitiesDao().getEntityTypeId(user.getIdUsr());
         findParams.put("entType", entTypeId);
@@ -844,6 +856,8 @@ public class ActionField extends BaseAction {
 
         try {
             int idProOld = 0;
+            double availableArea = 0;
+            double areaOld = 0;
             tx = session.beginTransaction();
             SfGuardUserDao sfDao = new SfGuardUserDao();
             SfGuardUser sfUser = sfDao.getUserByLogin(user.getCreatedBy(), user.getNameUserUsr(), "");
@@ -858,11 +872,28 @@ public class ActionField extends BaseAction {
                 lot.setIdProjectFie("1");
                 lot.setStatus(true); 
                 lot.setMeasureUnitFie("1");
+                availableArea = areaLot;
             } else {
                 HashMap fieldInfo = lotDao.findById(idField);
                 idProOld = Integer.parseInt(String.valueOf(fieldInfo.get("id_producer")));
+                availableArea = Double.parseDouble(String.valueOf(fieldInfo.get("available_area")));
+                areaOld = Double.parseDouble(String.valueOf(fieldInfo.get("area_lot")));
+                double busy = areaOld-availableArea;
+                if (areaLot>=areaOld)  {
+                    availableArea = areaLot-busy;
+                }
+                if (areaOld>areaLot) {
+                    if (busy>areaLot) {
+                        state = "success";
+                        info  = "El lote cuenta con una area ocupada de "+busy+" ha por favor ingresar valores superiores a este";
+                        return "states";
+                    } else if (areaLot>=busy) {
+                        availableArea = areaLot-busy;
+                    }
+                }
                 lot = lotDao.objectById(idField);
             }
+            lot.setAvailableAreaFie(availableArea);
 //            lot.setIdFarmFie(idFarm);
             if(idFarm>0) lot.setFarms(new Farms(idFarm));
             lot.setNameFie(name_lot);

@@ -7,6 +7,7 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.MongoClient;
 import com.mongodb.WriteResult;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.validator.annotations.*;
 import java.io.File;
 import java.io.FileInputStream;
@@ -396,6 +397,16 @@ public class ActionProducer extends BaseAction {
         return info;
     }
 
+    private String lanSel;
+
+    public String getLanSel() {
+        return lanSel;
+    }
+
+    public void setLanSel(String lanSel) {
+        this.lanSel = lanSel;
+    }
+
     @Override
     public void prepare() throws Exception {
         user = (Users) this.getSession().get(APConstants.SESSION_USER);
@@ -410,7 +421,7 @@ public class ActionProducer extends BaseAction {
         usrDao = new UsersDao();
         idUsrSystem = user.getIdUsr();
         assDao = new AssociationDao();
-//        user.setCountryUsr(null);
+        lanSel  = ActionContext.getContext().getLocale().getLanguage();
     }
 
     @Override

@@ -97,7 +97,7 @@
                 <% String action = "";%>
                 <% 
                     if (value.equals("crop")) { 
-                        action = "selectItem('formCrop_nameField', 'formCrop_idField', '" + request.getAttribute("name_lot") + "', '" + request.getAttribute("id_lot") + "','" + divShow + "', '" + divHide + "');";
+                        action = "selectItemCrop('formCrop_nameField', 'formCrop_idField', 'formCrop_avaArea', 'formCrop_totalArea', '" + request.getAttribute("name_lot") + "', '" + request.getAttribute("id_lot") + "', '" + request.getAttribute("available_area") + "', '" + request.getAttribute("area_lot") + "','" + divShow + "', '" + divHide + "', 'divAreaAva');";
                     } 
                     if (value.equals("cropcheck")) { 
                         action = "selectItemCropcheck('formCrop_nameField', 'formCrop_idField', '" + request.getAttribute("name_lot") + "', '" + request.getAttribute("id_lot") + "');";

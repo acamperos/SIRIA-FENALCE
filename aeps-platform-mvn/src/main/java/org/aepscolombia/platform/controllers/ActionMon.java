@@ -179,6 +179,16 @@ public class ActionMon extends BaseAction {
         this.logDao = logDao;
     }      
     
+    private String lanSel;
+
+    public String getLanSel() {
+        return lanSel;
+    }
+
+    public void setLanSel(String lanSel) {
+        this.lanSel = lanSel;
+    }
+    
     @Override
     public String execute() throws Exception {
         return SUCCESS;
@@ -192,7 +202,7 @@ public class ActionMon extends BaseAction {
         coCode = (String) this.getSession().get(APConstants.COUNTRY_CODE);
         usrDao = new UsersDao();
         idUsrSystem = user.getIdUsr();
-//        user.setCountryUsr(null);
+        lanSel  = ActionContext.getContext().getLocale().getLanguage();
     }
     
     

@@ -20,6 +20,7 @@
                     <fieldset>
                         <legend><s:property value="getText('title.formfield.field')" /></legend>
                         <s:hidden name="idProducer"/>                           
+                        <s:hidden name="lanSel"/>
                         <s:hidden name="idField"/>
                         <div id="divPropertyLot">
                             <div class="control-group">

@@ -1,6 +1,7 @@
 
 package org.aepscolombia.platform.controllers;
 
+import com.opensymphony.xwork2.ActionContext;
 import java.util.HashMap;
 import java.util.List;
 import org.aepscolombia.platform.models.dao.BeansDao;
@@ -352,6 +353,15 @@ public class ActionReport extends BaseAction {
     private PhysiologicalMonitoringDao physDao     = new PhysiologicalMonitoringDao();
     private IrrigationDao irrDao  = new IrrigationDao();
     
+    private String lanSel;
+
+    public String getLanSel() {
+        return lanSel;
+    }
+
+    public void setLanSel(String lanSel) {
+        this.lanSel = lanSel;
+    }
     /**
      * Atributos generales de clase
      */
@@ -440,7 +450,7 @@ public class ActionReport extends BaseAction {
         EntitiesDao entDao = new EntitiesDao();
         Entities entTemp = entDao.findById(idEntSystem);
         typeEnt = entTemp.getEntitiesTypes().getIdEntTyp();
-//        user.setCountryUsr(null);
+        lanSel  = ActionContext.getContext().getLocale().getLanguage();
     }
     
     

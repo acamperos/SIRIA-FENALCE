@@ -6,6 +6,7 @@
     <legend><s:property value="getText('title.infoprofile.profile')" /></legend>    
     <s:form id="formProfile" action="saveProfile.action">
         <s:hidden name="actExe" value="configProfile"/>
+        <s:hidden name="lanSel"/>
         <div class="control-group">
             <label for="formProfile_typeDocument" class="control-label"><s:property value="getText('select.typedoc.profile')" />:</label>
             <div class="controls">

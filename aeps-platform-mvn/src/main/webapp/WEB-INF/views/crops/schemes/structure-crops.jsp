@@ -5,6 +5,56 @@
 <html>
     <head>
         <link rel="icon" type="image/ico" href="img/favicon.ico">
+        <style type="text/css">
+            .vis-item.sowing {
+              background-color: white;
+              border-color: black;
+            }
+            .vis-item.emergency {
+              background-color: greenyellow;
+              border-color: greenyellow;
+            }
+            .vis-item.flowering {
+              background-color: salmon;
+              border-color: salmon;
+            }
+            .vis-item.preparations {
+              background-color: chocolate;
+              border-color: chocolate;
+            }
+            .vis-item.residuals {
+              background-color: orange;
+              border-color: orange;
+            }
+            .vis-item.irrigations {
+              background-color: dodgerblue;
+              border-color: dodgerblue;
+            }
+            .vis-item.fertilizations {
+              background-color: red;
+              border-color: red;
+            }
+            .vis-item.monitorings {
+              background-color: lightgray;
+              border-color: lightgray;
+            }
+            .vis-item.controls {
+              background-color: dimgrey;
+              border-color: dimgrey;
+            }
+            .vis-item.maize {
+              background-color: white;
+              border-color: black;
+            }
+            .vis-item.beans {
+              background-color: white;
+              border-color: black;
+            }
+            .vis-item.rice {
+              background-color: white;
+              border-color: black;
+            }
+        </style>
     </head>
     <body>     
         <%@ include file="../../generals/googleAnalytics.jsp" %>
@@ -27,7 +77,18 @@
         <% String coCode     = (String) session.getAttribute(APConstants.COUNTRY_CODE); %>
         <div class="container" id="divDataInfoCrop">
             <%@ include file="../generals/data-crops.jsp" %>                 
-        </div>             
+        </div>       
+        <div class="container hide" id="divInfoTimeline" style="margin-top: 15px">
+            <div class="panel">
+                <div class="panel-body">  
+                    <fieldset>
+                        <legend><h3>Linea de Tiempo del Cultivo</h3></legend>
+                        <div id="timeline"></div>
+                        <div id="log"></div>
+                    </fieldset>
+                </div>
+            </div>            
+        </div>
         <% int typeCrop = (request.getAttribute("typeCrop") != null) ? Integer.parseInt(String.valueOf(request.getAttribute("typeCrop"))) : 1;%>                    
         <div class="container panel" id="divDataExtendCrop" style="margin-top: 20px"> 
             <div class="accordion" id="accordion2" style="margin-bottom: 0">
@@ -43,6 +104,18 @@
                         </div>
                     </div>
                 </div>
+                <div class="accordion-group">
+                    <div class="accordion-heading">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion7" href="#collapseEight">
+                            <h4><s:property value="getText('title.formphysiology.monitoring')" /> <i class="colSeven icon-chevron-down"></i></h4> 
+                        </a>
+                    </div>
+                    <div id="collapseEight" class="accordion-body collapse">
+                        <div class="accordion-inner">
+                            <%@ include file="view-physiological.jsp" %>
+                        </div>
+                    </div>
+                </div>        
                 <% if (coCode.equals("NI")) { %>
                     <div class="accordion-group">
                         <div class="accordion-heading">
@@ -196,8 +269,20 @@
                 $(".colSix").removeClass("icon-chevron-up").addClass("icon-chevron-down");
             });
             
+            $('#collapseSeven').on('shown', function () {
+               $(".colSix").removeClass("icon-chevron-down").addClass("icon-chevron-up");
+            });
+            
             $('#collapseSeven').on('hidden', function () {
                 $(".colSeven").removeClass("icon-chevron-up").addClass("icon-chevron-down");
+            });
+
+            $('#collapseEight').on('shown', function () {
+               $(".colSix").removeClass("icon-chevron-down").addClass("icon-chevron-up");
+            });
+
+            $('#collapseEight').on('hidden', function () {
+                $(".colSix").removeClass("icon-chevron-up").addClass("icon-chevron-down");
             });
 
             $("#formCropHar_harv_dateHar").datepicker({changeMonth: true, changeYear: true});

@@ -21,6 +21,7 @@
                 <fieldset>         
                     <legend><s:property value="getText('title.cropbasicinfo.crop')" /></legend>
                     <s:hidden name="idCrop"/>                           
+                    <s:hidden name="lanSel"/>
                     <div class="control-group">
                         <s:label for="formCrop_nameField" cssClass="control-label req" value="%{getText('text.selectfield.crop')}:"></s:label>
                         <div class="controls">
@@ -46,11 +47,49 @@
                                     headerValue="---" />
                             <% }%>
                         </div>
+                    </div>
+                    <div class="control-group">
+                        <s:label for="formCrop_totallyArea" cssClass="control-label" value="Se va a sembrar la totalidad del lote:"></s:label>
+                        <div class="controls radioSelect">
+                            <s:radio list="#{'true':'Si', 'false':'No'}" name="totallyArea" onclick="checkArea('totallyArea', 'divAreaField')" />
+                        </div>
+                    </div>
+                    <% String classTotally="hide"; %>
+                    <s:if test="%{!totallyArea}">
+                        <% classTotally = "";%>
+                    </s:if> 
+                    <div class="<%= classTotally %>" style="padding-left: 28px" id="divAreaField">            
+                        <div class="control-group">
+                            <s:label for="formCrop_typeArea" cssClass="control-label req" value="%{getText('text.areatype.crop')}:"></s:label>
+                            <div class="controls">
+                                <s:select
+                                    name="typeArea"
+                                    list="#{'1':'Porcentaje', '2':'Hectarea'}"           
+                                    headerKey="-1" 
+                                    headerValue="---" 
+                                    onchange="selectArea('formCrop_typeArea', 'formCrop_areaCrop', 'formCrop_availableArea')" />
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <s:label for="formCrop_areaCrop" cssClass="control-label req" value="%{getText('text.areacrop.crop')}:"></s:label>
+                            <div class="controls">
+                                <%--<s:textfield name="areaCrop" onkeyup="selectArea('formCrop_typeArea', 'formCrop_areaCrop', 'formCrop_availableArea')" />--%>
+                                <s:textfield name="areaCrop" />
+                                <s:hidden name="areaField" />
+                                <s:hidden name="availableArea" />
+                                <div id="divAreaAva" class="hide">
+                                    <label style="float: left;">Area total: </label>&nbsp;
+                                    <label style="float: left; " id="formCrop_totalArea"></label>
+                                    <label style="float: left; position: absolute;">Area disponible: </label>
+                                    <label id="formCrop_avaArea"></label>
+                                </div>  
+                            </div>  
+                        </div>
                     </div>                             
                     <div class="row">
                         <div class="span5" style="padding-left: 20px;">
                             <div class="control-group">
-                                <label for="formCrop_lastCrop" class="control-label">
+                                <label for="formCrop_lastCrop" class="control-label req">
                                     <s:property value="getText('select.lastcrop.crop')" />:
                                     <i class="icon-info-sign s2b_tooltip pop-over" data-content="<s:property value="getText('help.lastcropsave.crop')" />." data-title="<s:property value="getText('title.information')" />" data-placement="right" data-trigger="hover"></i>
                                 </label>
@@ -99,6 +138,7 @@
             <script>                
                 var action = $("#formCrop_actExe").val();                
                 $("#formCrop_performObj").numeric();
+                $("#formCrop_areaCrop").numeric({negative: false});
                 $("#formCrop_performObj").val(parsePointSeparated($("#formCrop_performObj").val()));        
                 $.subscribe('completeCrop', function(event, data) {
                     var actExeCrop = $("#formCrop_actExe").val();
@@ -121,6 +161,7 @@
                 if($('.pop-over').length) {
                     $('.pop-over').popover();
                 }
+                showInfoArea('formCrop_idCrop', 'formCrop_areaField', 'formCrop_availableArea', 'formCrop_areaCrop', 'formCrop_totalArea', 'formCrop_avaArea', 'formCrop_typeArea', 'divAreaAva');
             </script>
         </div>
         <div class="row-fluid" id="divListCropForm"></div>

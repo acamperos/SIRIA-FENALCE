@@ -1,6 +1,7 @@
 
 package org.aepscolombia.platform.controllers;
 
+import com.opensymphony.xwork2.ActionContext;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -154,6 +155,16 @@ public class ActionResiduals extends BaseAction {
         this.logDao = logDao;
     }      
     
+    private String lanSel;
+
+    public String getLanSel() {
+        return lanSel;
+    }
+
+    public void setLanSel(String lanSel) {
+        this.lanSel = lanSel;
+    }
+    
     @Override
     public String execute() throws Exception {
         return SUCCESS;
@@ -165,6 +176,7 @@ public class ActionResiduals extends BaseAction {
         idEntSystem = UsersDao.getEntitySystem(user.getIdUsr());
         usrDao = new UsersDao();
         idUsrSystem = user.getIdUsr();
+        lanSel  = ActionContext.getContext().getLocale().getLanguage();
     }
     
     

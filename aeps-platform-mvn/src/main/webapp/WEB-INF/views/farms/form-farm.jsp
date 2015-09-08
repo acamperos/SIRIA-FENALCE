@@ -19,6 +19,7 @@
                     <fieldset>
                         <legend><s:property value="getText('title.formfarm.farm')" /></legend>
                         <s:hidden name="typeEnt"/>
+                        <s:hidden name="lanSel"/>
                         <s:if test="%{typeEnt==2}">
                             <s:hidden name="idProducer"/>                                
                             <s:hidden name="name_producer"/>
@@ -172,7 +173,7 @@
                                 <i class="icon-info-sign s2b_tooltip pop-over" data-content="<s:property value="getText('desc.direction.farm')" />." data-title="<s:property value="getText('help.directioninfo.farm')" />" data-placement="right" data-trigger="hover"></i>
                             </label>
                             <div class="controls">
-                                <s:textfield name="direction_property" />
+                                <s:textarea rows="5" cssClass="span6" name="direction_property"></s:textarea>
                             </div>  
                         </div>   
                     </fieldset>

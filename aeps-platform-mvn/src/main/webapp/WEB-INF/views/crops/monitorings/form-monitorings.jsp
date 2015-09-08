@@ -23,6 +23,7 @@
                         <div class="span5 form-horizontal">
                             <s:hidden name="idCrop"/>
                             <s:hidden name="typeCrop"/>
+                            <s:hidden name="lanSel"/>
                             <s:hidden name="actExe"/>
                             <s:hidden name="mon.idMon"/>
                             <div class="control-group">
@@ -125,6 +126,7 @@
                     completeFormGetting('dialog-form', 'formCropMonGen', 'divMon', event.originalEvent.request.responseText);
                     setTimeout(function() {
                         showInfo("/crop/searchMon.action?idCrop="+$("#formCropMonGen_idCrop").val(), "divListMonGen");
+                        showTimeline("/crop/getInfoTime.action?idCrop="+$("#formCropMonGen_idCrop").val(), "divInfoTimeline", "timeline");
                     }, 2000);
                 });
             </script>

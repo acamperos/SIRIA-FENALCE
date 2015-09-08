@@ -1,6 +1,7 @@
 
 package org.aepscolombia.platform.controllers;
 
+import com.opensymphony.xwork2.ActionContext;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -173,6 +174,16 @@ public class ActionSowing extends BaseAction {
         this.logDao = logDao;
     }      
     
+    private String lanSel;
+
+    public String getLanSel() {
+        return lanSel;
+    }
+
+    public void setLanSel(String lanSel) {
+        this.lanSel = lanSel;
+    }
+    
     @Override
     public String execute() throws Exception {
         return SUCCESS;
@@ -183,6 +194,7 @@ public class ActionSowing extends BaseAction {
         user = (Users) this.getSession().get(APConstants.SESSION_USER);
         idEntSystem = UsersDao.getEntitySystem(user.getIdUsr()); 
         usrDao = new UsersDao();
+        lanSel  = ActionContext.getContext().getLocale().getLanguage();
         idUsrSystem = user.getIdUsr();
         coCode = (String) this.getSession().get(APConstants.COUNTRY_CODE);
     }
@@ -209,7 +221,7 @@ public class ActionSowing extends BaseAction {
             required.put("sowing.seedsNumberSow", sowing.getSeedsNumberSow());
             required.put("sowing.treatedSeedsSow", sowing.isTreatedSeedsSow());
             required.put("sowing.genotypes.idGen", sowing.getGenotypes().getIdGen());                
-            required.put("event.expected_production_pro_eve", event.getExpectedProductionProEve()); 
+//            required.put("event.expected_production_pro_eve", event.getExpectedProductionProEve()); 
             if (typeCrop!=4) {        
                 required.put("sowing.furrowsDistanceSow", sowing.getFurrowsDistanceSow());
                 required.put("sowing.sitesDistanceSow", sowing.getSitesDistanceSow());
@@ -281,11 +293,28 @@ public class ActionSowing extends BaseAction {
                 }
             }
 
-            if (event.getExpectedProductionProEve()!=null && event.getExpectedProductionProEve()!=0) {
+            /*if (event.getExpectedProductionProEve()!=null && event.getExpectedProductionProEve()!=0) {
                 if (event.getExpectedProductionProEve()<0 || event.getExpectedProductionProEve()>30000) {
                     addFieldError("event.expected_production_pro_eve", getText("message.invaliddataexpectedproduction.sowing"));
                     addActionError(getText("desc.invaliddataexpectedproduction.sowing"));
                 }
+            }*/
+            
+            if (event.getExpectedProductionProEve()!=null && event.getExpectedProductionProEve()!=0) {
+                if (typeCrop==1) {
+                    if (event.getExpectedProductionProEve()<800 || event.getExpectedProductionProEve()>30000) {
+                        addFieldError("event.expectedProductionProEve", "Dato invalido valor entre 800 y 30000");
+                        addActionError("Se ingreso un rendimiento histórico obtenido invalido, por favor ingresar un valor entre 800 y 30000");
+                    }
+                }
+                
+                if (typeCrop==2) {    
+                    if (event.getExpectedProductionProEve()<200 || event.getExpectedProductionProEve()>30000) {
+                        addFieldError("event.expectedProductionProEve", "Dato invalido valor entre 200 y 30000");
+                        addActionError("Se ingreso un rendimiento histórico obtenido invalido, por favor ingresar un valor entre 200 y 30000");
+                    }
+                }
+                
             }
             
         }
@@ -323,6 +352,9 @@ public class ActionSowing extends BaseAction {
             
             String dmy   = new SimpleDateFormat("yyyy-MM-dd").format(sowing.getDateSow());
             Date dateSow = new SimpleDateFormat("yyyy-MM-dd").parse(dmy);
+            ProductionEvents eventInfo    = cropDao.objectById(this.getIdCrop());
+            eventInfo.setExpectedProductionProEve(event.getExpectedProductionProEve());
+            eventInfo.setDrainingProEve(event.getDrainingProEve());
             
 //            event.setFields(event.getFields());
 //            event.setCropsTypes(new CropsTypes(2));
@@ -332,9 +364,9 @@ public class ActionSowing extends BaseAction {
                 Double seedNum = sowing.getSeedsNumberSow()*65.71;
                 Double expPro  = event.getExpectedProductionProEve()*65.71;
                 sowing.setSeedsNumberSow(seedNum.intValue());            
-                event.setExpectedProductionProEve(expPro);
+                eventInfo.setExpectedProductionProEve(expPro);
             } 
-            session.saveOrUpdate(event);
+            session.saveOrUpdate(eventInfo);
             
             if (sowing.getIdSow()==null) {
                 Sowing sowTemp = sowDao.objectById(idCrop);
@@ -374,6 +406,9 @@ public class ActionSowing extends BaseAction {
                 beans.setSeedsTypes(null);
                 beans.setProductionEvents(new ProductionEvents(idCrop));
                 beans.setStatus(true);
+                if (beans.getSeedsInoculations().getIdSeeIno()==-1) {
+                    beans.setSeedsInoculations(null);
+                }
                 session.saveOrUpdate(beans);
             } else if (typeCrop==3) {
 //                Cassavas ca = new Cassavas();

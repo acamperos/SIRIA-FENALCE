@@ -47,6 +47,8 @@ public class ProductionEvents  implements java.io.Serializable {
      private String otherMainDiseaseProEve;
      private String otherMainWeedProEve;
      private Integer numCyclesBeforeProEve;
+     private Double quantAreaProEve;
+     private Integer typeAreaProEve;
      private Integer createdBy;
 
     public ProductionEvents() {
@@ -296,6 +298,24 @@ public class ProductionEvents  implements java.io.Serializable {
     
     public void setCreatedBy(Integer createdBy) {
         this.createdBy = createdBy;
+    }
+
+    @Column(name="quant_area_pro_eve", precision=22, scale=0)
+    public Double getQuantAreaProEve() {
+        return this.quantAreaProEve;
+    }
+
+    public void setQuantAreaProEve(Double quantAreaProEve) {
+        this.quantAreaProEve = quantAreaProEve;
+    }
+
+    @Column(name="type_area_pro_eve")
+    public Integer getTypeAreaProEve() {
+        return this.typeAreaProEve;
+    }
+    
+    public void setTypeAreaProEve(Integer typeAreaProEve) {
+        this.typeAreaProEve = typeAreaProEve;
     }
 
 }

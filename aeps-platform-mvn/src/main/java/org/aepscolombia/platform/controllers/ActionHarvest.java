@@ -130,6 +130,16 @@ public class ActionHarvest extends BaseAction {
         this.logDao = logDao;
     }      
     
+    private String lanSel;
+
+    public String getLanSel() {
+        return lanSel;
+    }
+
+    public void setLanSel(String lanSel) {
+        this.lanSel = lanSel;
+    }
+    
     @Override
     public String execute() throws Exception {
         return SUCCESS;
@@ -142,6 +152,7 @@ public class ActionHarvest extends BaseAction {
         usrDao = new UsersDao();
         idUsrSystem = user.getIdUsr();
         coCode = (String) this.getSession().get(APConstants.COUNTRY_CODE);
+        lanSel  = ActionContext.getContext().getLocale().getLanguage();
     }
     
     
@@ -247,7 +258,23 @@ public class ActionHarvest extends BaseAction {
                 }
             }
             
-            if (harv.getResultingProducts().getIdResPro()!=0 && (harv.getYieldHar()!=null && harv.getYieldHar()!=0)) {
+            if (harv.getYieldHar()!=null && harv.getYieldHar()!=0) {
+                if (typeCrop==1) {
+                    if (harv.getYieldHar()<800 || harv.getYieldHar()>30000) {
+                        addFieldError("harv.yieldHar", "Dato invalido valor entre 800 y 30000");
+                        addActionError("Se ingreso un rendimiento invalido, por favor ingresar un valor entre 800 y 30000");
+                    }
+                }
+                
+                if (typeCrop==2) {
+                    if (harv.getYieldHar()<200 || harv.getYieldHar()>30000) {
+                        addFieldError("harv.yieldHar", "Dato invalido valor entre 200 y 30000");
+                        addActionError("Se ingreso un rendimiento invalido, por favor ingresar un valor entre 200 y 30000");
+                    }                    
+                }                
+            }
+            
+            /*if (harv.getResultingProducts().getIdResPro()!=0 && (harv.getYieldHar()!=null && harv.getYieldHar()!=0)) {
 //            1 Grano seco a min 100 max 20000
 //            4 Ensilaje min 1000 max 60000
 //            3 Fresco min 1000 max 60000 
@@ -263,7 +290,7 @@ public class ActionHarvest extends BaseAction {
                     }
                 }
                 
-            } 
+            }*/
 
 //            if (harv.getYieldHar()!=null && harv.getYieldHar()!=0) {
 //                if (harv.getYieldHar()<0 || harv.getYieldHar()>30000) {

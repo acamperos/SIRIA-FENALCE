@@ -20,6 +20,7 @@
                 <legend><s:property value="getText('title.formprod.producer')" /></legend>
                 <div class="control-group">
                     <s:hidden name="idProducer"/>
+                    <s:hidden name="lanSel"/>
                     <label for="formProducer_typeIdent" class="control-label req">
                         <s:property value="getText('text.typedoc.producer')" />:
                         <i class="icon-info-sign s2b_tooltip pop-over" data-content="<s:property value="getText('desc.typedoc.producer')" />." data-title="<s:property value="getText('help.typedoc.producer')" />" data-placement="right" data-trigger="hover"></i>
