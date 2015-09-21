@@ -193,10 +193,11 @@ public class ActionSowing extends BaseAction {
     public void prepare() throws Exception {
         user = (Users) this.getSession().get(APConstants.SESSION_USER);
         idEntSystem = UsersDao.getEntitySystem(user.getIdUsr()); 
-        usrDao = new UsersDao();
-        lanSel  = ActionContext.getContext().getLocale().getLanguage();
+        usrDao = new UsersDao();        
         idUsrSystem = user.getIdUsr();
         coCode = (String) this.getSession().get(APConstants.COUNTRY_CODE);
+        String lanTemp = (String) this.getSession().get(APConstants.SESSION_LANG);
+        lanSel = lanTemp.replace(coCode.toLowerCase(), "");
     }
     
     
@@ -267,13 +268,13 @@ public class ActionSowing extends BaseAction {
             
             if (typeCrop!=4) {        
                 required.put("sowing.furrowsDistanceSow", sowing.getFurrowsDistanceSow());
-                if (sowing.getFurrowsDistanceSow()!=null && sowing.getFurrowsDistanceSow()!=0 && (sowing.getFurrowsDistanceSow()<0 || sowing.getFurrowsDistanceSow()>10)) {
+                if (sowing.getFurrowsDistanceSow()!=null && sowing.getFurrowsDistanceSow()!=null && sowing.getFurrowsDistanceSow()!=0 && (sowing.getFurrowsDistanceSow()<0 || sowing.getFurrowsDistanceSow()>10)) {
                     addFieldError("sowing.furrowsDistanceSow", getText("message.invaliddatafurrowsdistance.sowing"));
                     addActionError(getText("desc.invaliddatafurrowsdistance.sowing"));
                 }
 
                 required.put("sowing.sitesDistanceSow", sowing.getSitesDistanceSow());
-                if (sowing.getFurrowsDistanceSow()!=null && sowing.getSitesDistanceSow()!=0 && (sowing.getSitesDistanceSow()<0 || sowing.getSitesDistanceSow()>10)) {
+                if (sowing.getSitesDistanceSow()!=null && sowing.getSitesDistanceSow()!=0 && (sowing.getSitesDistanceSow()<0 || sowing.getSitesDistanceSow()>10)) {
                     addFieldError("sowing.sitesDistanceSow", getText("message.invaliddatasitesdistance.sowing"));
                     addActionError(getText("desc.invaliddatasitesdistance.sowing"));
                 }
@@ -281,7 +282,7 @@ public class ActionSowing extends BaseAction {
                 
             if (typeCrop==2) {
                 required.put("beans.seedsNumberSiteBea", beans.getSeedsNumberSiteBea());
-                if (beans.getSeedsNumberSiteBea()!=0 && (beans.getSeedsNumberSiteBea()<1 || beans.getSeedsNumberSiteBea()>10)) {
+                if (beans.getSeedsNumberSiteBea()!=null && beans.getSeedsNumberSiteBea()!=0 && (beans.getSeedsNumberSiteBea()<1 || beans.getSeedsNumberSiteBea()>10)) {
                     addFieldError("beans.seedsNumberSiteBea", getText("message.invaliddataseedsnumberbean.sowing"));
                     addActionError(getText("desc.invaliddataseedsnumberbean.sowing"));
                 }

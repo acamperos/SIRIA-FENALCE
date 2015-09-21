@@ -58,10 +58,10 @@ public class OrganicFertilizersDao
             tx = session.beginTransaction();
             Query query = session.createSQLQuery(sql).addEntity("cr", OrganicFertilizers.class);
             event = query.list();
-            OrganicFertilizers temp = new OrganicFertilizers();
-            temp.setIdOrgFer(1000000);
-            temp.setNameOrgFer("Otro");
-            event.add(temp);
+//            OrganicFertilizers temp = new OrganicFertilizers();
+//            temp.setIdOrgFer(1000000);
+//            temp.setNameOrgFer("Otro");
+//            event.add(temp);
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) {

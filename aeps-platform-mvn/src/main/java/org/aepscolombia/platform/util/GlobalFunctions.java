@@ -375,7 +375,7 @@ public class GlobalFunctions {
         String[] vocabulary = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
         String randomKey = "";
         for (int i = 0; i < 5; i++) {
-            int numRandom = (int) Math.round(Math.random() * vocabulary.length);
+            int numRandom = (int) Math.round(Math.random() * vocabulary.length-1);
             randomKey += vocabulary[numRandom];
         }
         return randomKey;
@@ -672,8 +672,8 @@ public class GlobalFunctions {
 
         try {
             JSONParser parser = new JSONParser();
-//            obj = (JSONObject) parser.parse(new FileReader("/var/www/document/producerStructure.json"));
-            obj = (JSONObject) parser.parse(new FileReader("C:/producerStructure.json"));
+            obj = (JSONObject) parser.parse(new FileReader("/var/www/document/producerStructure.json"));
+//            obj = (JSONObject) parser.parse(new FileReader("C:/producerStructure.json"));
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
         } catch (IOException ex) {
@@ -916,8 +916,8 @@ public class GlobalFunctions {
 
         try {
             JSONParser parser = new JSONParser();
-//            obj = (JSONObject) parser.parse(new FileReader("/var/www/document/farmStructure.json"));
-            obj = (JSONObject) parser.parse(new FileReader("C:/farmStructure.json"));
+            obj = (JSONObject) parser.parse(new FileReader("/var/www/document/farmStructure.json"));
+//            obj = (JSONObject) parser.parse(new FileReader("C:/farmStructure.json"));
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
         } catch (IOException ex) {
@@ -1015,8 +1015,8 @@ public class GlobalFunctions {
 
         try {
             JSONParser parser = new JSONParser();
-//            obj = (JSONObject) parser.parse(new FileReader("/var/www/document/fieldStructure.json"));
-            obj = (JSONObject) parser.parse(new FileReader("C:/fieldStructure.json"));
+            obj = (JSONObject) parser.parse(new FileReader("/var/www/document/fieldStructure.json"));
+//            obj = (JSONObject) parser.parse(new FileReader("C:/fieldStructure.json"));
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
         } catch (IOException ex) {
@@ -1126,8 +1126,8 @@ public class GlobalFunctions {
 
         try {
             JSONParser parser = new JSONParser();
-//            obj = (JSONObject) parser.parse(new FileReader("/var/www/document/soilStructure.json"));
-            obj = (JSONObject) parser.parse(new FileReader("C:/soilStructure.json"));
+            obj = (JSONObject) parser.parse(new FileReader("/var/www/document/soilStructure.json"));
+//            obj = (JSONObject) parser.parse(new FileReader("C:/soilStructure.json"));
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
         } catch (IOException ex) {
@@ -1476,8 +1476,8 @@ public class GlobalFunctions {
 
         try {
             JSONParser parser = new JSONParser();
-//            obj = (JSONObject) parser.parse(new FileReader("/var/www/document/cropStructure.json"));
-            obj = (JSONObject) parser.parse(new FileReader("C:/cropStructure.json"));
+            obj = (JSONObject) parser.parse(new FileReader("/var/www/document/cropStructure.json"));
+//            obj = (JSONObject) parser.parse(new FileReader("C:/cropStructure.json"));
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
         } catch (IOException ex) {
@@ -1694,8 +1694,8 @@ public class GlobalFunctions {
 
         try {
             JSONParser parser = new JSONParser();
-//            obj = (JSONObject) parser.parse(new FileReader("/var/www/document/cropBeanStructure.json"));
-            obj = (JSONObject) parser.parse(new FileReader("C:/cropBeanStructure.json"));
+            obj = (JSONObject) parser.parse(new FileReader("/var/www/document/cropBeanStructure.json"));
+//            obj = (JSONObject) parser.parse(new FileReader("C:/cropBeanStructure.json"));
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
         } catch (IOException ex) {

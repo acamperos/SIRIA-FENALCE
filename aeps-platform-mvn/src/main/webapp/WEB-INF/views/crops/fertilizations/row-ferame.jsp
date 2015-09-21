@@ -15,7 +15,7 @@
                 <a class="btn btn-small btn-edit" title="<s:property value="getText('link.amendferedit.fertilization')" />" onclick="viewForm('/crop/showFer.action?action=modify&idCrop=${idCrop}', 'idFer', ${idFer}, '<s:property value="getText('title.amendferedit.fertilization')" />', 1050, 550);"><i class="icon-pencil"></i></a>
             <% } %>
             <% if (usrFerDao.getPrivilegeUser(userFer.getIdUsr(), "crop/delete")) { %>
-                <a class="btn btn-small delete_rows_dt btn-delete" title="<s:property value="getText('link.amendferdel.fertilization')" />" onclick="showDialogDelete(this, 'confirm_dialog_ferche', '/crop/deleteFer.action?idFer=${idFer}', '/crop/searchFer.action?idCrop=${idCrop}', 'divFerAme', 'divListFer');"><i class="icon-trash"></i></a>
+                <a class="btn btn-small delete_rows_dt btn-delete" title="<s:property value="getText('link.amendferdel.fertilization')" />" onclick="showDialogDelete(this, 'confirm_dialog_ferche', '/crop/deleteFer.action?idFer=${idFer}', '/crop/searchFer.action?idCrop=${idCrop}', 'divFerAme', 'divListFer'); $('.confirm_yes').click(function(){setTimeout(function() {showTimeline('/crop/viewInfoTime.action?idCrop=${idCrop}', 'divInfoTimeline', 'timeline')}, 2000);});"><i class="icon-trash"></i></a>
             <% } %>
         </div>
     <% } %>

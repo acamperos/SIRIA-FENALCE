@@ -357,7 +357,8 @@ public class ActionProfile extends BaseAction {
         mun.add(new Municipalities());         
         this.setTypeDocument("-1");
         this.setCity_producer(mun);
-        lanSel  = ActionContext.getContext().getLocale().getLanguage();
+        String lanTemp = (String) this.getSession().get(APConstants.SESSION_LANG);
+        lanSel = lanTemp.replace(coCode.toLowerCase(), "");
     }
     
 

@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" id="divSearchProducers">
     <div class="panel">
         <div class="panel-body">
             <%@ include file="search-producer.jsp" %>

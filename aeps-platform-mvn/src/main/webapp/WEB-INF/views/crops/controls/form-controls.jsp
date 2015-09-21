@@ -430,6 +430,7 @@
                     completeFormGetting('dialog-form', 'formCropCon', 'divPro', event.originalEvent.request.responseText);
                     setTimeout(function() {
                         showInfo("/crop/searchCon.action?idCrop="+$("#formCropCon_idCrop").val(), "divListPro");
+                        showTimeline("/crop/viewInfoTime.action?idCrop="+$("#formCropCon_idCrop").val(), "divInfoTimeline", "timeline");
                     }, 2000);
                 });
             </script>

@@ -69,6 +69,11 @@
                 <param name="lang">${lang}</param>
             </result>
         </action> 
+        <action name="lanUser"  method="lanUser" class="org.aepscolombia.platform.controllers.LocaleAction">
+            <interceptor-ref name="validateI18n"/>
+            <interceptor-ref name="jsonValidationWorkflowStack"/>            
+            <result name="states" type="json"></result>
+        </action>
         <action name="principal" class="org.aepscolombia.platform.controllers.LocaleAction">
             <result>/layout.jsp</result>
         </action>                
@@ -203,7 +208,7 @@
             <interceptor-ref name="viewAction"/>            
             <result name="page">/WEB-INF/views/generals/layoutPrivate.jsp</result>
         </action>
-        <action name="homePrivate">
+        <action name="homePrivate" class="org.aepscolombia.platform.controllers.LocaleAction">
             <interceptor-ref name="defaultStackAeps"/>  
             <interceptor-ref name="validateI18n"/>                                  
             <interceptor-ref name="viewAction"/>            
@@ -576,7 +581,7 @@
             <interceptor-ref name="defaultStackAeps"/>            
             <result name="states" type="json"></result>
         </action>
-        <action name="getInfoTime" method="getInfoTime" class="org.aepscolombia.platform.controllers.ActionCrop">
+        <action name="viewInfoTime" method="viewInfoTime" class="org.aepscolombia.platform.controllers.ActionCrop">
             <interceptor-ref name="defaultStackAeps"/>            
             <result name = "states" type="json"></result>
         </action>

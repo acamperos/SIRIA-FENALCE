@@ -57,7 +57,7 @@
                         <script>
                             $.subscribe('completeReport', function(event, data) {
                                 completeFormChange('', 'formReport', event.originalEvent.request.responseText);
-                                document.getElementById('imagenDinamica').setAttribute('src','');
+                                document.getElementById('imagenDinamica').removeAttribute('src');
                             });
                         </script>
                     </s:form>

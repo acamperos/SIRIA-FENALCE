@@ -41,19 +41,19 @@
                 <div class="control-group">
                     <s:label for="formCropSearch_year_begin" cssClass="control-label" value="%{getText('text.searchyear.report')}:"></s:label>
                     <div class="controls">
-                        <s:textfield name="year_begin" />
-                        <span class="help-block" style="margin-top: 5px;">min: 2000; max: 2014</span>
+                        <s:textfield name="year_begin" cssStyle="width: 66px;"/>
+                        <span class="help-block" style="margin-top: 5px;">min: 2000; max: 2016</span>
                     </div>                         
                 </div>                          
             </div>              
             <div id="divRangeMore" class="hide">
                 <div class="span0" style="margin-left: 0px;">
-                    <s:label cssClass="control-label" value="y" cssStyle="width: 20px; text-align: left;"></s:label>
+                    <s:label cssClass="control-label" value="y" cssStyle="width: 15px; text-align: left;"></s:label>
                 </div>
                 <div>
                     <div class="control-group">
                         <div class="controls">
-                            <s:textfield name="year_end" />
+                            <s:textfield name="year_end" cssStyle="width: 66px;" />
                         </div>
                     </div>
                 </div>
@@ -105,13 +105,13 @@
             if($('#formCropSearch_year_begin').length) {
                 $("#formCropSearch_year_begin").spinner({
                     min: 2000,
-                    max: 2014
+                    max: 2016
                 });
             }
             if($('#formCropSearch_year_end').length) {
                 $("#formCropSearch_year_end").spinner({
                     min: 2000,
-                    max: 2014
+                    max: 2016
                 });
             }
         </script>

@@ -32,26 +32,32 @@
                             </div>
                         </div>
                         <script>
-														var veryWeakLogin = "";
-														var weakLogin = "";
-														var mediumLogin = "";
-														var strongLogin = "";
-														var veryStrongLogin = "";
-														if(navigator.language=='es-ES' || navigator.language=='es-CO' || navigator.language=='es-PE' || navigator.language=='es-NI' || navigator.language=='es') {
-															veryWeakLogin = "Muy Debil";
-															weakLogin = "Debil";
-															mediumLogin = "Normal";
-															strongLogin = "Fuerte";
-															veryStrongLogin = "Muy Fuerte";
-														}
-														
-														if(navigator.language=='en-EN' || navigator.language=='en') {
-															veryWeakLogin = "Very Weak";
-															weakLogin = "Weak";
-															mediumLogin = "Normal";
-															strongLogin = "Strong";
-															veryStrongLogin = "Very Strong";
-														}
+                            var lanVal = $('#formSetting_lanSel').val();
+                            var str   = lanVal;
+                            var valEs = str.search("es");
+                            var valEn = str.search("en");    
+                            
+                            var veryWeakLogin = "";
+                            var weakLogin = "";
+                            var mediumLogin = "";
+                            var strongLogin = "";
+                            var veryStrongLogin = "";
+                            
+                            if(valEs!=-1) {
+                                    veryWeakLogin = "Muy Debil";
+                                    weakLogin = "Debil";
+                                    mediumLogin = "Normal";
+                                    strongLogin = "Fuerte";
+                                    veryStrongLogin = "Muy Fuerte";
+                            }
+
+                            if(valEn!=-1) {
+                                    veryWeakLogin = "Very Weak";
+                                    weakLogin = "Weak";
+                                    mediumLogin = "Normal";
+                                    strongLogin = "Strong";
+                                    veryStrongLogin = "Very Strong";
+                            }
 												
 												
                             if($('#formSetting_newPass').length) {

@@ -29,6 +29,7 @@
         <div id="divMessage"></div>
         <div id="dialog-form"></div>
         <div class="header">
+            <%--<s:hidden name="lanSel"/>--%>
             <%@ include file="header-private.jsp" %>
         </div>
         <div class="body" id="divBodyLayout">
@@ -48,20 +49,30 @@
         <script type="text/javascript" src="<%= request.getContextPath() %>/scripts/js/jquery/pwdMeter/jquery.pwdMeter.min.js"></script>
         <script type="text/javascript" src="<%= request.getContextPath() %>/scripts/js/generals/responsiveslides.js"></script>
         <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-        <script type="text/javascript" src="<%= request.getContextPath() %>/scripts/js/geoxml/geoxml3.js"></script>    
+        <script type="text/javascript" src="<%= request.getContextPath() %>/scripts/js/geoxml/geoxml3.js"></script>  
+        <script type="text/javascript" src="<%= request.getContextPath() %>/scripts/js/bootbox/bootbox.min.js"></script>
         <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/src/markerclusterer.js"></script>
         <script type="text/javascript" src="<%= request.getContextPath() %>/scripts/js/generals/jquery.multiple.select.js"></script>
         <script>
             var actionName   = '<%= session.getAttribute("action") %>';
-            var actionUrl    = '<%= session.getAttribute("actionUrl") %>';
-            activeOption('ulOptionsMenu', actionName+'Cls');
-            if (actionName!='' && actionName!='dashboard') {
-                showInfoPage(''+actionUrl, 'divBodyLayout');                       
-            } else if(actionName=='dashboard' || actionName=='') {
-                showInfoPage('homePrivate.action', 'divBodyLayout');
+            var actionUrl    = '<%= session.getAttribute("actionUrl") %>';      
+            function doAction() {                  
+                if (actionName!='' && actionName!='dashboard') {
+                    showInfoPage(''+actionUrl, 'divBodyLayout');                       
+                } else if(actionName=='dashboard' || actionName=='') {
+    //                showInfoPage('homePrivate.action', 'divBodyLayout');
+                    showInfoPageCountry('homePrivate.action', countryCode, 'divBodyLayout');
+                }
+                activeOption('ulOptionsMenu', actionName+'Cls');
+            }
+            $.when(getCountry()).then(doAction);
+            if (actionName=='dashboard') {
+                bootbox.alert("Se ha cambiado el sistema AEPS, para tener una mejor experiencia, si le llegase a presentar algún fallo, por favor escribanos en la sección de reportar problema!", function() {
+//                    console.log("Alert Callback");
+                });
             }
             $(document).ready(function() {
-                beoro_scrollToTop.init();
+                beoro_scrollToTop.init();                
             })
         </script>
     </body>

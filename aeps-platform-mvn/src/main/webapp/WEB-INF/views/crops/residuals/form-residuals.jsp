@@ -94,7 +94,7 @@
                     completeFormGetting('dialog-form', 'formCropRes', 'divRes', event.originalEvent.request.responseText);
                     setTimeout(function() {
                         showInfo("/crop/searchResidual.action?idCrop="+$("#formCropRes_idCrop").val(), "divListRes");
-                        showTimeline("/crop/getInfoTime.action?idCrop="+$("#formCropRes_idCrop").val(), "divInfoTimeline", "timeline");
+                        showTimeline("/crop/viewInfoTime.action?idCrop="+$("#formCropRes_idCrop").val(), "divInfoTimeline", "timeline");
                     }, 2000);
                 });
             </script>

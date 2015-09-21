@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" id="divSearchSoils">
     <div class="panel">
         <div class="panel-body">
             <%@ include file="search-soil.jsp" %>

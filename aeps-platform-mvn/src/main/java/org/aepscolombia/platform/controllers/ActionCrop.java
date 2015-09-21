@@ -611,7 +611,7 @@ public class ActionCrop extends BaseAction {
         this.areaField = areaField;
     }   
 
-    public Boolean isTotallyArea() {
+    public Boolean getTotallyArea() {
         return totallyArea;
     }
 
@@ -629,7 +629,7 @@ public class ActionCrop extends BaseAction {
     
     private boolean checkSowing;
 
-    public boolean isCheckSowing() {
+    public boolean getCheckSowing() {
         return checkSowing;
     }
 
@@ -779,7 +779,8 @@ public class ActionCrop extends BaseAction {
         Entities entTemp = entDao.findById(idEntSystem);
         typeEnt = entTemp.getEntitiesTypes().getIdEntTyp();
         assDao = new AssociationDao();
-        lanSel  = ActionContext.getContext().getLocale().getLanguage();
+        String lanTemp = (String) this.getSession().get(APConstants.SESSION_LANG);
+        lanSel = lanTemp.replace(coCode.toLowerCase(), "");
 //        if (user.getIdUsr()!=null) idEntSystem = UsersDao.getEntitySystem(user.getIdUsr());
     }
     
@@ -802,7 +803,7 @@ public class ActionCrop extends BaseAction {
             required.put("nameField", nameField);
             required.put("typeCrop", typeCrop);
             required.put("lastCrop", lastCrop);
-            if (totallyArea) {
+            if (!totallyArea) {
                 required.put("typeArea", typeArea);
                 required.put("areaCrop", areaCrop);
             }
@@ -833,7 +834,7 @@ public class ActionCrop extends BaseAction {
             if (!totallyArea) {
                 if (typeArea==1) {
                     areaCrop = ((areaCrop*areaOld)/100);
-        }
+                }
                 if (idCrop!=null && idCrop>0) {
                     HashMap temp  = cropDao.findById(idCrop);
                     Double areaCropTemp  = Double.parseDouble(String.valueOf(temp.get("quant_area")));
@@ -854,7 +855,8 @@ public class ActionCrop extends BaseAction {
                     addActionError("Se ingreso un area a sembrar por fuera del area del lote disponible");
                 }
             } else {
-                areaCrop = areaOld;
+//                areaCrop = areaOld;
+                areaCrop = availableArea;
             }
         }
     }
@@ -1066,7 +1068,7 @@ public class ActionCrop extends BaseAction {
         this.objInfo = objInfo;
     }   
     
-    public String getInfoTime() {
+    public String viewInfoTime() {
         if (!usrDao.getPrivilegeUser(idUsrSystem, "crop/create") || !usrDao.getPrivilegeUser(idUsrSystem, "crop/modify")) {
             return BaseAction.NOT_AUTHORIZED;
         }
@@ -1076,7 +1078,7 @@ public class ActionCrop extends BaseAction {
 //            LOG.error("There was an error trying to parse the activityId parameter");
             this.setIdCrop(-1);
         }  
-        state = "failure";
+        
         if (this.getIdCrop()!= -1) {      
             objInfo = new JSONObject();      
             phys   = physDao.objectById(this.getIdCrop());
@@ -1144,6 +1146,8 @@ public class ActionCrop extends BaseAction {
             sowing = null;
             harv   = null;
             event  = null;
+        } else {
+            state = "failure";
         }
         return "states";
     }
@@ -1420,10 +1424,10 @@ public class ActionCrop extends BaseAction {
              1-Porcentaje ((Area del lote * porcentaje/100)) = Area)
              2-Hectarea   ((Area/Area del lote)*100=porcentaje)
              */
+//            System.out.println("areaCrop=>"+areaCrop);
             double availableArea = areaAvaOld + areaCropSel;
-            if (!totallyArea) {
-                availableArea -= areaCrop;
-            } else {
+            availableArea -= areaCrop;
+            if (totallyArea) {
                 typeArea = 2;
             }
             lot.setTotallyAreaFie(totallyArea);
@@ -1581,14 +1585,19 @@ public class ActionCrop extends BaseAction {
 //            session.delete(pro);        
             session.saveOrUpdate(pro);
             
+            /* 
+             1-Porcentaje ((Area del lote * porcentaje/100)) = Area)
+             2-Hectarea   ((Area/Area del lote)*100=porcentaje)
+             */
             areaCrop = pro.getQuantAreaProEve();
             typeArea = pro.getTypeAreaProEve();
             Fields lot = lotDao.objectById(pro.getFields().getIdFie());   
             double areaOld = lot.getAreaFie();
+            double availableArea = lot.getAvailableAreaFie();
             if (typeArea==1) {
                 areaCrop = ((areaOld*areaCrop)/100);
             }  
-            double availableArea = areaOld + areaCrop;
+            availableArea += areaCrop;
             lot.setAvailableAreaFie(availableArea);
             session.saveOrUpdate(lot);
             

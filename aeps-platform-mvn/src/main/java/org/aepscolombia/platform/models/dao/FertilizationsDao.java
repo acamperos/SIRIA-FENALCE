@@ -473,7 +473,7 @@ public class FertilizationsDao
                 tempInfo.put("idFerOrg", data[5]);
                 tempInfo.put("ferTyp", "Organica");
                 tempInfo.put("nameFerTyp", data[6]);        
-                tempInfo.put("idFerTyp", data[7]);             
+                tempInfo.put("idFerApp", data[7]);             
                 tempInfo.put("otherProduct", data[8]);  
                 String doseInfo = String.valueOf(data[9]);
                 Double doseVal  = null;
@@ -550,7 +550,7 @@ public class FertilizationsDao
                 tempInfo.put("idFerAme", data[5]);
                 tempInfo.put("ferTyp", "Enmienda");
                 tempInfo.put("nameFerTyp", data[6]);
-                tempInfo.put("idFerTyp", data[7]);             
+                tempInfo.put("idFerApp", data[7]);             
                 tempInfo.put("otherProduct", data[8]);  
                 String doseInfo = String.valueOf(data[9]);
                 Double doseVal  = Double.parseDouble(doseInfo);

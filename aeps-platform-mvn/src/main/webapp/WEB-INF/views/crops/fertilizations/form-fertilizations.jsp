@@ -159,7 +159,7 @@
                     completeFormGetting('dialog-form', 'formCropFer', 'divFer', event.originalEvent.request.responseText);
                     setTimeout(function() {
                         showInfo("/crop/searchFer.action?idCrop="+$("#formCropFer_idCrop").val(), "divListFer");
-                        showTimeline("/crop/getInfoTime.action?idCrop="+$("#formCropFer_idCrop").val(), "divInfoTimeline", "timeline");
+                        showTimeline("/crop/viewInfoTime.action?idCrop="+$("#formCropFer_idCrop").val(), "divInfoTimeline", "timeline");
                     }, 2000);
                 });
             </script>

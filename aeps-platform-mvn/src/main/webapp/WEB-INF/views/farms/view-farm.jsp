@@ -6,22 +6,22 @@
             <s:hidden name="coCode"/>
             <s:hidden name="points"/>
             <div class="tabbable tabbable-bordered">
-                <ul class="nav nav-tabs">
-                    <li class="active"><a href="#tb3_a" data-toggle="tab">Mapa</a></li>
-                    <li><a href="#tb3_b" data-toggle="tab">Listado</a></li>
+                <ul class="nav nav-tabs">                    
+                    <li class="active"><a href="#tb3_a" data-toggle="tab">Listado</a></li>
+                    <li><a href="#tb3_b" id="aMap" data-toggle="tab"><i class="icon-star color-star"></i> Mapa</a></li>
                 </ul>
                 <div class="tab-content">
-                    <div class="tab-pane active" id="tb3_a" style="height: 570px">
-                        <div id="map_general" style="width:68%; height:90%; position: absolute;"></div>
+                    <div class="tab-pane" id="tb3_b" style="height: 462px">
+                        <div id="map_general" style="width:58%; height:60%; position: absolute;"></div>
                         <script>                
                             var pageSel = "<%=pageSel%>";
                             var jsonString  = $("#points").val();
                             var codeCountry = $("#coCode").val();    
                             var posCountry = null;
                             if (codeCountry=='NI') {
-                                posCountry = new google.maps.LatLng(12.1146, -84.2353);
+                                posCountry = new google.maps.LatLng(18.115696, -101.197561);
                             } else if (codeCountry=='CO') {
-                                posCountry = new google.maps.LatLng(3.721745231068953, -72.894287109375);
+                                posCountry = new google.maps.LatLng(13.207186, -90.000665);
                             }
 
 
@@ -42,7 +42,7 @@
 
                           var image = '../../img/market.png';
 
-//                          var jsonString = '{"type": "FeatureCollection", "features": [{"type": "Feature","geometry": {"type": "Point","coordinates": [-38.3613558,-8.8044875]},"properties": { "info": "<div style=\'line-height:1.35;overflow:hidden;white-space:nowrap;\'> Feature id = vale<br/>Feature Value = Zone 1 <button onclick=\'closeWindow();\' class=\'btn btn-large bt_cancel_farm\'><i class=\'icon-ban-circle\'></i>  Cancelar</button></div>", "Ordem": "193", "Eixo": "Leste", "Meta": "1L", "Municipio": "Petrolândia", "Estado": "PE", "Nome da Comunidade": "Agrovila 4"}}, {"type": "Feature","geometry": {"type": "Point","coordinates": [-38.3445892,-8.7940031]},"properties": {"Ordem": "194","Eixo": "Leste","Meta": "1L", "Municipio": "Petrolândia / Floresta", "Estado": "PE", "Nome da Comunidade": "Agrovila 5"}}]}';
+//                          var jsonString = '{"features":[{"properties":{"latFarm":"5.694153196271036","nameDep":"VALLE DEL CAUCA","lonFarm":"-74.27217881944443","status":"true","typeEnt":"2","dirFarm":"","idFarm":"1470","idPro":"1550","nameFarm":"la prueba","namePro":"Carlos Andres Perez Gomez","nameMun":"CALIMA","altFarm":"101.2843322753906"},"type":"Feature","geometry":{"type":"Point","coordinates":[-74.27217881944443,5.694153196271036]}}],"type":"FeatureCollection"}';
                           var geojson = $.parseJSON(jsonString);
 
                           var myOptions = {
@@ -126,13 +126,13 @@
                                   });
 
                             });
-//
-                            var markerCluster = new MarkerClusterer(map, markers);
+                            
+                            var markerCluster = new MarkerClusterer(map, markers);                            
                             google.maps.event.addDomListener(window, 'load', initialize);
                         </script> 
                     </div>
-                    <div class="tab-pane" id="tb3_b">
-                        <div class="container">
+                    <div class="tab-pane active" id="tb3_a">
+                        <div class="container" id="divSearchFarms">
                             <div class="panel">
                                 <div class="panel-body">
                                     <%@ include file="search-farm.jsp" %>
@@ -145,6 +145,16 @@
                     </div>
                 </div>
             </div>
+            <script>
+                $('a[href="#tb3_b"]').click(function(e) {
+                    setTimeout(showMap, 1000);
+                });
+
+                function showMap() {
+                    var myMap = document.getElementById('map_general');
+                    google.maps.event.trigger(myMap, 'resize');
+                };
+            </script>
         </div>
     </div>
 </div>

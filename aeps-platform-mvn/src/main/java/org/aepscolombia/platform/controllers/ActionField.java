@@ -5,10 +5,8 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.WriteResult;
-import com.opensymphony.xwork2.ActionContext;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -21,7 +19,6 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.aepscolombia.platform.models.dao.AssociationDao;
-import org.aepscolombia.platform.util.GlobalFunctions;
 import org.aepscolombia.platform.models.dao.EntitiesDao;
 import org.aepscolombia.platform.models.dao.FarmsDao;
 
@@ -67,7 +64,7 @@ public class ActionField extends BaseAction {
      */
     private int idProducer;
     private int idFarm;
-    private int idField;
+    private Integer idField;
     private String name_producer_lot;
     private String name_property_lot;
     private int typeLot;
@@ -93,6 +90,7 @@ public class ActionField extends BaseAction {
     private List<Entities> list_agronomist;
     private AssociationDao assDao;
     private String coCode;
+    private String points;
 
     
     /**
@@ -146,11 +144,11 @@ public class ActionField extends BaseAction {
         this.idProducer = idProducer;
     }   
 
-    public int getIdField() {
+    public Integer getIdField() {
         return idField;
     }
 
-    public void setIdField(int idField) {
+    public void setIdField(Integer idField) {
         this.idField = idField;
     }
     
@@ -281,6 +279,10 @@ public class ActionField extends BaseAction {
     public String getCoCode() {
         return coCode;
     }
+
+    public String getPoints() {
+        return points;
+    }   
     
     /**
      * Atributos generales de clase
@@ -404,7 +406,8 @@ public class ActionField extends BaseAction {
         Entities entTemp = entDao.findById(idEntSystem);
         typeEnt = entTemp.getEntitiesTypes().getIdEntTyp();
         assDao = new AssociationDao();
-        lanSel  = ActionContext.getContext().getLocale().getLanguage();
+        String lanTemp = (String) this.getSession().get(APConstants.SESSION_LANG);
+        lanSel = lanTemp.replace(coCode.toLowerCase(), "");
     }
     
     private Map fieldError;
@@ -477,7 +480,7 @@ public class ActionField extends BaseAction {
             required.put("name_lot", name_lot);
             required.put("typeLot", typeLot);
             required.put("altitude_lot", altitude_lot);
-//            required.put("area_lot", area_lot);
+            required.put("area_lot", area_lot);
             boolean enter = false;
             
 //            if (option_geo_lot == 1) {
@@ -715,7 +718,9 @@ public class ActionField extends BaseAction {
         listLot = lotDao.findByParams(findParams);
         this.setCountTotal(Integer.parseInt(String.valueOf(listLot.get(0).get("countTotal"))));
         this.setPage(page);
-        listLot.remove(0);
+        points = String.valueOf(listLot.get(listLot.size()-1).get("points"));
+        listLot.remove(0);       
+        listLot.remove(listLot.size()-1);       
         return SUCCESS;
     }
     
@@ -776,7 +781,8 @@ public class ActionField extends BaseAction {
             this.setPage(pageReq);
         }
         try {
-            this.setIdField(Integer.parseInt(this.getRequest().getParameter("idField")));
+            this.setIdField(Integer.parseInt(String.valueOf(this.getRequest().getParameter("idField"))));
+//            else this.setIdField(-1);
         } catch (NumberFormatException e) {
 //            LOG.error("There was an error trying to parse the activityId parameter");
             this.setIdField(-1);
@@ -803,7 +809,7 @@ public class ActionField extends BaseAction {
 //            this.setOption_geo(1);
             
             this.setAltitude_lot(String.valueOf(fieldInfo.get("altitude_lot")));
-            this.setArea_lot(String.valueOf(fieldInfo.get("area_lot")));
+            if (!String.valueOf(fieldInfo.get("area_lot")).equals("null")) this.setArea_lot(String.valueOf(fieldInfo.get("area_lot")));
         }
         return SUCCESS;
     }    
@@ -856,8 +862,8 @@ public class ActionField extends BaseAction {
 
         try {
             int idProOld = 0;
-            double availableArea = 0;
-            double areaOld = 0;
+            Double availableArea = null;
+            Double areaOld = null;
             tx = session.beginTransaction();
             SfGuardUserDao sfDao = new SfGuardUserDao();
             SfGuardUser sfUser = sfDao.getUserByLogin(user.getCreatedBy(), user.getNameUserUsr(), "");
@@ -876,13 +882,13 @@ public class ActionField extends BaseAction {
             } else {
                 HashMap fieldInfo = lotDao.findById(idField);
                 idProOld = Integer.parseInt(String.valueOf(fieldInfo.get("id_producer")));
-                availableArea = Double.parseDouble(String.valueOf(fieldInfo.get("available_area")));
-                areaOld = Double.parseDouble(String.valueOf(fieldInfo.get("area_lot")));
+                availableArea = (!String.valueOf(fieldInfo.get("available_area")).equals("null")) ? Double.parseDouble(String.valueOf(fieldInfo.get("available_area"))) : 0.0;
+                areaOld = (!String.valueOf(fieldInfo.get("area_lot")).equals("null")) ? Double.parseDouble(String.valueOf(fieldInfo.get("area_lot"))) : 0.0;
                 double busy = areaOld-availableArea;
                 if (areaLot>=areaOld)  {
                     availableArea = areaLot-busy;
                 }
-                if (areaOld>areaLot) {
+                if (areaOld>0.0 && areaOld>areaLot) {
                     if (busy>areaLot) {
                         state = "success";
                         info  = "El lote cuenta con una area ocupada de "+busy+" ha por favor ingresar valores superiores a este";
@@ -1037,7 +1043,7 @@ public class ActionField extends BaseAction {
         if (!usrDao.getPrivilegeUser(idUsrSystem, "field/delete")) {
             return BaseAction.NOT_AUTHORIZED;
         }
-        Integer idField = 0;
+        idField = 0;
         try {
             idField = Integer.parseInt(this.getRequest().getParameter("idField"));
         } catch (NumberFormatException e) {

@@ -5,7 +5,6 @@ import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
 import com.mongodb.WriteResult;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -25,6 +24,7 @@ import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.aepscolombia.platform.controllers.ActionField;
+import org.aepscolombia.platform.models.entity.Fields;
 import org.aepscolombia.platform.models.entity.LogEntities;
 //import org.aepscolombia.plataforma.models.dao.IEventoDao;
 import org.hibernate.Transaction;
@@ -64,7 +64,7 @@ public class ProductionEventsDao
         String sqlAdd = "";    
         
         sql += "select pe.id_pro_eve, l.id_fie, l.name_fie, pe.id_crop_type_pro_eve, pe.expected_production_pro_eve,";
-        sql += " pe.former_crop_pro_eve, pe.draining_pro_eve, pe.status, pe.other_former_crop_pro_eve, ct.name_cro_typ";
+        sql += " pe.former_crop_pro_eve, pe.draining_pro_eve, pe.status, pe.other_former_crop_pro_eve, ct.name_cro_typ,";
         sql += " pe.quant_area_pro_eve, pe.type_area_pro_eve";
         sql += " from production_events pe";
         sql += " inner join log_entities le on le.id_object_log_ent=pe.id_pro_eve and le.table_log_ent='production_events' and le.action_type_log_ent='C'";   
@@ -511,6 +511,7 @@ public class ProductionEventsDao
         }
         
         sql += " order by har.date_har";
+//        System.out.println("sql=>"+sql);
         try {
             tx = session.beginTransaction();
             Query query  = session.createSQLQuery(sql);
@@ -678,7 +679,7 @@ public class ProductionEventsDao
         String sql = "";
         String entType = String.valueOf(args.get("entType"));
         
-        sql += "select ep.id_pro_eve as ID_CULTIVO, l.id_fie as ID_LOTE, f.id_far as ID_FINCA, p.id_pro as ID_PROD, e.name_ent as USUARIO, ent.name_ent as PRODUCTOR, concat(ent.document_type_ent, ':', ent.document_number_ent) as CEDULA, f.name_far as FINCA, l.latitude_fie as LAT_LOTE, l.longitude_fie as LONG_LOTE, ";
+        sql += "select ep.id_pro_eve as ID_CULTIVO, l.id_fie as ID_LOTE, f.id_far as ID_FINCA, p.id_pro as ID_PROD, IF(e.name_ent is null,e.email_ent,e.name_ent) as USUARIO, ent.name_ent as PRODUCTOR, concat(ent.document_type_ent, ':', ent.document_number_ent) as CEDULA, f.name_far as FINCA, l.latitude_fie as LAT_LOTE, l.longitude_fie as LONG_LOTE, ";
         sql += "DATE_FORMAT(sie.date_sow,'%Y-%m-%d') as FECHA_SIEMBRA, sie.sowing_type_sow as TIPO_SIEMBRA, sie.seeds_number_sow as NUM_SEMILLAS, IF(sie.treated_seeds_sow=true,'SI','NO') as SEM_TRATADAS, sie.furrows_distance_sow as DIST_SURCOS, sie.sites_distance_sow as DIST_PLANTAS, ";
         sql += "tc.name_cro_typ as TIPO_CULTIVO, IF(tc.id_cro_typ=1,csem.color_see_col,'N/A') as COLOR_ENDOSPERMO, IF(tc.id_cro_typ=2,fr.seeds_number_site_bea,'N/A') as SEM_POR_SITIO, IF(tc.id_cro_typ=2,ts.name_see_typ,'N/A') as TIPO_DE_SEMILLA, ";
         sql += "IF(tc.id_cro_typ=2,IF(fr.growing_environment_bea = 1, 'Arbustivo',IF(fr.growing_environment_bea = 2, 'Voluble', '')),'N/A') as HABITO_CRECIMIENTO, mg.name_gen as MATERIAL_GENETICO, ";
@@ -755,7 +756,7 @@ public class ProductionEventsDao
         sql += ")";
         sql += " order by ep.id_pro_eve, e.name_ent, ent.name_ent";
 
-        System.out.println("sql=>"+sql);
+//        System.out.println("sql=>"+sql);
         HSSFWorkbook workbook = null;
         try {
             tx = session.beginTransaction();
@@ -1295,7 +1296,7 @@ public class ProductionEventsDao
         sql += "ep.expected_production_pro_eve, ep.former_crop_pro_eve, ep.draining_pro_eve, ep.data_capture_date_pro_eve, ep.did_soil_analysis_pro_eve,";
         sql += "ep.reason_soil_analysis_pro_eve, ep.irrigate_pro_eve, ep.main_pest_pro_eve, ep.main_disease_pro_eve, ep.main_weed_pro_eve,";
         sql += "ep.other_former_crop_pro_eve, ep.other_main_pest_pro_eve, ep.other_main_disease_pro_eve, ep.other_main_weed_pro_eve,";
-        sql += "ep.num_cycles_before_pro_eve, ep.main_crop_problem_pro_eve, ep.created_by";
+        sql += "ep.num_cycles_before_pro_eve, ep.main_crop_problem_pro_eve, ep.created_by, ep.quant_area_pro_eve, ep.type_area_pro_eve";
         sql += " from production_events ep";
         if (!valSel.equals("")) sql += " where ep.status=1 and ep.id_pro_eve in ("+valSel+")";
 //        System.out.println("sql=>"+sql);          
@@ -1325,10 +1326,11 @@ public class ProductionEventsDao
                 Integer typeArea  = pro.getTypeAreaProEve();
                 Fields lot = lotDao.objectById(pro.getFields().getIdFie());   
                 double areaOld    = lot.getAreaFie();
+                double availableArea = lot.getAvailableAreaFie();
                 if (typeArea==1) {
                     areaCrop = ((areaOld*areaCrop)/100);
                 }  
-                double availableArea = areaOld + areaCrop;                
+                availableArea += areaCrop;                
                 lot.setAvailableAreaFie(availableArea);
                 session.saveOrUpdate(lot);
 

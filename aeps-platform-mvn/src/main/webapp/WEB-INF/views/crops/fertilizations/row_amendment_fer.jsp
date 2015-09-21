@@ -33,7 +33,7 @@
                 </div> 
             </div> 
             <% String classNewProAme="hide"; %>
-            <s:set name="idCheAme" value="%{#attr.formAmen}.amendmentsFertilizers.idAmeFer"/>
+            <s:set name="idCheAme" value="%{#attr.amendmentsFertilizers.idAmeFer}"/>
             <s:if test="%{#idCheAme==1000000}">
                 <% classNewProAme = "";%>
             </s:if> 

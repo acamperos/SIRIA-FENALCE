@@ -60,6 +60,7 @@ public class ActionIssues extends BaseAction {
     private File archivo;
     private String archivoFileName;
     private String archivoContentType;
+    private String coCode;
 
     public String getArchivoContentType()
     {
@@ -197,7 +198,9 @@ public class ActionIssues extends BaseAction {
         idEntSystem = UsersDao.getEntitySystem(user.getIdUsr());
         usrDao = new UsersDao();
         idUsrSystem = user.getIdUsr();
-        lanSel  = ActionContext.getContext().getLocale().getLanguage();
+        coCode = (String) ActionContext.getContext().getSession().get(APConstants.COUNTRY_CODE);
+        String lanTemp = (String) this.getSession().get(APConstants.SESSION_LANG);
+        lanSel = lanTemp.replace(coCode.toLowerCase(), "");
     }
     
     

@@ -364,7 +364,8 @@ public class ActionFer extends BaseAction {
         coCode = (String) this.getSession().get(APConstants.COUNTRY_CODE);
         usrDao =  new UsersDao();
         idUsrSystem = user.getIdUsr();
-        lanSel  = ActionContext.getContext().getLocale().getLanguage();
+        String lanTemp = (String) this.getSession().get(APConstants.SESSION_LANG);
+        lanSel = lanTemp.replace(coCode.toLowerCase(), "");
     }
     
     /**
@@ -820,9 +821,9 @@ public class ActionFer extends BaseAction {
                         ferOrgNew.setIdOrgFer(null);
                         ferOrgNew.setFertilizations(fer);
                         ferOrgNew.setStatus(true);
-                        if (ferOrgNew.getOtherProductOrgFer()!=null && !ferOrgNew.getOtherProductOrgFer().equals("")) {
-                            ferOrgNew.setOrganicFertilizers(null);
-                        }
+//                        if (ferOrgNew.getOrganicFertilizers().getIdOrgFer()==1000000 && ferOrgNew.getOtherProductOrgFer()!=null && !ferOrgNew.getOtherProductOrgFer().equals("")) {
+//                            ferOrgNew.setOrganicFertilizers(null);
+//                        } 
                         ferOrgNew.setFertilizations(fer);
                         ferOrgNew.setStatus(true);
                         if (coCode.equals("NI")) {                
@@ -840,9 +841,9 @@ public class ActionFer extends BaseAction {
                         ferAmeNew.setIdAmeFer(null);
                         ferAmeNew.setFertilizations(fer);
                         ferAmeNew.setStatus(true);
-                        if (ferAmeNew.getOtherProductAmeFer()!=null && !ferAmeNew.getOtherProductAmeFer().equals("")) {
-                            ferAmeNew.setAmendmentsFertilizers(null);
-                        }
+//                        if (ferAmeNew.getAmendmentsFertilizers().getIdAmeFer()==1000000 && ferAmeNew.getOtherProductAmeFer()!=null && !ferAmeNew.getOtherProductAmeFer().equals("")) {
+//                            ferAmeNew.setAmendmentsFertilizers(null);
+//                        }
                         ferAmeNew.setFertilizations(fer);
                         ferAmeNew.setStatus(true);
                         if (coCode.equals("NI")) {                
@@ -895,7 +896,7 @@ public class ActionFer extends BaseAction {
             } else if (action.equals("M")) {
                 info  = getText("message.failedit.fertilization");
             }
-        } catch (ParseException e) { 
+        } catch (Exception e) { 
         
         } finally {
             session.close();

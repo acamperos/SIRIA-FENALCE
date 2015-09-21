@@ -411,6 +411,14 @@ public class ActionFarm extends BaseAction {
         this.typeEnt = typeEnt;
     }   
 
+    public String getCoCode() {
+        return coCode;
+    }
+    
+    public String getPoints() {
+        return points;
+    }
+    
     private String lanSel;
 
     public String getLanSel() {
@@ -420,7 +428,6 @@ public class ActionFarm extends BaseAction {
     public void setLanSel(String lanSel) {
         this.lanSel = lanSel;
     }   
-    
     
     @Override
     public void prepare() throws Exception {
@@ -432,7 +439,8 @@ public class ActionFarm extends BaseAction {
         EntitiesDao entDao = new EntitiesDao();
         Entities entTemp = entDao.findById(idEntSystem);
         typeEnt = entTemp.getEntitiesTypes().getIdEntTyp();
-        lanSel  = ActionContext.getContext().getLocale().getLanguage();
+        String lanTemp = (String) this.getSession().get(APConstants.SESSION_LANG);
+        lanSel = lanTemp.replace(coCode.toLowerCase(), "");
         if (entTemp.getEntitiesTypes().getIdEntTyp()==2) {
             ProducersDao proDao = new ProducersDao();
             Producers proTemp   = new Producers();

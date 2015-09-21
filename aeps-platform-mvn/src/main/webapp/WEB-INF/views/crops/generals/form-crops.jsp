@@ -49,13 +49,13 @@
                         </div>
                     </div>
                     <div class="control-group">
-                        <s:label for="formCrop_totallyArea" cssClass="control-label" value="Se va a sembrar la totalidad del lote:"></s:label>
+                        <s:label for="formCrop_totallyArea" cssClass="control-label" value="Se va a sembrar la totalidad del lote disponible:"></s:label>
                         <div class="controls radioSelect">
                             <s:radio list="#{'true':'Si', 'false':'No'}" name="totallyArea" onclick="checkArea('totallyArea', 'divAreaField')" />
                         </div>
                     </div>
                     <% String classTotally="hide"; %>
-                    <s:if test="%{!totallyArea}">
+                    <s:if test="%{!totallyArea && totallyArea!=null}">
                         <% classTotally = "";%>
                     </s:if> 
                     <div class="<%= classTotally %>" style="padding-left: 28px" id="divAreaField">            

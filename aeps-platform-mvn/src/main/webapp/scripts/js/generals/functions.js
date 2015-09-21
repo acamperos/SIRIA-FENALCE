@@ -187,10 +187,10 @@ function showOtherElementPrep(valSel, divShowA, divShowB, lblDepth) {
         $("#" + divShowA).show();
         $("#" + divShowB).show();
         $("#" + lblDepth).addClass("req");
-    } else if ((valSel >= 1 && valSel <= 5) || (valSel >= 12 && valSel <= 16)) {
+    } else if ((valSel >= 1 && valSel <= 5) || (valSel >= 13 && valSel <= 16)) {
         $("#" + divShowA).show();
         $("#" + divShowB).hide();
-        if ((valSel >= 12 && valSel <= 16)) {
+        if ((valSel >= 13 && valSel <= 16)) {
             $("#" + lblDepth).removeClass("req");
         } else {
             $("#" + lblDepth).addClass("req");
@@ -228,6 +228,7 @@ function changeTitleWindow(title) {
 function viewForm(url, nameData, valData, title, width, height) {
 //    showWindow(title, width, height, '<label>Entreee</label>');
     //url = "/aeps"+url;
+    addMessageProcess();
     $.ajax({
         type: "GET",
         url: url,
@@ -239,6 +240,7 @@ function viewForm(url, nameData, valData, title, width, height) {
 //                $('#' + message).html(obj.info);
 //            } else if (obj.state == 'success') {
                 // alert(obj.info);
+                $.unblockUI();
                 showWindow(title, width, height, information);
 //            }
         }
@@ -401,11 +403,13 @@ function showInfo(url, divShow)
 function viewInfo(url, title, divShow, divHide)
 {
     //url = "/aeps"+url;
+    addMessageProcess();
     $.ajax({
         type: "GET",
         url: url,
         success: function(information) {
             var obj = jQuery.parseJSON(information);
+            $.unblockUI();
             if (obj.state == 'failure') {
                 $("#" + message).html(obj.info);
             } else if (obj.state == 'success') {
@@ -423,12 +427,14 @@ function viewInfo(url, title, divShow, divHide)
 function showInfoPage(url, valFill)
 {
     var data;
+    addMessageProcess();
     $('#' + valFill).html('');
     $.ajax({
         type: "GET",
         url: url,
         data: data,
         success: function(information) {
+            $.unblockUI();
             $('#' + valFill).html(information);
         }
     });
@@ -437,6 +443,7 @@ function showInfoPage(url, valFill)
 function chargeValues(url, valName, valSend, valFill, formId)
 {
     //url = "/aeps"+url;
+    addMessageProcess();
     var data;
     data = '&' + valName + '=' + valSend;
     $('#' + valFill).html('');
@@ -445,6 +452,7 @@ function chargeValues(url, valName, valSend, valFill, formId)
         url: url,
         data: data,
         success: function(information) {
+            $.unblockUI();
             var json = jQuery.parseJSON(information);
             if (json.state == 'failure') {
                 showMessError(formId, json.info);
@@ -829,17 +837,68 @@ function completeFormCrop(dialogId, formId, divId, information)
     }  
 }
 
+function addMessageProcessLogin(lanSel) 
+{
+//    var value = eval('@Request.RequestContext.HttpContext.Session["session_lang"]');
+    
+    /*var lanUser = function () {        
+        $.ajax({
+            type: "GET",
+            url: "/lanUser.action",
+            success: function(information) {
+                var json = jQuery.parseJSON(information);
+                console.log(information);
+                alert(json);
+                return json;
+            }        
+        });
+    }*/
+    
+    var lanVal = $('#'+lanSel).val();
+    var titleMess = "";
+    var str   = lanVal;
+    var valEs = str.search("es");
+    var valEn = str.search("en");
+    if(valEs!=-1) {
+        titleMess = "Procesando";
+    }
+    
+    if(valEn!=-1) {
+        titleMess = "Processing";
+    }
+    
+    $.blockUI({ css: { 
+            'border-top-left-radius': '10px', 
+            'border-top-right-radius': '10px', 
+            'border-bottom-right-radius': '10px', 
+            'border-bottom-left-radius': '10px',
+            border: 'none', 
+            padding: '15px', 
+            backgroundColor: '#000', 
+            '-webkit-border-radius': '10px', 
+            '-moz-border-radius': '10px', 
+            opacity: .5, 
+            color: '#fff' 
+        },
+        message: '<div class="view-process"><div><h3><i style="font-size:30px" class="icon-spinner icon-spin"></i><br>'+titleMess+'....</h3></div></div>' 
+    }); 
+}
+
 function addMessageProcess() 
 {
 //    z-index: 1011; position: fixed; padding: 15px; margin: 0px; width: 30%; top: 40%; left: 35%; text-align: center; color: rgb(255, 255, 255); border: none; background-color: rgb(0, 0, 0); cursor: wait; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; opacity: 0.5;
     var titleMess = "";
-    if(navigator.language=='es-ES' || navigator.language=='es-CO' || navigator.language=='es-PE' || navigator.language=='es-NI' || navigator.language=='es') {
+    var str   = navigator.language;
+    var valEs = str.search("es");
+    var valEn = str.search("en");
+    if(valEs!=-1) {
         titleMess = "Procesando";
     }
     
-    if(navigator.language=='en-EN' || navigator.language=='en') {
+    if(valEn!=-1) {
         titleMess = "Processing";
     }
+    
     $.blockUI({ css: { 
             'border-top-left-radius': '10px', 
             'border-top-right-radius': '10px', 
@@ -939,7 +998,6 @@ function validationForm(form, errors)
 
 function searchDecimalNumber(formId) {
     var lanSel=$('#'+formId+'_lanSel').val();
-//    alert(lanSel)
     $('#'+formId+' *').filter(':input').each(function(key, elem){
         var decimal=  /^[-+]?[0-9]+\.[0-9]+$/;   
         var valTemp = elem.value;
@@ -960,7 +1018,8 @@ function restoreDecimalNumber(formId) {
 
 function settingVal(lanSel, valSel) {
     if(lanSel==='es') {
-        valSel = valSel.replace('.',',');
+        valSel = valSel.replace(',','.');
+//        valSel = valSel.replace('.',',');
     } else if(lanSel==='en') {
         valSel = valSel.replace(',','.');
     }    
@@ -1342,11 +1401,11 @@ function parseValueInt(strVal) {
 
 var titleSelect = "";
 if(navigator.language=='es-ES' || navigator.language=='es-CO' || navigator.language=='es-PE' || navigator.language=='es-NI' || navigator.language=='es') {
-    titleSelect = "Arriba";
+//    titleSelect = "Arriba";
 }
 
 if(navigator.language=='en-EN' || navigator.language=='en') {
-    titleSelect = "Up";
+//    titleSelect = "Up";
 }
 
 beoro_scrollToTop = {
@@ -1709,7 +1768,7 @@ function clickSelAll(classAll, classNum, btnId)
 {
     $('.'+classAll).click();
 //    $('.'+classNum).prop('checked', $(this).is(':checked'));
-    if ($('.'+classAll).prop('checked')) {
+    if ($('.'+classAll).prop('checked') && $('.'+classNum).length>=1) {
         $('#'+btnId).prop('disabled', false);
         $('#'+btnId).removeClass('disabled');
         $('.'+classNum).prop('checked', true);
@@ -2060,3 +2119,14 @@ function selectItemCropcheck(namField, idField, valName, valId)
     $("#" + idField).val(valId);
     closeWindow();
 }
+
+/*
+var o = {"0":"1","1":"2","2":"3","3":"4"};
+
+console.log(o)
+
+var array = $.map(o, function(value, index) {
+    return index+":"+value;
+});
+
+console.log(array)*/

@@ -15,6 +15,8 @@
                 <li><span><s:property value="getText('label.optfield')" /></span></li>
             </ul>
         </div>
-        <%@ include file="view-field.jsp" %>                  
+        <div id="divViewField">
+            <%@ include file="view-field.jsp" %>                  
+        </div>
     </body>
 </html>           

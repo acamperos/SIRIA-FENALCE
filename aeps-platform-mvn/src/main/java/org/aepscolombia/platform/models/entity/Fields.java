@@ -34,8 +34,8 @@ public class Fields  implements java.io.Serializable {
      private double altitudeFie;
      private double latitudeFie;
      private double longitudeFie;
-     private double areaFie;
-     private double availableAreaFie;
+     private Double areaFie;
+     private Double availableAreaFie;
      private Boolean totallyAreaFie;
      private String measureUnitFie;
      private Boolean pestsControlFie;
@@ -51,7 +51,7 @@ public class Fields  implements java.io.Serializable {
         this.idFie=idFie;
     }
 	
-    public Fields(String nameFie, double altitudeFie, double latitudeFie, double longitudeFie, double areaFie, boolean status) {
+    public Fields(String nameFie, double altitudeFie, double latitudeFie, double longitudeFie, Double areaFie, boolean status) {
         this.nameFie = nameFie;
         this.altitudeFie = altitudeFie;
         this.latitudeFie = latitudeFie;
@@ -59,7 +59,7 @@ public class Fields  implements java.io.Serializable {
         this.areaFie = areaFie;
         this.status = status;
     }
-    public Fields(FieldTypes fieldTypes, Farms farms, String nameFie, double altitudeFie, double latitudeFie, double longitudeFie, double areaFie, double availableAreaFie, Boolean totallyAreaFie, String measureUnitFie, Boolean pestsControlFie, Boolean diseasesControlFie, boolean status, String idProjectFie, Integer createdBy) {
+    public Fields(FieldTypes fieldTypes, Farms farms, String nameFie, double altitudeFie, double latitudeFie, double longitudeFie, Double areaFie, Double availableAreaFie, Boolean totallyAreaFie, String measureUnitFie, Boolean pestsControlFie, Boolean diseasesControlFie, boolean status, String idProjectFie, Integer createdBy) {
        this.fieldTypes = fieldTypes;
        this.farms = farms;
        this.nameFie = nameFie;
@@ -152,11 +152,11 @@ public class Fields  implements java.io.Serializable {
     }
     
     @Column(name="available_area_fie", precision=22, scale=0)
-    public double getAvailableAreaFie() {
+    public Double getAvailableAreaFie() {
         return this.availableAreaFie;
     }
     
-    public void setAvailableAreaFie(double availableAreaFie) {
+    public void setAvailableAreaFie(Double availableAreaFie) {
         this.availableAreaFie = availableAreaFie;
     }
     

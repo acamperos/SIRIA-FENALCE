@@ -35,16 +35,16 @@
 <div id="divSoil" class="w-box">
     <% if (usrSoilDao.getPrivilegeUser(userSoil.getIdUsr(), "soil/create")) { %>
         <% if (entTypeSoilId!=3) { %>
+            <button type="button" class="btn btn-large btn-register btn-space" onclick="viewForm('/soilchemical/showSoilChemical.action?action=create', 'idSoil', '', '<s:property value="getText('title.createsoil.soilanalysis')" />', 1050, 700)">
+                <i class="icon-plus"></i> <s:property value="getText('button.addsoil.soilanalysis')" />
+            </button><br />
             <div class="btn btn-group btn-space" onclick="clickSelAll('chkSelectAll', 'chkNumber', 'btnDelSoil');">
                 <input type="checkbox" class="chkSelectAll textFloat" />
                 <label class="textFloat" style="padding-left: 7px; margin-bottom: 0;"><s:property value="getText('label.selectall.soilanalysis')" /></label>
             </div>
             <button type="button" id="btnDelSoil" disabled="disabled" class="btn btn-initial btn-space btnGetAll disabled" onclick="showDialogDeleteAll(this, 'chkNumber', 'confirm_dialog_soil', '/soilchemical/deleteAllSoilChemical.action', '/soilchemical/searchSoilChemical.action?page=<%=pageNow%>', 'divSoil', '<%=divHide%>');">
                 <i class="icon-trash"></i> <s:property value="getText('button.deletesel.soilanalysis')" />
-            </button>
-            <button type="button" class="btn btn-initial btn-space" onclick="viewForm('/soilchemical/showSoilChemical.action?action=create', 'idSoil', '', '<s:property value="getText('title.createsoil.soilanalysis')" />', 1050, 700)">
-                <i class="icon-plus"></i> <s:property value="getText('button.addsoil.soilanalysis')" />
-            </button>
+            </button>            
         <% } %>
     <% } %>
     <table class="table table-bordered table-hover" style="<%= table %>" id='tblSoil'>
@@ -97,3 +97,9 @@
     <% String result = JavascriptHelper.pager_params_ajax(pageNow, countTotal, maxResults, "/soilchemical/searchSoilChemical.action?selected="+value, divHide, "", "", "formSoilSearch");%>    
     <%= result%>
 </div>
+<s:if test="listSoils.size() > 2">
+    <!--<script> $("#divSearchSoils").show(); </script>-->
+</s:if> 
+<s:else>
+    <!--<script> $("#divSearchSoils").hide(); </script>-->
+</s:else>

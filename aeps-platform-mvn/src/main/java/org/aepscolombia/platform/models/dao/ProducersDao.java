@@ -296,7 +296,7 @@ public class ProducersDao
             tx = session.beginTransaction();
 //            Query query = session.createSQLQuery(sql);
             Query query  = session.createSQLQuery(sql);
-            System.out.println("sql->"+query.list().size());
+//            System.out.println("sql->"+query.list().size());
             HashMap tempTotal = new HashMap();
             tempTotal.put("countTotal", query.list().size());
             result.add(tempTotal);
@@ -505,7 +505,7 @@ public class ProducersDao
         String sql = "";
         String entType = String.valueOf(args.get("entType"));
 
-        sql += "select p.id_pro as ID_PROD, e.name_ent as USUARIO, ent.name_ent as PRODUCTOR, concat(ent.document_type_ent, ':', ent.document_number_ent) as CEDULA, ";
+        sql += "select p.id_pro as ID_PROD, IF(e.name_ent is null,e.email_ent,e.name_ent) as USUARIO, ent.name_ent as PRODUCTOR, concat(ent.document_type_ent, ':', ent.document_number_ent) as CEDULA, ";
         sql += "ent.cellphone_ent as CELULAR, ent.phone_ent as TELEFONO, ent.email_ent as CORREO_ELE, dep.name_dep as DEPARTAMENTO";
         sql += " from producers p";
         sql += " inner join entities ent on ent.ID_ENT = p.id_entity_pro";
@@ -551,7 +551,7 @@ public class ProducersDao
         }
         sql += ")";
         sql += " order by e.name_ent";
-        System.out.println("sql=>"+sql);
+//        System.out.println("sql=>"+sql);
         
         try {
             tx = session.beginTransaction();

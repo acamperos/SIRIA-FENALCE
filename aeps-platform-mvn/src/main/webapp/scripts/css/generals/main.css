@@ -491,6 +491,10 @@ form {
     color: #68AF23;
 }
 
+.color-star {
+    color: gold;
+}
+
 .mapAdv {
     opacity: 0.4;
     filter: alpha(opacity=40); /* For IE8 and earlier */

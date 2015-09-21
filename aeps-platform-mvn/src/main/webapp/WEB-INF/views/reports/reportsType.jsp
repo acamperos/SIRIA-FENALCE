@@ -59,10 +59,10 @@
                     <div class="span6 thumbnail custom-thumb">
                         <s:a href="%{contextPath}/checkList.action" role="button" targets="divBodyLayout"><img class="img-responsive hidden-xs" src="img/crops.jpg" alt=""></s:a>
                         <div class="caption">
-                            <h3><s:property value="getText('title.yield.report')" /></h3>
-                            <p><s:property value="getText('label.yield.report')" /></p>                        
+                            <h3><s:property value="getText('title.fenalcheck.report')" /></h3>
+                            <p><s:property value="getText('label.fenalcheck.report')" /></p>                        
                             <p>
-                                <s:a cssClass="btn btn-initial" href="%{contextPath}/checkList.action" role="button" targets="divBodyLayout"><s:property value="getText('link.yield.report')" /> <i class="icon-double-angle-right"></i></s:a>
+                                <s:a cssClass="btn btn-initial" href="%{contextPath}/checkList.action" role="button" targets="divBodyLayout"><s:property value="getText('link.fenalcheck.report')" /> <i class="icon-double-angle-right"></i></s:a>
                             </p>
                         </div>
                     </div> 

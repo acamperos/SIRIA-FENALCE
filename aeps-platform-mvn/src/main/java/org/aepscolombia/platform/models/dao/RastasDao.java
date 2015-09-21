@@ -789,7 +789,7 @@ public class RastasDao
         String sql = "";
         String entType = String.valueOf(args.get("entType"));
         
-        sql += "select r.ID_RAS as ID_RASTA, l.id_fie as ID_LOTE, f.id_far as ID_FINCA, p.id_pro as ID_PROD, e.name_ent as USUARIO, r.PENDIENTE_TERRENO_RAS as PENDIENTE,";
+        sql += "select r.ID_RAS as ID_RASTA, l.id_fie as ID_LOTE, f.id_far as ID_FINCA, p.id_pro as ID_PROD, IF(e.name_ent is null,e.email_ent,e.name_ent) as USUARIO, r.PENDIENTE_TERRENO_RAS as PENDIENTE,";
         sql += "UPPER(r.TERRENO_CIRCUNDANTE_RAS) as TERRENO, UPPER(r.POSICION_PERFIL_RAS) as POSICION, r.NUMERO_CAPAS_RAS as CAPAS, espesorRasta(r.ID_RAS, le.id_entity_log_ent) as ESPESORES, cSecoRasta(r.ID_RAS, le.id_entity_log_ent) as COLORES_SECOS, cHumedoRasta(r.ID_RAS, le.id_entity_log_ent) as COLORES_HUMEDOS, ";
         sql += "texturaRasta(r.ID_RAS, le.id_entity_log_ent) as TEXTURAS, resistenciaRasta(r.ID_RAS, le.id_entity_log_ent) as RESISTENCIAS, r.PH_RAS as PH, UPPER(r.CARBONATOS_RAS) as CARBONATOS, IF(r.CARBONATOS_RAS='no tiene','NA',r.PROFUNDIDAD_CARBONATOS_RAS) as PROF_CARBONATOS, UPPER(r.PIEDRAS_SUPERFICIE_RAS) as PIEDRAS_SUPERFICIE,";
         sql += "UPPER(r.ROCAS_SUPERFICIE_RAS) as ROCAS_SUPERFICIE, UPPER(r.PIEDRAS_PERFIL_RAS) as PIEDRAS_PERFIL, UPPER(r.ROCAS_PERFIL_RAS) as ROCAS_PERFIL, IF(r.HORIZONTE_PEDROGOSO_ROCOSO_RAS=1,'SI','NO') as HORIZONTE_PEDREGOSO, ";

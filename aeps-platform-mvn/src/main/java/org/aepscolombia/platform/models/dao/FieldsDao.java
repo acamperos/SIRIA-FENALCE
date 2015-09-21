@@ -41,6 +41,8 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 /**
  * Clase FieldsDao
@@ -227,7 +229,7 @@ public class FieldsDao
         
         if (args.containsKey("selected")) {
             String valSel = String.valueOf(args.get("selected"));
-            if (!valSel.equals("lot")) sql += " and l.available_area_fie>0";
+            if (valSel.equals("crop")) sql += " and l.available_area_fie>0";
         }
         
         if (args.containsKey("search_field")) {
@@ -306,11 +308,17 @@ public class FieldsDao
             HashMap tempTotal = new HashMap();
             tempTotal.put("countTotal", query.list().size());
             result.add(tempTotal);
+            eventsTotal = query.list();     
             if(query.list().size()>maxResults) {
                 query.setFirstResult(valIni);
                 query.setMaxResults(maxResults);      
             }
             events = query.list();     
+            
+            JSONObject objPrin = new JSONObject();
+            objPrin.put("type", "FeatureCollection");     
+            
+            JSONArray features = new JSONArray();
             
             for (Object[] data : events) {
                 HashMap temp = new HashMap();
@@ -336,6 +344,43 @@ public class FieldsDao
                 }
                 result.add(temp);
             }
+            
+            for (Object[] data : eventsTotal) {                
+                JSONObject objRow = new JSONObject();
+                objRow.put("type", "Feature");
+
+                JSONObject objRowCont = new JSONObject();
+                objRowCont.put("type", "Point");
+                JSONArray listCoor = new JSONArray();
+                listCoor.add(data[6]);
+                listCoor.add(data[5]);
+
+                objRowCont.put("coordinates", listCoor);
+                objRow.put("geometry", objRowCont);
+                
+                /*temp.put("available_area", data[15]);
+                temp.put("totally_area", data[16]);*/
+
+                JSONObject objRowProperties = new JSONObject();
+                objRowProperties.put("idField", ""+data[0]);
+                objRowProperties.put("nameFie", ""+data[3]);
+                objRowProperties.put("typeFie", ""+data[12]);
+                objRowProperties.put("latFie", ""+data[5]);
+                objRowProperties.put("lonFie", ""+data[6]);
+                objRowProperties.put("altFie", ""+data[4]);
+                objRowProperties.put("nameMun", ""+data[14]);
+                objRowProperties.put("status", ""+data[8]);
+                objRowProperties.put("areaFie", ""+data[7]);
+                objRow.put("properties", objRowProperties);      
+                
+                features.add(objRow);
+            }
+            
+            objPrin.put("features", features);
+//            System.out.println("JSONObject=>"+objPrin);
+            HashMap jsonRes = new HashMap();
+            jsonRes.put("points", objPrin.toString());
+            result.add(jsonRes);
 //            System.out.println("values->"+result);
 //            System.out.println(result);
 //            for (HashMap datos : result) {
@@ -542,7 +587,7 @@ public class FieldsDao
         String sql = "";
         String entType = String.valueOf(args.get("entType"));
         
-        sql += "select n.id_fie as ID_LOTE, f.id_far as ID_FINCA, p.id_pro as ID_PROD, e.name_ent as USUARIO, ent.name_ent as PRODUCTOR, concat(ent.document_type_ent, ':', ent.document_number_ent) as CEDULA, n.name_fie as LOTE,";
+        sql += "select n.id_fie as ID_LOTE, f.id_far as ID_FINCA, p.id_pro as ID_PROD, IF(e.name_ent is null,e.email_ent,e.name_ent) as USUARIO, ent.name_ent as PRODUCTOR, concat(ent.document_type_ent, ':', ent.document_number_ent) as CEDULA, n.name_fie as LOTE,";
         sql += "ft.name_fie_typ as CONTRATO, n.latitude_fie as LATITUD, n.longitude_fie as LONGITUD, n.altitude_fie as ALTITUD, n.area_fie as AREA, m.name_mun as MUNICIPIO, d.name_dep as DEPARTAMENTO";
         sql += " from fields n";
         sql += " inner join field_types ft on ft.id_fie_typ=n.contract_type_fie";
@@ -896,7 +941,7 @@ public class FieldsDao
         String state = "failure";         
 
         sql += "select f.id_fie, f.id_farm_fie, f.name_fie, f.altitude_fie, f.latitude_fie, f.longitude_fie, f.area_fie, f.measure_unit_fie,"; 	
-        sql += "f.pests_control_fie, f.diseases_control_fie, f.status, f.id_project_fie, f.contract_type_fie, f.created_by";
+        sql += "f.pests_control_fie, f.diseases_control_fie, f.status, f.id_project_fie, f.contract_type_fie, f.created_by, f.available_area_fie, f.totally_area_fie";
         sql += " from fields f";
         if (!valSel.equals("")) sql += " where f.status=1 and f.id_fie in ("+valSel+")";
 //        System.out.println("sql=>"+sql);          

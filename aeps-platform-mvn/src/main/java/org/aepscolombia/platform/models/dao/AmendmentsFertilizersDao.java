@@ -60,10 +60,10 @@ public class AmendmentsFertilizersDao
             tx = session.beginTransaction();
             Query query = session.createSQLQuery(sql).addEntity("cr", AmendmentsFertilizers.class);
             event = query.list();
-            AmendmentsFertilizers temp = new AmendmentsFertilizers();
-            temp.setIdAmeFer(1000000);
-            temp.setNameAmeFer("Otro");
-            event.add(temp);
+//            AmendmentsFertilizers temp = new AmendmentsFertilizers();
+//            temp.setIdAmeFer(1000000);
+//            temp.setNameAmeFer("Otro");
+//            event.add(temp);
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) {

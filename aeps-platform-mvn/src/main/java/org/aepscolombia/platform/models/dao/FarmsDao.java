@@ -298,6 +298,7 @@ public class FarmsDao
             HashMap tempTotal = new HashMap();
             tempTotal.put("countTotal", query.list().size());
             result.add(tempTotal);
+            eventsTotal = query.list();     
             if(query.list().size()>maxResults) {
                 query.setFirstResult(valIni);
                 query.setMaxResults(maxResults);      
@@ -330,7 +331,9 @@ public class FarmsDao
                     temp.put("nameAgro", data[19]);
                 }
                 result.add(temp);
-                
+            }
+            
+            for (Object[] data : eventsTotal) {                
                 JSONObject objRow = new JSONObject();
                 objRow.put("type", "Feature");
 
@@ -548,7 +551,7 @@ public class FarmsDao
         String sql = "";
         String entType = String.valueOf(args.get("entType"));
         
-        sql += "select f.id_far as ID_FINCA, p.id_pro as ID_PROD, e.name_ent as USUARIO, ent.name_ent as PRODUCTOR, concat(ent.document_type_ent, ':', ent.document_number_ent) as CEDULA, f.name_far as FINCA,";
+        sql += "select f.id_far as ID_FINCA, p.id_pro as ID_PROD, IF(e.name_ent is null,e.email_ent,e.name_ent) as USUARIO, ent.name_ent as PRODUCTOR, concat(ent.document_type_ent, ':', ent.document_number_ent) as CEDULA, f.name_far as FINCA,";
         sql += "f.address_far as DIRECCION, f.latitude_far as LATITUD, f.longitude_far as LONGITUD, f.altitude_far as ALTITUD, m.name_mun as MUNICIPIO";
         sql += " from farms f";
         sql += " inner join farms_producers fp on f.id_far = fp.id_farm_far_pro";

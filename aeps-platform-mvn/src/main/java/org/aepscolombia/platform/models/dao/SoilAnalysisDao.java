@@ -459,7 +459,7 @@ public class SoilAnalysisDao
         String sql = "";
         String entType = String.valueOf(args.get("entType"));
         
-        sql += "select r.id_so_ana as ID_ANALISIS, l.id_fie as ID_LOTE, f.id_far as ID_FINCA, p.id_pro as ID_PROD, e.name_ent as USUARIO, crop.name_cro_typ as CULTIVO, r.sample_number_so_ana as MUESTRA, ";
+        sql += "select r.id_so_ana as ID_ANALISIS, l.id_fie as ID_LOTE, f.id_far as ID_FINCA, p.id_pro as ID_PROD, IF(e.name_ent is null,e.email_ent,e.name_ent) as USUARIO, crop.name_cro_typ as CULTIVO, r.sample_number_so_ana as MUESTRA, ";
         sql += "DATE_FORMAT(r.date_sampling_so_ana,'%Y-%m-%d') as FECHA_MUESTREO, r.sand_so_ana as ARENA, r.lemon_so_ana as LIMOS, r.clay_so_ana as ARCILLA, tex.name_tex as TEXTURA, ";
         sql += "r.organic_material_so_ana as MATERIA_ORGANICA, r.dapa_so_ana as DAPA, r.ph_so_ana as PH, ";
         sql += "r.elec_conductivity_so_ana as CONDUCTIVIDAD_ELECTRICA, r.cation_interchangeability_so_ana as CAPACIDAD_INTERCAMBIO_CATIONICO, r.co_so_ana as CO, ";

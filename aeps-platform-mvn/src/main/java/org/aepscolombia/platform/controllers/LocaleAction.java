@@ -19,6 +19,7 @@ public class LocaleAction extends BaseAction
 {    
     
     private String lang="";
+    private String lanSel;
 
     public String getLang() {
         return lang;
@@ -26,7 +27,15 @@ public class LocaleAction extends BaseAction
 
     public void setLang(String lang) {
         this.lang = lang;
-    }   
+    }      
+
+    public String getLanSel() {
+        return lanSel;
+    }
+
+    public void setLanSel(String lanSel) {
+        this.lanSel = lanSel;
+    }
 
     @Override
     public String execute() throws Exception {
@@ -71,6 +80,7 @@ public class LocaleAction extends BaseAction
 //            lang = langTemp;
         }        
         ActionContext.getContext().setLocale(locale);
+        lanSel = lang.replace(countryCode.toLowerCase(), "");
         
         return SUCCESS;
     }
@@ -95,6 +105,15 @@ public class LocaleAction extends BaseAction
         } 
         setCountryVal(countryCode);
         return SUCCESS;
+    }
+    
+    private String coCode;
+    
+    public String lanUser() throws Exception {
+        coCode = (String) this.getSession().get(APConstants.COUNTRY_CODE);
+        String lanTemp = (String) this.getSession().get(APConstants.SESSION_LANG);
+        lanSel = lanTemp.replace(coCode.toLowerCase(), "");
+        return "states";
     }
          
 }

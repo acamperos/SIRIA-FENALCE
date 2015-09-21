@@ -126,7 +126,7 @@
                     completeFormGetting('dialog-form', 'formCropMonGen', 'divMon', event.originalEvent.request.responseText);
                     setTimeout(function() {
                         showInfo("/crop/searchMon.action?idCrop="+$("#formCropMonGen_idCrop").val(), "divListMonGen");
-                        showTimeline("/crop/getInfoTime.action?idCrop="+$("#formCropMonGen_idCrop").val(), "divInfoTimeline", "timeline");
+                        showTimeline("/crop/viewInfoTime.action?idCrop="+$("#formCropMonGen_idCrop").val(), "divInfoTimeline", "timeline");
                     }, 2000);
                 });
             </script>

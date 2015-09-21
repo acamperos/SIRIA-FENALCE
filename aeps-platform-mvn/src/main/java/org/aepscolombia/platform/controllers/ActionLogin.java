@@ -1,6 +1,7 @@
 
 package org.aepscolombia.platform.controllers;
 
+import com.opensymphony.xwork2.ActionContext;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.util.Date;
@@ -243,9 +244,31 @@ public class ActionLogin extends BaseAction {
         this.user = user;
     }   
     
+    private String lanSel;
+
+    public String getLanSel() {
+        return lanSel;
+    }
+
+    public void setLanSel(String lanSel) {
+        this.lanSel = lanSel;
+    }
+    
+    private String coCode;
+    
     @Override
     public void prepare() throws Exception {
         this.setAssociation_list(new AssociationDao().findAll());
+        try {
+            coCode = this.getRequest().getParameter("coCode");
+        } catch (NumberFormatException e) {
+            coCode = "";
+        }
+//        if(coCode.equals("")) coCode   = (String) this.getSession().get(APConstants.COUNTRY_CODE);
+//        if(lanTemp.equals("")) lanTemp = (String) this.getSession().get(APConstants.SESSION_LANG);
+        String lanSave = (String) ActionContext.getContext().getLocale().getLanguage();
+//            lanSel = lanSave.replace(coCode.toLowerCase(), "");
+        lanSel = lanSave;
     }
 
     /**
@@ -1084,7 +1107,7 @@ public class ActionLogin extends BaseAction {
             tx.commit();
             state = "success";
 //            String host = this.getRequest().getRemoteHost();
-            String host = "gisweb.ciat.cgiar.org";            
+            String host = "www.open-aeps.org";            
             String messageSms = getText("message.codeofactivation.login")+" "+randomCode;
             if (this.getTypeUser() == 3) {
                 GlobalFunctions.sendEmail("contact@open-aeps.org", getText("email.from"), getText("email.fromPass"), getText("email.subjectNewUser"), GlobalFunctions.messageToValidateUser(host, user.getNameUserUsr()), null);

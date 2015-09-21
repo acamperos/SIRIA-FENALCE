@@ -33,7 +33,7 @@
                 </div> 
             </div> 
             <% String classNewProOrg="hide"; %>
-            <s:set name="idCheOrg" value="%{#attr.formOrg}.organicFertilizers.idOrgFer"/>
+            <s:set name="idCheOrg" value="%{#attr.organicFertilizers.idOrgFer}"/>
             <s:if test="%{#idCheOrg==1000000}">
                 <% classNewProOrg = "";%>
             </s:if> 

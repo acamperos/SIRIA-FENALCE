@@ -421,7 +421,8 @@ public class ActionProducer extends BaseAction {
         usrDao = new UsersDao();
         idUsrSystem = user.getIdUsr();
         assDao = new AssociationDao();
-        lanSel  = ActionContext.getContext().getLocale().getLanguage();
+        String lanTemp = (String) this.getSession().get(APConstants.SESSION_LANG);
+        lanSel = lanTemp.replace(coCode.toLowerCase(), "");
     }
 
     @Override
@@ -719,7 +720,7 @@ public class ActionProducer extends BaseAction {
         Integer entTypeId = entDao.getEntityTypeId(user.getIdUsr());
         findParams.put("entType", entTypeId);
         findParams.put("idEntUser", idEntSystem);
-        String fileName = "" + getText("file.docproducer");
+        String fileName = ""+getText("file.docproducer");
 //        String fileName  = "producersInfo.csv";
 
 //        CSVWriter writer = new CSVWriter(new FileWriter(fileName), ';');

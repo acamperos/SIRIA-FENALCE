@@ -7,7 +7,6 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.MongoClient;
 import com.mongodb.WriteResult;
-import com.opensymphony.xwork2.ActionContext;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -41,7 +40,6 @@ import org.aepscolombia.platform.models.entity.Rastas;
 import org.aepscolombia.platform.models.entity.Users;
 import org.aepscolombia.platform.models.entityservices.SfGuardUser;
 import org.aepscolombia.platform.util.APConstants;
-import org.aepscolombia.platform.util.GlobalFunctions;
 import org.aepscolombia.platform.util.HibernateUtil;
 
 import org.apache.commons.lang.StringUtils;
@@ -49,7 +47,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.renjin.sexp.ListVector;
+import org.renjin.sexp.StringArrayVector;
 
 /**
  * Clase ActionRasta
@@ -427,7 +425,8 @@ public class ActionRasta extends BaseAction {
         typeEnt = entTemp.getEntitiesTypes().getIdEntTyp();
         assDao = new AssociationDao();
         coCode = (String) this.getSession().get(APConstants.COUNTRY_CODE);
-        lanSel  = ActionContext.getContext().getLocale().getLanguage();
+        String lanTemp = (String) this.getSession().get(APConstants.SESSION_LANG);
+        lanSel = lanTemp.replace(coCode.toLowerCase(), "");
 //        rowNew = (String)(this.getRequest().getParameter("rowNew"));
 //        if (rowNew!=null && rowNew.equals("true")) {
 //            System.out.println("entreeeee");
@@ -507,7 +506,7 @@ public class ActionRasta extends BaseAction {
             String vec = "vec <- "+rastaDao.getInfoToReport(this.getIdRasta());    
             engine.eval(vec);
             
-            ListVector res = (ListVector)engine.eval(new java.io.FileReader("inferidas.R"));            
+            StringArrayVector res = (StringArrayVector)engine.eval(new java.io.FileReader("inferidas.R"));            
             String depthEffective  = res.getElementAsString(0);
             String organicMaterial = res.getElementAsString(1);
             String internalDrain   = res.getElementAsString(2);

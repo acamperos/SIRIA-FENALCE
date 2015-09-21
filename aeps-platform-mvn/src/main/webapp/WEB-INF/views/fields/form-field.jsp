@@ -139,7 +139,7 @@
                             </div>
                         </div>
                         <div class="control-group">
-                            <label for="formField_area_lot" class="control-label">
+                            <label for="formField_area_lot" class="control-label req">
                                 <s:property value="getText('text.areafield.field')" />:
                                 <i class="icon-info-sign s2b_tooltip pop-over" data-content="<s:property value="getText('desc.areafield.field')" />." data-title="<s:property value="getText('help.areafield.field')" />" data-placement="right" data-trigger="hover"></i>
                             </label>
@@ -197,8 +197,11 @@
                                 });                
                             }
                             completeFormGetting('dialog-form', 'formField', 'divFields', event.originalEvent.request.responseText);
+//                            setTimeout( function() {
+//                                showInfo("/viewFarm.action?page="+$("#formFarm_page").val(), "divViewFarm");
+//                            }, 2000);
                             setTimeout( function() {
-                                showInfo("/searchField.action?page="+$("#formField_page").val(), "divConListFields");
+                                showInfo("/viewField.action?page="+$("#formField_page").val(), "divViewField");
                             }, 2000);
                         });
                         if($('.pop-over').length) {

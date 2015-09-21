@@ -332,7 +332,8 @@ public class ActionCon extends BaseAction {
 //        coCode = (String) user.getCountryUsr().getAcronymIdCo();
         coCode = (String) ActionContext.getContext().getSession().get(APConstants.COUNTRY_CODE);
         usrDao = new UsersDao();
-        lanSel  = ActionContext.getContext().getLocale().getLanguage();
+        String lanTemp = (String) this.getSession().get(APConstants.SESSION_LANG);
+        lanSel = lanTemp.replace(coCode.toLowerCase(), "");
     }
     
     

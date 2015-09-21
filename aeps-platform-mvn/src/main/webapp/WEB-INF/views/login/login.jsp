@@ -31,6 +31,7 @@
                     <h3 class="heading_main"><s:property value="getText('title.contact.login')" /></h3>
                     <s:form id="formLogin" action="signin.action">
                         <s:hidden name="actExe" value="login"/>
+                        <s:hidden name="lanSel"/>
                         <div class="row">
                             <div class="span6 control-group">
                                 <label class="control-label" for="formLogin_username">
@@ -70,7 +71,7 @@
                         </div>                 
                     </s:form>
                     <div class="submit_sect">
-                        <sj:submit type="button" formIds="formLogin" cssClass="btn btn-initial btn-large" onclick="addMessageProcess(); ga('send', 'event', 'Register', 'click', 'SingIn');" onCompleteTopics="completeLogin" validate="true" validateFunction="validationForm"><s:property value="%{getText('button.signin.login')}"/></sj:submit>
+                        <sj:submit type="button" formIds="formLogin" cssClass="btn btn-initial btn-large" onclick="addMessageProcessLogin('formLogin_lanSel'); ga('send', 'event', 'Register', 'click', 'SingIn');" onCompleteTopics="completeLogin" validate="true" validateFunction="validationForm"><s:property value="%{getText('button.signin.login')}"/></sj:submit>
                     </div>
                     <script>
                         $.subscribe('completeLogin', function(event,data) {
@@ -84,6 +85,7 @@
                     <h3 class="heading_main"><s:property value="getText('title.cantenter.login')" /> ?</h3>
                     <s:form id="formValidate" action="restorePassword.action">
                         <s:hidden name="actExe" value="restuser"/>
+                        <s:hidden name="lanSel"/>
                         <div class="row">
                             <div class="span6 control-group">
                                 <label class="control-label" for="formValidate_infoUser"><s:property value="getText('text.emailcontact.login')" /></label>
@@ -97,7 +99,7 @@
                                 </a>
                             </div>
                             <div class="submit_sect">
-                                <sj:submit type="button" id="btRestore" cssClass="btn btn-initial btn-large" onclick="addMessageProcess(); ga('send', 'event', 'Register', 'click', 'Remember');" targets="divMessage" onCompleteTopics="completeRestore" validate="true" validateFunction="validationForm"><s:property value="getText('button.restore.login')" /></sj:submit>
+                                <sj:submit type="button" id="btRestore" cssClass="btn btn-initial btn-large" onclick="addMessageProcessLogin('formValidate_lanSel'); ga('send', 'event', 'Register', 'click', 'Remember');" targets="divMessage" onCompleteTopics="completeRestore" validate="true" validateFunction="validationForm"><s:property value="getText('button.restore.login')" /></sj:submit>
                             </div>
                         </div>
                     </s:form>
@@ -122,6 +124,7 @@
                     <h3 class="heading_main"><s:property value="getText('title.newuser.login')" /></h3>
                     <s:form id="formNewUser" action="saveUser.action">
                         <s:hidden name="actExe" value="newuser"/>
+                        <s:hidden name="lanSel"/>
                         <div class="form-group control-group">
                             <label class="control-label req" for="formNewUser_typeUser">
                                 <s:property value="getText('text.typeuser.login')" />:
@@ -222,7 +225,12 @@
                                         var mediumLogin = "";
                                         var strongLogin = "";
                                         var veryStrongLogin = "";
-                                        if(navigator.language=='es-ES' || navigator.language=='es-CO' || navigator.language=='es-PE' || navigator.language=='es-NI' || navigator.language=='es') {
+                                        var lanVal = $('#formNewUser_lanSel').val();
+                                        var str   = lanVal;
+                                        var valEs = str.search("es");
+                                        var valEn = str.search("en");
+                                        
+                                        if(valEs!=-1) {
                                                 veryWeakLogin = "Muy Debil";
                                                 weakLogin = "Debil";
                                                 mediumLogin = "Normal";
@@ -230,26 +238,13 @@
                                                 veryStrongLogin = "Muy Fuerte";
                                         }
 
-                                        if(navigator.language=='en-EN' || navigator.language=='en') {
+                                        if(valEn!=-1) {
                                                 veryWeakLogin = "Very Weak";
                                                 weakLogin = "Weak";
                                                 mediumLogin = "Normal";
                                                 strongLogin = "Strong";
                                                 veryStrongLogin = "Very Strong";
-                                        }
-																		
-                                        if($('#formNewUser_passwordUser').length) {
-                                            $('#formNewUser_passwordUser').pwdMeter({
-                                                minLength: 6,
-                                                displayGeneratePassword: false,
-                                                neutralText:"",
-                                                veryWeakText:veryWeakLogin,
-                                                weakText:weakLogin,
-                                                mediumText:mediumLogin,
-                                                strongText:strongLogin,
-                                                veryStrongText:veryStrongLogin
-                                            });  
-                                        }
+                                        }                                 
                                         
                                         $('.itooltip').popover({
 //                                            placement: wheretoplace,
@@ -300,7 +295,7 @@
                                 %>
                             </div>                            
                             <div class="span4">
-                                <sj:submit cssClass="btn btn-initial btn-large" onclick="addMessageProcess(); ga('send', 'event', 'Register', 'click', 'SignUp');" targets="divMessage" onCompleteTopics="completeUser" value="%{getText('button.createuser.login')}" validate="true" validateFunction="validationForm"/>
+                                <sj:submit cssClass="btn btn-initial btn-large" onclick="addMessageProcessLogin('formNewUser_lanSel'); ga('send', 'event', 'Register', 'click', 'SignUp');" targets="divMessage" onCompleteTopics="completeUser" value="%{getText('button.createuser.login')}" validate="true" validateFunction="validationForm"/>
                             </div>
                         </div>                            
                     </s:form>
@@ -316,6 +311,7 @@
                 <div class="panel" style="display:none;" id="divValidateUser">
                     <h3 class="heading_main"><s:property value="getText('title.validatedata.login')" /></h3>
                     <s:form id="formVerify" action="verifyUserManual.action">
+                        <s:hidden name="lanSel"/>
                         <s:hidden name="actExe" value="verifyuser"/>
                         <div class="row">
                             <div class="span6 control-group">
@@ -346,7 +342,7 @@
                         </div> 
                     </s:form>
                     <div class="submit_sect">
-                        <sj:submit type="button" formIds="formVerify" cssClass="btn btn-initial btn-large" onclick="addMessageProcess(); ga('send', 'event', 'Register', 'click', 'VerifyUser');" targets="divMessage" onCompleteTopics="completeVerify" validate="true" validateFunction="validationForm"><s:property value="%{getText('button.verifyuser.login')}"/></sj:submit>
+                        <sj:submit type="button" formIds="formVerify" cssClass="btn btn-initial btn-large" onclick="addMessageProcessLogin('formVerify_lanSel'); ga('send', 'event', 'Register', 'click', 'VerifyUser');" targets="divMessage" onCompleteTopics="completeVerify" validate="true" validateFunction="validationForm"><s:property value="%{getText('button.verifyuser.login')}"/></sj:submit>
                     </div>
                     <script>
                         $.subscribe('completeVerify', function(event,data) {                            
@@ -368,6 +364,7 @@
                     <h3 class="heading_main"><s:property value="getText('title.changepasscel.login')" /></h3>
                     <s:form id="formChangePass" action="verifyUserToRestoreMan.action">
                         <s:hidden name="actExe" value="changePassUser"/>
+                        <s:hidden name="lanSel"/>
                         <div class="row">
                             <div class="span6 control-group">
                                 <label class="control-label req" for="formChangePass_nameUser">
@@ -397,7 +394,7 @@
                         </div> 
                     </s:form>
                     <div class="submit_sect">
-                        <sj:submit type="button" formIds="formChangePass" cssClass="btn btn-initial btn-large" onclick="addMessageProcess(); ga('send', 'event', 'Register', 'click', 'ChangePass');" targets="divMessage" onCompleteTopics="completeChangePass" validate="true" validateFunction="validationForm"><s:property value="%{getText('button.verifychangepass.login')}"/></sj:submit>
+                        <sj:submit type="button" formIds="formChangePass" cssClass="btn btn-initial btn-large" onclick="addMessageProcessLogin('formChangePass_lanSel'); ga('send', 'event', 'Register', 'click', 'ChangePass');" targets="divMessage" onCompleteTopics="completeChangePass" validate="true" validateFunction="validationForm"><s:property value="%{getText('button.verifychangepass.login')}"/></sj:submit>
                     </div>
                     <script>
                         $.subscribe('completeChangePass', function(event,data) {                            
@@ -421,7 +418,7 @@
         <script type="text/javascript" src="scripts/js/jquery/jquery.blockUI.js"></script>
         <script type="text/javascript" src="scripts/js/colorbox/jquery.colorbox.min.js"></script>
         <script type="text/javascript" src="scripts/js/jquery/pwdMeter/jquery.pwdMeter.min.js"></script>
-        <script type="text/javascript" src="scripts/js/generals/functions.min.js"></script>﻿  
+        <script type="text/javascript" src="scripts/js/generals/functions.js"></script>﻿  
         <script type="text/javascript">            
             (function(a) {
                 a.fn.vAlign = function() {
@@ -508,9 +505,19 @@
                     $('#divValidateUser').slideUp('200');
                     $('#divChangePass').slideDown('200');
                 });
-            });
-        </script>
-        <script>            
+            });  
+            if($('#formNewUser_passwordUser').length) {
+                $('#formNewUser_passwordUser').pwdMeter({
+                    minLength: 6,
+                    displayGeneratePassword: false,
+                    neutralText:"",
+                    veryWeakText:veryWeakLogin,
+                    weakText:weakLogin,
+                    mediumText:mediumLogin,
+                    strongText:strongLogin,
+                    veryStrongText:veryStrongLogin
+                });  
+            }
             $.mask.definitions['h'] = "[3]";
             $('#formNewUser_celphoneUser').mask("h999999999",{placeholder:""});
             $('#formNewUser_passwordRepUser').bind("cut copy paste",function(e) {

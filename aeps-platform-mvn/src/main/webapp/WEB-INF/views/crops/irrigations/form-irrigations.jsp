@@ -174,7 +174,7 @@
                     completeFormGetting('dialog-form', 'formCropIrr', 'divIrr', event.originalEvent.request.responseText);
                     setTimeout(function() {
                         showInfo("/crop/searchIrr.action?idCrop="+$("#formCropIrr_idCrop").val(), "divListIrr");
-                        showTimeline("/crop/getInfoTime.action?idCrop="+$("#formCropIrr_idCrop").val(), "divInfoTimeline", "timeline");
+                        showTimeline("/crop/viewInfoTime.action?idCrop="+$("#formCropIrr_idCrop").val(), "divInfoTimeline", "timeline");
                     }, 2000);
                 });
             </script>

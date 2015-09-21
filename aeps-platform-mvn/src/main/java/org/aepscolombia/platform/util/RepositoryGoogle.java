@@ -223,7 +223,7 @@ public class RepositoryGoogle {
             if(a.get("status").toString().equals("OK"))
             {
                 JSONArray results=(JSONArray)google.get("results");
-                System.out.println("results=>"+results);
+//                System.out.println("results=>"+results);
                 JSONArray address_components=(JSONArray)((JSONObject)results.get(2)).get("address_components");
                 for(int i=0;i<address_components.size();i++)
                 {

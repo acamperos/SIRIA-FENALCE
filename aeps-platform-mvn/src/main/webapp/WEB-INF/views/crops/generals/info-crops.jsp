@@ -45,7 +45,7 @@
             <% if (value.equals("crop")) {  %>
                 <button type="button" class="btn btn-large btn-register btn-space" onclick="viewForm('/crop/showCrop.action?action=create', 'idCrop', '', '<s:property value="getText('title.addcrop.crop')" />', 1050, 700)">
                     <i class="icon-plus"></i> <s:property value="getText('button.addcrop.crop')" />
-                </button>
+                </button><br />
                 <div class="btn btn-group btn-space" onclick="clickSelAll('chkSelectAll', 'chkNumber', 'btnDelCrop');">
                     <input type="checkbox" class="chkSelectAll textFloat" />
                     <label class="textFloat" style="padding-left: 7px; margin-bottom: 0;"><s:property value="getText('label.selectall.crop')" /></label>
@@ -114,7 +114,18 @@
         </div>
     </div>
 </div>
+<div>
+    <% if (!value.equals("crop") && !value.equals("cropcheck")) {%>
+        <button class="btn btn_per" onclick="toggleAndClean('<%=divShow%>', '<%=divHide%>')"><i class="icon-arrow-left"></i> <s:property value="getText('button.backoption')" /></button>
+    <% }%>
+</div>
 <div style="text-align:center; <%= table %>">
     <% String result = JavascriptHelper.pager_params_ajax(pageNow, countTotal, maxResults, "/crop/searchCrop.action?selected="+value, "divConListCrop", "", "", "formCropSearch");%>    
     <%= result%>
 </div>
+<s:if test="listCrops.size() > 2">
+    <!--<script> $("#divSearchCrops").show(); </script>-->
+</s:if> 
+<s:else>
+    <!--<script> $("#divSearchCrops").hide(); </script>-->
+</s:else>

@@ -40,7 +40,8 @@
         divShow = "divCropForm";
         divHide = "divListCropForm";
     } else {
-        divHide = "divConListFields";
+        divHide = "divViewField";
+//        divHide = "divConListFields";
     }            
 %>    
 
@@ -49,16 +50,16 @@
     <% if (usrFieDao.getPrivilegeUser(userFie.getIdUsr(), "field/create")) { %>   
         <% if (entTypeFieId!=3) { %>
             <% if (value.equals("lot")) {%>
+                <button type="button" class="btn btn-large btn-register btn-space" onclick="viewForm('/showField.action?action=create&viewInfo=${viewInfo}', 'idField', '', '<s:property value="getText('title.createfield.field')" />', 1050, 550)">
+                    <i class="icon-plus"></i> <s:property value="getText('button.addfarm.field')" />
+                </button><br />
                 <div class="btn btn-group btn-space" onclick="clickSelAll('chkSelectAll', 'chkNumber', 'btnDelFie');">
                     <input type="checkbox" class="chkSelectAll textFloat" />
                     <label class="textFloat" style="padding-left: 7px; margin-bottom: 0;"><s:property value="getText('label.selectall.field')" /></label>
                 </div>
-                <button type="button" id="btnDelFie" disabled="disabled" class="btn btn-initial btn-space btnGetAll disabled" onclick="showDialogDeleteAll(this, 'chkNumber', 'confirm_dialog_lot', '/deleteAllField.action', '/searchField.action?page=<%=pageNow%>', 'divFields', '<%=divHide%>');">
+                <button type="button" id="btnDelFie" disabled="disabled" class="btn btn-initial btn-space btnGetAll disabled" onclick="showDialogDeleteAll(this, 'chkNumber', 'confirm_dialog_lot', '/deleteAllField.action', '/viewField.action?page=<%=pageNow%>', 'divFields', '<%=divHide%>');">
                     <i class="icon-trash"></i> <s:property value="getText('button.deletesel.field')" />
-                </button>
-                <button type="button" class="btn btn-initial btn-space" onclick="viewForm('/showField.action?action=create&viewInfo=${viewInfo}', 'idField', '', '<s:property value="getText('title.createfield.field')" />', 1050, 550)">
-                    <i class="icon-plus"></i> <s:property value="getText('button.addfarm.field')" />
-                </button>
+                </button>                
             <% } %>
         <% } %>
     <% } %>
@@ -132,3 +133,9 @@
     <% String result = JavascriptHelper.pager_params_ajax(pageNow, countTotal, maxResults, "/searchField.action?selected="+value+"&valId="+valId+"&valName="+valName, "divConListFields", "", "", "formFieldSearch");%>    
     <%= result%>
 </div>
+<s:if test="listLot.size() > 2">
+    <!--<script> $("#divSearchFields").show(); </script>-->
+</s:if> 
+<s:else>
+    <!--<script> $("#divSearchFields").hide(); </script>-->
+</s:else>

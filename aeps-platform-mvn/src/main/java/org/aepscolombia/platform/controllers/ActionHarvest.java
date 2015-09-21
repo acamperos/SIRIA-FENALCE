@@ -152,7 +152,8 @@ public class ActionHarvest extends BaseAction {
         usrDao = new UsersDao();
         idUsrSystem = user.getIdUsr();
         coCode = (String) this.getSession().get(APConstants.COUNTRY_CODE);
-        lanSel  = ActionContext.getContext().getLocale().getLanguage();
+        String lanTemp = (String) this.getSession().get(APConstants.SESSION_LANG);
+        lanSel = lanTemp.replace(coCode.toLowerCase(), "");
     }
     
     
@@ -353,6 +354,10 @@ public class ActionHarvest extends BaseAction {
                 Integer proHar  = harv.getProductionHar()*46;
                 harv.setYieldHar(yieldHar);            
                 harv.setProductionHar(proHar);
+            }
+            
+            if (harv.getResultingProducts().getIdResPro()==3) {
+                harv.setYieldHar(harv.getNumberSacksSow()*harv.getWeightAvgSacksSow());
             }
             
             harv.setProductionEvents(new ProductionEvents(idCrop));

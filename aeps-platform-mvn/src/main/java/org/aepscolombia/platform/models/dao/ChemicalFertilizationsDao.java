@@ -75,7 +75,7 @@ public class ChemicalFertilizationsDao
         ChemicalFertilizations event = null;
         Transaction tx = null;
 				
-        sql += "select p.id_che_fer, p.id_fertilization_che_fer, p.id_product_che_fer,";
+        sql += "select p.id_che_fer, p.id_fertilization_che_fer, p.id_product_che_fer, p.amount_product_used_che_fer,";
         sql += " p.other_product_che_fer, p.status, p.application_type_che_fer, p.unit_che_fer, p.created_by"; 
         sql += " from chemical_fertilizations p";
         sql += " where p.status=1 and p.id_fertilization_che_fer="+id;

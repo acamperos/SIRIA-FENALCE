@@ -89,6 +89,6 @@
 <script>
     $.subscribe('completePhyMon', function(event, data) {
         completeFormCrop('', 'formCropMon', 'divMessPhy', event.originalEvent.request.responseText);
-        showTimeline("/crop/getInfoTime.action?idCrop="+$("#formCropMon_idCrop").val(), "divInfoTimeline", "timeline");
+        showTimeline("/crop/viewInfoTime.action?idCrop="+$("#formCropMon_idCrop").val(), "divInfoTimeline", "timeline");
     });
 </script>

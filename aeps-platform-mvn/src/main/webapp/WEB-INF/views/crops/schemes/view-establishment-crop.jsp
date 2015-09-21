@@ -265,7 +265,6 @@
                                 listValue="nameSeeIno"            
                                 headerKey="-1" 
                                 headerValue="---"
-                                onchange="showOtherElement(this.value, 'divNewInoculationSeed')"
                             />
                         </div>
                     </div>                         
@@ -273,7 +272,7 @@
                 <% String classInoculation="hide"; %>
                 <s:set name="seedInoculation" value="beans.seedsInoculations.idSeeIno"/>
                 <s:if test="%{#seedInoculation==1000000}">
-                    <% classInoculation = "";%>
+                    <% //onchange="showOtherElement(this.value, 'divNewInoculationSeed')" classInoculation = "";%>
                 </s:if>
                 <div class="span4 <%= classInoculation %>" style="padding-left: 28px" id="divNewInoculationSeed">
                     <div class="control-group">
@@ -383,6 +382,9 @@
             <p class="warnField reqBef"><s:property value="getText('label.requirefields')" /></p>
         <% } %>
         <script>
+            $("#formCropSow_event_expectedProductionProEve").mask("999?999",{placeholder:""});
+            $("#formCropSow_sowing_seedsNumberSow").mask("9?99999999",{placeholder:""});
+            $("#formCropSow_maize_seedsNumberSiteMai").mask("9?99999999",{placeholder:""});
             $("#formCropSow_sowing_dateSow").datepicker({dateFormat: 'mm/dd/yy'});
             $("#formCropSow_sowing_dateSow").mask("99/99/9999", {placeholder: " "});
             $("#formCropSow_event_expected_production_pro_eve").numeric({negative: false});
@@ -412,12 +414,12 @@
 <script>
     var idCropSow = $("#formCropSow_idCrop").val();
     if (idCropSow!=null && idCropSow!="" && idCropSow!="null") {
-        showTimeline("/crop/getInfoTime.action?idCrop="+idCropSow, "divInfoTimeline", "timeline");
+        showTimeline("/crop/viewInfoTime.action?idCrop="+idCropSow, "divInfoTimeline", "timeline");
     }
     $.subscribe('completeSowing', function(event, data) {
         if (idCropSow!=null && idCropSow!="" && idCropSow!="null") {
             completeFormCrop('', 'formCropSow', 'divMessSowing', event.originalEvent.request.responseText);
-            showTimeline("/crop/getInfoTime.action?idCrop="+idCropSow, "divInfoTimeline", "timeline");
+            showTimeline("/crop/viewInfoTime.action?idCrop="+idCropSow, "divInfoTimeline", "timeline");
         } else {
             location.reload();
         }
