@@ -54,8 +54,8 @@ public class LocaleAction extends BaseAction
         Map<String, Object> userSession=ActionContext.getContext().getSession();
         String langTemp    = (String)userSession.get(APConstants.SESSION_LANG);
 //        System.out.println("langAssign=>"+langTemp);
-//        System.out.println("lang=>"+lang);
-        countryCode = "CO";
+//        System.out.println("countryCode=>"+countryCode);
+//        countryCode = "CO";
         userSession.put(APConstants.COUNTRY_CODE, countryCode);
         Locale locale=null;
         if (langTemp!=null) locale = new Locale(langTemp);
@@ -80,40 +80,8 @@ public class LocaleAction extends BaseAction
 //            lang = langTemp;
         }        
         ActionContext.getContext().setLocale(locale);
-        lanSel = lang.replace(countryCode.toLowerCase(), "");
         
         return SUCCESS;
-    }
-    
-    private String countryVal;
-
-    public String getCountryVal() {
-        return countryVal;
-    }
-
-    public void setCountryVal(String countryVal) {
-        this.countryVal = countryVal;
-    }
-    
-    
-    public String getCountry() throws Exception {
-        String countryCode = "";
-        try {
-            countryCode = (String)this.getRequest().getParameter("countryCode");
-        } catch(Exception e) {
-            countryCode = "-1";
-        } 
-        setCountryVal(countryCode);
-        return SUCCESS;
-    }
-    
-    private String coCode;
-    
-    public String lanUser() throws Exception {
-        coCode = (String) this.getSession().get(APConstants.COUNTRY_CODE);
-        String lanTemp = (String) this.getSession().get(APConstants.SESSION_LANG);
-        lanSel = lanTemp.replace(coCode.toLowerCase(), "");
-        return "states";
     }
          
 }

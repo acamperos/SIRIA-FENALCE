@@ -343,12 +343,17 @@ function deleteItem(url, urlAction, divTable, divShow)
 
 function showMessInfo(idLoc, info)
 {
+    var objLan = document.getElementsByName('lanSel');
+    var lanSel = objLan[0].value;
     var titleMess = "";
-    if(navigator.language=='es-ES' || navigator.language=='es-CO' || navigator.language=='es-PE' || navigator.language=='es-NI' || navigator.language=='es') {
+    var str   = lanSel;
+    var valEs = str.search("es");
+    var valEn = str.search("en");
+    if(valEs!=-1) {
         titleMess = "Mensaje Exitoso";
     }
     
-    if(navigator.language=='en-EN' || navigator.language=='en') {
+    if(valEn!=-1) {
         titleMess = "Success Message";
     }
     var infoDiv = $("<div class='alert alert-success messageAlerts'>");
@@ -363,12 +368,17 @@ function showMessInfo(idLoc, info)
 
 function showMessError(idLoc, info)
 {
+    var objLan = document.getElementsByName('lanSel');
+    var lanSel = objLan[0].value;
     var titleMess = "";
-    if(navigator.language=='es-ES' || navigator.language=='es-CO' || navigator.language=='es-PE' || navigator.language=='es-NI' || navigator.language=='es') {
+    var str   = lanSel;
+    var valEs = str.search("es");
+    var valEn = str.search("en");
+    if(valEs!=-1) {
         titleMess = "Mensaje de Error";
     }
     
-    if(navigator.language=='en-EN' || navigator.language=='en') {
+    if(valEn!=-1) {
         titleMess = "Error Message";
     }
     var errorDiv = $("<div class='alert alert-error s2_validation_errors messageAlerts'>");
@@ -887,8 +897,10 @@ function addMessageProcessLogin(lanSel)
 function addMessageProcess() 
 {
 //    z-index: 1011; position: fixed; padding: 15px; margin: 0px; width: 30%; top: 40%; left: 35%; text-align: center; color: rgb(255, 255, 255); border: none; background-color: rgb(0, 0, 0); cursor: wait; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; opacity: 0.5;
+    var objLan = document.getElementsByName('lanSel');
+    var lanSel = objLan[0].value;
     var titleMess = "";
-    var str   = navigator.language;
+    var str   = lanSel;
     var valEs = str.search("es");
     var valEn = str.search("en");
     if(valEs!=-1) {
@@ -898,6 +910,17 @@ function addMessageProcess()
     if(valEn!=-1) {
         titleMess = "Processing";
     }
+    
+//    var str   = navigator.language;
+//    var valEs = str.search("es");
+//    var valEn = str.search("en");
+//    if(valEs!=-1) {
+//        titleMess = "Procesando";
+//    }
+//    
+//    if(valEn!=-1) {
+//        titleMess = "Processing";
+//    }
     
     $.blockUI({ css: { 
             'border-top-left-radius': '10px', 
@@ -927,12 +950,18 @@ function validationForm(form, errors)
     form.find("div.s2_validation_errors").remove();    
     $.unblockUI();
     
+    var objLan = document.getElementsByName('lanSel');
+//    console.log(objLan[0].value);
+    var lanSel=objLan[0].value;
     var titleMess = "";
-    if(navigator.language=='es-ES' || navigator.language=='es-CO' || navigator.language=='es-PE' || navigator.language=='es-NI' || navigator.language=='es') {
+    var str   = lanSel;
+    var valEs = str.search("es");
+    var valEn = str.search("en");
+    if(valEs!=-1) {
         titleMess = "Mensaje de Error";
     }
     
-    if(navigator.language=='en-EN' || navigator.language=='en') {
+    if(valEn!=-1) {
         titleMess = "Error Message";
     }
     if (errors.errors && errors.errors.length > 0) { 
@@ -997,7 +1026,9 @@ function validationForm(form, errors)
 }
 
 function searchDecimalNumber(formId) {
-    var lanSel=$('#'+formId+'_lanSel').val();
+//    var lanSel=$('#'+formId+'_lanSel').val();
+    var objLan = document.getElementsByName('lanSel');
+    var lanSel = objLan[0].value;
     $('#'+formId+' *').filter(':input').each(function(key, elem){
         var decimal=  /^[-+]?[0-9]+\.[0-9]+$/;   
         var valTemp = elem.value;
@@ -1750,8 +1781,10 @@ function getReportXls(url, selectAll, selectItem)
 
 function seeDate(valSel, labChange) 
 {
+    var objLan = document.getElementsByName('lanSel');
+    var lanSel = objLan[0].value;
     var titleMess = "";
-    var str   = navigator.language;
+    var str   = lanSel;
     var valEs = str.search("es");
     var valEn = str.search("en");
     if(valEs!=-1) {
@@ -1761,6 +1794,16 @@ function seeDate(valSel, labChange)
     if(valEn!=-1) {
         titleMess = "the application of ";
     }
+//    var str   = navigator.language;
+//    var valEs = str.search("es");
+//    var valEn = str.search("en");
+//    if(valEs!=-1) {
+//        titleMess = "la aplicacion del ";
+//    }
+//    
+//    if(valEn!=-1) {
+//        titleMess = "the application of ";
+//    }
     $("#"+labChange).html("&nbsp;"+titleMess+valSel);
 }
 
@@ -1852,7 +1895,9 @@ function showInfoArea(infoId, areaFieldId, areaAvaId, areaCropId, totField, avaF
     var valCrop  = $("#"+areaCropId).val();
     var valTypeArea  = $("#"+typeAreaId).val();
     
-    var str   = navigator.language;
+    var objLan = document.getElementsByName('lanSel');
+    var lanSel = objLan[0].value;
+    var str   = lanSel;
     var valEs = str.search("es");
     var valEn = str.search("en");
     /* 
@@ -1969,21 +2014,21 @@ function removeRowHorizon(rowId, tableId)
 
 function getCountry () {
     var deferred = $.Deferred();
-//    $.getJSON("http://freegeoip.net/json/", function(result){
-//        countryCode = result.country_code;
-        countryCode = "CO";
+    $.getJSON("http://ip-api.com/json", function(result){
+        countryCode = result.countryCode;
+//        countryCode = "CO";
 //                    alert('Country: ' + result.country_name + '\n' + 'Code: ' + result.country_code);
         deferred.resolve();
 //                    doAction();
-//    });
+    });
     return deferred;
 }
 
 function sendCountry(url)
 {
-    getCountry();
+//    getCountry();
 //    alert(window.location.host)
-    document.location = "http://"+window.location.host+"/"+url+"&countryCode="+countryCode;
+    $.when(getCountry()).then(document.location = "http://"+window.location.host+"/"+url+"&countryCode="+countryCode);
 }
 
 function showInfoPageCountry(url, countryCode, valFill)

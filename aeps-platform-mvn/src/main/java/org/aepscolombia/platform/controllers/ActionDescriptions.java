@@ -56,6 +56,7 @@ public class ActionDescriptions extends BaseAction {
     private DescriptionsProductionEvent desPro = new DescriptionsProductionEvent();
     private Sowing sowing = new Sowing();
     private UsersDao usrDao;
+    private String coCode;
 
     /**
      * Metodos getter y setter por cada variable del formulario
@@ -140,7 +141,17 @@ public class ActionDescriptions extends BaseAction {
 
     public void setLogDao(LogEntitiesDao logDao) {
         this.logDao = logDao;
-    }      
+    }   
+    
+    private String lanSel;
+
+    public String getLanSel() {
+        return lanSel;
+    }
+
+    public void setLanSel(String lanSel) {
+        this.lanSel = lanSel;
+    }
     
     @Override
     public String execute() throws Exception {
@@ -153,6 +164,9 @@ public class ActionDescriptions extends BaseAction {
         idEntSystem = UsersDao.getEntitySystem(user.getIdUsr());
         usrDao = new UsersDao();
         idUsrSystem = user.getIdUsr();
+        coCode = (String) this.getSession().get(APConstants.COUNTRY_CODE);
+        String lanTemp = (String) this.getSession().get(APConstants.SESSION_LANG);
+        lanSel = lanTemp.replace(coCode.toLowerCase(), "");
     }
     
     

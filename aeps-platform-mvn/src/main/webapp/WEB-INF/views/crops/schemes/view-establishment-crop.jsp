@@ -21,7 +21,7 @@
                 <s:hidden name="typeCrop"/>
                 <s:hidden name="actExe"/>
                 <s:hidden name="sowing.idSow"/>
-                <s:hidden name="lanSel"/>
+                <%--<s:hidden name="lanSel"/>--%>
                 <div class="control-group">
                     <label for="formCropSow_sowing_dateSow" class="control-label req">
                         <s:property value="getText('text.sowdate.crop')" />:

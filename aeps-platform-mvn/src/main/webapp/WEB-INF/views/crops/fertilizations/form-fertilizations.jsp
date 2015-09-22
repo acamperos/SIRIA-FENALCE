@@ -26,7 +26,7 @@
                             <% String rowNew    = String.valueOf(request.getAttribute("rowNew"));%>
                             <s:hidden name="idCrop"/>
                             <s:hidden name="typeCrop"/>
-                            <s:hidden name="lanSel"/>
+                            <%--<s:hidden name="lanSel"/>--%>
                             <s:hidden name="actExe"/>
                             <s:hidden name="fer.idFer"/>
                             <div class="control-group">

@@ -23,7 +23,7 @@
                         <div class="span5">
                             <s:hidden name="idCrop"/>
                             <s:hidden name="typeCrop"/>
-                            <s:hidden name="lanSel"/>
+                            <%--<s:hidden name="lanSel"/>--%>
                             <s:hidden name="actExe"/>
                             <s:hidden name="desPro.idDesPro"/>                          
                             <div class="control-group">

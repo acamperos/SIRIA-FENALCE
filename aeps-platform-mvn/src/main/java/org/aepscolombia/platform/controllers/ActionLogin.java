@@ -259,11 +259,6 @@ public class ActionLogin extends BaseAction {
     @Override
     public void prepare() throws Exception {
         this.setAssociation_list(new AssociationDao().findAll());
-        try {
-            coCode = this.getRequest().getParameter("coCode");
-        } catch (NumberFormatException e) {
-            coCode = "";
-        }
 //        if(coCode.equals("")) coCode   = (String) this.getSession().get(APConstants.COUNTRY_CODE);
 //        if(lanTemp.equals("")) lanTemp = (String) this.getSession().get(APConstants.SESSION_LANG);
         String lanSave = (String) ActionContext.getContext().getLocale().getLanguage();

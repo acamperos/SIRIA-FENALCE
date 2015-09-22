@@ -10,7 +10,7 @@
             <s:hidden name="idCrop"/>
             <s:hidden name="typeCrop"/>
             <s:hidden name="actExe"/>
-            <s:hidden name="lanSel"/>
+            <%--<s:hidden name="lanSel"/>--%>
             <s:hidden name="valueIng" value="phys"/>
             <s:hidden name="phys.idPhyMon"/>
             <label for="formCropMon_phys_emergencePhyMon" class="control-label">

@@ -26,10 +26,10 @@
         <!--<link href="http://t4t5.github.io/sweetalert/dist/sweetalert.css" rel="stylesheet" type="text/css"/>-->
     </head>
     <body>
+        <s:hidden name="lanSel"/>
         <div id="divMessage"></div>
         <div id="dialog-form"></div>
         <div class="header">
-            <%--<s:hidden name="lanSel"/>--%>
             <%@ include file="header-private.jsp" %>
         </div>
         <div class="body" id="divBodyLayout">
@@ -65,11 +65,13 @@
                 }
                 activeOption('ulOptionsMenu', actionName+'Cls');
             }
-            $.when(getCountry()).then(doAction);
             if (actionName=='dashboard') {
                 bootbox.alert("Se ha cambiado el sistema AEPS, para tener una mejor experiencia, si le llegase a presentar algún fallo, por favor escribanos en la sección de reportar problema!", function() {
 //                    console.log("Alert Callback");
                 });
+                $.when(getCountry()).then(doAction);
+            } else {
+                doAction();
             }
             $(document).ready(function() {
                 beoro_scrollToTop.init();                

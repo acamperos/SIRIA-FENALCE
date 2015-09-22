@@ -6,7 +6,7 @@
     <legend><s:property value="getText('title.infouser.setting')" /></legend>
     <s:form id="formSetting" action="saveSetting.action">
         <s:hidden name="actExe" value="configSetting"/>
-        <s:hidden name="lanSel"/>
+        <%--<s:hidden name="lanSel"/>--%>
         <div class="row">
             <div class="span6">
                 <button class="btn btn-default" style="margin-bottom: 10px" onclick="showInfoPassword('divPassword', 'formSetting_changePass')"><i class="icon-key"></i> <s:property value="getText('button.changepass.setting')" /></button>
@@ -32,7 +32,8 @@
                             </div>
                         </div>
                         <script>
-                            var lanVal = $('#formSetting_lanSel').val();
+//                            var lanVal = $('#formSetting_lanSel').val();
+                            var lanVal = $('#lanSel').val();
                             var str   = lanVal;
                             var valEs = str.search("es");
                             var valEn = str.search("en");    

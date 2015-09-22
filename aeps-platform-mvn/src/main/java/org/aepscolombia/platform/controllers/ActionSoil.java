@@ -1,6 +1,7 @@
 
 package org.aepscolombia.platform.controllers;
 
+import com.opensymphony.xwork2.ActionContext;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -341,6 +342,16 @@ public class ActionSoil extends BaseAction {
         this.typeEnt = typeEnt;
     }
     
+    private String lanSel;
+
+    public String getLanSel() {
+        return lanSel;
+    }
+
+    public void setLanSel(String lanSel) {
+        this.lanSel = lanSel;
+    }
+    
     @Override
     public String execute() throws Exception {
         return SUCCESS;
@@ -364,6 +375,8 @@ public class ActionSoil extends BaseAction {
         Entities entTemp = entDao.findById(idEntSystem);
         typeEnt = entTemp.getEntitiesTypes().getIdEntTyp();
         assDao = new AssociationDao();        
+        String lanTemp = (String) this.getSession().get(APConstants.SESSION_LANG);
+        lanSel = lanTemp.replace(coCode.toLowerCase(), "");
     }
     
     private Map fieldError;

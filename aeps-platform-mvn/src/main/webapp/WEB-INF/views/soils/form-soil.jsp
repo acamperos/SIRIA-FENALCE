@@ -23,7 +23,7 @@
                 <fieldset>         
                     <legend><s:property value="getText('title.features.soil')" /></legend>
                     <s:hidden name="rasta.idRas"/>    
-                    <s:hidden name="lanSel"/>
+                    <%--<s:hidden name="lanSel"/>--%>
                     <div class="control-group">
                         <label for="formRasta_nameField" class="control-label req">
                             <s:property value="getText('text.selectfield.soil')" />:

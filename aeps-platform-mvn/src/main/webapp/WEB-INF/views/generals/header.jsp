@@ -67,10 +67,10 @@
 										</div>
                                 <div class="formIngress">
                                     <s:url id="localeEN" namespace="/" action="locale" >
-                                        <s:param name="lang">en</s:param>
+                                        <%--<s:param name="lang">en</s:param>--%>
                                     </s:url>
                                     <s:url id="localeES" namespace="/" action="locale" >
-                                        <s:param name="lang">espe</s:param>
+                                        <%--<s:param name="lang">espe</s:param>--%>
                                     </s:url>
                                     <ul class="nav">
                                         <li>

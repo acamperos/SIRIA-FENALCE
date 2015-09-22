@@ -58,22 +58,15 @@
             <result>/WEB-INF/views/generals/layoutPrivate.jsp</result>
         </action>
         
-        <action name="initial" method="getCountry" class="org.aepscolombia.platform.controllers.LocaleAction">
+        <action name="initial" class="org.aepscolombia.platform.controllers.LocaleAction">
             <interceptor-ref name="basicStack"/>
             <interceptor-ref name="validateI18n"/>
             <interceptor-ref name="viewAction"/>
             <result type="redirectAction">
                 <param name="actionName">locale</param>
                 <param name="namespace">/</param>
-                <param name="countryCode">${countryVal}</param>
-                <param name="lang">${lang}</param>
             </result>
         </action> 
-        <action name="lanUser"  method="lanUser" class="org.aepscolombia.platform.controllers.LocaleAction">
-            <interceptor-ref name="validateI18n"/>
-            <interceptor-ref name="jsonValidationWorkflowStack"/>            
-            <result name="states" type="json"></result>
-        </action>
         <action name="principal" class="org.aepscolombia.platform.controllers.LocaleAction">
             <result>/layout.jsp</result>
         </action>                

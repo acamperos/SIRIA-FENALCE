@@ -21,7 +21,7 @@
                 <fieldset>         
                     <legend><s:property value="getText('title.cropbasicinfo.crop')" /></legend>
                     <s:hidden name="idCrop"/>                           
-                    <s:hidden name="lanSel"/>
+                    <%--<s:hidden name="lanSel"/>--%>
                     <div class="control-group">
                         <s:label for="formCrop_nameField" cssClass="control-label req" value="%{getText('text.selectfield.crop')}:"></s:label>
                         <div class="controls">

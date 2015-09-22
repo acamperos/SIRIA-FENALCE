@@ -23,7 +23,7 @@
                         <div class="span5 form-horizontal">
                             <s:hidden name="idCrop"/>
                             <s:hidden name="typeCrop"/>
-                            <s:hidden name="lanSel"/>
+                            <%--<s:hidden name="lanSel"/>--%>
                             <s:hidden name="actExe"/>
                             <s:hidden name="mon.idMon"/>
                             <div class="control-group">

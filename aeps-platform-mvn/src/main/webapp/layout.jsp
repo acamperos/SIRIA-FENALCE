@@ -36,9 +36,9 @@
         <script type="text/javascript" src="scripts/js/generals/functions.js"></script>	 
         <script src="scripts/js/generals/responsiveslides.js"></script>        
         <script>            
+            var actionName = '<%= session.getAttribute("action") %>';
             function doAction() {
-//            alert(countryCode)
-                var actionName = '<%= session.getAttribute("action") %>';
+//            alert(countryCode)                
                 if (actionName!='null' && actionName!='' && actionName!='dashboard' && actionName!='initial' && actionName!='principal' && actionName!='login') {
                     showInfoPage(''+actionName+'.action?countryCode='+countryCode, 'divBodyLayout');                 
                 } else if(actionName=='null' || actionName=='') {
@@ -53,7 +53,11 @@
             }
 //            getCountry();
 //            doAction();
-            $.when(getCountry()).then(doAction);
+            if(actionName=='initial') {
+                $.when(getCountry()).then(doAction);
+            } else {
+                doAction();
+            }
             $(document).ready(function() {
                 beoro_scrollToTop.init();
             })

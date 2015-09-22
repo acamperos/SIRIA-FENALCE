@@ -19,7 +19,7 @@
                     <fieldset>
                         <legend><s:property value="getText('title.formfarm.farm')" /></legend>
                         <s:hidden name="typeEnt"/>
-                        <s:hidden name="lanSel"/>
+                        <%--<s:hidden name="lanSel"/>--%>
                         <s:if test="%{typeEnt==2}">
                             <s:hidden name="idProducer"/>                                
                             <s:hidden name="name_producer"/>
