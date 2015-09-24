@@ -223,25 +223,29 @@
                     generateDegrees('formFarm_latitude_property', 'formFarm_latitude_degrees_property', 'formFarm_latitude_minutes_property', 'formFarm_latitude_seconds_property');
                     generateDegrees('formFarm_length_property', 'formFarm_length_degrees_property', 'formFarm_length_minutes_property', 'formFarm_length_seconds_property');
                     $.subscribe('completeFarm', function(event, data) {
-                        var actExeFarm = $("#formFarm_actExe").val();
-                        if (actExeFarm=='create') {
-                            $('#btnFarm').on('click', function() {
-                                ga('send', 'event', 'Farms', 'click', 'Create');
-                            });
-                        } else if (actExeFarm=='modify') {
-                            $('#btnFarm').on('click', function() {
-                                ga('send', 'event', 'Farms', 'click', 'Update');
-                            });                
-                        }
-                        //   	 alert('status: ' + event.originalEvent.status + '\n\nresponseText: \n' + event.originalEvent.request.responseText + 
-                        //     '\n\nThe output div should have already been updated with the responseText.');
-                        //        var json = jQuery.parseJSON(event.originalEvent.request.responseText);
-                        //        alert('responseText: \n' + json.info);
-//                        completeForm('dialog-form', 'formFarm', event.originalEvent.request.responseText);
-                        completeFormGetting('dialog-form', 'formFarm', 'divFarms', event.originalEvent.request.responseText);
-                        setTimeout( function() {
-                            showInfo("/viewFarm.action?page="+$("#formFarm_page").val(), "divViewFarm");
-                        }, 2000);
+                        if(event.handled !== true){
+                            var actExeFarm = $("#formFarm_actExe").val();
+                            if (actExeFarm=='create') {
+                                $('#btnFarm').on('click', function() {
+                                    ga('send', 'event', 'Farms', 'click', 'Create');
+                                });
+                            } else if (actExeFarm=='modify') {
+                                $('#btnFarm').on('click', function() {
+                                    ga('send', 'event', 'Farms', 'click', 'Update');
+                                });                
+                            }
+                            //   	 alert('status: ' + event.originalEvent.status + '\n\nresponseText: \n' + event.originalEvent.request.responseText + 
+                            //     '\n\nThe output div should have already been updated with the responseText.');
+                            //        var json = jQuery.parseJSON(event.originalEvent.request.responseText);
+                            //        alert('responseText: \n' + json.info);
+    //                        completeForm('dialog-form', 'formFarm', event.originalEvent.request.responseText);
+                            completeFormGetting('dialog-form', 'formFarm', 'divFarms', event.originalEvent.request.responseText);
+                            setTimeout( function() {
+                                showInfo("/viewFarm.action?page="+$("#formFarm_page").val(), "divViewFarm");
+                            }, 2000);
+                            event.handled = true;
+                        }    
+                        
                     });
                     if($('.pop-over').length) {
                         $('.pop-over').popover();

@@ -114,12 +114,15 @@
             </s:form>	
             <script>    
                 $.ui.dialog.prototype._focusTabbable = function(){};
-                $.subscribe('completePrep', function(event, data) {             
-                    completeFormGetting('dialog-form', 'formCropPrep', 'divPrep', event.originalEvent.request.responseText);
-                    setTimeout(function() {
-                        showInfo("/crop/searchPrep.action?idCrop="+$("#formCropPrep_idCrop").val(), "divListPrep");
-                        showTimeline("/crop/viewInfoTime.action?idCrop="+$("#formCropPrep_idCrop").val(), "divInfoTimeline", "timeline");
-                    }, 2000);
+                $.subscribe('completePrep', function(event, data) {            
+                    if(event.handled !== true){
+                        completeFormGetting('dialog-form', 'formCropPrep', 'divPrep', event.originalEvent.request.responseText);
+                        setTimeout(function() {
+                            showInfo("/crop/searchPrep.action?idCrop="+$("#formCropPrep_idCrop").val(), "divListPrep");
+                            showTimeline("/crop/viewInfoTime.action?idCrop="+$("#formCropPrep_idCrop").val(), "divInfoTimeline", "timeline");
+                        }, 2000);
+                        event.handled = true;
+                    }    
                 });
             </script>
         </div>

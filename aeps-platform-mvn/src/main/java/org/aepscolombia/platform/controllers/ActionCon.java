@@ -586,14 +586,14 @@ public class ActionCon extends BaseAction {
                 doseUnitsOrg = con.getDoseUnits().getIdDosUni();
                 doseUnitsMec = con.getDoseUnits().getIdDosUni();
                 doseUnitsMan = con.getDoseUnits().getIdDosUni();
+                
+                if (coCode.equals("NI")) {
+                    if(doseUnitsOrg==12) dosisConOrg = dosisConOrg*0.01522;
+                    if(doseUnitsChe==12) dosisConChe = dosisConChe*0.01522;
+                    if(doseUnitsMec==12) dosisConMec = dosisConMec*0.01522;
+                    if(doseUnitsMan==12) dosisConMan = dosisConMan*0.01522;
+                } 
             }            
-            
-            if (coCode.equals("NI")) {
-                if(doseUnitsOrg==12) dosisConOrg = dosisConOrg*0.01522;
-                if(doseUnitsChe==12) dosisConChe = dosisConChe*0.01522;
-                if(doseUnitsMec==12) dosisConMec = dosisConMec*0.01522;
-                if(doseUnitsMan==12) dosisConMan = dosisConMan*0.01522;
-            } 
             
             if (con.getControlsTypes().getIdConTyp()==1) {
                 this.setType_prod_org_con(new OrganicControlsDao().findAllByTargetType(con.getTargetsTypes().getIdTarTyp(), tyCro));
@@ -744,7 +744,7 @@ public class ActionCon extends BaseAction {
             session.saveOrUpdate(con);
             
             LogEntities log = null;            
-            log = LogEntitiesDao.getData(idEntSystem, con.getIdCon(), "controls", action);
+            if(!action.equals("M")) log = LogEntitiesDao.getData(idEntSystem, con.getIdCon(), "controls", action);
             if (log==null && !action.equals("M")) {
                 log = new LogEntities();
                 log.setIdLogEnt(null);

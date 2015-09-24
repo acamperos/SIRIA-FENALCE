@@ -170,12 +170,15 @@
             </s:form>	
             <script>        
                 $.ui.dialog.prototype._focusTabbable = function(){};
-                $.subscribe('completeIrr', function(event, data) {             
-                    completeFormGetting('dialog-form', 'formCropIrr', 'divIrr', event.originalEvent.request.responseText);
-                    setTimeout(function() {
-                        showInfo("/crop/searchIrr.action?idCrop="+$("#formCropIrr_idCrop").val(), "divListIrr");
-                        showTimeline("/crop/viewInfoTime.action?idCrop="+$("#formCropIrr_idCrop").val(), "divInfoTimeline", "timeline");
-                    }, 2000);
+                $.subscribe('completeIrr', function(event, data) { 
+                    if(event.handled !== true){
+                        completeFormGetting('dialog-form', 'formCropIrr', 'divIrr', event.originalEvent.request.responseText);
+                        setTimeout(function() {
+                            showInfo("/crop/searchIrr.action?idCrop="+$("#formCropIrr_idCrop").val(), "divListIrr");
+                            showTimeline("/crop/viewInfoTime.action?idCrop="+$("#formCropIrr_idCrop").val(), "divInfoTimeline", "timeline");
+                        }, 2000);
+                        event.handled = true;
+                    }   
                 });
             </script>
         </div>

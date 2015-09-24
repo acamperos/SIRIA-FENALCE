@@ -704,7 +704,7 @@ public class ActionProducer extends BaseAction {
         this.inputStream = inputStream;
     }
 
-    public String getReport() throws Exception {
+    public String viewReport() throws Exception {
         if (!usrDao.getPrivilegeUser(idUsrSystem, "producer/list")) {
             return BaseAction.NOT_AUTHORIZED;
         }
@@ -732,7 +732,7 @@ public class ActionProducer extends BaseAction {
 
         File f = new File(fileName);
         inputStream = new FileInputStream(f);
-        f.delete();
+//        f.delete();
         return "OUTPUTCSV";
     }
 

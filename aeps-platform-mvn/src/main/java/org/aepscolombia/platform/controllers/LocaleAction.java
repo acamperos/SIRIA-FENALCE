@@ -83,5 +83,28 @@ public class LocaleAction extends BaseAction
         
         return SUCCESS;
     }
+    
+    private String countryVal;
+
+    public String getCountryVal() {
+        return countryVal;
+    }
+
+    public void setCountryVal(String countryVal) {
+        this.countryVal = countryVal;
+    }
+    
+    
+    public String getCountry() throws Exception {
+        String countryCode = "";
+        try {
+            countryCode = (String)this.getRequest().getParameter("countryCode");
+        } catch(Exception e) {
+            countryCode = "-1";
+        } 
+//        if (countryCode.equals("-1")) countryCode = (String) this.getSession().get(APConstants.COUNTRY_CODE);
+        setCountryVal(countryCode);
+        return SUCCESS;
+    }
          
 }

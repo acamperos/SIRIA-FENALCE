@@ -450,20 +450,23 @@
                 $("#formSoil_soil_exchangeableAcidityThreeSoAna").val(parsePointSeparated($("#formSoil_soil_exchangeableAcidityThreeSoAna").val()));
                 
                 $.subscribe('completeSoil', function(event, data) {
-                    var actExeSoil = $("#formSoil_actExe").val();
-                    if (actExeSoil=='create') {
-                        $('#btnSoil').on('click', function() {
-                            ga('send', 'event', 'SoilsChemical', 'click', 'Create');
-                        });
-                    } else if (actExeSoil=='modify') {
-                        $('#btnSoil').on('click', function() {
-                            ga('send', 'event', 'SoilsChemical', 'click', 'Update');
-                        });                
-                    }
-                    completeFormGetting('dialog-form', 'formSoil', 'divSoil', event.originalEvent.request.responseText);
-                    setTimeout(function() {
-                        showInfo("/soilchemical/searchSoilChemical.action?page=" + page, "divConListSoil");
-                    }, 2000);
+                    if(event.handled !== true){
+                        var actExeSoil = $("#formSoil_actExe").val();
+                        if (actExeSoil=='create') {
+                            $('#btnSoil').on('click', function() {
+                                ga('send', 'event', 'SoilsChemical', 'click', 'Create');
+                            });
+                        } else if (actExeSoil=='modify') {
+                            $('#btnSoil').on('click', function() {
+                                ga('send', 'event', 'SoilsChemical', 'click', 'Update');
+                            });                
+                        }
+                        completeFormGetting('dialog-form', 'formSoil', 'divSoil', event.originalEvent.request.responseText);
+                        setTimeout(function() {
+                            showInfo("/soilchemical/searchSoilChemical.action?page=" + page, "divConListSoil");
+                        }, 2000);
+                        event.handled = true;
+                    }   
                 });
                 if($('.pop-over').length) {
                     $('.pop-over').popover();

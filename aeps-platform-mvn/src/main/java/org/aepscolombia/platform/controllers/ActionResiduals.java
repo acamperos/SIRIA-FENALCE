@@ -341,7 +341,7 @@ public class ActionResiduals extends BaseAction {
             session.saveOrUpdate(resMan);
             
             LogEntities log = null;            
-            log = LogEntitiesDao.getData(idEntSystem, resMan.getIdResMan(), "residuals_management", action);
+            if(!action.equals("M")) log = LogEntitiesDao.getData(idEntSystem, resMan.getIdResMan(), "residuals_management", action);
             if (log==null && !action.equals("M")) {
                 log = new LogEntities();
                 log.setIdLogEnt(null);

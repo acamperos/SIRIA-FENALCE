@@ -432,7 +432,7 @@ public class ActionFer extends BaseAction {
 //            required.put("fer.amountProductUsedFer", fer.getAmountProductUsedFer());      
 //            required.put("fer.fertilizationsTypes.idFerTyp", fer.getFertilizationsTypes().getIdFerTyp());                  
             
-            if (chemFert.size()<0 && orgFert.size()<0 && amenFert.size()<0) {
+            if (chemFert.size()<=0 && orgFert.size()<=0 && amenFert.size()<=0) {
                 addActionError(getText("message.insertsomefert.fertilization"));
             }
             
@@ -859,7 +859,7 @@ public class ActionFer extends BaseAction {
             session.saveOrUpdate(fer);
             
             LogEntities log = null;            
-            log = LogEntitiesDao.getData(idEntSystem, fer.getIdFer(), "fertilizations", action);
+            if(!action.equals("M")) log = LogEntitiesDao.getData(idEntSystem, fer.getIdFer(), "fertilizations", action);
             if (log==null && !action.equals("M")) {
                 log = new LogEntities();
                 log.setIdLogEnt(null);

@@ -561,7 +561,7 @@ public class ActionSoil extends BaseAction {
         this.inputStream = inputStream;  
     }
     
-    public String getReport() throws Exception {
+    public String viewReport() throws Exception {
         if (!usrDao.getPrivilegeUser(idUsrSystem, "soil/list")) {
             return BaseAction.NOT_AUTHORIZED;
         }
@@ -582,7 +582,7 @@ public class ActionSoil extends BaseAction {
   
         File f = new File(fileName);  
         inputStream = new FileInputStream(f);  
-        f.delete();
+//        f.delete();
         return "OUTPUTCSV"; 
     }    
 
@@ -662,7 +662,7 @@ public class ActionSoil extends BaseAction {
             session.saveOrUpdate(soil);    
             
             LogEntities log = null;            
-            log = LogEntitiesDao.getData(idEntSystem, soil.getIdSoAna(), "soil_analysis", action);
+            if(!action.equals("M")) log = LogEntitiesDao.getData(idEntSystem, soil.getIdSoAna(), "soil_analysis", action);
             if (log==null && !action.equals("M")) {
                 log = new LogEntities();
                 log.setIdLogEnt(null);

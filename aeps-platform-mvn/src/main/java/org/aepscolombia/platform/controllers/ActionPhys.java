@@ -346,7 +346,7 @@ public class ActionPhys extends BaseAction {
             session.saveOrUpdate(phys);
             
             LogEntities log = null;            
-            log = LogEntitiesDao.getData(idEntSystem, phys.getIdPhyMon(), "physiological_monitoring", action);
+            if(!action.equals("M")) log = LogEntitiesDao.getData(idEntSystem, phys.getIdPhyMon(), "physiological_monitoring", action);
             if (log==null && !action.equals("M")) {
                 log = new LogEntities();
                 log.setIdLogEnt(null);

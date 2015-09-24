@@ -11,6 +11,7 @@
         <%@page import="org.aepscolombia.platform.models.dao.IdiomCountryDao"%>
         <% Users user = (Users) session.getAttribute(APConstants.SESSION_USER); %>
         <% String entType = new EntitiesDao().getEntityType(user.getIdUsr()); %>
+        <% String entNameUser = new EntitiesDao().getEntityName(user.getIdUsr()); %>
         <% String coCode = (String) session.getAttribute(APConstants.COUNTRY_CODE); %>
         <% IdiomCountry idiom = new IdiomCountryDao().objectById(coCode); %>
         <% String nameCountry = ""; %>
@@ -53,7 +54,7 @@
                                     <div class="user-box-inner">
                                         <img src="<%= request.getContextPath() %>/img/user_ingress.png" alt="" class="user-avatar img-avatar">
                                         <div class="user-info">
-                                            <s:property value="getText('title.welcome.header')" />, <strong><%= user.getNameUserUsr() %></strong> (<%= entType %>)
+                                            <s:property value="getText('title.welcome.header')" />, <strong><%= entNameUser %></strong> (<%= entType %>)
                                             <ul class="unstyled">
                                                 <li><s:a href="%{contextPath}/configuration.action"><i class="icon-wrench"></i> <s:property value="getText('link.setting.header')" /></s:a></li>
                                                 <li>-</li>

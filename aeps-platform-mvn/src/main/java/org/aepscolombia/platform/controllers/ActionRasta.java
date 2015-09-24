@@ -1035,7 +1035,7 @@ public class ActionRasta extends BaseAction {
         this.inputStream = inputStream;  
     }
     
-    public String getReport() throws Exception {
+    public String viewReport() throws Exception {
         if (!usrDao.getPrivilegeUser(idUsrSystem, "soil/list")) {
             return BaseAction.NOT_AUTHORIZED;
         }
@@ -1057,7 +1057,7 @@ public class ActionRasta extends BaseAction {
   
         File f = new File(fileName);  
         inputStream = new FileInputStream(f);  
-        f.delete();
+//        f.delete();
         return "OUTPUTCSV"; 
     }    
 
@@ -1243,7 +1243,7 @@ public class ActionRasta extends BaseAction {
             session.saveOrUpdate(rasta);
             
             LogEntities log = null;            
-            log = LogEntitiesDao.getData(idEntSystem, rasta.getIdRas(), "rastas", action);
+            if(!action.equals("M")) log = LogEntitiesDao.getData(idEntSystem, rasta.getIdRas(), "rastas", action);
             if (log==null && !action.equals("M")) {
                 log = new LogEntities();
                 log.setIdLogEnt(null);

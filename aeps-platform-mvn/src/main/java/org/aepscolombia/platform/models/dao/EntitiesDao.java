@@ -356,4 +356,41 @@ public class EntitiesDao {
         }
     }
     
+    public static String getEntityName(Integer idUser) {
+        SessionFactory sessions = HibernateUtil.getSessionFactory();
+        Session session = sessions.openSession();
+
+        Entities event = null;
+        Transaction tx = null;
+        String sql = "";
+        String valEntity = "";
+
+        sql += "select usr.id_ent, usr.id_project_ent, usr.entity_type_ent, usr.document_number_ent, usr.document_type_ent, usr.document_issue_place_ent,"; 	
+        sql += "usr.name_ent, usr.in_association_ent, usr.email_ent, usr.email_2_ent, usr.address_ent, usr.id_municipality_ent,"; 	
+        sql += "usr.cellphone2_ent, usr.phone_ent, usr.cellphone_ent, usr.status, usr.gender_ent, usr.civil_status_ent,"; 	
+        sql += "usr.validation_number_ent, usr.education_level_ent, usr.date_of_birth_ent, usr.first_name_1_ent, usr.person_type_ent,"; 	
+        sql += "usr.first_name_2_ent, usr.last_name_1_ent, usr.last_name_2_ent, usr.agent_name_ent, usr.page_link_ent, usr.created_by";
+        sql += " from entities usr";
+        sql += " inner join user_entity usrEnt on usrEnt.id_entity_usr_ent=usr.id_ent";
+        sql += " where usr.status=1";
+        if (idUser!=null) sql += " and usrEnt.id_user_usr_ent="+idUser;
+//        System.out.println("sql->"+sql);
+        
+        try {
+            tx = session.beginTransaction();
+            Query query = session.createSQLQuery(sql).addEntity("usr", Entities.class);
+            event = (Entities)query.uniqueResult();
+            valEntity = (event.getNameEnt()!=null) ? event.getNameEnt() : event.getEmailEnt();
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return valEntity;
+    }
+    
 }

@@ -178,7 +178,10 @@
 </s:form>	
 <script>
     $.subscribe('completeHarvest', function(event, data) {
-        completeFormCrop('', 'formCropHar', 'divMessHarvest', event.originalEvent.request.responseText);
-        showTimeline("/crop/viewInfoTime.action?idCrop="+$("#formCropHar_idCrop").val(), "divInfoTimeline", "timeline");
+        if(event.handled !== true){
+            completeFormCrop('', 'formCropHar', 'divMessHarvest', event.originalEvent.request.responseText);
+            showTimeline("/crop/viewInfoTime.action?idCrop="+$("#formCropHar_idCrop").val(), "divInfoTimeline", "timeline");
+            event.handled = true;
+        }    
     });
 </script>

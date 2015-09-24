@@ -82,7 +82,7 @@
                     <div id="divBtRes">
                         <% String actExe   = String.valueOf(request.getAttribute("actExe")); %>
                         <% if ((actExe.equals("create") && usrDao.getPrivilegeUser(user.getIdUsr(), "crop/create")) || (actExe.equals("modify") && usrDao.getPrivilegeUser(user.getIdUsr(), "crop/modify"))) { %>
-                            <sj:submit type="button" cssClass="btn btn-initial btn-large" onclick="addMessageProcess()" targets="divMessage" onCompleteTopics="completeRes" validate="true" validateFunction="validationForm"><i class="icon-save"></i>  <s:property value="getText('button.saveresidual.residual')" /></sj:submit>
+                            <sj:submit type="button" id="btResidual" cssClass="btn btn-initial btn-large" onclick="addMessageProcess()" targets="divMessage" onCompleteTopics="completeRes" validate="true" validateFunction="validationForm"><i class="icon-save"></i>  <s:property value="getText('button.saveresidual.residual')" /></sj:submit>
                         <% } %>
                         <button class="btn btn_default btn-large" onclick="resetForm('formCropRes'); closeWindow();"><i class="icon-ban-circle"></i>  <s:property value="getText('button.cancel')" /></button>
                     </div>
@@ -90,12 +90,15 @@
             </s:form>	
             <script>    
                 $.ui.dialog.prototype._focusTabbable = function(){};
-                $.subscribe('completeRes', function(event, data) {             
-                    completeFormGetting('dialog-form', 'formCropRes', 'divRes', event.originalEvent.request.responseText);
-                    setTimeout(function() {
-                        showInfo("/crop/searchResidual.action?idCrop="+$("#formCropRes_idCrop").val(), "divListRes");
-                        showTimeline("/crop/viewInfoTime.action?idCrop="+$("#formCropRes_idCrop").val(), "divInfoTimeline", "timeline");
-                    }, 2000);
+                $.subscribe('completeRes', function(event, data) {      
+                    if(event.handled !== true){
+                        completeFormGetting('dialog-form', 'formCropRes', 'divRes', event.originalEvent.request.responseText);
+                        setTimeout(function() {
+                            showInfo("/crop/searchResidual.action?idCrop="+$("#formCropRes_idCrop").val(), "divListRes");
+                            showTimeline("/crop/viewInfoTime.action?idCrop="+$("#formCropRes_idCrop").val(), "divInfoTimeline", "timeline");
+                        }, 2000); 
+                        event.handled = true;
+                    }                                       
                 });
             </script>
         </div>

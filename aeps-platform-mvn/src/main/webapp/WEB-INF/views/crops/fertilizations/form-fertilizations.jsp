@@ -155,12 +155,15 @@
             </s:form>
             <script>      
                 $.ui.dialog.prototype._focusTabbable = function(){};
-                $.subscribe('completeFer', function(event, data) {             
-                    completeFormGetting('dialog-form', 'formCropFer', 'divFer', event.originalEvent.request.responseText);
-                    setTimeout(function() {
-                        showInfo("/crop/searchFer.action?idCrop="+$("#formCropFer_idCrop").val(), "divListFer");
-                        showTimeline("/crop/viewInfoTime.action?idCrop="+$("#formCropFer_idCrop").val(), "divInfoTimeline", "timeline");
-                    }, 2000);
+                $.subscribe('completeFer', function(event, data) {   
+                    if(event.handled !== true){
+                        completeFormGetting('dialog-form', 'formCropFer', 'divFer', event.originalEvent.request.responseText);
+                        setTimeout(function() {
+                            showInfo("/crop/searchFer.action?idCrop="+$("#formCropFer_idCrop").val(), "divListFer");
+                            showTimeline("/crop/viewInfoTime.action?idCrop="+$("#formCropFer_idCrop").val(), "divInfoTimeline", "timeline");
+                        }, 2000);
+                        event.handled = true;
+                    }    
                 });
             </script>
         </div>

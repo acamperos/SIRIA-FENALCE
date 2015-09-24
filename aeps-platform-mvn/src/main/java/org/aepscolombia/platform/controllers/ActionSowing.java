@@ -422,7 +422,7 @@ public class ActionSowing extends BaseAction {
             }
             
             LogEntities log = null;            
-            log = LogEntitiesDao.getData(idEntSystem, sowing.getIdSow(), "sowing", action);
+            if(!action.equals("M")) log = LogEntitiesDao.getData(idEntSystem, sowing.getIdSow(), "sowing", action);
             if (log==null && !action.equals("M")) {
                 log = new LogEntities();
                 log.setIdLogEnt(null);

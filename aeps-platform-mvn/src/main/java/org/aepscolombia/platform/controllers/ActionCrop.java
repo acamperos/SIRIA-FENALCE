@@ -803,7 +803,8 @@ public class ActionCrop extends BaseAction {
             required.put("nameField", nameField);
             required.put("typeCrop", typeCrop);
             required.put("lastCrop", lastCrop);
-            if (!totallyArea) {
+            required.put("totallyArea", totallyArea);
+            if (totallyArea!=null && !totallyArea) {
                 required.put("typeArea", typeArea);
                 required.put("areaCrop", areaCrop);
             }
@@ -829,9 +830,14 @@ public class ActionCrop extends BaseAction {
             }
             
             HashMap fieldInfo = lotDao.findById(this.getIdField());
-            double availableArea = Double.parseDouble(String.valueOf(fieldInfo.get("available_area")));
-            double areaOld = Double.parseDouble(String.valueOf(fieldInfo.get("area_lot")));
-            if (!totallyArea) {
+            double availableArea = 0.0;
+            double areaOld       = 0.0;
+            if (totallyArea!=null && actExe.equals("modify")) {
+                availableArea = Double.parseDouble(String.valueOf(fieldInfo.get("available_area")));
+                areaOld = Double.parseDouble(String.valueOf(fieldInfo.get("area_lot")));
+            }
+            
+            if (totallyArea!=null && !totallyArea && typeArea!=null && areaCrop!=null) {
                 if (typeArea==1) {
                     areaCrop = ((areaCrop*areaOld)/100);
                 }
@@ -1146,6 +1152,14 @@ public class ActionCrop extends BaseAction {
             sowing = null;
             harv   = null;
             event  = null;
+            /*list_departments = null;
+            type_ident_producer = null;
+            rice = null;
+            beans = null;
+            maize = null;
+            cass = null;
+            assDao = null;
+            user = null;*/
         } else {
             state = "failure";
         }
@@ -1313,7 +1327,7 @@ public class ActionCrop extends BaseAction {
         return fileName;
     }   
     
-    public String getReport() throws Exception {
+    public String viewReport() throws Exception {
         if (!usrDao.getPrivilegeUser(idUsrSystem, "crop/list")) {
             return BaseAction.NOT_AUTHORIZED;
         }
@@ -1334,11 +1348,11 @@ public class ActionCrop extends BaseAction {
         findParams.put("idEntUser", idEntSystem);
         String fileName  = ""+getText("file.doccrop");
 //        String fileName  = "cropsInfo.csv";
-        cropDao.getProductionEvents(findParams, fileName);
-  
+        cropDao.getProductionEvents(findParams, fileName);  
+        
         File f = new File(fileName);  
         inputStream = new FileInputStream(f);
-        f.delete();
+//        f.delete();
         return "OUTPUTCSV"; 
     }
     
@@ -1506,7 +1520,7 @@ public class ActionCrop extends BaseAction {
             rice  = null;
             
             LogEntities log = null;            
-            log = LogEntitiesDao.getData(idEntSystem, pro.getIdProEve(), "production_events", action);
+            if(!action.equals("M")) log = LogEntitiesDao.getData(idEntSystem, pro.getIdProEve(), "production_events", action);
             if (log==null && !action.equals("M")) {
                 log = new LogEntities();
                 log.setIdLogEnt(null);

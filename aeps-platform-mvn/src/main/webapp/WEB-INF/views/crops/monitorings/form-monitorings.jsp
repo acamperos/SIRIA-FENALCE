@@ -122,12 +122,15 @@
             </s:form>	
             <script>       
                 $.ui.dialog.prototype._focusTabbable = function(){};
-                $.subscribe('completeMon', function(event, data) {             
-                    completeFormGetting('dialog-form', 'formCropMonGen', 'divMon', event.originalEvent.request.responseText);
-                    setTimeout(function() {
-                        showInfo("/crop/searchMon.action?idCrop="+$("#formCropMonGen_idCrop").val(), "divListMonGen");
-                        showTimeline("/crop/viewInfoTime.action?idCrop="+$("#formCropMonGen_idCrop").val(), "divInfoTimeline", "timeline");
-                    }, 2000);
+                $.subscribe('completeMon', function(event, data) {    
+                    if(event.handled !== true){
+                        completeFormGetting('dialog-form', 'formCropMonGen', 'divMon', event.originalEvent.request.responseText);
+                        setTimeout(function() {
+                            showInfo("/crop/searchMon.action?idCrop="+$("#formCropMonGen_idCrop").val(), "divListMonGen");
+                            showTimeline("/crop/viewInfoTime.action?idCrop="+$("#formCropMonGen_idCrop").val(), "divInfoTimeline", "timeline");
+                        }, 2000);
+                        event.handled = true;
+                    }    
                 });
             </script>
         </div>

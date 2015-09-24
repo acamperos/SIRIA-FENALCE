@@ -67,11 +67,14 @@
             </s:form>
             <script>    
                 $.ui.dialog.prototype._focusTabbable = function(){};
-                $.subscribe('completeDes', function(event, data) {             
-                    completeFormGetting('dialog-form', 'formCropDes', 'divDes', event.originalEvent.request.responseText);
-                    setTimeout(function() {
-                        showInfo("/crop/searchDescrip.action?idCrop="+$("#formCropDes_idCrop").val(), "divListDes");
-                    }, 2000);
+                $.subscribe('completeDes', function(event, data) {    
+                    if(event.handled !== true){
+                        completeFormGetting('dialog-form', 'formCropDes', 'divDes', event.originalEvent.request.responseText);
+                        setTimeout(function() {
+                            showInfo("/crop/searchDescrip.action?idCrop="+$("#formCropDes_idCrop").val(), "divListDes");
+                        }, 2000);
+                        event.handled = true;
+                    }    
                 });
             </script>
         </div>

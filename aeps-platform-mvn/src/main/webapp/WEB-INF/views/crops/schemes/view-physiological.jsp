@@ -88,7 +88,10 @@
 </div>
 <script>
     $.subscribe('completePhyMon', function(event, data) {
-        completeFormCrop('', 'formCropMon', 'divMessPhy', event.originalEvent.request.responseText);
-        showTimeline("/crop/viewInfoTime.action?idCrop="+$("#formCropMon_idCrop").val(), "divInfoTimeline", "timeline");
+        if(event.handled !== true){
+            completeFormCrop('', 'formCropMon', 'divMessPhy', event.originalEvent.request.responseText);
+            showTimeline("/crop/viewInfoTime.action?idCrop="+$("#formCropMon_idCrop").val(), "divInfoTimeline", "timeline");
+            event.handled = true;
+        }    
     });
 </script>

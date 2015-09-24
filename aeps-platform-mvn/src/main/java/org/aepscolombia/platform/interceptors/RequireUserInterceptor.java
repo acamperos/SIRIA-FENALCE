@@ -2,6 +2,7 @@
 package org.aepscolombia.platform.interceptors;
 
 import com.opensymphony.xwork2.Action;
+import com.opensymphony.xwork2.ActionContext;
 import org.aepscolombia.platform.controllers.BaseAction;
 import org.aepscolombia.platform.util.APConstants;
 import org.aepscolombia.platform.models.entity.Users;
@@ -9,6 +10,7 @@ import org.aepscolombia.platform.models.entity.Users;
 
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
+import java.util.Locale;
 import java.util.Map;
 import org.aepscolombia.platform.models.dao.UsersDao;
 
@@ -43,6 +45,12 @@ public class RequireUserInterceptor extends AbstractInterceptor
 //        System.out.println("user asig->"+userAsign);
         result = invocation.invoke();
     }    
+    
+    String lang = (String) ActionContext.getContext().getSession().get(APConstants.SESSION_LANG);
+    if (user == null && lang!=null) {        
+        Locale locale = new Locale(lang);
+        invocation.getInvocationContext().setLocale(locale);
+    } 
     
     if (user == null && actionActual.equals("signin")) {
         result = invocation.invoke();  

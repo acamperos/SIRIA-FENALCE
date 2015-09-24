@@ -58,13 +58,15 @@
             <result>/WEB-INF/views/generals/layoutPrivate.jsp</result>
         </action>
         
-        <action name="initial" class="org.aepscolombia.platform.controllers.LocaleAction">
+        <action name="initial" method="getCountry" class="org.aepscolombia.platform.controllers.LocaleAction">
             <interceptor-ref name="basicStack"/>
             <interceptor-ref name="validateI18n"/>
             <interceptor-ref name="viewAction"/>
             <result type="redirectAction">
                 <param name="actionName">locale</param>
                 <param name="namespace">/</param>
+                <param name="countryCode">${countryVal}</param>
+                <param name="lang">${lang}</param>
             </result>
         </action> 
         <action name="principal" class="org.aepscolombia.platform.controllers.LocaleAction">
@@ -215,7 +217,7 @@
             <result name="page">/WEB-INF/views/generals/layoutPrivate.jsp</result>
             <result>/WEB-INF/views/generals/getting.jsp</result>
         </action> 
-        <action name="reports">
+        <action name="reports" class="org.aepscolombia.platform.controllers.ActionReport">
             <interceptor-ref name="defaultStackAeps"/>
             <interceptor-ref name="validateI18n"/>            
             <interceptor-ref name="viewAction"/>            
@@ -301,7 +303,7 @@
             <interceptor-ref name="jsonValidationWorkflowStack"/>
             <result name="states" type="json"></result>
         </action> 
-        <action name="getReportProducer" method="getReport" class="org.aepscolombia.platform.controllers.ActionProducer">
+        <action name="getReportProducer" method="viewReport" class="org.aepscolombia.platform.controllers.ActionProducer">
             <interceptor-ref name="validateI18n"/>
             <interceptor-ref name="jsonValidationWorkflowStack"/>
             <result name="OUTPUTCSV" type="stream">  
@@ -371,7 +373,7 @@
             <interceptor-ref name="defaultStackAeps"/>
             <result name="states" type="json"></result>
         </action>
-        <action name="getReportFarm" method="getReport" class="org.aepscolombia.platform.controllers.ActionFarm">
+        <action name="getReportFarm" method="viewReport" class="org.aepscolombia.platform.controllers.ActionFarm">
             <interceptor-ref name="validateI18n"/>
             <interceptor-ref name="jsonValidationWorkflowStack"/>
             <result name="OUTPUTCSV" type="stream">  
@@ -435,7 +437,7 @@
             <interceptor-ref name="defaultStackAeps"/>
             <result name="states" type="json"></result>
         </action>      
-        <action name="getReportField" method="getReport" class="org.aepscolombia.platform.controllers.ActionField">
+        <action name="getReportField" method="viewReport" class="org.aepscolombia.platform.controllers.ActionField">
             <interceptor-ref name="validateI18n"/>
             <interceptor-ref name="jsonValidationWorkflowStack"/>
             <result name="OUTPUTCSV" type="stream">  
@@ -490,7 +492,7 @@
             <interceptor-ref name="defaultStackAeps"/>
             <result name="states" type="json"></result>
         </action> 
-        <action name="getReportSoil" method="getReport" class="org.aepscolombia.platform.controllers.ActionRasta">
+        <action name="getReportSoil" method="viewReport" class="org.aepscolombia.platform.controllers.ActionRasta">
             <interceptor-ref name="validateI18n"/>
             <interceptor-ref name="jsonValidationWorkflowStack"/>
             <result name="OUTPUTCSV" type="stream">  
@@ -588,7 +590,7 @@
             <interceptor-ref name="defaultStackAeps"/>
             <result name="states" type="json"></result>
         </action>  
-        <action name="getReportCrop" method="getReport" class="org.aepscolombia.platform.controllers.ActionCrop">
+        <action name="getReportCrop" method="viewReport" class="org.aepscolombia.platform.controllers.ActionCrop">
             <interceptor-ref name="validateI18n"/>
             <interceptor-ref name="jsonValidationWorkflowStack"/>
             <result name="OUTPUTCSV" type="stream">  
@@ -624,14 +626,14 @@
             <interceptor-ref name="validateI18n"/>
             <result>/WEB-INF/views/reports/info-soil.jsp</result>
         </action>
-        <action name="getReportPro" method="getReport" class="org.aepscolombia.platform.controllers.ActionReport">
+        <action name="getReportPro" method="viewReport" class="org.aepscolombia.platform.controllers.ActionReport">
             <interceptor-ref name="validateI18n"/>
             <interceptor-ref name="defaultStackAeps"/>
             <result name="states" type="json"></result>      
             <result name = "reportBox">/WEB-INF/views/reports/production_reportAgro.jsp</result>
             <result name = "reportDet">/WEB-INF/views/reports/production_reportPro.jsp</result>
         </action>
-        <action name="checkList">
+        <action name="checkList" class="org.aepscolombia.platform.controllers.ActionReport">
             <interceptor-ref name="defaultStackAeps"/>
             <interceptor-ref name="validateI18n"/>
             <interceptor-ref name="viewAction"/>
@@ -882,7 +884,7 @@
             <interceptor-ref name="defaultStackAeps"/>
             <result name="states" type="json"></result>
         </action> 
-        <action name="getReportSoilChemical" method="getReport" class="org.aepscolombia.platform.controllers.ActionSoil">
+        <action name="getReportSoilChemical" method="viewReport" class="org.aepscolombia.platform.controllers.ActionSoil">
             <interceptor-ref name="validateI18n"/>
             <interceptor-ref name="jsonValidationWorkflowStack"/>
             <result name="OUTPUTCSV" type="stream">  

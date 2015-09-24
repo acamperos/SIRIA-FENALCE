@@ -15,7 +15,9 @@
         <link href = 'http://fonts.googleapis.com/css?family=Istok+Web:400700400cursiva,700italicysubconjunto=latin,latin-ext' rel='stylesheet' type='text/css'>
     </head>
     <body>
-				<%@ taglib prefix="s" uri="/struts-tags" %>
+        <%@ taglib prefix="s" uri="/struts-tags" %>
+        <%@page import="org.aepscolombia.platform.util.APConstants"%>
+        <% String country  = (String) session.getAttribute(APConstants.COUNTRY_CODE); %>
         <div class="container">
             <div class="row">
                 <div class="span12">

@@ -186,23 +186,26 @@
                         generateDegrees('formField_latitude_lot', 'formField_latitude_degrees_lot', 'formField_latitude_minutes_lot', 'formField_latitude_seconds_lot');
                         generateDegrees('formField_length_lot', 'formField_length_degrees_lot', 'formField_length_minutes_lot', 'formField_length_seconds_lot');
                         $.subscribe('completeField', function(event, data) {
-                            var actExeFie = $("#formField_actExe").val();
-                            if (actExeFie=='create') {
-                                $('#btnField').on('click', function() {
-                                    ga('send', 'event', 'Fields', 'click', 'Create');
-                                });
-                            } else if (actExeFie=='modify') {
-                                $('#btnField').on('click', function() {
-                                    ga('send', 'event', 'Fields', 'click', 'Update');
-                                });                
-                            }
-                            completeFormGetting('dialog-form', 'formField', 'divFields', event.originalEvent.request.responseText);
-//                            setTimeout( function() {
-//                                showInfo("/viewFarm.action?page="+$("#formFarm_page").val(), "divViewFarm");
-//                            }, 2000);
-                            setTimeout( function() {
-                                showInfo("/viewField.action?page="+$("#formField_page").val(), "divViewField");
-                            }, 2000);
+                            if(event.handled !== true){
+                                var actExeFie = $("#formField_actExe").val();
+                                if (actExeFie=='create') {
+                                    $('#btnField').on('click', function() {
+                                        ga('send', 'event', 'Fields', 'click', 'Create');
+                                    });
+                                } else if (actExeFie=='modify') {
+                                    $('#btnField').on('click', function() {
+                                        ga('send', 'event', 'Fields', 'click', 'Update');
+                                    });                
+                                }
+                                completeFormGetting('dialog-form', 'formField', 'divFields', event.originalEvent.request.responseText);
+    //                            setTimeout( function() {
+    //                                showInfo("/viewFarm.action?page="+$("#formFarm_page").val(), "divViewFarm");
+    //                            }, 2000);
+                                setTimeout( function() {
+                                    showInfo("/viewField.action?page="+$("#formField_page").val(), "divViewField");
+                                }, 2000);
+                                event.handled = true;
+                            }    
                         });
                         if($('.pop-over').length) {
                             $('.pop-over').popover();

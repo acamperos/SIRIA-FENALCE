@@ -301,27 +301,30 @@
             $("#formProducer_telephone_producer").mask("9999999",{placeholder:""});
             $("#formProducer_celphone_producer").mask("h999999999",{placeholder:""});
             $.subscribe('completeProducer', function(event, data) {
-                var actExePro = $("#formProducer_actExe").val();
-                if (actExePro=='create') {
-                    $('#btnProducer').on('click', function() {
-                        ga('send', 'event', 'Producers', 'click', 'Create');
-                    });
-                } else if (actExePro=='modify') {
-                    $('#btnProducer').on('click', function() {
-                        ga('send', 'event', 'Producers', 'click', 'Update');
-                    });                
-                }
-                //   	 alert('status: ' + event.originalEvent.status + '\n\nresponseText: \n' + event.originalEvent.request.responseText + 
-                //     '\n\nThe output div should have already been updated with the responseText.');
-                //        var json = jQuery.parseJSON(event.originalEvent.request.responseText);
-                //        alert('responseText: \n' + json.info);
-//                if(!requestSent) {
-//                    requestSent = true;
+                if(event.handled !== true){
+                    var actExePro = $("#formProducer_actExe").val();
+                    if (actExePro=='create') {
+                        $('#btnProducer').on('click', function() {
+                            ga('send', 'event', 'Producers', 'click', 'Create');
+                        });
+                    } else if (actExePro=='modify') {
+                        $('#btnProducer').on('click', function() {
+                            ga('send', 'event', 'Producers', 'click', 'Update');
+                        });                
+                    }
+                    //   	 alert('status: ' + event.originalEvent.status + '\n\nresponseText: \n' + event.originalEvent.request.responseText + 
+                    //     '\n\nThe output div should have already been updated with the responseText.');
+                    //        var json = jQuery.parseJSON(event.originalEvent.request.responseText);
+                    //        alert('responseText: \n' + json.info);
+    //                if(!requestSent) {
+    //                    requestSent = true;
                     completeFormGetting('dialog-form', 'formProducer', 'divProducers', event.originalEvent.request.responseText);
                     setTimeout( function() {
                         showInfo("/searchProducer.action?page="+$("#formProducer_page").val(), "divConListProducers");
     //                        if(requestSent) $.ajax().abort();
                     }, 2000);
+                    event.handled = true;
+                }    
 //                }
             });
             if($('.pop-over').length) {

@@ -16,6 +16,8 @@
     </head>
     <body>
         <%@ taglib prefix="s" uri="/struts-tags" %>
+        <%@page import="org.aepscolombia.platform.util.APConstants"%>
+        <% String country  = (String) session.getAttribute(APConstants.COUNTRY_CODE); %>
         <div class="container">
             <div class="row">
                 <div class="span12">
@@ -23,7 +25,7 @@
                         <h1><s:property value="getText('title.permission401.errors')" /> <small><font color="red"><s:property value="getText('text.permission401.errors')" /></font></small></h1>
                         <br />
                         <p><s:property value="getText('area.permission401.errors')" />. </p>
-                        <a href="<%= request.getContextPath() %>/initial.action" class="btn btn-large btn-initial"><i class="icon-home icon-white"></i> <s:property value="getText('link.permission.errors')" /></a>
+                        <a href="<%= request.getContextPath() %>/initial.action?countryCode=<%=country%>" class="btn btn-large btn-initial"><i class="icon-home icon-white"></i> <s:property value="getText('link.permission.errors')" /></a>
                     </div>
                 </div>
             </div>

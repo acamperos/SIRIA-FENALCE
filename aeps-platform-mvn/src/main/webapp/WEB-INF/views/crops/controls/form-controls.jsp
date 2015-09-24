@@ -426,12 +426,15 @@
             </s:form>﻿  
             <script>                
                 $.ui.dialog.prototype._focusTabbable = function(){};
-                $.subscribe('completeCon', function(event, data) {             
-                    completeFormGetting('dialog-form', 'formCropCon', 'divPro', event.originalEvent.request.responseText);
-                    setTimeout(function() {
-                        showInfo("/crop/searchCon.action?idCrop="+$("#formCropCon_idCrop").val(), "divListPro");
-                        showTimeline("/crop/viewInfoTime.action?idCrop="+$("#formCropCon_idCrop").val(), "divInfoTimeline", "timeline");
-                    }, 2000);
+                $.subscribe('completeCon', function(event, data) {   
+                    if(event.handled !== true){
+                        completeFormGetting('dialog-form', 'formCropCon', 'divPro', event.originalEvent.request.responseText);
+                        setTimeout(function() {
+                            showInfo("/crop/searchCon.action?idCrop="+$("#formCropCon_idCrop").val(), "divListPro");
+                            showTimeline("/crop/viewInfoTime.action?idCrop="+$("#formCropCon_idCrop").val(), "divInfoTimeline", "timeline");
+                        }, 2000);
+                        event.handled = true;
+                    }    
                 });
             </script>
         </div>

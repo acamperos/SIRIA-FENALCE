@@ -584,20 +584,23 @@
                 $("#formRasta_rasta_profundidadRaicesRas").val(parsePointSeparated($("#formRasta_rasta_profundidadRaicesRas").val()));
                 
                 $.subscribe('completeRasta', function(event, data) {
-                    var actExeSoil = $("#formRasta_actExe").val();
-                    if (actExeSoil=='create') {
-                        $('#btnSoil').on('click', function() {
-                            ga('send', 'event', 'Soils', 'click', 'Create');
-                        });
-                    } else if (actExeSoil=='modify') {
-                        $('#btnSoil').on('click', function() {
-                            ga('send', 'event', 'Soils', 'click', 'Update');
-                        });                
-                    }
-                    completeFormGetting('dialog-form', 'formRasta', 'divRasta', event.originalEvent.request.responseText);
-                    setTimeout(function() {
-                        showInfo("/soil/searchSoil.action?page=" + page, "divConListRasta");
-                    }, 2000);
+                    if(event.handled !== true){
+                        var actExeSoil = $("#formRasta_actExe").val();
+                        if (actExeSoil=='create') {
+                            $('#btnSoil').on('click', function() {
+                                ga('send', 'event', 'Soils', 'click', 'Create');
+                            });
+                        } else if (actExeSoil=='modify') {
+                            $('#btnSoil').on('click', function() {
+                                ga('send', 'event', 'Soils', 'click', 'Update');
+                            });                
+                        }
+                        completeFormGetting('dialog-form', 'formRasta', 'divRasta', event.originalEvent.request.responseText);
+                        setTimeout(function() {
+                            showInfo("/soil/searchSoil.action?page=" + page, "divConListRasta");
+                        }, 2000);
+                        event.handled = true;
+                    }   
                 });
                 if($('.pop-over').length) {
                     $('.pop-over').popover();

@@ -52,8 +52,8 @@
                 activeOption('ulOptionsMenu', actionName+'Cls');
             }
 //            getCountry();
-//            doAction();
-            if(actionName=='initial') {
+//            doAction();      
+            if(actionName=='initial' || actionName=='null' || actionName=='') {
                 $.when(getCountry()).then(doAction);
             } else {
                 doAction();

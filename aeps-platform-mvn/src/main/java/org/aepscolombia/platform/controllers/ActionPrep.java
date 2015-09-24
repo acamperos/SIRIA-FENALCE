@@ -392,7 +392,7 @@ public class ActionPrep extends BaseAction {
             session.saveOrUpdate(prep);
             
             LogEntities log = null;            
-            log = LogEntitiesDao.getData(idEntSystem, prep.getIdPrep(), "preparations", action);
+            if(!action.equals("M")) log = LogEntitiesDao.getData(idEntSystem, prep.getIdPrep(), "preparations", action);
             if (log==null && !action.equals("M")) {
                 log = new LogEntities();
                 log.setIdLogEnt(null);

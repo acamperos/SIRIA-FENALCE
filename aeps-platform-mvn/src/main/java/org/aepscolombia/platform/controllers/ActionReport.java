@@ -514,7 +514,7 @@ public class ActionReport extends BaseAction {
      * @param selected: Valor seleccionado
      * @return lista de cultivos
      */
-    public String getReport() {
+    public String viewReport() {
         if (!usrDao.getPrivilegeUser(idUsrSystem, "crop/list")) {
             return BaseAction.NOT_AUTHORIZED;
         }
