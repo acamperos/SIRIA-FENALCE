@@ -121,7 +121,7 @@ public class FarmsDao
         Transaction tx = null;
         String sql = "";
 
-        sql += "select fp.id_farm_far_pro, fp.id_producer_far_pro ";
+        sql += "select fp.id_farm_far_pro, fp.id_producer_far_pro, fp.created_by ";
         
 //        sql += "select usr.id_usr, usr.name_user_usr, usr.password_usr, usr.cod_validation_usr, usr.status";
         sql += " from farms_producers fp";
@@ -174,6 +174,7 @@ public class FarmsDao
         Transaction tx = null;
         List<HashMap> result = new ArrayList<HashMap>();
         
+        String selAll  = String.valueOf(args.get("selAll"));
         String sql = "";       
         String entType = String.valueOf(args.get("entType"));
         sql += "select fp.id_producer_far_pro, f.id_far, e.name_ent, f.name_far, f.address_far, f.phone_far, f.id_district_far,";
@@ -190,9 +191,11 @@ public class FarmsDao
         sql += " inner join log_entities le on le.id_object_log_ent=f.id_far and le.table_log_ent='farms' and le.action_type_log_ent='C'";   
         if (entType.equals("3")) {
             sql += " inner join entities entLe on (le.id_entity_log_ent=entLe.id_ent)"; 
-            sql += " inner join extension_agents ext on (ext.id_entity_ext_age=entLe.id_ent)";
-            sql += " inner join agents_association agAsc on (agAsc.id_agent_age_asc=ext.id_ext_age)";
-            sql += " inner join association ass on (ass.id_asc=agAsc.id_asso_age_asc)";
+            if (selAll.equals("true")) {
+                sql += " inner join extension_agents ext on (ext.id_entity_ext_age=entLe.id_ent)";
+                sql += " inner join agents_association agAsc on (agAsc.id_agent_age_asc=ext.id_ext_age)";
+                sql += " inner join association ass on (ass.id_asc=agAsc.id_asso_age_asc)";
+            }
         }
         sql += " inner join farms_producers fp on fp.id_farm_far_pro=f.id_far"; 
         sql += " inner join producers p on p.id_pro=fp.id_producer_far_pro"; 
@@ -201,8 +204,7 @@ public class FarmsDao
         
         if (!entType.equals("3") && args.containsKey("idEntUser")) {
             sql += " and le.id_entity_log_ent="+args.get("idEntUser");
-        } else {
-            String selAll  = String.valueOf(args.get("selAll"));
+        } else {            
             if (selAll.equals("true")) {
                 sql += " and ass.id_entity_asc="+args.get("idEntUser");
             } else {
@@ -603,7 +605,8 @@ public class FarmsDao
 //        System.out.println("sql=>"+sql);
         try {
             tx = session.beginTransaction();
-            File myFileTemp = new File("farmsTemp.xls");
+            String nameFile = String.valueOf(args.get("fileName"));
+            File myFileTemp = new File(nameFile);
             FileInputStream fis = new FileInputStream(myFileTemp);
             
             HSSFWorkbook workbook = new HSSFWorkbook(fis);            
@@ -768,7 +771,7 @@ public class FarmsDao
                 queryMongo.put("InsertedId", ""+temp.get("id_farm"));
                 queryMongo.put("form_id", "3");
 
-                MongoClient mongo = null;
+                /*MongoClient mongo = null;
                 try {
                     mongo = new MongoClient("localhost", 27017);
                 } catch (UnknownHostException ex) {
@@ -793,7 +796,7 @@ public class FarmsDao
                     throw new HibernateException("");
                 }
 
-                mongo.close();
+                mongo.close();*/
                 
             }   
             tx.commit();
@@ -898,7 +901,7 @@ public class FarmsDao
             tx = session.beginTransaction();
             Query query = session.createSQLQuery(sql).addEntity("f", Farms.class);
             events = query.list();
-            MongoClient mongo = new MongoClient("localhost", 27017);
+//            MongoClient mongo = new MongoClient("localhost", 27017);
             for (Farms farm : events) {
 //                System.out.println("farId->"+farm.getIdFar());
                 farm.setStatus(false);     
@@ -917,7 +920,7 @@ public class FarmsDao
                 queryMongo.put("InsertedId", ""+farm.getIdFar());
                 queryMongo.put("form_id", "3");
 
-                DB db = mongo.getDB("ciat");
+                /*DB db = mongo.getDB("ciat");
                 DBCollection col = db.getCollection("log_form_records");
                 WriteResult result = null;
 
@@ -926,12 +929,12 @@ public class FarmsDao
 
                 if (result.getError()!=null) {
                     throw new HibernateException("");
-                }
+                }*/
 
-                FieldsDao fieDao = new FieldsDao();
-                fieDao.deleteFieldsMongo(farm.getIdFar());
+//                FieldsDao fieDao = new FieldsDao();
+//                fieDao.deleteFieldsMongo(farm.getIdFar());
             }
-            mongo.close();
+//            mongo.close();
             tx.commit();
             state = "success";
         } catch (HibernateException e) {
@@ -939,8 +942,8 @@ public class FarmsDao
                 tx.rollback();
             }
             e.printStackTrace();
-        } catch (UnknownHostException ex) {
-            Logger.getLogger(ActionField.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (UnknownHostException ex) {
+//            Logger.getLogger(ActionField.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             session.close();
         } 

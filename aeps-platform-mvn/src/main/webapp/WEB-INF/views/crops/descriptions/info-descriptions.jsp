@@ -33,10 +33,10 @@
         <table class="table table-bordered table-hover" style="<%= tableDes %>" id='tblDes'>
             <thead>
                 <tr>
-                    <th><s:property value="getText('tr.dateobs.observation')" /></th>
-                    <th><s:property value="getText('tr.obsdetail.observation')" /></th>
+                    <th><s:property value="getText('td.dateobs.observation')" /></th>
+                    <th><s:property value="getText('td.obsdetail.observation')" /></th>
                     <% if (usrDesDao.getPrivilegeUser(userDes.getIdUsr(), "crop/modify") || (usrDesDao.getPrivilegeUser(userDes.getIdUsr(), "crop/delete"))) { %>
-                        <th><s:property value="getText('tr.action.observation')" /></th>
+                        <th><s:property value="getText('td.action.observation')" /></th>
                     <% } %>
                 </tr>
             </thead>

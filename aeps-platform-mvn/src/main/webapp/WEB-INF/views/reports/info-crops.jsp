@@ -33,19 +33,19 @@
     <table class="table table-bordered table-hover" style="<%= table %>" id='tblCrops'>
         <thead>
             <tr>
-                <th><s:property value="getText('tr.info.reportcrop')" /></th>                
+                <th><s:property value="getText('td.info.reportcrop')" /></th>                
                 <s:if test="%{typeEnt!=2}">
-                    <th><s:property value="getText('tr.nameproducer.reportcrop')" /></th>
+                    <th><s:property value="getText('td.nameproducer.reportcrop')" /></th>
                 </s:if>
-                <th><s:property value="getText('tr.whichcrop.reportcrop')" /></th>
-                <th><s:property value="getText('tr.numcrop.reportcrop')" /></th>
-                <th><s:property value="getText('tr.datesowing.reportcrop')" /></th>
-                <th><s:property value="getText('tr.dateharvest.reportcrop')" /></th>
-                <th><s:property value="getText('tr.namegen.reportcrop')" /></th>
-                <th><s:property value="getText('tr.datecreated.reportcrop')" /></th>
+                <th><s:property value="getText('td.whichcrop.reportcrop')" /></th>
+                <th><s:property value="getText('td.numcrop.reportcrop')" /></th>
+                <th><s:property value="getText('td.datesowing.reportcrop')" /></th>
+                <th><s:property value="getText('td.dateharvest.reportcrop')" /></th>
+                <th><s:property value="getText('td.namegen.reportcrop')" /></th>
+                <th><s:property value="getText('td.datecreated.reportcrop')" /></th>
                 <% if (usrDao.getPrivilegeUser(user.getIdUsr(), "crop/modify") || (usrDao.getPrivilegeUser(user.getIdUsr(), "crop/delete"))) { %>
                     <% if (value == "crop" || value.equals("crop")) {%>
-                        <th><s:property value="getText('tr.reporttype.reportcrop')" /></th>
+                        <th><s:property value="getText('td.reporttype.reportcrop')" /></th>
                     <% }%>
                 <% } %>
             </tr>

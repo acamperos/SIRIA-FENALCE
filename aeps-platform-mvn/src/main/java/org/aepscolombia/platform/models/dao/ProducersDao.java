@@ -174,7 +174,7 @@ public class ProducersDao
         
         String sql = "";
         String entType = String.valueOf(args.get("entType"));
-        
+        String selAll  = String.valueOf(args.get("selAll"));
 //        sql += "select p.*, e.* from productores p";
         sql += "select p.id_pro, e.id_ent, e.document_number_ent, e.document_type_ent, e.name_ent, e.document_issue_place_ent,";
         sql += " e.cellphone_ent, e.cellphone2_ent, e.phone_ent, e.address_ent, m.name_mun, e.email_ent,";
@@ -190,16 +190,17 @@ public class ProducersDao
         sql += " inner join log_entities le on (le.id_object_log_ent=p.id_pro and le.table_log_ent='producers' and le.action_type_log_ent='C')";
         if (entType.equals("3")) {
             sql += " inner join entities entLe on (le.id_entity_log_ent=entLe.id_ent)"; 
-            sql += " inner join extension_agents ext on (ext.id_entity_ext_age=entLe.id_ent)";
-            sql += " inner join agents_association agAsc on (agAsc.id_agent_age_asc=ext.id_ext_age)";
-            sql += " inner join association ass on (ass.id_asc=agAsc.id_asso_age_asc)";
+            if (selAll.equals("true")) {
+                sql += " inner join extension_agents ext on (ext.id_entity_ext_age=entLe.id_ent)";
+                sql += " inner join agents_association agAsc on (agAsc.id_agent_age_asc=ext.id_ext_age)";
+                sql += " inner join association ass on (ass.id_asc=agAsc.id_asso_age_asc)";
+            }
         }
         sql += " where e.status=1 and e.entity_type_ent=2";        
         
         if (!entType.equals("3") && args.containsKey("idEntUser")) {
             sql += " and le.id_entity_log_ent="+args.get("idEntUser");
         } else {
-            String selAll  = String.valueOf(args.get("selAll"));
             if (selAll.equals("true")) {
                 sql += " and ass.id_entity_asc="+args.get("idEntUser");
             } else {
@@ -555,7 +556,8 @@ public class ProducersDao
         
         try {
             tx = session.beginTransaction();
-            File myFileTemp = new File("producersTemp.xls");
+            String nameFile = String.valueOf(args.get("fileName"));
+            File myFileTemp = new File(nameFile);
             FileInputStream fis = new FileInputStream(myFileTemp);
             
             HSSFWorkbook workbook = new HSSFWorkbook(fis);            
@@ -662,7 +664,7 @@ public class ProducersDao
             Query query = session.createSQLQuery(sql).addEntity("usr", Entities.class);
             events = query.list();
             Producers pTemp   = null;
-            MongoClient mongo = new MongoClient("localhost", 27017);
+//            MongoClient mongo = new MongoClient("localhost", 27017);
             for (Entities ent : events) {
                 pTemp = this.objectByEntityId(ent.getIdEnt());  
 //                System.out.println("entId->"+ent.getIdEnt());
@@ -674,7 +676,7 @@ public class ProducersDao
                 queryMongo.put("InsertedId", ""+ent.getIdEnt());
                 queryMongo.put("form_id", "4");
                 
-                DB db = mongo.getDB("ciat");
+                /*DB db = mongo.getDB("ciat");
                 DBCollection col = db.getCollection("log_form_records");
                 WriteResult result = null;
 
@@ -683,12 +685,12 @@ public class ProducersDao
 
                 if (result.getError()!=null) {
                     throw new HibernateException("");
-                }                
+                }*/              
 
-                FarmsDao farDao = new FarmsDao();
-                farDao.deleteFarmsMongo(pTemp.getIdPro());
+//                FarmsDao farDao = new FarmsDao();
+//                farDao.deleteFarmsMongo(pTemp.getIdPro());
             }
-            mongo.close();
+//            mongo.close();
             tx.commit();
             state = "success";
         } catch (HibernateException e) {
@@ -696,8 +698,8 @@ public class ProducersDao
                 tx.rollback();
             }
             e.printStackTrace();
-        } catch (UnknownHostException ex) {
-            Logger.getLogger(ActionField.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (UnknownHostException ex) {
+//            Logger.getLogger(ActionField.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             session.close();
         } 

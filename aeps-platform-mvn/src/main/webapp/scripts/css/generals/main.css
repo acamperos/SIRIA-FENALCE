@@ -491,6 +491,10 @@ form {
     color: #68AF23;
 }
 
+.check-remove {
+    color: #FF3300;
+}
+
 .color-star {
     color: gold;
 }
@@ -914,6 +918,11 @@ body {
     width:  940px;
     height: 321px;
     background-position: -1880px 0;
+}
+
+.slide-phone {
+    background-image: url('../../../img/cellphone.jpg');
+    position: relative;
 }
 
 .table th, .table td {

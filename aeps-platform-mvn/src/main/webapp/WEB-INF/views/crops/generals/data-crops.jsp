@@ -19,30 +19,30 @@
                 <tbody>
                     <s:if test="%{typeEnt!=2}">
                         <tr>
-                            <th style="width: 30%"><s:property value="getText('tr.producername.crop')" /></th>
+                            <th style="width: 30%"><s:property value="getText('td.producername.crop')" /></th>
                             <td><s:property value="name_producer" /></td>
                         </tr>
                         <tr>
-                            <th><s:property value="getText('tr.docproducer.crop')" /></th>
+                            <th><s:property value="getText('td.docproducer.crop')" /></th>
                             <td><s:property value="type_doc" />: <s:property value="num_doc" /></td>
                         </tr>
                         <tr>
-                            <th><s:property value="getText('tr.namefarm.crop')" /></th>
+                            <th><s:property value="getText('td.namefarm.crop')" /></th>
                             <td><s:property value="name_farm" /></td>
                         </tr>
                     </s:if>
                     <s:else>
                         <tr>
-                            <th style="width: 30%"><s:property value="getText('tr.namefarm.crop')" /></th>
+                            <th style="width: 30%"><s:property value="getText('td.namefarm.crop')" /></th>
                             <td><s:property value="name_farm" /></td>
                         </tr>
                     </s:else>    
                     <tr>   
-                        <th><s:property value="getText('tr.namefield.crop')" /></th>
+                        <th><s:property value="getText('td.namefield.crop')" /></th>
                         <td><s:property value="nameField" /></td>
                     </tr>
                     <tr>
-                        <th><s:property value="getText('tr.lastcrop.crop')" /></th>
+                        <th><s:property value="getText('td.lastcrop.crop')" /></th>
                         <td><s:property value="lastTypeCrop" /></td>
                     </tr>
                 </tbody>

@@ -151,6 +151,7 @@ public class ProductionEventsDao
         String sql = "";     
         String sqlAdd = "";     
         String entType = String.valueOf(args.get("entType"));
+        String selAll  = String.valueOf(args.get("selAll"));
                       
         sql += "select pe.id_pro_eve, e.document_type_ent, e.document_number_ent, e.name_ent, f.id_far, f.name_far,";
         sql += " l.id_fie, l.name_fie, s.date_sow, mg.name_gen, pe.status, e.entity_type_ent, le.date_log_ent, ct.name_cro_typ,";
@@ -170,9 +171,11 @@ public class ProductionEventsDao
         sql += " inner join log_entities le on le.id_object_log_ent=pe.id_pro_eve and le.table_log_ent='production_events' and le.action_type_log_ent='C'";   
         if (entType.equals("3")) {
             sql += " inner join entities entLe on (le.id_entity_log_ent=entLe.id_ent)"; 
-            sql += " inner join extension_agents ext on (ext.id_entity_ext_age=entLe.id_ent)";
-            sql += " inner join agents_association agAsc on (agAsc.id_agent_age_asc=ext.id_ext_age)";
-            sql += " inner join association ass on (ass.id_asc=agAsc.id_asso_age_asc)";
+            if (selAll.equals("true")) {
+                sql += " inner join extension_agents ext on (ext.id_entity_ext_age=entLe.id_ent)";
+                sql += " inner join agents_association agAsc on (agAsc.id_agent_age_asc=ext.id_ext_age)";
+                sql += " inner join association ass on (ass.id_asc=agAsc.id_asso_age_asc)";
+            }
         }
         sql += " inner join fields l on l.id_fie=pe.id_field_pro_eve";
         sql += " inner join farms f on f.id_far=l.id_farm_fie";
@@ -184,7 +187,6 @@ public class ProductionEventsDao
         if (!entType.equals("3") && args.containsKey("idEntUser")) {
             sqlAdd += " and le.id_entity_log_ent="+args.get("idEntUser");
         } else {
-            String selAll  = String.valueOf(args.get("selAll"));
             if (selAll.equals("true")) {
                 sqlAdd += " and ass.id_entity_asc="+args.get("idEntUser");
             } else {
@@ -760,8 +762,8 @@ public class ProductionEventsDao
         HSSFWorkbook workbook = null;
         try {
             tx = session.beginTransaction();
-            
-            File myFileTemp = new File("cropsTemp.xls");
+            String nameFile = String.valueOf(args.get("fileName"));            
+            File myFileTemp = new File(nameFile);
             FileInputStream fis = new FileInputStream(myFileTemp);
             
             workbook = new HSSFWorkbook(fis);            
@@ -1305,7 +1307,7 @@ public class ProductionEventsDao
             tx = session.beginTransaction();
             Query query = session.createSQLQuery(sql).addEntity("ep", ProductionEvents.class);
             events = query.list();
-            MongoClient mongo = new MongoClient("localhost", 27017);
+//            MongoClient mongo = new MongoClient("localhost", 27017);
             int typeCrop  = 0;
             for (ProductionEvents pro : events) {
 //                System.out.println("cropId->"+pro.getIdProEve());
@@ -1334,7 +1336,7 @@ public class ProductionEventsDao
                 lot.setAvailableAreaFie(availableArea);
                 session.saveOrUpdate(lot);
 
-                BasicDBObject queryMongo = new BasicDBObject();
+                /*BasicDBObject queryMongo = new BasicDBObject();
                 queryMongo.put("InsertedId", ""+pro.getIdProEve());        
                 typeCrop = pro.getCropsTypes().getIdCroTyp();
                 if (typeCrop==1) {
@@ -1352,9 +1354,9 @@ public class ProductionEventsDao
 
                 if (result.getError()!=null) {
                     throw new HibernateException("");
-                }
+                }*/
             }
-            mongo.close();
+//            mongo.close();
             tx.commit();
             state = "success";
         } catch (HibernateException e) {
@@ -1362,8 +1364,8 @@ public class ProductionEventsDao
                 tx.rollback();
             }
             e.printStackTrace();
-        } catch (UnknownHostException ex) {
-            Logger.getLogger(ActionField.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (UnknownHostException ex) {
+//            Logger.getLogger(ActionField.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             session.close();
         } 

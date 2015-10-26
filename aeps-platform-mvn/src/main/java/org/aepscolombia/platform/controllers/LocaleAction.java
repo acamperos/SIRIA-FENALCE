@@ -78,7 +78,8 @@ public class LocaleAction extends BaseAction
             userSession.put(APConstants.SESSION_LANG, lang);
             this.setSession(userSession);
 //            lang = langTemp;
-        }        
+        }  
+//        lanSel = locale.getLanguage();
         ActionContext.getContext().setLocale(locale);
         
         return SUCCESS;

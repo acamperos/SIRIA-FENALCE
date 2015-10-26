@@ -33,17 +33,20 @@
             </div>   
         </div>
         <script>
-            
+            var lanVal = $('#lanSel').val();
+            var str   = lanVal;
+            var valEs = str.search("es");
+            var valEn = str.search("en");
             var allSelSoil = "";
             var numSelSoil = "";
             var notFoundSoil = "";
-            if(navigator.language=='es-ES' || navigator.language=='es-CO' || navigator.language=='es-PE' || navigator.language=='es-NI' || navigator.language=='es') {
+            if(valEs!=-1) {
                     allSelSoil = "Todos";
                     numSelSoil = "# de % seleccionados";
                     notFoundSoil = "No. coincidencias encontradas";
             }
 
-            if(navigator.language=='en-EN' || navigator.language=='en') {
+            if(valEn!=-1) {
                     allSelSoil = "All";
                     numSelSoil = "# of % selected";
                     notFoundSoil = "Number of results";

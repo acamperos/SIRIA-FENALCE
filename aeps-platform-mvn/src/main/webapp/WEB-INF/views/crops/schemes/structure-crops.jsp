@@ -82,7 +82,7 @@
             <div class="panel">
                 <div class="panel-body">  
                     <fieldset>
-                        <legend><h3>Linea de Tiempo del Cultivo</h3></legend>
+                        <legend><h3><s:property value="getText('title.timeline.crop')" /></h3></legend>
                         <div id="timeline"></div>
                         <div id="log"></div>
                     </fieldset>

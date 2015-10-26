@@ -159,6 +159,7 @@ public class RastasDao
         String sql = "";     
         String sqlAdd = "";     
         String entType = String.valueOf(args.get("entType"));
+        String selAll  = String.valueOf(args.get("selAll"));
         
         sql += "select r.id_ras, r.id_lote_ras, l.name_fie, e.name_ent, f.name_far, r.fecha_ras, r.numero_cajuela_ras, r.altitud_ras, r.latitud_ras, r.longitud_ras,";
         sql += " r.pendiente_terreno_ras, r.terreno_circundante_ras, r.posicion_perfil_ras, r.numero_capas_ras,";
@@ -178,9 +179,11 @@ public class RastasDao
         sql += " inner join log_entities le on le.id_object_log_ent=r.id_ras and le.table_log_ent='rastas' and le.action_type_log_ent='C'";   
         if (entType.equals("3")) {
             sql += " inner join entities entLe on (le.id_entity_log_ent=entLe.id_ent)"; 
-            sql += " inner join extension_agents ext on (ext.id_entity_ext_age=entLe.id_ent)";
-            sql += " inner join agents_association agAsc on (agAsc.id_agent_age_asc=ext.id_ext_age)";
-            sql += " inner join association ass on (ass.id_asc=agAsc.id_asso_age_asc)";
+            if (selAll.equals("true")) {
+                sql += " inner join extension_agents ext on (ext.id_entity_ext_age=entLe.id_ent)";
+                sql += " inner join agents_association agAsc on (agAsc.id_agent_age_asc=ext.id_ext_age)";
+                sql += " inner join association ass on (ass.id_asc=agAsc.id_asso_age_asc)";
+            }
         }
         sql += " inner join fields l on r.id_lote_ras=l.id_fie";
         sql += " inner join fields_producers lp on lp.id_field_fie_pro=l.id_fie";
@@ -194,7 +197,6 @@ public class RastasDao
         if (!entType.equals("3") && args.containsKey("idEntUser")) {
             sqlAdd += " and le.id_entity_log_ent="+args.get("idEntUser");
         } else {
-            String selAll  = String.valueOf(args.get("selAll"));
             if (selAll.equals("true")) {
                 sqlAdd += " and ass.id_entity_asc="+args.get("idEntUser");
             } else {
@@ -485,8 +487,9 @@ public class RastasDao
 
         try {
             tx = session.beginTransaction();
-            Query query = session.createQuery("from Rastas WHERE fields.idFie = :id_field");
+            Query query = session.createQuery("from Rastas WHERE fields.idFie = :id_field AND status=true ORDER BY idRas");
             query.setParameter("id_field", idField);
+            query.setMaxResults(1);
             event = (Rastas)query.uniqueResult();
             tx.commit();
         } catch (HibernateException e) {
@@ -588,7 +591,7 @@ public class RastasDao
         sql += "IF(r.CERCA_RIOS_QUEBRADAS_RAS=1,'SI','NO'), UPPER(r.RECUBRIMIENTO_VEGETAL_RAS)";
         sql += " from fields l";
         sql += " inner join rastas r on r.id_lote_ras = l.id_fie";
-        sql += " inner join fields_producers lp on lp.id_field_fie_pro = l.id_fie";
+        sql += " left join fields_producers lp on lp.id_field_fie_pro = l.id_fie";
         sql += " inner join farms f on l.id_farm_fie=f.id_far";
         sql += " inner join farms_producers fp on f.id_far = fp.id_farm_far_pro";
         sql += " inner join producers p on p.id_pro = fp.id_producer_far_pro";
@@ -669,7 +672,8 @@ public class RastasDao
                 dataGeneral   += "\"valIn\": \""+data[5]+"\"";
             }           
             dataGeneral   += "}],";    
-            String[] infoMaterials = (String[])valInf.get("organic");
+            String valOrganic      = (String) valInf.get("organic");
+            String[] infoMaterials = valOrganic.split(",");     
             dataGeneral   += this.getInfoHorizontes(id, infoMaterials);    
             dataGeneral   += "}";                      
             tx.commit();
@@ -850,7 +854,8 @@ public class RastasDao
 //        System.out.println("sql=>"+sql);
         try {
             tx = session.beginTransaction();
-            File myFileTemp = new File("soilsTemp.xls");
+            String nameFile = String.valueOf(args.get("fileName"));
+            File myFileTemp = new File(nameFile);
             FileInputStream fis = new FileInputStream(myFileTemp);
             
             HSSFWorkbook workbook = new HSSFWorkbook(fis);            
@@ -1306,7 +1311,7 @@ public class RastasDao
             tx = session.beginTransaction();
             Query query = session.createSQLQuery(sql).addEntity("r", Rastas.class);
             events = query.list();
-            MongoClient mongo = new MongoClient("localhost", 27017);
+//            MongoClient mongo = new MongoClient("localhost", 27017);
             for (Rastas ras : events) {
 //                System.out.println("rasId->"+ras.getIdRas());
                 ras.setStatus(false);     
@@ -1321,7 +1326,7 @@ public class RastasDao
                 log.setActionTypeLogEnt("D");
                 session.saveOrUpdate(log);
 
-                BasicDBObject queryMongo = new BasicDBObject();
+                /*BasicDBObject queryMongo = new BasicDBObject();
                 queryMongo.put("InsertedId", ""+ras.getIdRas());
                 queryMongo.put("form_id", "6");
 
@@ -1334,9 +1339,9 @@ public class RastasDao
 
                 if (result.getError()!=null) {
                     throw new HibernateException("");
-                }
+                }*/
             }
-            mongo.close();
+//            mongo.close();
             tx.commit();
             state = "success";
         } catch (HibernateException e) {
@@ -1344,8 +1349,8 @@ public class RastasDao
                 tx.rollback();
             }
             e.printStackTrace();
-        } catch (UnknownHostException ex) {
-            Logger.getLogger(ActionField.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (UnknownHostException ex) {
+//            Logger.getLogger(ActionField.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             session.close();
         } 

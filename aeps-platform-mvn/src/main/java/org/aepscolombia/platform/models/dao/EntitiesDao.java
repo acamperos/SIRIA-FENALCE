@@ -314,7 +314,7 @@ public class EntitiesDao {
                 queryMongo.put("InsertedId", ""+temp.get("id_entity"));
                 queryMongo.put("form_id", "4");
 
-                MongoClient mongo = null;
+                /*MongoClient mongo = null;
                 try {
                     mongo = new MongoClient("localhost", 27017);
                 } catch (UnknownHostException ex) {
@@ -340,7 +340,7 @@ public class EntitiesDao {
                     throw new HibernateException("");
                 }
                 
-                mongo.close();
+                mongo.close();*/
                 
             }   
             tx.commit();

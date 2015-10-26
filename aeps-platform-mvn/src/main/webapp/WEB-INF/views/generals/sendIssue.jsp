@@ -39,7 +39,7 @@
                             </div>					 
                         </div>	
                         <div class="control-group">
-                            <label for="formReport_archivo" class="control-label req<s:property value="getText('file.descissue.issue')" />Cargar Imagen del problema:</label>
+                            <label for="formReport_archivo" class="control-label req"><s:property value="getText('file.loadpicture.issue')" />:</label>
                             <div class="controls">
                                 <s:file name="archivo" accept="image/jpeg,image/jpg,image/png" onchange="showImageToSend('loadImage.action', 'formReport_archivo', 'imagenDinamica')"/>
                             </div>                            

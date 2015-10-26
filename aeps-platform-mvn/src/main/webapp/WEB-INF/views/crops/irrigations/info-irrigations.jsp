@@ -35,21 +35,21 @@
             <thead>
                 <% if (coCodeIrr.equals("CO")) { %>
                     <tr>
-                        <th><s:property value="getText('tr.irrigationdate.irrigation')" /></th>                    
-                        <th><s:property value="getText('tr.amountirr.irrigation')" /></th>
-                        <th><s:property value="getText('tr.irrtypes.irrigation')" /></th>
+                        <th><s:property value="getText('td.irrigationdate.irrigation')" /></th>                    
+                        <th><s:property value="getText('td.amountirr.irrigation')" /></th>
+                        <th><s:property value="getText('td.irrtypes.irrigation')" /></th>
                         <% if (usrIrrDao.getPrivilegeUser(userIrr.getIdUsr(), "crop/modify") || (usrIrrDao.getPrivilegeUser(userIrr.getIdUsr(), "crop/delete"))) { %>
-                            <th><s:property value="getText('tr.action.irrigation')" /></th>
+                            <th><s:property value="getText('td.action.irrigation')" /></th>
                         <% } %>
                     </tr>
                 <% } else if (coCodeIrr.equals("NI")) { %>
                     <tr>
-                        <th><s:property value="getText('tr.establishmentdate.irrigation')" /></th>                    
-                        <th><s:property value="getText('tr.thickness.irrigation')" /></th>
-                        <th><s:property value="getText('tr.wetdate.irrigation')" /></th>
-                        <th><s:property value="getText('tr.duration.irrigation')" /></th>
+                        <th><s:property value="getText('td.establishmentdate.irrigation')" /></th>                    
+                        <th><s:property value="getText('td.thickness.irrigation')" /></th>
+                        <th><s:property value="getText('td.wetdate.irrigation')" /></th>
+                        <th><s:property value="getText('td.duration.irrigation')" /></th>
                         <% if (usrIrrDao.getPrivilegeUser(userIrr.getIdUsr(), "crop/modify") || (usrIrrDao.getPrivilegeUser(userIrr.getIdUsr(), "crop/delete"))) { %>
-                            <th><s:property value="getText('tr.action.irrigation')" /></th>
+                            <th><s:property value="getText('td.action.irrigation')" /></th>
                         <% } %>
                     </tr>
                 <% } %>

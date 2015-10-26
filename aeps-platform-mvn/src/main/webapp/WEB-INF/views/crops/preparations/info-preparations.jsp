@@ -35,13 +35,13 @@
         <table class="table table-bordered table-hover" style="<%= table %>" id='tblPrep'>
             <thead>
                 <tr>
-                    <th><s:property value="getText('tr.datepreparation.preparation')" /></th>
-                    <th><s:property value="getText('tr.depthpreparation.preparation')" /> (cm)</th>
-                    <th><s:property value="getText('tr.preparationtype.preparation')" /></th>
-                    <th><s:property value="getText('tr.otherpreparationtype.preparation')" /></th>
-                    <th><s:property value="getText('tr.passingnumber.preparation')" /></th>
+                    <th><s:property value="getText('td.datepreparation.preparation')" /></th>
+                    <th><s:property value="getText('td.depthpreparation.preparation')" /> (cm)</th>
+                    <th><s:property value="getText('td.preparationtype.preparation')" /></th>
+                    <th><s:property value="getText('td.otherpreparationtype.preparation')" /></th>
+                    <th><s:property value="getText('td.passingnumber.preparation')" /></th>
                     <% if (usrPrpDao.getPrivilegeUser(userPrp.getIdUsr(), "crop/modify") || (usrPrpDao.getPrivilegeUser(userPrp.getIdUsr(), "crop/delete"))) { %>
-                        <th><s:property value="getText('tr.action.preparation')" /></th>
+                        <th><s:property value="getText('td.action.preparation')" /></th>
                     <% } %>
                 </tr>
             </thead>

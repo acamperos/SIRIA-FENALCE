@@ -66,7 +66,17 @@
                             </p>
                         </div>
                     </div> 
-                 <% } %>
+                 <% } %>           
+                <div class="span6 thumbnail custom-thumb" style="margin-left: 10px">
+                    <s:a href="%{contextPath}/analysisReport.action" role="button" targets="divBodyLayout"><img class="img-responsive hidden-xs" src="img/RANDOM_FOREST/data.jpg" alt=""></s:a>
+                    <div class="caption">
+                        <h3>Analisis</h3>
+                        <p>Reporte para el analisis de la informacion</p>                        
+                        <p>
+                            <s:a cssClass="btn btn-initial" href="%{contextPath}/analysisReport.action" role="button" targets="divBodyLayout"><s:property value="getText('link.fenalcheck.report')" /> <i class="icon-double-angle-right"></i></s:a>
+                        </p>
+                    </div>
+                </div> 
             </div>  
         </div>
     </body>

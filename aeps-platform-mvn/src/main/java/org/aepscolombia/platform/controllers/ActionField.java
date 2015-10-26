@@ -705,6 +705,7 @@ public class ActionField extends BaseAction {
         findParams.put("typeLot", typeLot);
         findParams.put("altitude_lot", altitude_lot);
         findParams.put("area_lot", area_lot);
+        findParams.put("name_lot", name_lot);
         findParams.put("latitude_property", latitude_lot);
         findParams.put("length_property", length_lot);
         int pageReq;
@@ -738,6 +739,12 @@ public class ActionField extends BaseAction {
         this.inputStream = inputStream;  
     }
     
+    private String fileName;
+
+    public String getFileName() {
+        return fileName;
+    }
+    
     public String viewReport() throws Exception {
         if (!usrDao.getPrivilegeUser(idUsrSystem, "field/list")) {
             return BaseAction.NOT_AUTHORIZED;
@@ -754,7 +761,15 @@ public class ActionField extends BaseAction {
         Integer entTypeId = new EntitiesDao().getEntityTypeId(user.getIdUsr());
         findParams.put("entType", entTypeId);
         findParams.put("idEntUser", idEntSystem);
-        String fileName  = ""+getText("file.docfield");
+        String OS = System.getProperty("os.name").toLowerCase();
+        if (OS.indexOf("win") >= 0) {
+            fileName  = ""+getText("file.docfieldwin");
+            findParams.put("fileName", ""+getText("file.tempfieldwin"));
+        } else {
+            fileName  = ""+getText("file.docfieldunix");
+            findParams.put("fileName", ""+getText("file.tempfieldunix"));
+        }
+//        fileName  = ""+getText("file.docfield");
 //        String fileName  = "fieldsInfo.csv";
         lotDao.getFields(findParams, fileName);
   
@@ -981,7 +996,7 @@ public class ActionField extends BaseAction {
             query.put("InsertedId", ""+lot.getIdFie());
             query.put("form_id", "5");
             
-            MongoClient mongo = null;
+            /*MongoClient mongo = null;
             try {
                 mongo = new MongoClient("localhost", 27017);
             } catch (UnknownHostException ex) {
@@ -1007,7 +1022,7 @@ public class ActionField extends BaseAction {
 //                throw new HibernateException("");
 //            }
             
-            mongo.close();
+            mongo.close();*/
             tx.commit();           
             state = "success";
             if (action.equals("C")) {
@@ -1081,7 +1096,7 @@ public class ActionField extends BaseAction {
             query.put("InsertedId", ""+lot.getIdFie());
             query.put("form_id", "5");
             
-            MongoClient mongo = null;
+            /*MongoClient mongo = null;
             try {
                 mongo = new MongoClient("localhost", 27017);
             } catch (UnknownHostException ex) {
@@ -1097,13 +1112,13 @@ public class ActionField extends BaseAction {
             if (result.getError()!=null) {
                 throw new HibernateException("");
             }
-            mongo.close();
+            mongo.close();*/
             
-            ProductionEventsDao cropDao = new ProductionEventsDao();
-            cropDao.deleteCropsMongo(idField);
-
-            RastasDao rasDao = new RastasDao();
-            rasDao.deleteRastasMongo(idField);
+//            ProductionEventsDao cropDao = new ProductionEventsDao();
+//            cropDao.deleteCropsMongo(idField);
+//
+//            RastasDao rasDao = new RastasDao();
+//            rasDao.deleteRastasMongo(idField);
             
             tx.commit();         
             state = "success";

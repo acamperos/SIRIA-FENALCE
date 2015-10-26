@@ -433,6 +433,21 @@ function viewInfo(url, title, divShow, divHide)
     });
 }
 
+function showInfoPagePublic(url, valFill)
+{
+    var data;
+    $('#' + valFill).html('');
+    $.ajax({
+        type: "GET",
+        url: url,
+        data: data,
+        success: function(information) {
+            $.unblockUI();
+            $('#' + valFill).html(information);
+        }
+    });
+}
+
 
 function showInfoPage(url, valFill)
 {
@@ -898,7 +913,8 @@ function addMessageProcess()
 {
 //    z-index: 1011; position: fixed; padding: 15px; margin: 0px; width: 30%; top: 40%; left: 35%; text-align: center; color: rgb(255, 255, 255); border: none; background-color: rgb(0, 0, 0); cursor: wait; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; opacity: 0.5;
     var objLan = document.getElementsByName('lanSel');
-    var lanSel = objLan[0].value;
+    var lanSel = "";
+    if(objLan.length>0) lanSel = objLan[0].value;
     var titleMess = "";
     var str   = lanSel;
     var valEs = str.search("es");
@@ -2015,8 +2031,8 @@ function removeRowHorizon(rowId, tableId)
 function getCountry () {
     var deferred = $.Deferred();
     $.getJSON("http://ip-api.com/json", function(result){
-        countryCode = result.countryCode;
-//        countryCode = "CO";
+//        countryCode = result.countryCode;
+        countryCode = "CO";
 //                    alert('Country: ' + result.country_name + '\n' + 'Code: ' + result.country_code);
         deferred.resolve();
 //                    doAction();
@@ -2163,6 +2179,42 @@ function selectItemCropcheck(namField, idField, valName, valId)
     $("#" + namField).focus();
     $("#" + idField).val(valId);
     closeWindow();
+}
+
+function selectGraph(selecId, divOne, divTwo, divThree, divFour)
+{    
+    if (selecId=='1') {
+        $('#'+divOne).show();
+        $('#'+divTwo).hide();
+        $('#'+divThree).hide();
+        $('#'+divFour).hide();
+    } else if (selecId=='2') {
+        $('#'+divOne).hide();
+        $('#'+divTwo).show();
+        $('#'+divThree).hide();
+        $('#'+divFour).hide();  
+    } else if (selecId=='3') {
+        $('#'+divOne).hide();
+        $('#'+divTwo).hide();
+        $('#'+divThree).show();
+        $('#'+divFour).hide();  
+    } else if (selecId=='4') {
+        $('#'+divOne).hide();
+        $('#'+divTwo).hide();
+        $('#'+divThree).hide();
+        $('#'+divFour).show();
+    }
+    
+}
+
+function showInfoCrop(selId, depId, divView) {
+    var valSel = $('#'+selId).val();
+    var depSel = $('#'+depId).val();
+    if(valSel == '2' && depSel == '21') {
+        $('#'+divView).show();
+    } else {
+        $('#'+divView).hide();
+    }
 }
 
 /*

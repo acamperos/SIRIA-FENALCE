@@ -206,6 +206,90 @@ public class ControlsDao
         return result;
     }    
     
+    public Boolean checkControlsWeeds(HashMap args) {
+        SessionFactory sessions = HibernateUtil.getSessionFactory();
+        Session session         = sessions.openSession();
+        List<Object[]> events   = null;
+        Transaction tx          = null;
+//        List<HashMap> result = new ArrayList<HashMap>();
+        
+        String sql     = "";     
+        Boolean result = false;
+        
+//        TIMEDIFF(s.date_sow, m.date_mon) * 24
+        sql += "select DATEDIFF(m.date_con,s.date_sow) as time, m.id_con";    
+        sql += " from controls m";    
+        sql += " inner join production_events ep on m.id_production_event_con=ep.id_pro_eve"; 
+        sql += " inner join sowing s on s.id_production_event_sow=ep.id_pro_eve"; 
+        sql += " where m.status=1 and ep.status=1 and m.target_type_con=2";
+        if (args.containsKey("idEvent")) {
+            sql += " and m.id_production_event_con="+args.get("idEvent");
+        }
+        sql += " order by m.id_con ASC";
+//        System.out.println("sql=>"+sql);
+        try {
+            tx = session.beginTransaction();
+            Query query  = session.createSQLQuery(sql);
+            events = query.list(); 			
+
+            for (Object[] data : events) {    
+                int diffDay = 0;
+                if (data[0]!=null) diffDay = Integer.parseInt(String.valueOf(data[0]));
+                if (diffDay>=-8 && diffDay<=2) result=true;
+            }
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return result;
+    }    
+    
+    public Boolean checkControlsDiseases(HashMap args) {
+        SessionFactory sessions = HibernateUtil.getSessionFactory();
+        Session session         = sessions.openSession();
+        List<Object[]> events   = null;
+        Transaction tx          = null;
+        
+        String sql     = "";     
+        Boolean result = false;
+        
+        sql += "select DATEDIFF(m.date_con,s.flowering_date_phy_mon) as time, m.id_con";    
+        sql += " from controls m";    
+        sql += " inner join production_events ep on m.id_production_event_con=ep.id_pro_eve"; 
+        sql += " inner join physiological_monitoring s on s.id_production_event_phy_mon=ep.id_pro_eve"; 
+        sql += " where m.status=1 and ep.status=1 and m.target_type_con=3";
+        if (args.containsKey("idEvent")) {
+            sql += " and m.id_production_event_con="+args.get("idEvent");
+        }
+        sql += " order by m.id_con ASC";
+//        System.out.println("sql=>"+sql);
+        try {
+            tx = session.beginTransaction();
+            Query query  = session.createSQLQuery(sql);
+            events = query.list(); 			
+
+            for (Object[] data : events) {           
+                int diffDay = 0;
+                if (data[0]!=null) diffDay = Integer.parseInt(String.valueOf(data[0]));
+                if (diffDay>=-10 && diffDay<=0) result=true;
+            }
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return result;
+    }
+    
     public String getControlsInfo(Integer idEvent) {
         SessionFactory sessions = HibernateUtil.getSessionFactory();
         Session session = sessions.openSession();

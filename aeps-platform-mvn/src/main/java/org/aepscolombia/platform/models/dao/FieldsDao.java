@@ -69,7 +69,7 @@ public class FieldsDao
         sql += "select l.id_fie, l.id_farm_fie, l.contract_type_fie, l.name_fie, l.altitude_fie,";
         sql += " l.latitude_fie, l.longitude_fie, l.area_fie, l.status, lp.id_producer_fie_pro,";
         sql += " e.name_ent, e.document_number_ent, e.document_type_ent, f.name_far,";
-        sql += " mun.name_mun, d.name_dep, f.name_commune_far, l.available_area_fie, l.totally_area_fie";
+        sql += " mun.name_mun, d.name_dep, f.name_commune_far, l.available_area_fie, l.totally_area_fie, d.id_dep";
         sql += " from fields l";
         sql += " inner join log_entities le on le.id_object_log_ent=l.id_fie and le.table_log_ent='fields' and le.action_type_log_ent='C'";   
         sql += " inner join fields_producers lp on lp.id_field_fie_pro=l.id_fie";        
@@ -113,6 +113,7 @@ public class FieldsDao
                 temp.put("name_commune", data[16]);  
                 temp.put("available_area", data[17]);       
                 temp.put("totally_area", data[18]);
+                temp.put("id_dep", data[19]);
                 result = (temp);
             }
             tx.commit();
@@ -159,7 +160,7 @@ public class FieldsDao
         String sql = "";     
         String sqlAdd = "";     
         String entType = String.valueOf(args.get("entType"));
-        
+        String selAll  = String.valueOf(args.get("selAll"));
 //        sql  = "select l.* from lotes l";	 
 //		sql += " inner join log_entidades le on le.id_objeto_log_ent=l.id_lot and le.tabla_log_ent='lotes'";
 // 		sql += " where l.estado=1";
@@ -197,9 +198,11 @@ public class FieldsDao
         sql += " inner join log_entities le on le.id_object_log_ent=l.id_fie and le.table_log_ent='fields' and le.action_type_log_ent='C'";   
         if (entType.equals("3")) {
             sql += " inner join entities entLe on (le.id_entity_log_ent=entLe.id_ent)"; 
-            sql += " inner join extension_agents ext on (ext.id_entity_ext_age=entLe.id_ent)";
-            sql += " inner join agents_association agAsc on (agAsc.id_agent_age_asc=ext.id_ext_age)";
-            sql += " inner join association ass on (ass.id_asc=agAsc.id_asso_age_asc)";
+            if (selAll.equals("true")) {
+                sql += " inner join extension_agents ext on (ext.id_entity_ext_age=entLe.id_ent)";
+                sql += " inner join agents_association agAsc on (agAsc.id_agent_age_asc=ext.id_ext_age)";
+                sql += " inner join association ass on (ass.id_asc=agAsc.id_asso_age_asc)";
+            }
         }
 //        sql += " inner join fincas_productores fp on fp.id_finca_fin_pro=f.id_fin"; 
         sql += " inner join producers p on p.id_pro=lp.id_producer_fie_pro"; 
@@ -219,7 +222,6 @@ public class FieldsDao
         if (!entType.equals("3") && args.containsKey("idEntUser")) {
             sqlAdd += " and le.id_entity_log_ent="+args.get("idEntUser");
         } else {
-            String selAll  = String.valueOf(args.get("selAll"));
             if (selAll.equals("true")) {
                 sqlAdd += " and ass.id_entity_asc="+args.get("idEntUser");
             } else {
@@ -259,6 +261,10 @@ public class FieldsDao
         if (args.containsKey("name_property_lot")) {
             String valIdent = String.valueOf(args.get("name_property_lot"));
             if(!valIdent.equals(" ") && !valIdent.equals("") && !valIdent.equals("null")) sql += " and f.name_far like '%"+args.get("name_property_lot")+"%'";
+        }
+        if (args.containsKey("name_lot")) {
+            String valIdent = String.valueOf(args.get("name_lot"));
+            if(!valIdent.equals(" ") && !valIdent.equals("") && !valIdent.equals("null")) sql += " and l.name_fie like '%"+args.get("name_lot")+"%'";
         }
         if (args.containsKey("typeLot")) {
             String valIdent = String.valueOf(args.get("typeLot"));
@@ -381,7 +387,7 @@ public class FieldsDao
             HashMap jsonRes = new HashMap();
             jsonRes.put("points", objPrin.toString());
             result.add(jsonRes);
-//            System.out.println("values->"+result);
+//            System.out.println("values->"+objPrin.toString());
 //            System.out.println(result);
 //            for (HashMap datos : result) {
 //                System.out.println(datos.get("id_productor")+" "+datos.get("id_entidad")+" "+datos.get("cedula"));
@@ -642,7 +648,8 @@ public class FieldsDao
 //        System.out.println("sql=>"+sql);
         try {
             tx = session.beginTransaction();
-            File myFileTemp = new File("fieldsTemp.xls");
+            String nameFile = String.valueOf(args.get("fileName"));
+            File myFileTemp = new File(nameFile);
             FileInputStream fis = new FileInputStream(myFileTemp);
             
             HSSFWorkbook workbook = new HSSFWorkbook(fis);            
@@ -816,7 +823,7 @@ public class FieldsDao
                 queryMongo.put("InsertedId", ""+temp.get("id_lot"));
                 queryMongo.put("form_id", "5");
 
-                MongoClient mongo = null;
+                /*MongoClient mongo = null;
                 try {
                     mongo = new MongoClient("localhost", 27017);
                 } catch (UnknownHostException ex) {
@@ -842,7 +849,7 @@ public class FieldsDao
                     throw new HibernateException("");
                 }
 
-                mongo.close();
+                mongo.close();*/
                 
             }   
             tx.commit();
@@ -906,11 +913,11 @@ public class FieldsDao
                 
                 Integer idField = Integer.parseInt(String.valueOf(temp.get("id_fie")));
                 
-                ProductionEventsDao cropDao = new ProductionEventsDao();
-                cropDao.deleteCropsMongo(idField);
-                
-                RastasDao rasDao = new RastasDao();
-                rasDao.deleteRastasMongo(idField);
+//                ProductionEventsDao cropDao = new ProductionEventsDao();
+//                cropDao.deleteCropsMongo(idField);
+//                
+//                RastasDao rasDao = new RastasDao();
+//                rasDao.deleteRastasMongo(idField);
                 
             }   
             
@@ -950,7 +957,7 @@ public class FieldsDao
             tx = session.beginTransaction();
             Query query = session.createSQLQuery(sql).addEntity("f", Fields.class);
             events = query.list();
-            MongoClient mongo = new MongoClient("localhost", 27017);
+//            MongoClient mongo = new MongoClient("localhost", 27017);
             for (Fields fie : events) {
 //                System.out.println("fieId->"+fie.getIdFie());
                 fie.setStatus(false);     
@@ -965,7 +972,7 @@ public class FieldsDao
                 log.setActionTypeLogEnt("D");
                 session.saveOrUpdate(log);
 
-                BasicDBObject queryMongo = new BasicDBObject();
+                /*BasicDBObject queryMongo = new BasicDBObject();
                 queryMongo.put("InsertedId", ""+fie.getIdFie());
                 queryMongo.put("form_id", "5");
 
@@ -978,15 +985,15 @@ public class FieldsDao
 
                 if (result.getError()!=null) {
                     throw new HibernateException("");
-                }
+                }*/
 
-                ProductionEventsDao cropDao = new ProductionEventsDao();
-                cropDao.deleteCropsMongo(fie.getIdFie());
-
-                RastasDao rasDao = new RastasDao();
-                rasDao.deleteRastasMongo(fie.getIdFie());
+//                ProductionEventsDao cropDao = new ProductionEventsDao();
+//                cropDao.deleteCropsMongo(fie.getIdFie());
+//
+//                RastasDao rasDao = new RastasDao();
+//                rasDao.deleteRastasMongo(fie.getIdFie());
             }
-            mongo.close();
+//            mongo.close();
             tx.commit();
             state = "success";
         } catch (HibernateException e) {
@@ -994,8 +1001,8 @@ public class FieldsDao
                 tx.rollback();
             }
             e.printStackTrace();
-        } catch (UnknownHostException ex) {
-            Logger.getLogger(ActionField.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (UnknownHostException ex) {
+//            Logger.getLogger(ActionField.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             session.close();
         } 

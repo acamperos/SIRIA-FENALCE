@@ -276,11 +276,11 @@ public class ActionIrr extends BaseAction {
                     if (valDiffAff==2) {
                         addFieldError("irr.dateWetIrr", getText("message.irrigationwetdateinvalidrank.irrigation"));
                         if (tyCro==1) {
-                            addActionError(getText("desc.irrigationwetdateinvalidrank.irrigation")+" ("+dmySow+")");
+                            addActionError(getText("desc.irrigationdateinvalidrankmaize.irrigation")+" ("+dmySow+")");
                         } else if (tyCro==2) {
-                            addActionError(getText("desc.irrigationwetdateinvalidrank.irrigation")+" ("+dmySow+")");
+                            addActionError(getText("desc.irrigationdateinvalidrankbeans.irrigation")+" ("+dmySow+")");
                         } else if (tyCro==4) {
-                            addActionError(getText("desc.irrigationwetdateinvalidrank.irrigation")+" ("+dmySow+")");
+                            addActionError(getText("desc.irrigationdateinvalidrankrice.irrigation")+" ("+dmySow+")");
                         }
                     }
 
@@ -398,7 +398,7 @@ public class ActionIrr extends BaseAction {
                         
             Date dateIrr    = null;
             Date dateWetIrr = null;
-            String dmy      = new SimpleDateFormat("yyyy-MM-dd").format(irr.getDateIrr());
+            String dmy = (irr.getDateIrr()!=null) ? new SimpleDateFormat("yyyy-MM-dd").format(irr.getDateIrr()) : "";
             if (irr.getWhatDoYouUseIrr()!=null) {
                 if (irr.getWhatDoYouUseIrr().getIdUseIrr()==1) {
                     dateIrr = new SimpleDateFormat("yyyy-MM-dd").parse(dmy);

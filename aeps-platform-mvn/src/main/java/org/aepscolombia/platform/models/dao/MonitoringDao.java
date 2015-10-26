@@ -428,4 +428,51 @@ public class MonitoringDao
 		}
         return result;
     }
+    
+    public Boolean checkMonitoring(HashMap args) {
+        SessionFactory sessions = HibernateUtil.getSessionFactory();
+        Session session         = sessions.openSession();
+        List<Object[]> events   = null;
+        Transaction tx       = null;
+//        List<HashMap> result = new ArrayList<HashMap>();
+        
+        String sql     = "";     
+        String sqlAdd  = "";     
+        Boolean result = false;
+        int cont = 0;
+                      
+//        TIMEDIFF(s.date_sow, m.date_mon) * 24
+        sql += "select DATEDIFF(m.date_mon,s.date_sow) as time, m.id_mon";    
+        sql += " from monitoring m";    
+        sql += " inner join production_events ep on m.id_production_event_mon=ep.id_pro_eve"; 
+        sql += " inner join sowing s on s.id_production_event_sow=ep.id_pro_eve"; 
+        sql += " where m.status=1 and ep.status=1";
+        if (args.containsKey("idEvent")) {
+            sql += " and m.id_production_event_mon="+args.get("idEvent");
+        }
+        sql += " order by m.id_mon ASC";
+        try {
+            tx = session.beginTransaction();
+            Query query  = session.createSQLQuery(sql);
+            events = query.list(); 			
+
+            for (Object[] data : events) {               
+                cont++;
+                int diffDay = 0;
+                if (data[0]!=null) diffDay = Integer.parseInt(String.valueOf(data[0]));
+                if (diffDay>0 && diffDay<=20) result=true;
+            }
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        if (cont<6) result = false;
+        return result;
+    }    
+    
 }

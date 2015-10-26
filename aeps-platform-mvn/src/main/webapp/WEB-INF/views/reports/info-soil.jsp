@@ -34,16 +34,16 @@
     <table class="table table-bordered table-hover" style="<%= table %>" id='tblRasta'>
         <thead>
             <tr>
-                <th><s:property value="getText('tr.info.reportsoil')" /></th>
-                <th><s:property value="getText('tr.datemake.reportsoil')" /></th>
-                <th><s:property value="getText('tr.location.reportsoil')" /></th>
-                <th><s:property value="getText('tr.terreno.reportsoil')" /></th>
-                <th><s:property value="getText('tr.position.reportsoil')" /></th>
-                <th<s:property value="getText('tr.numlayers.reportsoil')" /></th>
-                <th><s:property value="getText('tr.datecreated.reportsoil')" /></th>
+                <th><s:property value="getText('td.info.reportsoil')" /></th>
+                <th><s:property value="getText('td.datemake.reportsoil')" /></th>
+                <th><s:property value="getText('td.location.reportsoil')" /></th>
+                <th><s:property value="getText('td.terreno.reportsoil')" /></th>
+                <th><s:property value="getText('td.position.reportsoil')" /></th>
+                <th<s:property value="getText('td.numlayers.reportsoil')" /></th>
+                <th><s:property value="getText('td.datecreated.reportsoil')" /></th>
                 <% if (usrDao.getPrivilegeUser(user.getIdUsr(), "soil/modify") || (usrDao.getPrivilegeUser(user.getIdUsr(), "soil/delete"))) { %>                
                     <% if (value == "rasta" || value.equals("rasta")) {%>
-                        <th><s:property value="getText('tr.reporttype.reportsoil')" /></th>
+                        <th><s:property value="getText('td.reporttype.reportsoil')" /></th>
                     <% } %>
                 <% } %>
             </tr>

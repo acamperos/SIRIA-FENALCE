@@ -561,6 +561,12 @@ public class ActionSoil extends BaseAction {
         this.inputStream = inputStream;  
     }
     
+    private String fileName;
+
+    public String getFileName() {
+        return fileName;
+    }
+    
     public String viewReport() throws Exception {
         if (!usrDao.getPrivilegeUser(idUsrSystem, "soil/list")) {
             return BaseAction.NOT_AUTHORIZED;
@@ -576,7 +582,15 @@ public class ActionSoil extends BaseAction {
         Integer entTypeId = new EntitiesDao().getEntityTypeId(user.getIdUsr());
         findParams.put("entType", entTypeId);
         findParams.put("idEntUser", idEntSystem);
-        String fileName  = ""+getText("file.docsoil");
+        String OS = System.getProperty("os.name").toLowerCase();
+        if (OS.indexOf("win") >= 0) {
+            fileName  = ""+getText("file.docsoilwin");
+            findParams.put("fileName", ""+getText("file.tempsoilwin"));
+        } else {
+            fileName  = ""+getText("file.docsoilunix");
+            findParams.put("fileName", ""+getText("file.tempsoilunix"));
+        }
+//        fileName  = ""+getText("file.docsoil");
 //        String fileName  = "soilsInfo.csv";
         soilDao.getSoilAnalysis(findParams, fileName);
   

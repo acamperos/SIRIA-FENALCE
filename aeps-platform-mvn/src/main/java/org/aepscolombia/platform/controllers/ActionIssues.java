@@ -467,7 +467,14 @@ public class ActionIssues extends BaseAction {
     
     public String loadImage() throws Exception
     {
-        File newFile = new File("D:/ImagesUsers/"+archivoFileName);
+        String fileDirection = "";
+        String OS = System.getProperty("os.name").toLowerCase();
+        if (OS.indexOf("win") >= 0) {
+            fileDirection  = ""+getText("file.imageissuewin");
+        } else {
+            fileDirection  = ""+getText("file.imageissueunix");
+        }
+        File newFile = new File(fileDirection+archivoFileName);
         if(!newFile.exists()) Files.move(archivo.toPath(), newFile.toPath());
 //        String route = (String) this.getSession().get("routeImage");       
 //        System.out.println("route=>"+archivoFileName);

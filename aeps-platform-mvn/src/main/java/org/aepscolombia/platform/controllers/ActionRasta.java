@@ -40,6 +40,7 @@ import org.aepscolombia.platform.models.entity.Rastas;
 import org.aepscolombia.platform.models.entity.Users;
 import org.aepscolombia.platform.models.entityservices.SfGuardUser;
 import org.aepscolombia.platform.util.APConstants;
+import org.aepscolombia.platform.util.GlobalFunctions;
 import org.aepscolombia.platform.util.HibernateUtil;
 
 import org.apache.commons.lang.StringUtils;
@@ -487,79 +488,32 @@ public class ActionRasta extends BaseAction {
         }        
         
         state = "failure";     
-        ScriptEngineManager manager = new ScriptEngineManager();
-        
-        // create a Renjin engine:
-        ScriptEngine engine = manager.getEngineByName("Renjin");
-				
-        if(engine == null) {
-//            throw new RuntimeException("Renjin Script Engine not found on the classpath.");
-            info  = getText("message.packagedontwork.soil");
-        }
-        
-        if (this.getIdRasta()==-1) {
-            info  = getText("message.failtogetrasta.soil");
-        }
+        GlobalFunctions glo = new GlobalFunctions();
         
         try {
             
-            String vec = "vec <- "+rastaDao.getInfoToReport(this.getIdRasta());    
-            engine.eval(vec);
-            
-            StringArrayVector res = (StringArrayVector)engine.eval(new java.io.FileReader("inferidas.R"));            
-            String depthEffective  = res.getElementAsString(0);
-            String organicMaterial = res.getElementAsString(1);
-            String internalDrain   = res.getElementAsString(2);
-            String externalDrain   = res.getElementAsString(3);
-            String[] infoMaterials = organicMaterial.split(",");     
-//            System.out.println("infoMaterials->"+infoMaterials);
-            
-            HashMap valInf = new HashMap();
-            valInf.put("depth", depthEffective);
-            valInf.put("organic", infoMaterials);
-            valInf.put("internal", internalDrain);
-            valInf.put("external", externalDrain);
-            
-            Integer error = null;            
-            if (depthEffective.equals("Error") || depthEffective.equals("Error.nd") || depthEffective.equals("ERROR.ND") || depthEffective.equals("NO CLASIFICADO")) {
-                error = 1;
-            }            
-            
-            for (int i = 0; i < infoMaterials.length; i++) {
-                String temp = infoMaterials[i];
-                if (temp.equals("ERROR.ND") || internalDrain.equals("NO CLASIFICADO")) {
-                    error = 2;
-                }
-            }            
-            
-            if (internalDrain.equals("ERROR.ND") || internalDrain.equals("NO CLASIFICADO estruc") || internalDrain.equals("NO CLASIFICADO bueno") || internalDrain.equals("NO CLASIFICADO excesivo")) {
-                error = 3;
+            Rastas rasTemp = rastaDao.objectById(this.getIdRasta()); 
+            HashMap res = new HashMap(); 
+            //TODO Establecer una funcion que actualice todas las profundidades efectivas de todos los Rastas en el sistema
+            if (rasTemp.getProfundidadEfectivaRas()!=null && false) {
+                res.put("depth", rasTemp.getProfundidadCarbonatosRas());
+                res.put("organic", rasTemp.getMateriaOrganicaRas());
+                res.put("internal", rasTemp.getDrenajeInternoRas());
+                res.put("external", rasTemp.getDranajeExternoRas());
+            } else {
+                res = glo.getResultRasta(this.getIdRasta());
+                rasTemp.setProfundidadEfectivaRas(Double.parseDouble(String.valueOf(res.get("depth"))));
+                rasTemp.setMateriaOrganicaRas(String.valueOf(res.get("organic")));
+                rasTemp.setDrenajeInternoRas(String.valueOf(res.get("internal")));
+                rasTemp.setDranajeExternoRas(String.valueOf(res.get("external")));
+                rastaDao.save(rasTemp);
             }
-            
-            if (externalDrain.equals("ERROR.ND") || externalDrain.equals("NO CLASIFICADO estruc") || externalDrain.equals("NO CLASIFICADO bueno") || externalDrain.equals("NO CLASIFICADO excesivo")) {
-                error = 4;
-            }
-            
-            if (error!=null) {
-                if (error==1) info  = getText("message.failtogetprofundidad.soil");
-                if (error==2) info  = getText("message.failtogetmateria.soil");
-                if (error==3) info  = getText("message.failtogetdrenajein.soil");
-                if (error==4) info  = getText("message.failtogetdrenajeext.soil");
-//                return "states";
-            }
-            
-            Rastas rasTemp = rastaDao.objectById(this.getIdRasta());
-            info = rastaDao.getInfoRasta(this.getIdRasta(), valInf);         
-            rasTemp.setProfundidadEfectivaRas(Double.parseDouble(depthEffective));
-            rasTemp.setMateriaOrganicaRas(organicMaterial);
-            rasTemp.setDrenajeInternoRas(internalDrain);
-            rasTemp.setDranajeExternoRas(externalDrain);
-            rastaDao.save(rasTemp);
+//            info = (String) res.get("info");           
+            info = rastaDao.getInfoRasta(this.getIdRasta(), res);           
             return SUCCESS;             
         } catch (ScriptException ex) {
 //            System.out.println("Error mostrando la informacion");
             info  = getText("message.failtoshowinfo.soil");
-//                Logger.getLogger(ActionContact.class.getName()).log(Level.SEVERE, null, ex);
         } catch (FileNotFoundException ex) {
 //            System.out.println("Error leyendo el archivo R");
             info  = getText("message.failtoloadscript.soil");
@@ -1035,6 +989,12 @@ public class ActionRasta extends BaseAction {
         this.inputStream = inputStream;  
     }
     
+    private String fileName;
+
+    public String getFileName() {
+        return fileName;
+    }
+    
     public String viewReport() throws Exception {
         if (!usrDao.getPrivilegeUser(idUsrSystem, "soil/list")) {
             return BaseAction.NOT_AUTHORIZED;
@@ -1051,7 +1011,15 @@ public class ActionRasta extends BaseAction {
         Integer entTypeId = new EntitiesDao().getEntityTypeId(user.getIdUsr());
         findParams.put("entType", entTypeId);
         findParams.put("idEntUser", idEntSystem);
-        String fileName  = ""+getText("file.docrasta");
+        String OS = System.getProperty("os.name").toLowerCase();
+        if (OS.indexOf("win") >= 0) {
+            fileName  = ""+getText("file.docrastawin");
+            findParams.put("fileName", ""+getText("file.temprastawin"));
+        } else {
+            fileName  = ""+getText("file.docrastaunix");
+            findParams.put("fileName", ""+getText("file.temprastaunix"));
+        }
+//        fileName  = ""+getText("file.docrasta");
 //        String fileName  = "rastasInfo.csv";
         rastaDao.getRastas(findParams, fileName);
   
@@ -1253,7 +1221,7 @@ public class ActionRasta extends BaseAction {
                 log.setDateLogEnt(new Date());
                 log.setActionTypeLogEnt(action);
                 session.saveOrUpdate(log);
-            }
+            }          
 //            logDao.save(log);   
             
             /*
@@ -1354,7 +1322,7 @@ public class ActionRasta extends BaseAction {
             query.put("InsertedId", ""+rasta.getIdRas());
             query.put("form_id", "6");
             
-            MongoClient mongo = null;
+            /*MongoClient mongo = null;
             try {
                 mongo = new MongoClient("localhost", 27017);
             } catch (UnknownHostException ex) {
@@ -1380,8 +1348,15 @@ public class ActionRasta extends BaseAction {
 //                throw new HibernateException("");
 //            }            
             
-            mongo.close();
-            tx.commit();           
+            mongo.close();*/
+            tx.commit();   
+            GlobalFunctions glo = new GlobalFunctions();
+            HashMap res = glo.getResultRasta(rasta.getIdRas()); 
+            rasta.setProfundidadEfectivaRas(Double.parseDouble(String.valueOf(res.get("depth"))));
+            rasta.setMateriaOrganicaRas(String.valueOf(res.get("organic")));
+            rasta.setDrenajeInternoRas(String.valueOf(res.get("internal")));
+            rasta.setDranajeExternoRas(String.valueOf(res.get("external")));
+            session.saveOrUpdate(rasta);
             state = "success";
             if (action.equals("C")) {
                 info = getText("message.successadd.soil");
@@ -1399,8 +1374,21 @@ public class ActionRasta extends BaseAction {
             } else if (action.equals("M")) {
                 info  = getText("message.failedit.soil");
             }
+        } catch (ScriptException ex) {
+//            System.out.println("Error mostrando la informacion");
+            info  = getText("message.failtoshowinfo.soil");
+            state = "failure";
+        } catch (FileNotFoundException ex) {
+//            System.out.println("Error leyendo el archivo R");
+            info  = getText("message.failtoloadscript.soil");
+            state = "failure";
         } catch (ParseException e) { 
-        
+            state = "failure";
+            if (action.equals("C")) {
+                info  = getText("message.failadd.soil");
+            } else if (action.equals("M")) {
+                info  = getText("message.failedit.soil");
+            }
         } finally {
             session.close();
         }       
@@ -1458,7 +1446,7 @@ public class ActionRasta extends BaseAction {
             query.put("InsertedId", ""+ras.getIdRas());
             query.put("form_id", "6");
             
-            MongoClient mongo = null;
+            /*MongoClient mongo = null;
             try {
                 mongo = new MongoClient("localhost", 27017);
             } catch (UnknownHostException ex) {
@@ -1474,7 +1462,7 @@ public class ActionRasta extends BaseAction {
             if (result.getError()!=null) {
                 throw new HibernateException("");
             }            
-            mongo.close();
+            mongo.close();*/
             
             tx.commit();         
             state = "success";

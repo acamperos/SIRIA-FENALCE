@@ -33,13 +33,13 @@
         <table class="table table-bordered table-hover" style="<%= tableCon %>" id='tblCon'>
             <thead>
                 <tr>
-                    <th><s:property value="getText('tr.datecontrol.control')" /></th>
-                    <th><s:property value="getText('tr.objectivetype.control')" /></th>
-                    <th><s:property value="getText('tr.objtivecontrol.control')" /></th>
-                    <th><s:property value="getText('tr.controltype.control')" /></th>
-                    <th><s:property value="getText('tr.dosecontrol.control')" /></th>
+                    <th><s:property value="getText('td.datecontrol.control')" /></th>
+                    <th><s:property value="getText('td.objectivetype.control')" /></th>
+                    <th><s:property value="getText('td.objtivecontrol.control')" /></th>
+                    <th><s:property value="getText('td.controltype.control')" /></th>
+                    <th><s:property value="getText('td.dosecontrol.control')" /></th>
                     <% if (usrProDao.getPrivilegeUser(userPro.getIdUsr(), "crop/modify") || (usrProDao.getPrivilegeUser(userPro.getIdUsr(), "crop/delete"))) { %>
-                        <th><s:property value="getText('tr.action.control')" /></th>
+                        <th><s:property value="getText('td.action.control')" /></th>
                     <% } %>
                 </tr>
             </thead>

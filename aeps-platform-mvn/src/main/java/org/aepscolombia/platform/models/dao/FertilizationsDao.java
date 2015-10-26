@@ -3,9 +3,12 @@ package org.aepscolombia.platform.models.dao;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 //import org.aepscolombia.plataforma.models.dao.IEventoDao;
 import org.hibernate.Transaction;
 import org.hibernate.HibernateException;
@@ -14,6 +17,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.aepscolombia.platform.models.entity.Fertilizations;
 import org.aepscolombia.platform.util.HibernateUtil;
+import static org.renjin.stats.internals.Distributions.dt;
 
 /**
  * Clase FertilizationsDao
@@ -178,12 +182,16 @@ public class FertilizationsDao
             events = query.list(); 
             int cont=1;
 
-            for (Object[] data : events) {
+            for (Object[] data : events) {   
+                String idFert    = String.valueOf(data[0]);
                 String valIdent  = String.valueOf(data[1]);
-                Date date        = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse(valIdent);
-                String dateAsign = new SimpleDateFormat("yyyy-MM-dd").format(date);
-                result += "{\"content\": \"Fert. "+cont+"\", \"start\": \""+dateAsign+"\", \"className\": \"fertilizations\"},";
-                cont++;
+                Integer contFer  = getTotalFertilizations(idFert);
+                if (contFer>0) {
+                    Date date        = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse(valIdent);
+                    String dateAsign = new SimpleDateFormat("yyyy-MM-dd").format(date);
+                    result += "{\"content\": \"Fert. "+cont+"\", \"start\": \""+dateAsign+"\", \"className\": \"fertilizations\"},";
+                    cont++;
+                }
             }
             tx.commit();
         } catch (HibernateException e) {
@@ -743,4 +751,254 @@ public class FertilizationsDao
 		}
         return result;
     }
+    
+    public double[] getDistribution(HashMap args) {
+        SessionFactory sessions = HibernateUtil.getSessionFactory();
+        Session session = sessions.openSession();
+        List<Object[]> events = null;
+        Transaction tx = null;
+        List<HashMap> result = new ArrayList<HashMap>();
+        
+        
+        String sql = "";       
+        sql +=  " select eq.id_che_ele, eq.name_che_ele, SUM(p.percentage_che_fer_com), SUM(ep.amount_product_used_che_fer), SUM(p.percentage_che_fer_com*ep.amount_product_used_che_fer/100)";
+        sql +=  " from chemical_fertilizer_composition p";
+        sql +=  " inner join chemical_fertilizers fq on fq.id_che_fer=p.id_chemical_fertilizer_che_fer_com";
+        sql +=  " inner join chemical_elements eq on eq.id_che_ele=p.id_elements_che_fer_com and eq.status_che_ele=1";  
+        sql +=  " inner join chemical_fertilizations ep on ep.id_product_che_fer=fq.id_che_fer"; 
+        sql +=  " inner join fertilizations fer on ep.id_fertilization_che_fer=fer.id_fer";
+        sql +=  " where fer.status=1";
+        if (args.containsKey("idEvent")) { 
+            sql += " and fer.id_production_event_fer="+args.get("idEvent");
+        }
+        if (args.containsKey("dateIni") && args.containsKey("dateEnd")) { 
+            String dateIni = String.valueOf(args.get("dateIni"));
+            String dateEnd = String.valueOf(args.get("dateEnd"));
+//            if (dateIni.equals(dateEnd)) {
+                sql += " and fer.date_fer<='"+args.get("dateEnd")+"'";
+//            } else {
+//                sql += " and (fer.date_fer>='"+args.get("dateIni")+"' and fer.date_fer<='"+args.get("dateEnd")+"')";
+//            }
+            
+        }
+        sql +=  " group by eq.id_che_ele";        
+//        System.out.println("sql=>"+sql);
+        double[] valuesElements = new double[7];
+        try {
+            tx = session.beginTransaction();
+            Query query  = session.createSQLQuery(sql);
+            
+            events = query.list();
+            if (events.size()<=0) {
+                valuesElements = null;
+            }
+            /*String composition = "";
+            String value = "";*/
+            for (Object[] data : events) {
+                int elem    = Integer.parseInt(String.valueOf(data[0]));
+                double distrib = Double.parseDouble(String.valueOf(data[4]));
+                if (elem==1) valuesElements[0]=distrib;
+                else if (elem==2) valuesElements[1]=distrib;
+                else if (elem==3) valuesElements[2]=distrib;
+                else if (elem==6) valuesElements[3]=distrib;
+                else if (elem==5) valuesElements[4]=distrib;
+                else if (elem==8) valuesElements[5]=distrib;
+                else if (elem==7) valuesElements[6]=distrib;
+            }
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return valuesElements;
+    }
+    
+    public double[] getNutrients(HashMap args) {
+        SessionFactory sessions = HibernateUtil.getSessionFactory();
+        Session session = sessions.openSession();
+        List<Object[]> events = null;
+        Transaction tx = null;        
+        
+        String sql = "";       
+        sql += " select p.nitrogen_nu_val, p.phosphorus_nu_val, p.potassium_nu_val,";
+        sql += " p.sulfur_nu_val, p.magnesium_nu_val, p.zinc_nu_val, p.boron_nu_val";
+        sql += " from nutrients_values p";
+        sql += " where p.id_nu_val is not null";
+        if (args.containsKey("depId")) { 
+            sql += " and p.departments_nu_val="+args.get("depId");
+        }
+        if (args.containsKey("cropType")) { 
+            sql += " and p.crop_type_nu_val="+args.get("cropType");
+        }    
+//        System.out.println("sql=>"+sql);
+        Double per = 1.0;
+        if (args.containsKey("percentage")) { 
+            per = Double.parseDouble(String.valueOf(args.get("percentage")));
+        } 
+        
+        double[] valuesElements = {0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+        try {
+            tx = session.beginTransaction();
+            Query query  = session.createSQLQuery(sql);
+            
+            events = query.list();                        
+            for (Object[] data : events) {
+                valuesElements[0]=Integer.parseInt(String.valueOf(data[0]))*per;
+                valuesElements[1]=Integer.parseInt(String.valueOf(data[1]))*per;
+                valuesElements[2]=Integer.parseInt(String.valueOf(data[2]))*per;
+                valuesElements[3]=Integer.parseInt(String.valueOf(data[3]))*per;
+                valuesElements[4]=Integer.parseInt(String.valueOf(data[4]))*per;
+                valuesElements[5]=Integer.parseInt(String.valueOf(data[5]))*per;
+                valuesElements[6]=Integer.parseInt(String.valueOf(data[6]))*per;
+            }
+            
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return valuesElements;
+    }
+    
+    public boolean compareNutrients(double[] distriUser, double[] distriStandard) {
+        boolean result=true;
+        
+        if (distriUser!=null) {
+            for (int i=0; i<distriUser.length; i++) {
+                if(distriUser[i]<distriStandard[i]) {
+                    result=false;
+                }
+            }
+        } else {
+            result=false;
+        }
+        
+        return result;
+    }
+    
+    public boolean[] getDivisions(HashMap args) {
+        SessionFactory sessions = HibernateUtil.getSessionFactory();
+        Session session = sessions.openSession();
+        List<Object[]> events = null;
+        Transaction tx = null;        
+        
+        String sql = "";       
+        sql += " select p.type_div, p.days_div, p.percentage_div,";
+        sql += " p.element_div, p.pos_div, p.departments_div, p.crop_type_div, p.growing_env_div";
+        sql += " from division p";
+        sql += " where p.id_div is not null";
+        if (args.containsKey("depId")) { 
+            sql += " and p.departments_div="+args.get("depId");
+        }
+        if (args.containsKey("cropType")) { 
+            sql += " and p.crop_type_div="+args.get("cropType");
+        } 
+        if (args.containsKey("growId")) { 
+            sql += " and p.growing_env_div="+args.get("growId");
+        } 
+//        System.out.println("sql=>"+sql);
+        Date dateSow = new Date();        
+        
+        boolean[] valuesElements = {true, true, true, true, true, true, true};
+        double[] nutrientsA = {0,0,0,0,0,0,0};
+        double[] nutrientsB = {0,0,0,0,0,0,0};
+        double[] distribution = new double[7];
+        int cont  = 0;
+        int limit = 0;
+        
+        try {
+            tx = session.beginTransaction();
+            Query query  = session.createSQLQuery(sql);
+            
+            events = query.list();                        
+//            for (Object[] data : events) {
+            for (int i=0; i<events.size(); i++) {
+                Object[] data  = events.get(i);
+                Double perF    = 0.0;
+                cont = cont+1;
+                if (i!=events.size()-1 && limit!=2) {
+                    Object[] dataF = events.get(cont);
+                    perF  = Double.parseDouble(String.valueOf(dataF[2]));
+//                    System.out.println("perF=>"+perF);
+                    args.put("percentage", perF);
+                    nutrientsB=getNutrients(args);
+                }                
+                
+                int days = Integer.parseInt(String.valueOf(data[1]));
+                Double per  = Double.parseDouble(String.valueOf(data[2]));   
+                int pos  = Integer.parseInt(String.valueOf(data[4]));
+//                System.out.println("per=>"+per);
+                /*int type = Integer.parseInt(String.valueOf(data[0]));
+                int elem = Integer.parseInt(String.valueOf(data[3]));
+                int dep  = Integer.parseInt(String.valueOf(data[5]));
+                int crop = Integer.parseInt(String.valueOf(data[6]));
+                int grow = Integer.parseInt(String.valueOf(data[7]));*/
+                
+                args.put("percentage", per);
+                nutrientsA=getNutrients(args);                
+                
+                dateSow = (Date) args.get("dateSow");                    
+                String dateNew = dateSow.toString();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                String dateSowAsign = sdf.format(dateSow);
+                Calendar c = Calendar.getInstance();
+                c.setTime(sdf.parse(dateNew));
+                c.add(Calendar.DATE, days);
+                dateNew = sdf.format(c.getTime());
+                args.put("dateIni", dateSowAsign);
+                args.put("dateEnd", dateNew);
+                
+                distribution=getDistribution(args);
+                /*System.out.println("distribution[pos]=>"+distribution[pos]);
+                System.out.println("nutrientsA[pos]=>"+nutrientsA[pos]);
+                System.out.println("nutrientsB[pos]=>"+nutrientsB[pos]);*/
+                if (distribution!=null) {
+                    if (limit<2 && per!=0) {
+                        if (perF!=0) {
+                            if(distribution[pos]<nutrientsA[pos] || distribution[pos]>nutrientsB[pos]){
+                                valuesElements[pos]=false;
+                            }
+                        } else {
+                            if(distribution[pos]<nutrientsA[pos]){
+                                valuesElements[pos]=false;
+                            }
+                        }
+
+                    } else if (per!=0){
+                        limit = -1;
+                        if(distribution[pos]<nutrientsA[pos]){
+                            valuesElements[pos]=false;
+                        }
+                    }
+                } else {
+                    valuesElements[pos]=false;
+                }
+                
+                limit++;
+//                for(boolean b : valuesElements) System.out.println("b=>"+b);
+                
+            }        
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } catch (ParseException ex) {
+            Logger.getLogger(FertilizationsDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            session.close();
+        }
+        return valuesElements;
+    }
+    
+    
 }

@@ -32,16 +32,20 @@
             <% } %>
         </div>
         <script>
+            var lanVal = $('#lanSel').val();
+            var str    = lanVal;
+            var valEs  = str.search("es");
+            var valEn  = str.search("en");
             var allSelFarm = "";
             var numSelFarm = "";
             var notFoundFarm = "";
-            if(navigator.language=='es-ES' || navigator.language=='es-CO' || navigator.language=='es-PE' || navigator.language=='es-NI' || navigator.language=='es') {
+            if(valEs!=-1) {
                     allSelFarm = "Todos";
                     numSelFarm = "# de % seleccionados";
                     notFoundFarm = "No. coincidencias encontradas";
             }
 
-            if(navigator.language=='en-EN' || navigator.language=='en') {
+            if(valEn!=-1) {
                     allSelFarm = "All";
                     numSelFarm = "# of % selected";
                     notFoundFarm = "Number of results";

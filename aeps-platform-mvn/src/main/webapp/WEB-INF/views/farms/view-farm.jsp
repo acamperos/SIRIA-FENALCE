@@ -7,13 +7,17 @@
             <s:hidden name="points"/>
             <div class="tabbable tabbable-bordered">
                 <ul class="nav nav-tabs">                    
-                    <li class="active"><a href="#tb3_a" data-toggle="tab">Listado</a></li>
-                    <li><a href="#tb3_b" id="aMap" data-toggle="tab"><i class="icon-star color-star"></i> Mapa</a></li>
+                    <li class="active"><a href="#tb3_a" data-toggle="tab"><s:property value="getText('tab.listinfo.farm')" /></a></li>
+                    <li><a href="#tb3_b" id="aMap" data-toggle="tab"><i class="icon-star color-star"></i> <s:property value="getText('tab.mapinfo.farm')" /></a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane" id="tb3_b" style="height: 462px">
                         <div id="map_general" style="width:58%; height:60%; position: absolute;"></div>
                         <script>                
+                            var lanVal = $('#lanSel').val();
+                            var str   = lanVal;
+                            var valEs = str.search("es");
+                            var valEn = str.search("en");            
                             var pageSel = "<%=pageSel%>";
                             var jsonString  = $("#points").val();
                             var codeCountry = $("#coCode").val();    
@@ -32,11 +36,11 @@
                             });   
 
                             var locateFarm = "";
-                            if(navigator.language=='es-ES' || navigator.language=='es-CO' || navigator.language=='es-PE' || navigator.language=='es-NI' || navigator.language=='es') {
+                            if(valEs!=-1) {
                                     locateFarm = "Ubicacion";
                             }
 
-                            if(navigator.language=='en-EN' || navigator.language=='en') {
+                            if(valEn!=-1) {
                                     locateFarm = "Location";
                             }
 
@@ -62,37 +66,66 @@
 
                             map.data.addGeoJson(geojson);
                             function showContent(feature) {
+                                var name = "";
+                                var howfind = "";
+                                var department = "";
+                                var municipality = "";
+                                var latitude = "";
+                                var longitude = "";
+                                var altitude = "";
+                                var buttonModify = "";
+                                if(valEs!=-1) {
+                                    name = "Nombre";
+                                    howfind = "Indicación (Como llegar)";
+                                    department = "Departamento";
+                                    municipality = "Municipio";
+                                    latitude = "Latitud";
+                                    longitude = "Longitud";
+                                    altitude = "Altura";     
+                                    buttonModify = "Editar Finca";
+                                }
+                                
+                                if(valEn!=-1) {
+                                    name = "Name";
+                                    howfind = "Information (How i can arrive)";
+                                    department = "Department";
+                                    municipality = "Municipality";
+                                    latitude = "Latitude";
+                                    longitude = "Longitude";
+                                    altitude = "Altitude"; 
+                                    buttonModify = "Modify farm";
+                                }
                                 var info = '<div>'+
                                   '<div class="w-box">'+
                                       '<fieldset>'+
                                           '<table class="table table-bordered">'+
                                               '<tbody>'+
                                                   '<tr>'+
-                                                      '<th style="width: 30%">Nombre</th>'+
+                                                      '<th style="width: 30%">'+name+'</th>'+
                                                       '<td>'+feature.getProperty("nameFarm")+'</td>'+
                                                   '</tr>'+
                                                   '<tr>'+
-                                                      '<th>Indicación (Como llegar)</th>'+
+                                                      '<th>'+howfind+'</th>'+
                                                       '<td>'+feature.getProperty("dirFarm")+'</td>'+
                                                   '</tr>'+   
                                                   '<tr>'+   
-                                                      '<th>Departamento</th>'+
+                                                      '<th>'+department+'</th>'+
                                                       '<td>'+feature.getProperty("nameDep")+'</td>'+
                                                   '</tr>'+
                                                   '<tr>'+
-                                                      '<th>Muncipio</th>'+
+                                                      '<th>'+municipality+'</th>'+
                                                       '<td>'+feature.getProperty("nameMun")+'</td>'+
                                                   '</tr>'+
                                                   '<tr>'+
-                                                      '<th>Latitud</th>'+
+                                                      '<th>'+latitude+'</th>'+
                                                       '<td>'+feature.getProperty("latFarm")+'</td>'+
                                                   '</tr>'+
                                                   '<tr>'+
-                                                      '<th>Longitud</th>'+
+                                                      '<th>'+longitude+'</th>'+
                                                       '<td>'+feature.getProperty("lonFarm")+'</td>'+
                                                   '</tr>'+
                                                   '<tr>'+
-                                                      '<th>Altura</th>'+
+                                                      '<th>'+altitude+'</th>'+
                                                       '<td>'+feature.getProperty("altFarm")+'</td>'+
                                                   '</tr>'+
                                               '</tbody>'+
@@ -100,8 +133,8 @@
                                       '</fieldset>'+
                                   '</div>'+       
                               '</div>'+
-                              '<button type="button" class="btn btn-initial" onclick="viewForm(\'/showFarm.action?action=modify&page='+pageSel+'\', \'idFar\', '+feature.getProperty("idFarm")+', \'Editar Finca\', 1050, 550)">'+
-                                  '<i class="icon-pencil"></i> Editar Finca'+
+                              '<button type="button" class="btn btn-initial" onclick="viewForm(\'/showFarm.action?action=modify&page='+pageSel+'\', \'idFar\', '+feature.getProperty("idFarm")+', \''+buttonModify+'\', 1050, 550)">'+
+                                  '<i class="icon-pencil"></i> '+buttonModify+
                               '</button>';
                                 infowindow.setContent(info);
                             };

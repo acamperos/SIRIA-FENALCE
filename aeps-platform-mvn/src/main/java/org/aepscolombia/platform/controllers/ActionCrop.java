@@ -1346,7 +1346,15 @@ public class ActionCrop extends BaseAction {
         Integer entTypeId = new EntitiesDao().getEntityTypeId(user.getIdUsr());
         findParams.put("entType", entTypeId);
         findParams.put("idEntUser", idEntSystem);
-        String fileName  = ""+getText("file.doccrop");
+        String OS = System.getProperty("os.name").toLowerCase();
+        if (OS.indexOf("win") >= 0) {
+            fileName  = ""+getText("file.doccropwin");
+            findParams.put("fileName", ""+getText("file.tempcropwin"));
+        } else {
+            fileName  = ""+getText("file.doccropunix");
+            findParams.put("fileName", ""+getText("file.tempcropunix"));
+        }
+//        String fileName  = ""+getText("file.doccrop");
 //        String fileName  = "cropsInfo.csv";
         cropDao.getProductionEvents(findParams, fileName);  
         
@@ -1634,7 +1642,7 @@ public class ActionCrop extends BaseAction {
                 query.put("form_id", "39");
             }            
 
-            MongoClient mongo = null;
+            /*MongoClient mongo = null;
             try {
                 mongo = new MongoClient("localhost", 27017);
             } catch (UnknownHostException ex) {
@@ -1650,7 +1658,7 @@ public class ActionCrop extends BaseAction {
             if (result.getError()!=null) {
                 throw new HibernateException("");
             }
-            mongo.close();
+            mongo.close();*/
                         
             tx.commit();         
             state = "success";

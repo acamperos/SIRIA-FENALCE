@@ -33,12 +33,12 @@
         <table class="table table-bordered table-hover" style="<%= tableMon %>" id='tblMon'>
             <thead>
                 <tr>             
-                    <th><s:property value="getText('tr.datemonitoring.monitoring')" /></th>
-                    <th><s:property value="getText('tr.monitoringpest.monitoring')" /></th>                    
-                    <th><s:property value="getText('tr.monitoringdisease.monitoring')" /></th>
-                    <th><s:property value="getText('tr.monitoringweed.monitoring')" /></th>
+                    <th><s:property value="getText('td.datemonitoring.monitoring')" /></th>
+                    <th><s:property value="getText('td.monitoringpest.monitoring')" /></th>                    
+                    <th><s:property value="getText('td.monitoringdisease.monitoring')" /></th>
+                    <th><s:property value="getText('td.monitoringweed.monitoring')" /></th>
                     <% if (usrMonDao.getPrivilegeUser(userMon.getIdUsr(), "crop/modify") || (usrMonDao.getPrivilegeUser(userMon.getIdUsr(), "crop/delete"))) { %>
-                        <th><s:property value="getText('tr.action.monitoring')" /></th>
+                        <th><s:property value="getText('td.action.monitoring')" /></th>
                     <% } %>
                 </tr>
             </thead>

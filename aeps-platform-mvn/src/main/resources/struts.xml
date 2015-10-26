@@ -44,6 +44,7 @@
         </global-results>
         <!-- Public part -->
         <action name="*" class="org.aepscolombia.platform.controllers.BaseAction">
+            <interceptor-ref name="validateI18n"/>
             <result name="input">/WEB-INF/views/errors/404.jsp</result>
         </action>
         <action name="locale" class="org.aepscolombia.platform.controllers.LocaleAction">
@@ -79,7 +80,7 @@
             <result name="page">/layout.jsp</result>
             <result>/WEB-INF/views/generals/home.jsp</result>
         </action>     
-        <action name="about">
+        <action name="about" class="org.aepscolombia.platform.controllers.ActionContact">
             <interceptor-ref name="validateI18n"/>
             <interceptor-ref name="viewAction"/>
             <result name="page">/layout.jsp</result>
@@ -99,6 +100,7 @@
             <result name="input">/WEB-INF/views/login/login.jsp</result>
         </action>  
         <action name="verifyUser"  method="verifyUser" class="org.aepscolombia.platform.controllers.ActionLogin">
+            <interceptor-ref name="validateI18n"/>
             <interceptor-ref name="basicStack"/>
             <result type="redirectAction">accessPlatform</result>
         </action> 
@@ -639,6 +641,13 @@
             <interceptor-ref name="viewAction"/>
             <result name="page">/WEB-INF/views/generals/layoutPrivate.jsp</result>
             <result>/WEB-INF/views/reports/view-check.jsp</result>
+        </action>
+        <action name="analysisReport" class="org.aepscolombia.platform.controllers.ActionReport">
+            <interceptor-ref name="defaultStackAeps"/>
+            <interceptor-ref name="validateI18n"/>
+            <interceptor-ref name="viewAction"/>
+            <result name="page">/WEB-INF/views/generals/layoutPrivate.jsp</result>
+            <result>/WEB-INF/views/reports/view-analysis.jsp</result>
         </action>
         <action name="viewCropcheck" method="viewCropcheck" class="org.aepscolombia.platform.controllers.ActionReport">
             <interceptor-ref name="validateI18n"/>

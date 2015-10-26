@@ -33,9 +33,14 @@
         </div>
     </body>
     <script>                
+        var lanVal = $('#lanSel').val();
+        var str    = lanVal;
+        var valEs  = str.search("es");
+        var valEn  = str.search("en");
         var valLocation = $("#location").val();
         if (valLocation=="0") {
-            alert("Has seleccionado un punto en el agua por favor verificar si es el punto correcto");            
+            if(valEs!=-1) alert("Has seleccionado un punto en el agua por favor verificar si es el punto correcto");    
+            if(valEn!=-1) alert("You are select a point inside the water, please verify that");   
         }
         $("#formFarm_altitude_property").val($("#altitude_property").val());
         var valLat = $("#latitude_property").val();     
@@ -58,11 +63,11 @@
         });   
 
         var locateFarm = "";
-        if(navigator.language=='es-ES' || navigator.language=='es-CO' || navigator.language=='es-PE' || navigator.language=='es-NI' || navigator.language=='es') {
+        if(valEs!=-1) {
                 locateFarm = "Ubicacion";
         }
 
-        if(navigator.language=='en-EN' || navigator.language=='en') {
+        if(valEn!=-1) {
                 locateFarm = "Location";
         }
 			

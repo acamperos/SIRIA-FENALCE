@@ -57,21 +57,21 @@
                     <% } %>
                 <% } %>
                 <% if (entTypeSoilId==3) { %>    
-                    <th><s:property value="getText('tr.agronomist.soil')" /></th>
+                    <th><s:property value="getText('td.agronomist.soil')" /></th>
                 <% } %>
-                <th><s:property value="getText('tr.infosoil.soil')" /></th>
-                <th><s:property value="getText('tr.daterasta.soil')" /></th>
-                <th><s:property value="getText('tr.pendant.soil')" /></th>
-                <th><s:property value="getText('tr.location.soil')" /></th>
-                <th><s:property value="getText('tr.ground.soil')" /></th>
-                <th><s:property value="getText('tr.position.soil')" /></th>
-                <th><s:property value="getText('tr.numlayers.soil')" /></th>
-                <th><s:property value="getText('tr.phvalue.soil')" /></th>
-                <th><s:property value="getText('tr.carbonates.soil')" /></th>
-                <th><s:property value="getText('tr.datecreated.soil')" /></th>
+                <th><s:property value="getText('td.infosoil.soil')" /></th>
+                <th><s:property value="getText('td.daterasta.soil')" /></th>
+                <th><s:property value="getText('td.pendant.soil')" /></th>
+                <th><s:property value="getText('td.location.soil')" /></th>
+                <th><s:property value="getText('td.ground.soil')" /></th>
+                <th><s:property value="getText('td.position.soil')" /></th>
+                <th><s:property value="getText('td.numlayers.soil')" /></th>
+                <th><s:property value="getText('td.phvalue.soil')" /></th>
+                <th><s:property value="getText('td.carbonates.soil')" /></th>
+                <th><s:property value="getText('td.datecreated.soil')" /></th>
                 <% if (usrSoilDao.getPrivilegeUser(userSoil.getIdUsr(), "soil/modify") || (usrSoilDao.getPrivilegeUser(userSoil.getIdUsr(), "soil/delete"))) { %>                
                     <% if (value == "rasta" || value.equals("rasta")) {%>
-                        <th><s:property value="getText('tr.action.soil')" /></th>
+                        <th><s:property value="getText('td.action.soil')" /></th>
                     <% } %>
                 <% } %>
             </tr>

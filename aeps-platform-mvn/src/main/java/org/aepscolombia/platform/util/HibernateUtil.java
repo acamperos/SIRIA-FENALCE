@@ -28,8 +28,8 @@ public class HibernateUtil {
     // Database configuration
     public static String url = "jdbc:mysql://localhost:3306/ciat_ext";
     public static String dbdriver = "com.mysql.jdbc.Driver";
-    public static String username = "ciat";
-    public static String password = "GtA7U5BWcPATbGpT";
+    public static String username = "jfrodriguez";
+    public static String password = "c1ata3ps";
     static Connection conn;
     static Statement st;
     

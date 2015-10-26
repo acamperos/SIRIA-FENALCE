@@ -33,12 +33,12 @@
         <table class="table table-bordered table-hover" style="<%= tableFerGen %>" id='tblFerGen'>
             <thead>
                 <tr>
-                    <th><s:property value="getText('tr.appdate.fertilization')" /></th>
-                    <th><s:property value="getText('tr.typefer.fertilization')" /></th>                    
-                    <th><s:property value="getText('tr.amountproduct.fertilization')" /></th>       
-                    <th><s:property value="getText('tr.whicfertilization.fertilization')" /></th>
+                    <th><s:property value="getText('td.appdate.fertilization')" /></th>
+                    <th><s:property value="getText('td.typefer.fertilization')" /></th>                    
+                    <th><s:property value="getText('td.amountproduct.fertilization')" /></th>       
+                    <th><s:property value="getText('td.whicfertilization.fertilization')" /></th>
                     <% if (usrFerDao.getPrivilegeUser(userFer.getIdUsr(), "crop/modify") || (usrFerDao.getPrivilegeUser(userFer.getIdUsr(), "crop/delete"))) { %>
-                        <th><s:property value="getText('tr.action.fertilization')" /></th>
+                        <th><s:property value="getText('td.action.fertilization')" /></th>
                     <% } %>
                 </tr>
             </thead>

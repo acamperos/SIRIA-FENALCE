@@ -16,7 +16,9 @@
     </head>
     <body>
         <%@ taglib prefix="s" uri="/struts-tags" %>
+        <%@page import="org.aepscolombia.platform.models.entity.Users"%>
         <%@page import="org.aepscolombia.platform.util.APConstants"%>
+        <% Users user = (Users) session.getAttribute(APConstants.SESSION_USER); %>
         <% String country  = (String) session.getAttribute(APConstants.COUNTRY_CODE); %>
         <div class="container">
             <div class="row">
@@ -25,7 +27,11 @@
                         <h1><s:property value="getText('title.permission404.errors')" /> <small><font color="red"><s:property value="getText('text.permission404.errors')" /></font></small></h1>
                         <br />
                         <p><s:property value="getText('area.permission404.errors')" />. </p>
-                        <a href="<%= request.getContextPath() %>/initial.action?countryCode=<%=country%>" class="btn btn-large btn-initial"><i class="icon-home icon-white"></i> <s:property value="getText('link.permission.errors')" /></a>
+                        <% if (user != null) { %>
+                            <a href="<%= request.getContextPath() %>/dashboard.action" class="btn btn-large btn-initial"><i class="icon-home icon-white"></i> <s:property value="getText('link.permission.errors')" /></a>
+                        <% } else { %>
+                            <a href="<%= request.getContextPath() %>/initial.action?countryCode=<%=country%>" class="btn btn-large btn-initial"><i class="icon-home icon-white"></i> <s:property value="getText('link.permission.errors')" /></a>
+                        <% } %>                        
                     </div>
                 </div>
             </div>

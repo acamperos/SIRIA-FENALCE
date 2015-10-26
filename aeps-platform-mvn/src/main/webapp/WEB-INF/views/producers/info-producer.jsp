@@ -73,17 +73,17 @@
                     <% }%>
                 <% }%>
                 <% if (entTypeProId==3) { %>    
-                    <th><s:property value="getText('tr.agronomist.producer')" /></th>
+                    <th><s:property value="getText('td.agronomist.producer')" /></th>
                 <% } %>
-                <th><s:property value="getText('tr.nameproducer.producer')" /></th>
-                <th><s:property value="getText('tr.municipality.producer')" /></th>
-                <th><s:property value="getText('tr.telephone.producer')" /></th>
-                <th><s:property value="getText('tr.celphone.producer')" /></th>
-                <th><s:property value="getText('tr.email.producer')" /></th>                                
-                <th><s:property value="getText('tr.datecreated.producer')" /></th>                                
+                <th><s:property value="getText('td.nameproducer.producer')" /></th>
+                <th><s:property value="getText('td.municipality.producer')" /></th>
+                <th><s:property value="getText('td.telephone.producer')" /></th>
+                <th><s:property value="getText('td.celphone.producer')" /></th>
+                <th><s:property value="getText('td.email.producer')" /></th>                                
+                <th><s:property value="getText('td.datecreated.producer')" /></th>                                
                 <% if (usrProDao.getPrivilegeUser(userPro.getIdUsr(), "producer/modify") || (usrProDao.getPrivilegeUser(userPro.getIdUsr(), "producer/delete"))) { %>                
                     <% if (value.equals("producer") || value == "producer") {%>    
-                        <th><s:property value="getText('tr.action.producer')" /></th>
+                        <th><s:property value="getText('td.action.producer')" /></th>
                     <% } %>
                 <% } %>
             </tr>

@@ -56,19 +56,19 @@
                     <% } %>
                 <% } %>
                 <% if (entTypeSoilId==3) { %>    
-                    <th><s:property value="getText('tr.agronomist.soilanalysis')" /></th>
+                    <th><s:property value="getText('td.agronomist.soilanalysis')" /></th>
                 <% } %>
-                <th><s:property value="getText('tr.infosoil.soilanalysis')" /></th>
-                <th><s:property value="getText('tr.datesoil.soilanalysis')" /></th>
-                <th><s:property value="getText('tr.numbersample.soilanalysis')" /></th>
-                <th><s:property value="getText('tr.crop.soilanalysis')" /></th>
-                <th><s:property value="getText('tr.texture.soilanalysis')" /></th>
-                <th><s:property value="getText('tr.phvalue.soilanalysis')" /></th>
-                <th><s:property value="getText('tr.cicesoil.soilanalysis')" /></th>
-                <th><s:property value="getText('tr.datecreated.soilanalysis')" /></th>
+                <th><s:property value="getText('td.infosoil.soilanalysis')" /></th>
+                <th><s:property value="getText('td.datesoil.soilanalysis')" /></th>
+                <th><s:property value="getText('td.numbersample.soilanalysis')" /></th>
+                <th><s:property value="getText('td.crop.soilanalysis')" /></th>
+                <th><s:property value="getText('td.texture.soilanalysis')" /></th>
+                <th><s:property value="getText('td.phvalue.soilanalysis')" /></th>
+                <th><s:property value="getText('td.cicesoil.soilanalysis')" /></th>
+                <th><s:property value="getText('td.datecreated.soilanalysis')" /></th>
                 <% if (usrSoilDao.getPrivilegeUser(userSoil.getIdUsr(), "soil/modify") || (usrSoilDao.getPrivilegeUser(userSoil.getIdUsr(), "soil/delete"))) { %>                
                     <% if (value == "soil" || value.equals("soil")) {%>
-                        <th><s:property value="getText('tr.action.soilanalysis')" /></th>
+                        <th><s:property value="getText('td.action.soilanalysis')" /></th>
                     <% } %>
                 <% } %>
             </tr>

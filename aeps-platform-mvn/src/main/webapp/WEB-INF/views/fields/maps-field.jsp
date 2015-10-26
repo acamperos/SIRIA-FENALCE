@@ -90,12 +90,17 @@
       gicons["green"] = getMarkerImage("green");
       gicons["yelow"] = getMarkerImage("yellow");
 			
+                        
+                        var lanVal = $('#lanSel').val();
+                        var str    = lanVal;
+                        var valEs  = str.search("es");
+                        var valEn  = str.search("en");
 			var locateField = "";
-			if(navigator.language=='es-ES' || navigator.language=='es-CO' || navigator.language=='es-PE' || navigator.language=='es-NI' || navigator.language=='es') {
+			if(valEs!=-1) {
 				locateField = "Ubicacion";
 			}
 			
-			if(navigator.language=='en-EN' || navigator.language=='en') {
+			if(valEn!=-1) {
 				locateField = "Location";
 			}
       

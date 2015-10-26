@@ -16,7 +16,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.URL;
 import java.net.UnknownHostException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -41,9 +40,16 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 import org.aepscolombia.platform.controllers.ActionField;
+import org.aepscolombia.platform.controllers.BaseAction;
 import org.aepscolombia.platform.models.dao.ProductionEventsDao;
+import org.aepscolombia.platform.models.dao.RastasDao;
 import org.hibernate.HibernateException;
+import org.renjin.sexp.ListVector;
+import org.renjin.sexp.StringArrayVector;
 
 /**
  * Clase GlobalFunctions
@@ -53,7 +59,7 @@ import org.hibernate.HibernateException;
  * @author Juan Felipe Rodriguez
  * @version 1.0
  */
-public class GlobalFunctions {
+public class GlobalFunctions extends BaseAction {
 
     public static Integer check_in_range(Date start, Date end, Date evaluame, Integer whatIs) 
     {
@@ -528,11 +534,17 @@ public class GlobalFunctions {
 
     public static String checkDataRasta(String input) {
         String result = "";
-        if (input.matches("[0-9]*") || input.equals("ND") || input.equals("NA")) {
+        if (input.matches("[0-9]*") || input.equals("ND") || input.equals("NA") || input.equals("null")) {
             if (input.matches("[0-9]*")) {
                 input = input.replace(",", ".");
             }
-            result = input;
+            
+            if (input.equals("null")) {
+                result = "NA";
+            } else {
+                result = input;
+            }
+            
         } else {
             result = "'" + GlobalFunctions.remove(input) + "'";
         }
@@ -672,8 +684,8 @@ public class GlobalFunctions {
 
         try {
             JSONParser parser = new JSONParser();
-            obj = (JSONObject) parser.parse(new FileReader("/var/www/document/producerStructure.json"));
-//            obj = (JSONObject) parser.parse(new FileReader("C:/producerStructure.json"));
+//            obj = (JSONObject) parser.parse(new FileReader("/var/www/document/producerStructure.json"));
+            obj = (JSONObject) parser.parse(new FileReader("C:/producerStructure.json"));
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
         } catch (IOException ex) {
@@ -916,8 +928,8 @@ public class GlobalFunctions {
 
         try {
             JSONParser parser = new JSONParser();
-            obj = (JSONObject) parser.parse(new FileReader("/var/www/document/farmStructure.json"));
-//            obj = (JSONObject) parser.parse(new FileReader("C:/farmStructure.json"));
+//            obj = (JSONObject) parser.parse(new FileReader("/var/www/document/farmStructure.json"));
+            obj = (JSONObject) parser.parse(new FileReader("C:/farmStructure.json"));
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
         } catch (IOException ex) {
@@ -1015,8 +1027,8 @@ public class GlobalFunctions {
 
         try {
             JSONParser parser = new JSONParser();
-            obj = (JSONObject) parser.parse(new FileReader("/var/www/document/fieldStructure.json"));
-//            obj = (JSONObject) parser.parse(new FileReader("C:/fieldStructure.json"));
+//            obj = (JSONObject) parser.parse(new FileReader("/var/www/document/fieldStructure.json"));
+            obj = (JSONObject) parser.parse(new FileReader("C:/fieldStructure.json"));
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
         } catch (IOException ex) {
@@ -1126,8 +1138,8 @@ public class GlobalFunctions {
 
         try {
             JSONParser parser = new JSONParser();
-            obj = (JSONObject) parser.parse(new FileReader("/var/www/document/soilStructure.json"));
-//            obj = (JSONObject) parser.parse(new FileReader("C:/soilStructure.json"));
+//            obj = (JSONObject) parser.parse(new FileReader("/var/www/document/soilStructure.json"));
+            obj = (JSONObject) parser.parse(new FileReader("C:/soilStructure.json"));
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
         } catch (IOException ex) {
@@ -1476,8 +1488,8 @@ public class GlobalFunctions {
 
         try {
             JSONParser parser = new JSONParser();
-            obj = (JSONObject) parser.parse(new FileReader("/var/www/document/cropStructure.json"));
-//            obj = (JSONObject) parser.parse(new FileReader("C:/cropStructure.json"));
+//            obj = (JSONObject) parser.parse(new FileReader("/var/www/document/cropStructure.json"));
+            obj = (JSONObject) parser.parse(new FileReader("C:/cropStructure.json"));
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
         } catch (IOException ex) {
@@ -1694,8 +1706,8 @@ public class GlobalFunctions {
 
         try {
             JSONParser parser = new JSONParser();
-            obj = (JSONObject) parser.parse(new FileReader("/var/www/document/cropBeanStructure.json"));
-//            obj = (JSONObject) parser.parse(new FileReader("C:/cropBeanStructure.json"));
+//            obj = (JSONObject) parser.parse(new FileReader("/var/www/document/cropBeanStructure.json"));
+            obj = (JSONObject) parser.parse(new FileReader("C:/cropBeanStructure.json"));
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
         } catch (IOException ex) {
@@ -1907,6 +1919,95 @@ public class GlobalFunctions {
             } 
 	}
         return language; 
+    }
+    
+    public HashMap getResultRasta(Integer idRasta) throws ScriptException, FileNotFoundException
+    {
+        String info = "";
+        ScriptEngineManager manager = new ScriptEngineManager();
+        RastasDao rastaDao    = new RastasDao();
+        // create a Renjin engine:
+        ScriptEngine engine = manager.getEngineByName("Renjin");
+				
+        if(engine == null) {
+//            throw new RuntimeException("Renjin Script Engine not found on the classpath.");
+            info  = getText("message.packagedontwork.soil");
+        }
+        
+        if (idRasta==-1) {
+            info  = getText("message.failtogetrasta.soil");
+        }
+        
+        HashMap valInf = new HashMap();
+        try {            
+            String vec = "vec <- "+rastaDao.getInfoToReport(idRasta);    
+            engine.eval(vec);
+            
+            Object dataRes = engine.eval(new java.io.FileReader("inferidas.R"));    
+            StringArrayVector resString = null;
+            ListVector resList     = null;
+            String depthEffective  = "";
+            String organicMaterial = "";
+            String internalDrain   = "";
+            String externalDrain   = "";
+            if (dataRes instanceof StringArrayVector) {       
+                resString = (StringArrayVector) dataRes;
+                depthEffective  = resString.getElementAsString(0);
+                organicMaterial = resString.getElementAsString(1);
+                internalDrain   = resString.getElementAsString(2);
+                externalDrain   = resString.getElementAsString(3);
+            } else if (dataRes instanceof ListVector) {
+                resList = (ListVector) dataRes;
+                depthEffective  = resList.getElementAsString(0);
+                organicMaterial = resList.getElementAsString(1);
+                internalDrain   = resList.getElementAsString(2);
+                externalDrain   = resList.getElementAsString(3);
+            }
+            String[] infoMaterials = organicMaterial.split(",");     
+//            System.out.println("infoMaterials->"+organicMaterial);            
+            
+            valInf.put("depth", depthEffective);
+            valInf.put("organic", organicMaterial);
+            valInf.put("internal", internalDrain);
+            valInf.put("external", externalDrain);
+            
+            Integer errorDep = null;            
+            Integer errorOrg = null;            
+            Integer errorInt = null;            
+            Integer errorExt = null;            
+            if (depthEffective.equals("Error") || depthEffective.equals("Error.nd") || depthEffective.equals("ERROR.ND") || depthEffective.equals("NO CLASIFICADO")) {
+                errorDep = 1;
+            }            
+            
+            for (int i = 0; i < infoMaterials.length; i++) {
+                String temp = infoMaterials[i];
+                if (temp.equals("ERROR.ND") || internalDrain.equals("NO CLASIFICADO")) {
+                    errorOrg = 2;
+                }
+            }            
+            
+            if (internalDrain.equals("ERROR.ND") || internalDrain.equals("NO CLASIFICADO estruc") || internalDrain.equals("NO CLASIFICADO bueno") || internalDrain.equals("NO CLASIFICADO excesivo")) {
+                errorInt = 3;
+            }
+            
+            if (externalDrain.equals("ERROR.ND") || externalDrain.equals("NO CLASIFICADO estruc") || externalDrain.equals("NO CLASIFICADO bueno") || externalDrain.equals("NO CLASIFICADO excesivo")) {
+                errorExt = 4;
+            }
+            
+            if (errorDep!=null || errorOrg!=null || errorInt!=null || errorExt!=null) {
+                if (errorDep==1) info += getText("message.failtogetprofundidad.soil");
+                if (errorOrg==2) info += getText("message.failtogetmateria.soil");
+                if (errorInt==3) info += getText("message.failtogetdrenajein.soil");
+                if (errorExt==4) info += getText("message.failtogetdrenajeext.soil");
+//                return "states";
+            }            
+        } catch (ScriptException ex) {
+            info  = getText("message.failtoshowinfo.soil");
+        } catch (FileNotFoundException ex) {
+            info  = getText("message.failtoloadscript.soil");
+        }
+        valInf.put("info", info);
+        return valInf;
     }
 
 }

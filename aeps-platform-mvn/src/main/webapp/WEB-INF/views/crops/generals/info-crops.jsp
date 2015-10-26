@@ -70,20 +70,20 @@
                     <% }%>
                 <% }%>        
                 <% if (entTypeCropId==3) { %>    
-                    <th><s:property value="getText('tr.agronomist.crop')" /></th>
+                    <th><s:property value="getText('td.agronomist.crop')" /></th>
                 <% } %>
-                <th><s:property value="getText('tr.infocrop.crop')" /></th>                
+                <th><s:property value="getText('td.infocrop.crop')" /></th>                
                 <s:if test="%{typeEnt!=2}">
-                    <th><s:property value="getText('tr.nameproducer.crop')" /></th>
+                    <th><s:property value="getText('td.nameproducer.crop')" /></th>
                 </s:if>
-                <th><s:property value="getText('tr.whichcrop.crop')" /></th>
-                <th><s:property value="getText('tr.namecrop.crop')" /></th>
-                <th><s:property value="getText('tr.datesowing.crop')" /></th>
-                <th><s:property value="getText('tr.namegenotype.crop')" /></th>
-                <th><s:property value="getText('tr.datecreated.crop')" /></th>
+                <th><s:property value="getText('td.whichcrop.crop')" /></th>
+                <th><s:property value="getText('td.namecrop.crop')" /></th>
+                <th><s:property value="getText('td.datesowing.crop')" /></th>
+                <th><s:property value="getText('td.namegenotype.crop')" /></th>
+                <th><s:property value="getText('td.datecreated.crop')" /></th>
                 <% if (usrCropDao.getPrivilegeUser(userCrop.getIdUsr(), "crop/modify") || (usrCropDao.getPrivilegeUser(userCrop.getIdUsr(), "crop/delete"))) { %>
                     <% if (value == "crop" || value.equals("crop")) {%>
-                        <th><s:property value="getText('tr.action.crop')" /></th>
+                        <th><s:property value="getText('td.action.crop')" /></th>
                     <% }%>
                 <% } %>
             </tr>

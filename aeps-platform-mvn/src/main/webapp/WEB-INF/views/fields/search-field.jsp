@@ -34,20 +34,24 @@
             <% } %>
         </div>
         <script>
-						var allSelField = "";
-						var numSelField = "";
-						var notFoundField = "";
-						if(navigator.language=='es-ES' || navigator.language=='es-CO' || navigator.language=='es-PE' || navigator.language=='es-NI' || navigator.language=='es') {
-							allSelField = "Todos";
-							numSelField = "# de % seleccionados";
-							notFoundField = "No. coincidencias encontradas";
-						}
-						
-						if(navigator.language=='en-EN' || navigator.language=='en') {
-							allSelField = "All";
-							numSelField = "# of % selected";
-							notFoundField = "Number of results";
-						}
+            var lanVal = $('#lanSel').val();
+            var str    = lanVal;
+            var valEs  = str.search("es");
+            var valEn  = str.search("en");
+            var allSelField = "";
+            var numSelField = "";
+            var notFoundField = "";
+            if(valEs!=-1) {
+                    allSelField = "Todos";
+                    numSelField = "# de % seleccionados";
+                    notFoundField = "No. coincidencias encontradas";
+            }
+
+            if(valEn!=-1) {
+                    allSelField = "All";
+                    numSelField = "# of % selected";
+                    notFoundField = "Number of results";
+            }
 						
 				
             $("#formFieldSearch_name_agronomist").multipleSelect({

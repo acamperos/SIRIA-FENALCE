@@ -43,12 +43,12 @@
                         <tbody>
                             <tr>
                                 <td style="width: 30%"></td>
-                                <th><s:property value="getText('tr.pest.monitoring')" /></th>
-                                <th><s:property value="getText('tr.disease.monitoring')" /></th>
-                                <th><s:property value="getText('tr.weed.monitoring')" /></th>
+                                <th><s:property value="getText('td.pest.monitoring')" /></th>
+                                <th><s:property value="getText('td.disease.monitoring')" /></th>
+                                <th><s:property value="getText('td.weed.monitoring')" /></th>
                             </tr>
                             <tr>
-                                <th><s:property value="getText('tr.monitoringto.monitoring')" /></th>
+                                <th><s:property value="getText('td.monitoringto.monitoring')" /></th>
                                 <td style="width: 230px;">
                                     <div class="controls radioSelect">
                                         <s:radio list="#{'true':'Si', 'false':'No'}" name="mon.monitorPestsMon" onclick="optSel('mon.monitorPestsMon', 'divMonPest')" />

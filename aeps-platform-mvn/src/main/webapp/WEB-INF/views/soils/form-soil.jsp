@@ -160,12 +160,12 @@
                             <table class="table table-condensed" style="width: auto;">
                                 <thead>
                                     <tr>
-                                        <th colspan="1" rowspan="1" style="width:64px;padding-left:0;text-align: center;"><s:property value="getText('tr.nolayer.soil')" /></th>
-                                        <th colspan="1" rowspan="1" style="width:64px;padding-left:0;text-align: center;"><s:property value="getText('tr.density.soil')" /></th>
-                                        <th colspan="1" rowspan="1" style="width:60px;padding-left:0;text-align: center;"><s:property value="getText('tr.drycolor.soil')" /></th>
-                                        <th colspan="1" rowspan="1" style="width:60px;padding-left:0;text-align: center;"><s:property value="getText('tr.wetcolor.soil')" /></th>
-                                        <th colspan="1" rowspan="1" style="width:175px;padding-left:0;text-align: center;"><s:property value="getText('tr.texture.soil')" /></th>
-                                        <th colspan="1" rowspan="1" style="width:250px;padding-left:0;text-align: center;"><s:property value="getText('tr.resistance.soil')" /></th>
+                                        <th colspan="1" rowspan="1" style="width:64px;padding-left:0;text-align: center;"><s:property value="getText('td.nolayer.soil')" /></th>
+                                        <th colspan="1" rowspan="1" style="width:64px;padding-left:0;text-align: center;"><s:property value="getText('td.density.soil')" /></th>
+                                        <th colspan="1" rowspan="1" style="width:60px;padding-left:0;text-align: center;"><s:property value="getText('td.drycolor.soil')" /></th>
+                                        <th colspan="1" rowspan="1" style="width:60px;padding-left:0;text-align: center;"><s:property value="getText('td.wetcolor.soil')" /></th>
+                                        <th colspan="1" rowspan="1" style="width:175px;padding-left:0;text-align: center;"><s:property value="getText('td.texture.soil')" /></th>
+                                        <th colspan="1" rowspan="1" style="width:250px;padding-left:0;text-align: center;"><s:property value="getText('td.resistance.soil')" /></th>
                                     </tr>
                                 </thead>
                                 <tbody id="tableAdit">

@@ -13,32 +13,32 @@
                 <table border="1" class="table table-bordered">
                     <s:if test="typeEnt==1">                        
                         <tr>
-                            <th><i class="icon-producer"></i><s:property value="getText('tr.nameproducer.reportsoil')" /></th>
+                            <th><i class="icon-producer"></i><s:property value="getText('td.nameproducer.reportsoil')" /></th>
                             <td id="producerId" class="infoGeneral"></td>
                         </tr>
                     </s:if> 
 					<tr>
-						<th><i class="icon-ph"></i><s:property value="getText('tr.totalph.reportsoil')" /></th>
+						<th><i class="icon-ph"></i><s:property value="getText('td.totalph.reportsoil')" /></th>
 						<td id="phId" class="infoGeneral"></td>
 					</tr>
 					<tr>
-						<th><i class="icon-struct"></i><s:property value="getText('tr.structure.reportsoil')" /></th>
+						<th><i class="icon-struct"></i><s:property value="getText('td.structure.reportsoil')" /></th>
 						<td id="structureId" class="infoGeneral"></td>
 					</tr>
 					<tr>
-						<th><i class="icon-expose"></i><s:property value="getText('tr.sunexposure.reportsoil')" /></th>
+						<th><i class="icon-expose"></i><s:property value="getText('td.sunexposure.reportsoil')" /></th>
 						<td id="exposeId" class="infoGeneral"></td>
 					</tr>
 					<tr>
-						<th><i class="icon-cover"></i><s:property value="getText('tr.coatingfield.reportsoil')" /></th>
+						<th><i class="icon-cover"></i><s:property value="getText('td.coatingfield.reportsoil')" /></th>
 						<td id="coveringId" class="infoGeneral"></td>
 					</tr>
 					<tr>
-						<th><i class="icon-intdra"></i><s:property value="getText('tr.internaldrain.reportsoil')" /></th>
+						<th><i class="icon-intdra"></i><s:property value="getText('td.internaldrain.reportsoil')" /></th>
 						<td id="drainIntId" class="infoGeneral"></td>
 					</tr>
 					<tr>
-						<th><i class="icon-extdra"></i><s:property value="getText('tr.externaldrain.reportsoil')" /></th>
+						<th><i class="icon-extdra"></i><s:property value="getText('td.externaldrain.reportsoil')" /></th>
 						<td id="drainExtId" class="infoGeneral"></td>
 					</tr>
 				</table>

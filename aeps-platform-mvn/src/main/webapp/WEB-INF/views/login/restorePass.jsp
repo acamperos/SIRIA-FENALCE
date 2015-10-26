@@ -30,6 +30,7 @@
                     <s:form id="formRestCon" action="changePassUser.action" method="post" theme="simple">
                         <s:hidden name="actExe" value="changepass"/>
                         <s:hidden name="idUser"/>
+                        <s:hidden name="lanSel"/>
                         <div class="form-group control-group">
                             <div class="row-fluid">
                                 <div class="span5" style="width: 67%;">
@@ -59,13 +60,17 @@
                     <script type="text/javascript" src="scripts/js/jquery/jquery.validate.js"></script>
                     <script type="text/javascript" src="scripts/js/generals/functions.min.js"></script>	        
                     <script>
+                        var lanVal = $('#formRestCon_lanSel').val();
+                        var str   = lanVal;
+                        var valEs = str.search("es");
+                        var valEn = str.search("en");
 												var veryWeakRess = "";
 												var weakRess = "";
 												var mediumRess = "";
 												var strongRess = "";
 												var veryStrongRess = "";
 												
-												if(navigator.language=='es-ES' || navigator.language=='es-CO' || navigator.language=='es-PE' || navigator.language=='es-NI' || navigator.language=='es') {
+												if(valEs!=-1) {
 													veryWeakRess = "Muy Debil";
 													weakRess = "Debil";
 													mediumRess = "Normal";
@@ -73,7 +78,7 @@
 													veryStrongRess = "Muy Fuerte";
 												}
 												
-												if(navigator.language=='en-EN' || navigator.language=='en') {
+												if(valEn!=-1) {
 													veryWeakRess = "Very Weak";
 													weakRess = "Weak";
 													mediumRess = "Normal";

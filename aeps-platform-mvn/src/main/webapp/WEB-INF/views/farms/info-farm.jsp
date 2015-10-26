@@ -69,20 +69,20 @@
                     <% }%>
                 <% }%>
                 <% if (entTypeFarId==3) { %>    
-                    <th><s:property value="getText('tr.agronomist.farm')" /></th>
+                    <th><s:property value="getText('td.agronomist.farm')" /></th>
                 <% } %>
-                <th><s:property value="getText('tr.namefarm.farm')" /></th>
-                <th><s:property value="getText('tr.lane.farm')" /></th>
-                <th><s:property value="getText('tr.direction.farm')" /></th>
-                <th><s:property value="getText('tr.department.farm')" /></th>
-                <th><s:property value="getText('tr.municipality.farm')" /></th>
-                <th><s:property value="getText('tr.latitude.farm')" /></th>
-                <th><s:property value="getText('tr.longitude.farm')" /></th>
-                <th><s:property value="getText('tr.altitude.farm')" /></th>
-                <th><s:property value="getText('tr.datecreated.farm')" /></th>                                
+                <th><s:property value="getText('td.namefarm.farm')" /></th>
+                <th><s:property value="getText('td.lane.farm')" /></th>
+                <th><s:property value="getText('td.direction.farm')" /></th>
+                <th><s:property value="getText('td.department.farm')" /></th>
+                <th><s:property value="getText('td.municipality.farm')" /></th>
+                <th><s:property value="getText('td.latitude.farm')" /></th>
+                <th><s:property value="getText('td.longitude.farm')" /></th>
+                <th><s:property value="getText('td.altitude.farm')" /></th>
+                <th><s:property value="getText('td.datecreated.farm')" /></th>                                
                 <% if (usrFarDao.getPrivilegeUser(userFar.getIdUsr(), "farm/modify") || (usrFarDao.getPrivilegeUser(userFar.getIdUsr(), "farm/delete"))) { %>
                     <% if (value.equals("property") || value == "property") { %>
-                        <th><s:property value="getText('tr.action.farm')" /></th>
+                        <th><s:property value="getText('td.action.farm')" /></th>
                     <% }%>
                 <% } %>
             </tr>

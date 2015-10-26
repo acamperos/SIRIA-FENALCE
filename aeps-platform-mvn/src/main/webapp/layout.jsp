@@ -40,7 +40,7 @@
             function doAction() {
 //            alert(countryCode)                
                 if (actionName!='null' && actionName!='' && actionName!='dashboard' && actionName!='initial' && actionName!='principal' && actionName!='login') {
-                    showInfoPage(''+actionName+'.action?countryCode='+countryCode, 'divBodyLayout');                 
+                    showInfoPagePublic(''+actionName+'.action?countryCode='+countryCode, 'divBodyLayout');                 
                 } else if(actionName=='null' || actionName=='') {
                     document.location = '<%= request.getContextPath() %>/initial.action?countryCode='+countryCode;
                 } else if(actionName=='initial') {

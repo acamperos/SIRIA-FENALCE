@@ -77,18 +77,18 @@
                     <% }%>
                 <% }%>
                 <% if (entTypeFieId==3) { %>    
-                    <th><s:property value="getText('tr.agronomist.field')" /></th>
+                    <th><s:property value="getText('td.agronomist.field')" /></th>
                 <% } %>
-                <th><s:property value="getText('tr.namefield.field')" /></th>
-                <th><s:property value="getText('tr.fieldtype.field')" /></th>
-                <th><s:property value="getText('tr.area.field')" /></th>
-                <th><s:property value="getText('tr.latitude.field')" /></th>
-                <th><s:property value="getText('tr.longitude.field')" /></th>
-                <th><s:property value="getText('tr.altitude.field')" /></th>
-                <th><s:property value="getText('tr.datecreated.field')" /></th>
+                <th><s:property value="getText('td.namefield.field')" /></th>
+                <th><s:property value="getText('td.fieldtype.field')" /></th>
+                <th><s:property value="getText('td.area.field')" /></th>
+                <th><s:property value="getText('td.latitude.field')" /></th>
+                <th><s:property value="getText('td.longitude.field')" /></th>
+                <th><s:property value="getText('td.altitude.field')" /></th>
+                <th><s:property value="getText('td.datecreated.field')" /></th>
                 <% if (usrFieDao.getPrivilegeUser(userFie.getIdUsr(), "field/modify") || (usrFieDao.getPrivilegeUser(userFie.getIdUsr(), "field/delete"))) { %>                
                     <% if (value == "lot" || value.equals("lot")) {%>
-                        <th><s:property value="getText('tr.action.field')" /></th>
+                        <th><s:property value="getText('td.action.field')" /></th>
                     <% }%>
                 <% } %>
             </tr>

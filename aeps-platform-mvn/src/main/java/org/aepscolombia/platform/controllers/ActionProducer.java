@@ -681,7 +681,7 @@ public class ActionProducer extends BaseAction {
         ProducersDao eventDao = new ProducersDao();
 //        System.out.println("entreeee");
         listProducers = eventDao.findByParams(findParams);
-        Integer valResult = eventDao.countData(findParams);
+//        Integer valResult = eventDao.countData(findParams);
 //        this.setCountTotal(100);
         this.setCountTotal(Integer.parseInt(String.valueOf(listProducers.get(0).get("countTotal"))));
         this.setPage(page);
@@ -703,6 +703,12 @@ public class ActionProducer extends BaseAction {
     public void setInputStream(InputStream inputStream) {
         this.inputStream = inputStream;
     }
+    
+    private String fileName;
+
+    public String getFileName() {
+        return fileName;
+    }   
 
     public String viewReport() throws Exception {
         if (!usrDao.getPrivilegeUser(idUsrSystem, "producer/list")) {
@@ -720,7 +726,15 @@ public class ActionProducer extends BaseAction {
         Integer entTypeId = entDao.getEntityTypeId(user.getIdUsr());
         findParams.put("entType", entTypeId);
         findParams.put("idEntUser", idEntSystem);
-        String fileName = ""+getText("file.docproducer");
+        String OS = System.getProperty("os.name").toLowerCase();
+        if (OS.indexOf("win") >= 0) {
+            fileName  = ""+getText("file.docproducerwin");
+            findParams.put("fileName", ""+getText("file.tempproducerwin"));
+        } else {
+            fileName  = ""+getText("file.docproducerunix");
+            findParams.put("fileName", ""+getText("file.tempproducerunix"));
+        }
+//        fileName = ""+getText("file.docproducer");
 //        String fileName  = "producersInfo.csv";
 
 //        CSVWriter writer = new CSVWriter(new FileWriter(fileName), ';');
@@ -979,7 +993,7 @@ public class ActionProducer extends BaseAction {
             query.put("InsertedId", "" + ent.getIdEnt());
             query.put("form_id", "4");
 
-            MongoClient mongo = null;
+            /*MongoClient mongo = null;
             try {
                 mongo = new MongoClient("localhost", 27017);
             } catch (UnknownHostException ex) {
@@ -1008,7 +1022,7 @@ public class ActionProducer extends BaseAction {
 //                throw new HibernateException("");
 //            }
 
-            mongo.close();
+            mongo.close();*/
             tx.commit();
             state = "success";
             if (action.equals("C")) {
@@ -1106,7 +1120,7 @@ public class ActionProducer extends BaseAction {
             query.put("InsertedId", "" + ent.getIdEnt());
             query.put("form_id", "4");
 
-            MongoClient mongo = null;
+            /*MongoClient mongo = null;
             try {
                 mongo = new MongoClient("localhost", 27017);
             } catch (UnknownHostException ex) {
@@ -1122,10 +1136,10 @@ public class ActionProducer extends BaseAction {
             if (result.getError() != null) {
                 throw new HibernateException("");
             }
-            mongo.close();
+            mongo.close();*/
 
-            FarmsDao farDao = new FarmsDao();
-            farDao.deleteFarmsMongo(idPro);
+//            FarmsDao farDao = new FarmsDao();
+//            farDao.deleteFarmsMongo(idPro);
 
 //            logDao.save(logPro);
             tx.commit();

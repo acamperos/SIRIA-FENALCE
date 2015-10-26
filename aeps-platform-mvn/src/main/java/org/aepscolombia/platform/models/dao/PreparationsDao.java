@@ -198,6 +198,39 @@ public class PreparationsDao
         return check;
     }
     
+    public Double getMaxDepth(HashMap args) {
+        SessionFactory sessions = HibernateUtil.getSessionFactory();
+        Session session = sessions.openSession();
+        Object[] events = null;
+        Transaction tx  = null;
+        Double result   = 0.0;
+        
+        String sql = "";     
+        sql  += "select MAX(p.depth_prep), p.id_prep";
+        sql += " from preparations p"; 
+        sql += " where p.status=1";
+        if (args.containsKey("idEvent")) {
+            sql += " and p.id_production_event_prep="+args.get("idEvent");
+        }
+//        System.out.println("sql=>"+sql);
+        
+        try {
+            tx = session.beginTransaction();
+            Query query  = session.createSQLQuery(sql);
+            events = (Object[])query.uniqueResult();
+            if(events[0]!=null) result = Double.parseDouble(String.valueOf(events[0]));
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return result;
+    }
+    
     public String getPrep(Integer idEvent) {
         SessionFactory sessions = HibernateUtil.getSessionFactory();
         Session session = sessions.openSession();

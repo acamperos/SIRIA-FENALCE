@@ -1,11 +1,14 @@
 
 package org.aepscolombia.platform.controllers;
 
-import com.opensymphony.xwork2.ActionContext;
+import java.io.FileNotFoundException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import javax.script.ScriptException;
 import org.aepscolombia.platform.models.dao.BeansDao;
 import org.aepscolombia.platform.models.dao.ControlsDao;
+import org.aepscolombia.platform.models.dao.CropsTypesDao;
 import org.aepscolombia.platform.models.dao.DepartmentsDao;
 import org.aepscolombia.platform.models.dao.DocumentsTypesDao;
 import org.aepscolombia.platform.models.dao.EntitiesDao;
@@ -17,13 +20,16 @@ import org.aepscolombia.platform.models.dao.GenotypesDao;
 import org.aepscolombia.platform.models.dao.GenotypesSowingDao;
 import org.aepscolombia.platform.models.dao.IrrigationDao;
 import org.aepscolombia.platform.models.dao.MaizeDao;
+import org.aepscolombia.platform.models.dao.MonitoringDao;
 import org.aepscolombia.platform.models.dao.PhysiologicalMonitoringDao;
 import org.aepscolombia.platform.models.dao.PreparationsDao;
 import org.aepscolombia.platform.models.dao.ProductionEventsDao;
 import org.aepscolombia.platform.models.dao.RastasDao;
+import org.aepscolombia.platform.models.dao.ResidualsManagementDao;
 import org.aepscolombia.platform.models.dao.SowingDao;
 import org.aepscolombia.platform.models.dao.UsersDao;
 import org.aepscolombia.platform.models.entity.Beans;
+import org.aepscolombia.platform.models.entity.CropsTypes;
 import org.aepscolombia.platform.models.entity.Departments;
 import org.aepscolombia.platform.models.entity.DocumentsTypes;
 import org.aepscolombia.platform.models.entity.Entities;
@@ -37,6 +43,7 @@ import org.aepscolombia.platform.models.entity.Rastas;
 import org.aepscolombia.platform.models.entity.Sowing;
 import org.aepscolombia.platform.models.entity.Users;
 import org.aepscolombia.platform.util.APConstants;
+import org.aepscolombia.platform.util.GlobalFunctions;
 
 
 /**
@@ -69,6 +76,7 @@ public class ActionReport extends BaseAction {
     private String numDocDep;
     private List<DocumentsTypes> type_ident_producer;    
     private List<Departments> list_departments;
+    private List<CropsTypes> type_crops;
     
     private Users user;
     private Integer idEntSystem;    
@@ -211,6 +219,14 @@ public class ActionReport extends BaseAction {
     public void setList_departments(List<Departments> list_departments) {
         this.list_departments = list_departments;
     }
+    
+    public List<CropsTypes> getType_crops() {
+        return type_crops;
+    }
+
+    public void setType_crops(List<CropsTypes> type_crops) {
+        this.type_crops = type_crops;
+    } 
 
     public Rastas getRasta() {
         return rasta;
@@ -295,6 +311,16 @@ public class ActionReport extends BaseAction {
     public void setListCont(List<HashMap> listCont) {
         this.listCont = listCont;
     }   
+    
+    private List<HashMap> listMon;
+
+    public List<HashMap> getListMon() {
+        return listMon;
+    }
+
+    public void setListMon(List<HashMap> listMon) {
+        this.listMon = listMon;
+    }   
 
     public List<Genotypes> getType_genotypes() {
         return type_genotypes;
@@ -344,6 +370,7 @@ public class ActionReport extends BaseAction {
         this.phys = phys;
     }   
     
+    private ResidualsManagementDao resDao = new ResidualsManagementDao();
     private PreparationsDao prepDao = new PreparationsDao();
     private FertilizationsDao fertDao     = new FertilizationsDao();
     private ControlsDao conDao    = new ControlsDao();
@@ -352,6 +379,7 @@ public class ActionReport extends BaseAction {
     private MaizeDao maizeDao     = new MaizeDao();
     private PhysiologicalMonitoringDao physDao     = new PhysiologicalMonitoringDao();
     private IrrigationDao irrDao  = new IrrigationDao();
+    private MonitoringDao monDao  = new MonitoringDao();
     
     private String lanSel;
 
@@ -445,6 +473,7 @@ public class ActionReport extends BaseAction {
         idEntSystem = UsersDao.getEntitySystem(user.getIdUsr());
         this.setType_ident_producer(new DocumentsTypesDao().findAll(coCode));
         this.setList_departments(new DepartmentsDao().findAll(coCode));
+        this.setType_crops(new CropsTypesDao().findAll(coCode));
         usrDao = new UsersDao();
         idUsrSystem = user.getIdUsr();
         EntitiesDao entDao = new EntitiesDao();
@@ -604,6 +633,42 @@ public class ActionReport extends BaseAction {
         } 
         return SUCCESS;
     }    
+    
+    private Double maxDepth;
+    private Boolean checkBurning;
+
+    public Double getMaxDepth() {
+        return maxDepth;
+    }
+
+    public void setMaxDepth(Double maxDepth) {
+        this.maxDepth = maxDepth;
+    }
+
+    public Boolean getCheckBurning() {
+        return checkBurning;
+    }
+
+    public void setCheckBurning(Boolean checkBurning) {
+        this.checkBurning = checkBurning;
+    }   
+    
+    private HashMap infoReport;
+
+    public HashMap getInfoReport() {
+        return infoReport;
+    }
+
+    public void setInfoReport(HashMap infoReport) {
+        this.infoReport = infoReport;
+    }    
+    
+    private boolean[] divisions;
+
+    public boolean[] getDivisions() {
+        return divisions;
+    }    
+    
 
     /**
      * Encargado de generar el reporte de cropcheck a partir de un lote determinado
@@ -628,12 +693,33 @@ public class ActionReport extends BaseAction {
             Integer typeCrop = Integer.parseInt(String.valueOf(cropInfo.get("typeCrop")));
             fieldInfo        = lotDao.findById(idField);
             rasta            = rastaDao.getRastaByField(idField);
+            String info      = "";
             if (rasta!=null) {
+                GlobalFunctions glo = new GlobalFunctions();
+                try {   
+//                    System.out.println("rasta.getIdRas()=>"+rasta.getIdRas());
+                    if (rasta.getProfundidadEfectivaRas()==null || true) {
+                        HashMap res = glo.getResultRasta(rasta.getIdRas());     
+                        rasta.setProfundidadEfectivaRas(Double.parseDouble(String.valueOf(res.get("depth"))));
+                        rastaDao.save(rasta);
+                    }
+                    
+                } catch (ScriptException ex) {
+                    info  = getText("message.failtoshowinfo.soil");
+                } catch (FileNotFoundException ex) {
+                    info  = getText("message.failtoloadscript.soil");
+                }                
                 additionalsAtrib = rastaDao.getHorizonRasta(rasta.getIdRas());
+            }
                 lastCrops        = lotDao.getLastCrops(idField);
                 HashMap findParams = new HashMap();
                 findParams.put("idEvent", idCrop);
                 findParams.put("coCode", coCode);
+                boolean checkDirect  = prepDao.haveDirectSowing(findParams);
+                checkBurning = false;
+                if (checkDirect) checkBurning = resDao.haveBurning(findParams);
+
+                maxDepth = prepDao.getMaxDepth(findParams);
                 listPrep = prepDao.findByParams(findParams);
                 listFert = fertDao.findByParams(findParams);
                 type_genotypes = new GenotypesDao().findAllByTypeCrop(typeCrop, 0, coCode);
@@ -644,12 +730,33 @@ public class ActionReport extends BaseAction {
                 phys   = physDao.objectById(idCrop);
                 listCont = conDao.findByParams(findParams);
                 listIrr  = irrDao.findByParams(findParams);
-//                System.out.println("listCont=>"+listCont);
-//                System.out.println("listFert=>"+sowing.getGenotypesSowing().getIdGenSow());
-//                for(HashMap h : listFert) {
-//                    System.out.println("infoTex=>"+h);
-//                }
-            }
+//                listMon  = monDao.findByParams(findParams);
+                boolean checkMonitoring = false;
+                boolean checkControlsWeeds    = false;
+                boolean checkControlsDiseases = false;
+                infoReport      = new HashMap();
+                checkMonitoring = monDao.checkMonitoring(findParams);
+                checkControlsWeeds    = conDao.checkControlsWeeds(findParams);
+                checkControlsDiseases = conDao.checkControlsDiseases(findParams);
+                
+                infoReport.put("monCheck", checkMonitoring);
+                infoReport.put("conWeeds", checkControlsWeeds);
+                infoReport.put("conDiseases", checkControlsDiseases);
+//                fieldInfo.get("id_dep");
+                
+                findParams.put("dateSow", sowing.getDateSow());
+                findParams.put("depId", String.valueOf(fieldInfo.get("id_dep")));
+                findParams.put("cropType", typeCrop);
+                if (typeCrop==2){
+                    findParams.put("growId", beans.getGrowingEnvironment().getIdGroEnv());
+                }
+                
+                double[] distrib   = fertDao.getDistribution(findParams);
+                double[] nutrients = fertDao.getNutrients(findParams);
+                boolean resultCompare = fertDao.compareNutrients(distrib, nutrients);                
+                infoReport.put("elements", resultCompare);
+                
+                divisions = fertDao.getDivisions(findParams);
         }        
         
         return SUCCESS;

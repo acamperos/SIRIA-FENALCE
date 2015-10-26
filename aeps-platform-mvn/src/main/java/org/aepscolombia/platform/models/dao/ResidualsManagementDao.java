@@ -326,4 +326,42 @@ public class ResidualsManagementDao
 		}
         return result;
     }
+    
+    public boolean haveBurning(HashMap args) {
+        SessionFactory sessions = HibernateUtil.getSessionFactory();
+        Session session = sessions.openSession();
+        Object[] events = null;
+        Transaction tx  = null;
+        Integer result  = 0;
+        boolean check   = false;
+        
+        String sql = "";     
+        sql  += "select count(rm.id_res_man), rm.id_res_man";
+        sql += " from residuals_management rm"; 
+        sql += " where rm.status=1 and rm.id_residuals_type_res_man=1";
+        if (args.containsKey("idEvent")) {
+            sql += " and rm.id_production_event_res_man="+args.get("idEvent");
+        }
+//        System.out.println("sql=>"+sql);
+        
+        try {
+            tx = session.beginTransaction();
+            Query query  = session.createSQLQuery(sql);
+            events = (Object[])query.uniqueResult();
+            result = Integer.parseInt(String.valueOf(events[0]));            
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        if (result>0) {
+            check = true;
+        }
+        return check;
+    }
+    
 }

@@ -504,7 +504,7 @@ public class ActionFarm extends BaseAction {
                 HashMap resultsEle=RepositoryGoogle.getElevation(latPro, lonPro);
 //                System.out.println(results.get("country"));
 //                System.out.println(resultsEle.get("elevation"));
-                altitude_property = resultsEle.get("elevation").toString();
+//                altitude_property = resultsEle.get("elevation").toString();
 
                 RepositoryWaterBody rWater=new RepositoryWaterBody(RepositoryWaterBody.geocoding_database_world);
                 location = rWater.getDataFromLatLon(latPro, lonPro);
@@ -852,6 +852,12 @@ public class ActionFarm extends BaseAction {
         this.inputStream = inputStream;  
     }
     
+    private String fileName;
+
+    public String getFileName() {
+        return fileName;
+    }
+    
     public String viewReport() throws Exception {
         if (!usrDao.getPrivilegeUser(idUsrSystem, "farm/list")) {
             return BaseAction.NOT_AUTHORIZED;
@@ -867,8 +873,16 @@ public class ActionFarm extends BaseAction {
         findParams.put("selItem", selectItemname_agronomist);
         Integer entTypeId = new EntitiesDao().getEntityTypeId(user.getIdUsr());
         findParams.put("entType", entTypeId);
-        findParams.put("idEntUser", idEntSystem);        
-        String fileName  = ""+getText("file.docfarm");
+        findParams.put("idEntUser", idEntSystem);     
+        String OS = System.getProperty("os.name").toLowerCase();
+        if (OS.indexOf("win") >= 0) {
+            fileName  = ""+getText("file.docfarmwin");
+            findParams.put("fileName", ""+getText("file.tempfarmwin"));
+        } else {
+            fileName  = ""+getText("file.docfarmunix");
+            findParams.put("fileName", ""+getText("file.tempfarmunix"));
+        }
+//        fileName  = ""+getText("file.docfarm");
 //        String fileName  = "farmsInfo.csv";
         farDao.getFarms(findParams, fileName);
   
@@ -1068,7 +1082,7 @@ public class ActionFarm extends BaseAction {
             query.put("InsertedId", ""+far.getIdFar());
             query.put("form_id", "3");
             
-            MongoClient mongo = null;
+            /*MongoClient mongo = null;
             try {
                 mongo = new MongoClient("localhost", 27017);
             } catch (UnknownHostException ex) {
@@ -1094,7 +1108,7 @@ public class ActionFarm extends BaseAction {
 //                throw new HibernateException("");
 //            }
             
-            mongo.close();
+            mongo.close();*/
             tx.commit();
             state = "success";
             if (action.equals("C")) {
@@ -1168,7 +1182,7 @@ public class ActionFarm extends BaseAction {
             query.put("InsertedId", ""+far.getIdFar());
             query.put("form_id", "3");
             
-            MongoClient mongo = null;
+            /*MongoClient mongo = null;
             try {
                 mongo = new MongoClient("localhost", 27017);
             } catch (UnknownHostException ex) {
@@ -1184,10 +1198,10 @@ public class ActionFarm extends BaseAction {
             if (result.getError()!=null) {
                 throw new HibernateException("");
             }
-            mongo.close();
+            mongo.close();*/
             
-            FieldsDao fieDao = new FieldsDao();
-            fieDao.deleteFieldsMongo(far.getIdFar());
+//            FieldsDao fieDao = new FieldsDao();
+//            fieDao.deleteFieldsMongo(far.getIdFar());
             
             tx.commit();
             state = "success";

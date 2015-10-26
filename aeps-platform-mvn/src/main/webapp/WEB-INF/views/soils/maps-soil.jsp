@@ -31,6 +31,10 @@
         </div>
     </body>
     <script>                
+        var lanVal = $('#lanSel').val();
+        var str   = lanVal;
+        var valEs = str.search("es");
+        var valEn = str.search("en");
         var valLat = $("#rasta_latitudRas").val();     
         var valLon = $("#rasta_longitudRas").val();     
         var side_bar_html = ""; 
@@ -91,11 +95,11 @@
       gicons["yelow"] = getMarkerImage("yellow");
       
         var locateSoilMap = "";
-        if(navigator.language=='es-ES' || navigator.language=='es-CO' || navigator.language=='es-PE' || navigator.language=='es-NI' || navigator.language=='es') {
+        if(valEs!=-1) {
             locateSoilMap = "Ubicacion";
         }
 
-        if(navigator.language=='en-EN' || navigator.language=='en') {
+        if(valEn!=-1) {
             locateSoilMap = "Location";
         }
       
