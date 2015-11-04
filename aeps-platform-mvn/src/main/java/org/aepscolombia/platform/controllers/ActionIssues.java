@@ -349,8 +349,8 @@ public class ActionIssues extends BaseAction {
                 session.saveOrUpdate(issRep);
             
                 LogEntities log = null;            
-                if(!action.equals("M")) log = LogEntitiesDao.getData(idEntSystem, issRep.getIdIss(), "issues", action);
-                if (log==null && !action.equals("M")) {
+                log = LogEntitiesDao.getData(idEntSystem, issRep.getIdIss(), "issues", action);
+                if (log==null) {
                     log = new LogEntities();
                     log.setIdLogEnt(null);
                     log.setIdEntityLogEnt(idEntSystem);

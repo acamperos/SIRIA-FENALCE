@@ -1528,8 +1528,8 @@ public class ActionCrop extends BaseAction {
             rice  = null;
             
             LogEntities log = null;            
-            if(!action.equals("M")) log = LogEntitiesDao.getData(idEntSystem, pro.getIdProEve(), "production_events", action);
-            if (log==null && !action.equals("M")) {
+            log = LogEntitiesDao.getData(idEntSystem, pro.getIdProEve(), "production_events", action);
+            if (log==null) {
                 log = new LogEntities();
                 log.setIdLogEnt(null);
                 log.setIdEntityLogEnt(idEntSystem);

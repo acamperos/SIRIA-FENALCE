@@ -157,6 +157,20 @@
             <result name="page">/WEB-INF/views/generals/layoutPrivate.jsp</result>
             <result>/WEB-INF/views/generals/sendIssue.jsp</result>
         </action>
+        <action name="viewIndicators" class="org.aepscolombia.platform.controllers.ActionIssues">
+            <interceptor-ref name="defaultStackAeps"/>
+            <interceptor-ref name="validateI18n"/>            
+            <interceptor-ref name="viewAction"/>            
+            <result name="page">/WEB-INF/views/generals/layoutPrivate.jsp</result>
+            <result>/WEB-INF/views/generals/indicators.jsp</result>
+        </action>
+        <action name="viewClimate" class="org.aepscolombia.platform.controllers.ActionIssues">
+            <interceptor-ref name="defaultStackAeps"/>
+            <interceptor-ref name="validateI18n"/>            
+            <interceptor-ref name="viewAction"/>            
+            <result name="page">/WEB-INF/views/generals/layoutPrivate.jsp</result>
+            <result>/WEB-INF/views/generals/climateindicators.jsp</result>
+        </action>
         <action name="sendIssue" method="saveData" class="org.aepscolombia.platform.controllers.ActionIssues">
             <interceptor-ref name="fileUpload"/>
             <interceptor-ref name="validateI18n"/>

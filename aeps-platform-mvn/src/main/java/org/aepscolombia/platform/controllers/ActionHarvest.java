@@ -369,8 +369,8 @@ public class ActionHarvest extends BaseAction {
             session.saveOrUpdate(harv);
             
             LogEntities log = null;            
-            if(!action.equals("M")) log = LogEntitiesDao.getData(idEntSystem, harv.getIdHar(), "harvests", action);
-            if (log==null && !action.equals("M")) {
+            log = LogEntitiesDao.getData(idEntSystem, harv.getIdHar(), "harvests", action);
+            if (log==null) {
                 log = new LogEntities();
                 log.setIdLogEnt(null);
                 log.setIdEntityLogEnt(idEntSystem);

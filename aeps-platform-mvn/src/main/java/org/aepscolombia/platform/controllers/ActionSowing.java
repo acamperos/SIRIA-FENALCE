@@ -244,9 +244,9 @@ public class ActionSowing extends BaseAction {
 //              required.put("beans.seedsInoculations.idSeeIno", beans.getSeedsInoculations().getIdSeeIno());
               required.put("beans.growingEnvironment.idGroEnv", beans.getGrowingEnvironment().getIdGroEnv());
 
-              if (beans.getOtroInoculationBea().equals("1000000")) {
-                required.put("sowing.otherGenotypeSow", sowing.getOtherGenotypeSow());
-              }
+//              if (beans.getOtroInoculationBea().equals("1000000")) {
+//                required.put("sowing.otherGenotypeSow", sowing.getOtherGenotypeSow());
+//              }
             } else if (typeCrop==4) {
               required.put("sowing.genotypesSowing.idGenSow", sowing.getGenotypesSowing().getIdGenSow());
               required.put("rice.riceSystem.idRieSys", rice.getRiceSystem().getIdRieSys());
@@ -422,8 +422,8 @@ public class ActionSowing extends BaseAction {
             }
             
             LogEntities log = null;            
-            if(!action.equals("M")) log = LogEntitiesDao.getData(idEntSystem, sowing.getIdSow(), "sowing", action);
-            if (log==null && !action.equals("M")) {
+            log = LogEntitiesDao.getData(idEntSystem, sowing.getIdSow(), "sowing", action);
+            if (log==null) {
                 log = new LogEntities();
                 log.setIdLogEnt(null);
                 log.setIdEntityLogEnt(idEntSystem);

@@ -360,17 +360,17 @@ public class ActionCon extends BaseAction {
                 if (con.getTargetsTypes().getIdTarTyp()==1) {
                     required.put("con.pests.idPes", con.getPests().getIdPes());
                     if (con.getPests().getIdPes() == 1000000) {
-                        required.put("con.otherPestCon", con.getDateCon());
+                        required.put("con.otherPestCon", con.getOtherPestCon());
                     }
                 } else if (con.getTargetsTypes().getIdTarTyp()==2) {
                     required.put("con.weeds.idWee", con.getWeeds().getIdWee());
                     if (con.getWeeds().getIdWee() == 1000000) {
-                        required.put("con.otroWeedCon", con.getDateCon());
+                        required.put("con.otroWeedCon", con.getOtroWeedCon());
                     }
                 } else if (con.getTargetsTypes().getIdTarTyp()==3) {
                     required.put("con.diseases.idDis", con.getDiseases().getIdDis());
                     if (con.getDiseases().getIdDis() == 1000000) {
-                        required.put("con.otherDiseaseCon", con.getDateCon());
+                        required.put("con.otherDiseaseCon", con.getOtherDiseaseCon());
                     }
                 }
             }
@@ -744,8 +744,8 @@ public class ActionCon extends BaseAction {
             session.saveOrUpdate(con);
             
             LogEntities log = null;            
-            if(!action.equals("M")) log = LogEntitiesDao.getData(idEntSystem, con.getIdCon(), "controls", action);
-            if (log==null && !action.equals("M")) {
+            log = LogEntitiesDao.getData(idEntSystem, con.getIdCon(), "controls", action);
+            if (log==null) {
                 log = new LogEntities();
                 log.setIdLogEnt(null);
                 log.setIdEntityLogEnt(idEntSystem);

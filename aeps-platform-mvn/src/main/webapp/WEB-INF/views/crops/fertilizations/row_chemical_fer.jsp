@@ -9,6 +9,7 @@
 <% if(numRowsChe==0) { %>
     <% numRowsChe = Integer.parseInt(String.valueOf(request.getParameter("numRows"))); %>
 <% } %>
+<% request.setAttribute("numRowsChe", numRowsChe); %>
 <% request.setAttribute("formChe", "chemFert["+(numRowsChe-1)+"]"); %>
 <% request.setAttribute("formCheSel", "chemFert_"+(numRowsChe-1)); %>
 <% request.setAttribute("formCheId", "formCropFer_chemFert_"+(numRowsChe-1)); %>
@@ -19,12 +20,12 @@
             <div class="row">
                 <div class="span5">
                     <div class="control-group">
-                        <s:if test="%{#attr.numRows>0}">
-                            <s:set name="counter" value="%{#attr.numRows-1}"/>
+                        <s:if test="%{#attr.numRowsChe>0}">
+                            <s:set name="counter" value="%{#attr.numRowsChe-1}"/>
                         </s:if>
                         <s:else>
-                            <s:set name="counter" value="%{#attr.numRows}"/>
-                        </s:else>                        
+                            <s:set name="counter" value="%{#attr.numRowsChe}"/>
+                        </s:else>                  
                         <label for="<%= request.getAttribute("formCheId") %>__applicationTypes_idAppTyp" class="control-label req">
                             <s:property value="getText('select.applicationtypes.fertilization')" />:
                         </label>

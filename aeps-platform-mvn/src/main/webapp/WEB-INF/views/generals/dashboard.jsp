@@ -19,6 +19,7 @@
                 <ul id="menu" class="nav">
                     <li id="nav1" class="separate"><s:a href="getting" cssClass="btn" targets="divBodyLayout"><s:property value="getText('link.recollect.general')" /></s:a></li>
                     <li id="nav2" class="separate"><s:a href="reports" cssClass="btn" targets="divBodyLayout"><s:property value="getText('link.reports.general')" /></s:a></li>
+                    <li id="nav4" class="separate"><s:a href="viewIndicators" cssClass="btn" targets="divBodyLayout"><s:property value="getText('link.applications.general')" /></s:a></li>
                     <li id="nav3"><s:a href="viewIssue" cssClass="btn" targets="divBodyLayout"><s:property value="getText('link.sendissue.general')" /></s:a></li>
                 </ul>
             </nav>

@@ -406,8 +406,8 @@ public class ActionMon extends BaseAction {
             session.saveOrUpdate(mon);
             
             LogEntities log = null;            
-            if(!action.equals("M")) log = LogEntitiesDao.getData(idEntSystem, mon.getIdMon(), "monitoring", action);
-            if (log==null && !action.equals("M")) {
+            log = LogEntitiesDao.getData(idEntSystem, mon.getIdMon(), "monitoring", action);
+            if (log==null) {
                 log = new LogEntities();
                 log.setIdLogEnt(null);
                 log.setIdEntityLogEnt(idEntSystem);

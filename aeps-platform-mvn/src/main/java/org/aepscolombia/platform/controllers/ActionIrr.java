@@ -429,8 +429,8 @@ public class ActionIrr extends BaseAction {
             session.saveOrUpdate(irr);
             
             LogEntities log = null;            
-            if(!action.equals("M")) log = LogEntitiesDao.getData(idEntSystem, irr.getIdIrr(), "irrigation", action);
-            if (log==null && !action.equals("M")) {
+            log = LogEntitiesDao.getData(idEntSystem, irr.getIdIrr(), "irrigation", action);
+            if (log==null) {
                 log = new LogEntities();
                 log.setIdLogEnt(null);
                 log.setIdEntityLogEnt(idEntSystem);

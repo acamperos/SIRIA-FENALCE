@@ -8,6 +8,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.aepscolombia.platform.models.entity.ChemicalFertilizers;
+import org.aepscolombia.platform.models.entity.ChemicalFertilizersCountry;
 import org.aepscolombia.platform.util.HibernateUtil;
 
 /**
@@ -93,6 +94,35 @@ public class ChemicalFertilizersDao
             tx = session.beginTransaction();
             Query query = session.createSQLQuery(sql).addEntity("p", ChemicalFertilizers.class);
             event = (ChemicalFertilizers)query.uniqueResult();
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return event;
+    }    
+    
+    public ChemicalFertilizersCountry fertilizerByCountry(Integer id, String country) {
+        SessionFactory sessions = HibernateUtil.getSessionFactory();
+        Session session = sessions.openSession();
+
+        String sql  = "";        
+        ChemicalFertilizersCountry event = null;
+        Transaction tx = null;
+				
+        sql += "select p.id_che_fer_co, p.id_selfer_che_fer_co, p.country_che_fer_co";
+        sql += " from chemical_fertilizers_country p";
+        sql += " where p.id_selfer_che_fer_co="+id;
+        sql += " and p.country_che_fer_co='"+country+"'";
+//        System.out.println("sql=>"+sql);
+        try {
+            tx = session.beginTransaction();
+            Query query = session.createSQLQuery(sql).addEntity("p", ChemicalFertilizersCountry.class);
+            event = (ChemicalFertilizersCountry)query.uniqueResult();
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) {

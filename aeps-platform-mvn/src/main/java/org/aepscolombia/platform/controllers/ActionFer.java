@@ -34,8 +34,10 @@ import org.aepscolombia.platform.models.entity.ChemicalElements;
 import org.aepscolombia.platform.models.entity.ChemicalFertilizations;
 import org.aepscolombia.platform.models.entity.ChemicalFertilizerComposition;
 import org.aepscolombia.platform.models.entity.ChemicalFertilizers;
+import org.aepscolombia.platform.models.entity.ChemicalFertilizersCountry;
 import org.aepscolombia.platform.models.entity.Fertilizations;
 import org.aepscolombia.platform.models.entity.FertilizationsTypes;
+import org.aepscolombia.platform.models.entity.IdiomCountry;
 
 import org.aepscolombia.platform.models.entity.LogEntities;
 import org.aepscolombia.platform.models.entity.ProductionEvents;
@@ -765,15 +767,23 @@ public class ActionFer extends BaseAction {
             if (chemFert!=null) {                
                 for (ChemicalFertilizationsObj ferCheTemp : chemFert) {
                     ChemicalFertilizers cheFer = null;
+                    ChemicalFertilizersCountry chemFerCountry = null;
                     if (ferCheTemp!=null) {
                         if (ferCheTemp.getOtherProductCheFer()!=null && !ferCheTemp.getOtherProductCheFer().equals("")) {
-                            cheFer = new ChemicalFertilizersDao().objectById(ferCheTemp.getIdCheFer());
-                            if (cheFer!=null) session.delete(cheFer);     
+                            cheFer  = new ChemicalFertilizersDao().objectById(ferCheTemp.getIdCheFer());
+                            chemFerCountry = new ChemicalFertilizersDao().fertilizerByCountry(cheFer.getIdCheFer(), coCode);
+                            if (chemFerCountry!=null) session.delete(chemFerCountry);     
+                            if (cheFer!=null) session.delete(cheFer);                                 
 
                             cheFer = new ChemicalFertilizers();
                             cheFer.setNameCheFer(ferCheTemp.getOtherProductCheFer());
                             cheFer.setStatusCheFer(false);
                             session.saveOrUpdate(cheFer);
+                            
+                            chemFerCountry = new ChemicalFertilizersCountry();
+                            chemFerCountry.setChemicalFertilizers(cheFer);
+                            chemFerCountry.setIdiomCountry(new IdiomCountry(coCode));
+                            session.saveOrUpdate(chemFerCountry);
 
                             ferCheTemp.setChemicalFertilizers(cheFer);
 
@@ -859,8 +869,8 @@ public class ActionFer extends BaseAction {
             session.saveOrUpdate(fer);
             
             LogEntities log = null;            
-            if(!action.equals("M")) log = LogEntitiesDao.getData(idEntSystem, fer.getIdFer(), "fertilizations", action);
-            if (log==null && !action.equals("M")) {
+            log = LogEntitiesDao.getData(idEntSystem, fer.getIdFer(), "fertilizations", action);
+            if (log==null) {
                 log = new LogEntities();
                 log.setIdLogEnt(null);
                 log.setIdEntityLogEnt(idEntSystem);

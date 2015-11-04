@@ -1101,11 +1101,11 @@ public class ActionLogin extends BaseAction {
 
             tx.commit();
             state = "success";
-//            String host = this.getRequest().getRemoteHost();
-            String host = "www.open-aeps.org";            
+            String host = this.getRequest().getRemoteHost();
+//            String host = "www.open-aeps.org";            
             String messageSms = getText("message.codeofactivation.login")+" "+randomCode;
             if (this.getTypeUser() == 3) {
-                GlobalFunctions.sendEmail("contact@open-aeps.org", getText("email.from"), getText("email.fromPass"), getText("email.subjectNewUser"), GlobalFunctions.messageToValidateUser(host, user.getNameUserUsr()), null);
+                GlobalFunctions.sendEmail(getText("email.fromContact"), getText("email.from"), getText("email.fromPass"), getText("email.subjectNewUser"), GlobalFunctions.messageToValidateUser(host, user.getNameUserUsr()), null);
                 info  = getText("message.successaddassociation.login");
             } else if (this.getTypeUser() == 1) {
                 if (this.getWorkType()== 1 || this.getWorkType()== 2) {
@@ -1114,7 +1114,7 @@ public class ActionLogin extends BaseAction {
                     info  = getText("message.successaddagronomist.login");//Tener la posibilidad de enviarlo por celular
                 } else {
                     //Enviar correo al representante del gremio o empresa privada encargado (PENDING)
-                    GlobalFunctions.sendEmail("contact@open-aeps.org", getText("email.from"), getText("email.fromPass"), getText("email.subjectNewUser"), GlobalFunctions.messageToValidateUser(host, user.getNameUserUsr()), null);
+                    GlobalFunctions.sendEmail(getText("email.fromContact"), getText("email.from"), getText("email.fromPass"), getText("email.subjectNewUser"), GlobalFunctions.messageToValidateUser(host, user.getNameUserUsr()), null);
                     info  = getText("message.successaddagronomistindependent.login");//Tener la posibilidad de enviarlo por celular
                 }
             } else if (this.getTypeUser() == 2) {

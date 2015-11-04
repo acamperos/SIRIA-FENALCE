@@ -66,9 +66,9 @@
                 activeOption('ulOptionsMenu', actionName+'Cls');
             }
             if (actionName=='dashboard' || actionName=='') {
-                bootbox.alert("Se ha cambiado el sistema AEPS, para tener una mejor experiencia, si le llegase a presentar algún fallo, por favor escribanos en la sección de reportar problema!", function() {
+//                bootbox.alert("Se ha cambiado el sistema AEPS, para tener una mejor experiencia, si le llegase a presentar algún fallo, por favor escribanos en la sección de reportar problema!", function() {
 //                    console.log("Alert Callback");
-                });
+//                });
                 $.when(getCountry()).then(doAction);
             } else {
                 doAction();

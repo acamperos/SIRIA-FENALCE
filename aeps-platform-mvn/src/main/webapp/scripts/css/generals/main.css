@@ -518,6 +518,7 @@ form {
 #menu #nav1 a{background:url(../../../img/gettingInfo.png) center no-repeat; background-color: #FFFFFF;height: 195px;width: 150px;}
 #menu #nav2 a{background:url(../../../img/report-icon.png) center no-repeat; background-color: #FFFFFF;height: 195px;width: 150px;}
 #menu #nav3 a{background:url(../../../img/report-problem.png) center 70% no-repeat; background-color: #FFFFFF;height: 195px;width: 150px;}
+#menu #nav4 a{background:url(../../../img/cajadeherramientas.jpg) center 70% no-repeat; background-color: #FFFFFF;height: 195px;width: 150px;}
 #menu .separate {padding-right: 20px;}
 
 .formIngress {float:right; padding-left: 20px;}
@@ -905,13 +906,13 @@ body {
 .slide-apps-mobile {
     width:  940px;
     height: 321px;
-    background-position: 0 0;
+    background-position: -940px 0;
 }
 
 .slide-platform {
     width:  940px;
     height: 321px;
-    background-position: -940px 0;
+    background-position: 0 0;    
 }
 
 .slide-usuario-prueba {

@@ -37,7 +37,7 @@
                             </div>
                             <div class="control-group">
                                 <label for="formAnalysis_lastCrop" class="control-label">
-                                    <s:property value="getText('select.lastcrop.crop')" />:
+                                    <s:property value="getText('select.croptype.crop')" />:
                                 </label>
                                 <div class="controls">
                                     <s:select

@@ -325,8 +325,8 @@ public class ActionDescriptions extends BaseAction {
             session.saveOrUpdate(desPro);
             
             LogEntities log = null;            
-            if(!action.equals("M")) log = LogEntitiesDao.getData(idEntSystem, desPro.getIdDesPro(), "descriptions", action);
-            if (log==null && !action.equals("M")) {
+            log = LogEntitiesDao.getData(idEntSystem, desPro.getIdDesPro(), "descriptions", action);
+            if (log==null) {
                 log = new LogEntities();
                 log.setIdLogEnt(null);
                 log.setIdEntityLogEnt(idEntSystem);
