@@ -407,7 +407,7 @@
         <% String actExeHar   = String.valueOf(request.getAttribute("actExe")); %>
         <% if ((actExeHar=="create" && usrDao.getPrivilegeUser(user.getIdUsr(), "crop/create")) || (actExeHar=="modify" && usrDao.getPrivilegeUser(user.getIdUsr(), "crop/modify"))) { %>
             <% if (entTypeHarId!=3) { %>
-                <sj:submit type="button" cssClass="btn btn-initial btn-large" onclick="removeMask();searchDecimalNumber('formCropHar'); addMessageProcess()" targets="divMessage" onCompleteTopics="completeHarvest" validate="true" validateFunction="validationForm"><i class="icon-save"></i>  <s:property value="getText('button.saveharvest.harvest')" /></sj:submit>
+                <sj:submit type="button" cssClass="btn btn-initial btn-large" onclick="removeMaskHar();searchDecimalNumber('formCropHar'); addMessageProcess()" targets="divMessage" onCompleteTopics="completeHarvest" validate="true" validateFunction="validationForm"><i class="icon-save"></i>  <s:property value="getText('button.saveharvest.harvest')" /></sj:submit>
             <% } %>
         <% } %>
     </div>
@@ -437,7 +437,7 @@
     showCostMethodsHarvest('formCropHar_harv_harvestMethods_idHarMet', 'divcostmechanized', 'divcostmanual','divcostmanual3');
     showStorageHar('harv.storageHar', 'divCostStorage', 'divcostrented');
 
-    function removeMask() {       
+    function removeMaskHar() {       
                     $("#formCropHar_harv_costSalepriceHar").maskMoney({thousands:"", decimal:'.'});
                     $("#formCropHar_harv_costSalepriceHar").maskMoney('mask');
 

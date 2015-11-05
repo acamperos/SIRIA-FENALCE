@@ -135,7 +135,7 @@
                     <div id="divBtPrep">
                         <% String actExe   = String.valueOf(request.getAttribute("actExe")); %>
                         <% if ((actExe.equals("create") && usrDao.getPrivilegeUser(user.getIdUsr(), "crop/create")) || (actExe.equals("modify") && usrDao.getPrivilegeUser(user.getIdUsr(), "crop/modify"))) { %>
-                            <sj:submit type="button" cssClass="btn btn-initial btn-large" onclick="removeMask();searchDecimalNumber('formCropPrep'); addMessageProcess()" targets="divMessage" onCompleteTopics="completePrep" validate="true" validateFunction="validationForm"><i class="icon-save"></i>  <s:property value="getText('button.savepreparation.preparation')" /></sj:submit>
+                            <sj:submit type="button" cssClass="btn btn-initial btn-large" onclick="removeMaskPre();searchDecimalNumber('formCropPrep'); addMessageProcess()" targets="divMessage" onCompleteTopics="completePrep" validate="true" validateFunction="validationForm"><i class="icon-save"></i>  <s:property value="getText('button.savepreparation.preparation')" /></sj:submit>
                         <% } %>
                         <button class="btn btn_default btn-large" onclick="resetForm('formCropPrep'); closeWindow();"><i class="icon-ban-circle"></i>  <s:property value="getText('button.cancel')" /></button>
                     </div>
@@ -154,7 +154,7 @@
                     }    
                 });
                 
-   function removeMask() {       
+   function removeMaskPre() {       
             $("#formCropPrep_prep_costPrep").maskMoney({thousands:"", decimal:'.'});
             $("#formCropPrep_prep_costPrep").maskMoney('mask'); 
            

@@ -164,7 +164,7 @@
                     <div id="divBtFer">
                         <% String actExe   = String.valueOf(request.getAttribute("actExe")); %>
                         <% if ((actExe.equals("create") && usrDao.getPrivilegeUser(user.getIdUsr(), "crop/create")) || (actExe.equals("modify") && usrDao.getPrivilegeUser(user.getIdUsr(), "crop/modify"))) { %>
-                            <sj:submit type="button" cssClass="btn btn-initial btn-large" onclick="removeMask();searchDecimalNumber('formCropFer'); addMessageProcess()" targets="divMessage" onCompleteTopics="completeFer" validate="true" validateFunction="validationForm"><i class="icon-save"></i>  <s:property value="getText('button.savefertilization.fertilization')" /></sj:submit>
+                            <sj:submit type="button" cssClass="btn btn-initial btn-large" onclick="removeMaskFer();searchDecimalNumber('formCropFer'); addMessageProcess()" targets="divMessage" onCompleteTopics="completeFer" validate="true" validateFunction="validationForm"><i class="icon-save"></i>  <s:property value="getText('button.savefertilization.fertilization')" /></sj:submit>
                         <% } %>
                         <button class="btn btn_default btn-large" onclick="resetForm('formCropFer'); closeWindow();"><i class="icon-ban-circle"></i>  <s:property value="getText('button.cancel')" /></button>
                     </div>
@@ -183,7 +183,7 @@
                     }    
                 });
                 
-                function removeMask() {       
+                function removeMaskFer() {       
                     
                          var formAmenId = '<%= request.getAttribute("formAmenId") %>';
                          
@@ -218,12 +218,6 @@
                             
                         }
                          
-                         
-
-                        
-                       
-                        
-                        
                 }         
             </script>
         </div>

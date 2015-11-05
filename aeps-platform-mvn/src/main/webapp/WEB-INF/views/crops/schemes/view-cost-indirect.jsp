@@ -128,7 +128,7 @@
         <% String actExeHar   = String.valueOf(request.getAttribute("actExe")); %>
         <% if ((actExeHar=="create" && usrDao.getPrivilegeUser(user.getIdUsr(), "crop/create")) || (actExeHar=="modify" && usrDao.getPrivilegeUser(user.getIdUsr(), "crop/modify"))) { %>
             <% if (entTypeCostId!=3) { %>
-                <sj:submit type="button" cssClass="btn btn-initial btn-large" onclick="removeMask();searchDecimalNumber('formCropCos'); addMessageProcess()" targets="divMessage" onCompleteTopics="completeCos" validate="true" validateFunction="validationForm"><i class="icon-save"></i>  <s:property value="getText('button.savecost.costindirect')" /></sj:submit>
+                <sj:submit type="button" cssClass="btn btn-initial btn-large" onclick="removeMaskCost();searchDecimalNumber('formCropCos'); addMessageProcess()" targets="divMessage" onCompleteTopics="completeCos" validate="true" validateFunction="validationForm"><i class="icon-save"></i>  <s:property value="getText('button.savecost.costindirect')" /></sj:submit>
             <% } %>
         <% } %>
     </div>
@@ -152,7 +152,7 @@
 $(function(){ $("#formCropCost_costo_costVigilantPro").maskMoney({suffix: '$'});
 });
 
-    function removeMask() {       
+    function removeMaskCost() {       
                     $("#formCropCos_costo_costVigilantPro").maskMoney({thousands:"", decimal:'.'});
                     $("#formCropCos_costo_costVigilantPro").maskMoney('mask');
 

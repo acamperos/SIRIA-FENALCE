@@ -546,7 +546,7 @@
 <% if ((actExeSow=="create" && usrDao.getPrivilegeUser(user.getIdUsr(), "crop/create")) || (actExeSow=="modify" && usrDao.getPrivilegeUser(user.getIdUsr(), "crop/modify"))) { %>
     <% if (entTypeSowId!=3) { %>
         <div style="margin-bottom: 15px" id="divBtSowing">
-            <sj:submit type="button" formIds="formCropSow" cssClass="btn btn-initial btn-large" onclick="removeMask(); addMessageProcess()" targets="divMessage" onCompleteTopics="completeSowing" validate="true" validateFunction="validationForm"><i class="icon-save"></i>  <s:property value="getText('button.sowingsave.crop')" /></sj:submit>
+            <sj:submit type="button" formIds="formCropSow" cssClass="btn btn-initial btn-large" onclick="removerMask(); addMessageProcess()" targets="divMessage" onCompleteTopics="completeSowing" validate="true" validateFunction="validationForm"><i class="icon-save"></i>  <s:property value="getText('button.sowingsave.crop')" /></sj:submit>
         </div>
     <% } %>
 <% } %>
@@ -566,10 +566,12 @@
          $("#formCropSow_sowing_costSow").maskMoney({suffix: ' $'});
     });
     
-    function removeMask() {       
+    function removerMask() {       
+        
         $("#formCropSow_sowing_costSeedSow").maskMoney({thousands:"", decimal:'.'});
         $("#formCropSow_sowing_costSeedSow").maskMoney('mask');
         $("#formCropSow_sowing_costSow").maskMoney({thousands:"", decimal:'.'});
         $("#formCropSow_sowing_costSow").maskMoney('mask');  
-    };
+    };    
+    
 </script>
