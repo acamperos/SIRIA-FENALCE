@@ -38,6 +38,7 @@ import org.aepscolombia.platform.models.dao.GenotypesSowingDao;
 import org.aepscolombia.platform.models.dao.GrowingEnvironmentDao;
 import org.aepscolombia.platform.models.dao.HarvestMethodsDao;
 import org.aepscolombia.platform.models.dao.HarvestsDao;
+import org.aepscolombia.platform.models.dao.CostIndirectProductionEventDao;
 import org.aepscolombia.platform.models.dao.IrrigationDao;
 import org.aepscolombia.platform.models.dao.MaizeDao;
 import org.aepscolombia.platform.models.dao.MonitoringDao;
@@ -70,7 +71,7 @@ import org.aepscolombia.platform.models.entity.GenotypesSowing;
 import org.aepscolombia.platform.models.entity.GrowingEnvironment;
 import org.aepscolombia.platform.models.entity.HarvestMethods;
 import org.aepscolombia.platform.models.entity.Harvests;
-
+import org.aepscolombia.platform.models.entity.CostIndirectProductionEvent;
 import org.aepscolombia.platform.models.entity.LogEntities;
 import org.aepscolombia.platform.models.entity.Maize;
 import org.aepscolombia.platform.models.entity.PhysiologicalMonitoring;
@@ -174,6 +175,7 @@ public class ActionCrop extends BaseAction {
     private Beans beans   = new Beans();
     private Cassavas cass = new Cassavas();
     private Harvests harv = new Harvests();
+    private CostIndirectProductionEvent costo = new CostIndirectProductionEvent();
     private Maize maize   = new Maize();
     private Rice rice     = new Rice();
     private PhysiologicalMonitoring phys = new PhysiologicalMonitoring();
@@ -217,6 +219,14 @@ public class ActionCrop extends BaseAction {
 
     public void setHarv(Harvests harv) {
         this.harv = harv;
+    }
+
+     public CostIndirectProductionEvent getCosto() {
+        return costo;
+    }
+
+    public void setCosto(CostIndirectProductionEvent costo) {
+        this.costo = costo;
     }
 
     public Maize getMaize() {
@@ -653,6 +663,7 @@ public class ActionCrop extends BaseAction {
     private ControlsDao conDao    = new ControlsDao();
     private FertilizationsDao fertDao     = new FertilizationsDao();
     private HarvestsDao harDao    = new HarvestsDao();
+    private CostIndirectProductionEventDao costDao    = new CostIndirectProductionEventDao();
     private IrrigationDao irrDao  = new IrrigationDao();
     private MaizeDao maizeDao     = new MaizeDao();
     private RiceDao riceDao       = new RiceDao();
@@ -996,6 +1007,7 @@ public class ActionCrop extends BaseAction {
             beans  = beansDao.objectById(this.getIdCrop());
             cass   = cassDao.objectById(this.getIdCrop());
             harv   = harDao.objectById(this.getIdCrop());
+            costo  = costDao.objectById(this.getIdCrop());
             maize  = maizeDao.objectById(this.getIdCrop());
             rice   = riceDao.objectById(this.getIdCrop());
             phys   = physDao.objectById(this.getIdCrop());
@@ -1574,6 +1586,8 @@ public class ActionCrop extends BaseAction {
         return "states";
     }
 
+    
+    
     /**
      * Encargado de borrar la informacion de un cultivo apartir de su identificacion
      * @param idCrop:  Identificacion del cultivo

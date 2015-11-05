@@ -194,18 +194,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="accordion-group">
-                    <div class="accordion-heading">
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion7" href="#collapseSeven">
-                            <h4><s:property value="getText('link.observations.crop')" /> <i class="colSeven icon-chevron-down"></i></h4> 
-                        </a>
-                    </div>
-                    <div id="collapseSeven" class="accordion-body collapse">
-                        <div class="accordion-inner">
-                            <%@ include file="view-descriptions.jsp" %>
-                        </div>
-                    </div>
-                </div>
+                
                 <div class="accordion-group">
                     <div class="accordion-heading">
                         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion5" href="#collapseFive">
@@ -217,7 +206,34 @@
                             <%@ include file="view-harvest.jsp" %>                            
                         </div>
                     </div>
-                </div>      
+                </div>     
+             
+                <div class="accordion-group">
+                    <div class="accordion-heading">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion8" href="#collapseEight">
+                            <h4>Costos indirectos <i class="colEight icon-chevron-down"></i></h4>
+                        </a>
+                    </div>
+                    <div id="collapseEight" class="accordion-body collapse">                        
+                        <div class="accordion-inner">
+                                 <%@ include file="view-cost-indirect.jsp" %>           
+                        </div>
+                    </div>
+                </div>   
+              
+             <div class="accordion-group">
+                    <div class="accordion-heading">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion7" href="#collapseSeven">
+                            <h4><s:property value="getText('link.observations.crop')" /><i class="colSeven icon-chevron-down"></i></h4> 
+                        </a>
+                    </div>
+                    <div id="collapseSeven" class="accordion-body collapse">
+                        <div class="accordion-inner">
+                            <%@ include file="view-descriptions.jsp" %>
+                        </div>
+                    </div>
+                </div>           
+                        
             </div>               
         </div>   
         <script>
@@ -275,6 +291,14 @@
             
             $('#collapseSeven').on('hidden', function () {
                 $(".colSeven").removeClass("icon-chevron-up").addClass("icon-chevron-down");
+            });
+            
+             $('#collapseEight').on('shown', function () {
+               $(".colEight").removeClass("icon-chevron-down").addClass("icon-chevron-up");
+            });
+
+            $('#collapseEight').on('hidden', function () {
+                $(".colEight").removeClass("icon-chevron-up").addClass("icon-chevron-down");
             });
 
             $('#collapseEight').on('shown', function () {

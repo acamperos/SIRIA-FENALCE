@@ -2,6 +2,7 @@ package org.aepscolombia.platform.models.entity;
 // Generated Apr 8, 2014 9:37:27 AM by Hibernate Tools 3.2.1.GA
 
 
+import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,6 +28,8 @@ public class ResidualsManagement  implements java.io.Serializable {
     private ResidualsClasification residualsClasification;
     private Date dateResMan;
     private String otherResidualsManagementResMan;
+    private BigDecimal costResMan;
+    private String commentResMan;
     private Boolean status;
     private Integer createdBy;
 
@@ -39,11 +42,13 @@ public class ResidualsManagement  implements java.io.Serializable {
         this.dateResMan = dateResMan;
     }
     
-    public ResidualsManagement(ResidualsClasification residualsClasification, ProductionEvents productionEvents, Date dateResMan, String otherResidualsManagementResMan, Boolean status, Integer createdBy) {
+    public ResidualsManagement(ResidualsClasification residualsClasification, ProductionEvents productionEvents, Date dateResMan, String otherResidualsManagementResMan, Boolean status,BigDecimal costResMan,String commentResMan ,Integer createdBy) {
        this.residualsClasification = residualsClasification;
        this.productionEvents = productionEvents;
        this.dateResMan = dateResMan;
        this.otherResidualsManagementResMan = otherResidualsManagementResMan;
+       this.costResMan = costResMan;
+       this.commentResMan=commentResMan;
        this.status = status;
        this.createdBy = createdBy;
     }
@@ -96,6 +101,24 @@ public class ResidualsManagement  implements java.io.Serializable {
     
     public void setOtherResidualsManagementResMan(String otherResidualsManagementResMan) {
         this.otherResidualsManagementResMan = otherResidualsManagementResMan;
+    }
+    
+    @Column(name="comment_res_man")
+    public String getCommentResMan() {
+        return this.commentResMan;
+    }
+    
+    public void setCommentResMan(String commentResMan) {
+        this.commentResMan = commentResMan;
+    }
+    
+    @Column(name="cost_res_man")
+    public BigDecimal getCostResMan() {
+        return this.costResMan;
+    }
+    
+    public void setCostResMan(BigDecimal costResMan) {
+        this.costResMan = costResMan;
     }
     
     @Column(name="status")

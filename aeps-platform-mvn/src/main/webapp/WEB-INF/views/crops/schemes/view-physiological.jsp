@@ -63,6 +63,20 @@
                 <s:textfield name="phys.percentageReseedingPhyMon" />
             </div>                          
         </div>
+        <fieldset>
+        <legend>Observaciones</legend>                   
+            <div class="row">
+                <div class="span5">
+                    <div  class="control-group">
+
+                        <div class="controls">                                      
+                            <s:textarea rows="5" cssClass="span6" name="phys.commentPhyMon"></s:textarea>
+                        </div>
+
+                    </div>        
+                </div>                     
+            </div>    
+        </fieldset> 
         <% if (entTypePhyId!=3) { %>
             <p class="warnField reqBef"><s:property value="getText('label.requirefields')" /></p>
         <% } %>

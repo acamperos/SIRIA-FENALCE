@@ -40,6 +40,7 @@
                     <th><s:property value="getText('td.preparationtype.preparation')" /></th>
                     <th><s:property value="getText('td.otherpreparationtype.preparation')" /></th>
                     <th><s:property value="getText('td.passingnumber.preparation')" /></th>
+                    <th><s:property value="getText('td.costpreparation.preparation')" /></th>
                     <% if (usrPrpDao.getPrivilegeUser(userPrp.getIdUsr(), "crop/modify") || (usrPrpDao.getPrivilegeUser(userPrp.getIdUsr(), "crop/delete"))) { %>
                         <th><s:property value="getText('td.action.preparation')" /></th>
                     <% } %>

@@ -16,7 +16,7 @@
         <s:actionerror theme="bootstrap"/>
         <s:actionmessage theme="bootstrap"/>
         <s:fielderror theme="bootstrap"/>
-        <div class="row-fluid" id="divFerForm">
+        <div id="divFerForm">
             <s:form id="formCropFer" action="saveFer" cssClass="form-horizontal">
                 <fieldset>
                     <legend><s:property value="getText('title.fertsurvey.crop')" /></legend>  
@@ -40,7 +40,9 @@
                                     <span class="add-on"><i class="icon-calendar"></i></span>
                                 </div>                          
                             </div>                          
-                        </div>       
+                        </div>     
+                                    
+                                        
                     </div>
                     <% if (coCode.equals("NI")) { %>
                         <div class="row">
@@ -132,6 +134,21 @@
                             </tbody>
                         </table>
                     </fieldset>
+                    
+                            <fieldset>
+                                <legend>Observaciones</legend>                   
+                                <div class="row">
+                                    <div class="span5">
+                                        <div  class="control-group">
+
+                                            <div class="controls">                                      
+                                                <s:textarea rows="5" cssClass="span6" name="fer.commentFer"></s:textarea>
+                                            </div>
+
+                                        </div>        
+                                    </div>                     
+                                </div>    
+                            </fieldset>       
                     <p class="warnField reqBef"><s:property value="getText('label.requirefields')" /></p>
                     <script>
                         showTypeFertilizerSel('formCropFer_fer_fertilizationsTypes_idFerTyp', 'divQuimicoFer', 'divOrganicoFer', 'divEnmiendasFer');
@@ -147,7 +164,7 @@
                     <div id="divBtFer">
                         <% String actExe   = String.valueOf(request.getAttribute("actExe")); %>
                         <% if ((actExe.equals("create") && usrDao.getPrivilegeUser(user.getIdUsr(), "crop/create")) || (actExe.equals("modify") && usrDao.getPrivilegeUser(user.getIdUsr(), "crop/modify"))) { %>
-                            <sj:submit type="button" cssClass="btn btn-initial btn-large" onclick="searchDecimalNumber('formCropFer'); addMessageProcess()" targets="divMessage" onCompleteTopics="completeFer" validate="true" validateFunction="validationForm"><i class="icon-save"></i>  <s:property value="getText('button.savefertilization.fertilization')" /></sj:submit>
+                            <sj:submit type="button" cssClass="btn btn-initial btn-large" onclick="removeMask();searchDecimalNumber('formCropFer'); addMessageProcess()" targets="divMessage" onCompleteTopics="completeFer" validate="true" validateFunction="validationForm"><i class="icon-save"></i>  <s:property value="getText('button.savefertilization.fertilization')" /></sj:submit>
                         <% } %>
                         <button class="btn btn_default btn-large" onclick="resetForm('formCropFer'); closeWindow();"><i class="icon-ban-circle"></i>  <s:property value="getText('button.cancel')" /></button>
                     </div>
@@ -165,6 +182,49 @@
                         event.handled = true;
                     }    
                 });
+                
+                function removeMask() {       
+                    
+                         var formAmenId = '<%= request.getAttribute("formAmenId") %>';
+                         
+                        $("#__costAppAmeFer").maskMoney({thousands:"", decimal:'.'});
+                        $("#"+formAmenId+"__costAppAmeFer").maskMoney({thousands:"", decimal:'.'});
+                        $("#__costAppAmeFer").maskMoney('mask');
+                        $("#"+formAmenId+"__costAppAmeFer").maskMoney('mask');
+                        
+                        $("#__costProductAmeFer").maskMoney({thousands:"", decimal:'.'});
+                        $("#"+formAmenId+"__costProductAmeFer").maskMoney({thousands:"", decimal:'.'});
+                        $("#__costProductAmeFer").maskMoney('mask');
+                        $("#"+formAmenId+"__costProductAmeFer").maskMoney('mask');
+
+                        
+                        var i=0;
+                        for (i=0;i<20;i++)
+                        {
+                             //Chemical
+                            $("#formCropFer_chemFert_"+i+"__costAppCheFer").maskMoney({thousands:"", decimal:'.'});
+                            $("#formCropFer_chemFert_"+i+"__costAppCheFer").maskMoney('mask');                      
+                            
+                            $("#formCropFer_chemFert_"+i+"__costProductCheFer").maskMoney({thousands:"", decimal:'.'});                       
+                            $("#formCropFer_chemFert_"+i+"__costProductCheFer").maskMoney('mask');
+                            
+                            //OrgFer
+                            $("#formCropFer_orgFert_"+i+"__costAppOrgFer").maskMoney({thousands:"", decimal:'.'});                      
+                            $("#formCropFer_orgFert_"+i+"__costAppOrgFer").maskMoney('mask');               
+                        
+                            $("#formCropFer_orgFert_"+i+"__costProductOrgFer").maskMoney({thousands:"", decimal:'.'});                       
+                            $("#formCropFer_orgFert_"+i+"__costProductOrgFer").maskMoney('mask');
+                            
+                            
+                        }
+                         
+                         
+
+                        
+                       
+                        
+                        
+                }         
             </script>
         </div>
         <div class="row-fluid" id="divListFerForm"></div>

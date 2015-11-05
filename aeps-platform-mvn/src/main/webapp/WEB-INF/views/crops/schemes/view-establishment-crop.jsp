@@ -1,18 +1,21 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ taglib prefix="sj" uri="/struts-jquery-tags" %>
+<%@page import="org.aepscolombia.platform.models.dao.EntitiesDao"%>
+<% Integer entTypeSowId = new EntitiesDao().getEntityTypeId(user.getIdUsr()); %>
+
+<div id="divMessSowing"></div>
+<s:form id="formCropSow" action="saveSowing" cssClass="form-horizontal">
 <% if (coCode.equals("CO")) { %>
     <div id="divListRes">
         <%@ include file="../residuals/info-residuals.jsp" %>            
     </div>
+  
 <% } %>
 <div id="divListPrep">
     <%@ include file="../preparations/info-preparations.jsp" %>            
 </div>
-<%@page import="org.aepscolombia.platform.models.dao.EntitiesDao"%>
-<% Integer entTypeSowId = new EntitiesDao().getEntityTypeId(user.getIdUsr()); %>
+    
 <hr class="divider-inner-separator">
-<div id="divMessSowing"></div>
-<s:form id="formCropSow" action="saveSowing" cssClass="form-horizontal">
     <fieldset>
         <legend><s:property value="getText('title.formsowing.crop')" /></legend>    
         <div class="row">
@@ -92,8 +95,24 @@
                         <s:textfield name="sowing.seedsNumberSow"/>
                     </div>                          
                 </div>                          
-            </div>                          
-            <div class="span4" style="padding-left: 28px">
+            </div>   
+                    
+           <div class="span4" style="padding-left: 28px">
+                                <div class="control-group">
+                                    <label for="formCropSow_sowing_costSeedSow" class="control-label">
+                                       Costo de la semilla (Ha.):
+                                    </label>
+                                    <div class="controls">
+                                       <s:textfield name="sowing.costSeedSow"/>
+                                    </div>                         
+                                </div>                          
+           </div> 
+                    
+          
+        </div>
+                                    
+        <div class="row">
+                <div class="span5">
                 <div class="control-group">
                     <label for="formCropSow_sowing_treatedSeedsSow" class="control-label req">
                         <s:property value="getText('radio.treatmentseed.crop')" />:
@@ -102,8 +121,8 @@
                         <s:radio list="#{'true':'Si', 'false':'No'}" name="sowing.treatedSeedsSow" onclick="showProductUse(this.value, 'divNewProductUse');" />
                     </div>
                 </div>
-            </div>
-        </div>
+         </div>
+         </div>
         <% String classSowTre="hide"; %>
         <s:set name="treatedSeeds" value="sowing.treatedSeedsSow"/>
         <s:if test="%{#treatedSeeds==true}">
@@ -143,8 +162,11 @@
                         </div>
                     </div>
                 </div>
+             
             </div>           
         </div>
+                        
+        
         <% if (coCode.equals("CO")) { %>
             <div class="row">
                 <div class="span5">
@@ -377,7 +399,120 @@
                     </div>
                 </div>
             </div>
+                   
         </div>
+                        <div id="costsowing" class="row ">
+                          <div class="span5">
+                           <div class="control-group">
+                            <label for="formCropSow_sowing_costSow" class="control-label ">
+                                <s:property value="getText('text.costsowing.crop')" />:
+                            </label>
+                            <div class="controls">
+                                <s:textfield name="sowing.costSow"/>
+                            </div>
+                          </div>
+                         </div>   
+                                <%--<div class="span4" style="padding-left: 28px">
+                                    <div class="control-group">
+                                        <label for="formCropHar_harv_storageHar" class="control-label">
+                                            Hubo resiembra?:
+                                        </label>
+                                        <div class="controls radioSelect">
+                                            <s:radio 
+                                                list="#{'true':'Si', 'false':'No'}" 
+                                                name="sow.resow"
+                                                onclick="showReSowing('sow.resow', 'divNoReSow','divYesReSow');"
+                                                />
+                                        </div>                         
+                                    </div>
+                                </div>--%>
+                          
+   
+                        </div>     
+                 <%-- <div  id="divNoReSow">                               
+                  <div   class="row ">                     
+                        <div  id="divYesReSow" >
+                          <div class="span5">
+                           <div class="control-group">
+                                        <label for="formCropHar_harv_storageHar" class="control-label">
+                                            Tipo de resiembra? :
+                                        </label>
+                                        <div class="controls radioSelect">
+                                            <s:radio 
+                                                list="#{'true':'Total', 'false':'Parcial'}" 
+                                                name="sow.typeresow"
+                                                onclick="showTypeReSowing('sow.typeresow', 'divReSowPartial','divReSowTotal');"
+                                                />
+                                        </div>                         
+                           </div>                     
+                        </div> 
+                        </div>                 
+                                <div id="divReSowTotal">
+                                 <div class="span4" style="padding-left: 28px">
+                                  <div class="control-group">
+                                                    <label for="costControlCon" class="control-label">
+                                                        Observaciones de la resiembra total:
+                                                    </label>
+                                                    <div class="controls">
+                                                    <s:textarea rows="5" name="desPro.obsDesPro"></s:textarea>
+                                                     </div>                         
+                                 </div>  
+                                </div>
+                               </div>
+                     
+                  </div> 
+                    <div id="divReSowPartial"  >                                 
+                      <div id="divReSowPartial"  class="row ">
+                          <div class="span5">
+                           <div class="control-group">
+                               <label for="formCropDes_desPro_obsDesPro" class="control-label">
+                                  No. Jornales para la resiembra :
+                                </label>
+                                <div class="controls">
+                                <s:textfield name="sowing.costSow"/>
+                            </div>
+                            </div>                          
+                        </div>     
+                                 <div class="span4" style="padding-left: 28px">
+                                  <div class="control-group">
+                                                    <label for="costControlCon" class="control-label">
+                                                        Cantidad por semilla usada x Ha.:
+                                                    </label>
+                                                    <div class="controls">
+                                                        <s:textfield name="%{#attr.formChe}.costProductCheFer" id="%{#attr.formCheId}__costProductCheFer" value="%{#attr.costProductCheFer}"/>
+                                                    </div>                         
+                                 </div>  
+                                </div>
+                     </div>  
+                                                    
+                     <div  class="row ">
+                          <div class="span5">
+                           <div class="control-group">
+                               <label for="formCropDes_desPro_obsDesPro" class="control-label">
+                                  Costo de la resiembra :
+                                </label>
+                                <div class="controls">
+                                     <s:textfield name="%{#attr.formChe}.costProductCheFer" id="%{#attr.formCheId}__costProductCheFer" value="%{#attr.costProductCheFer}"/>
+                                </div> 
+                            </div>                          
+                        </div> 
+                     </div>     
+                   </div>     
+                   </div> --%>
+               
+                   <div  class="row ">
+                          <div class="span5">
+                           <div class="control-group">
+                               <label for="formCropSow_sowing_commentSow" class="control-label">
+                                   Observaciones en la siembra
+                                </label>
+                                <div class="controls">
+                                    <s:textarea rows="5" cssClass="span6" name="sowing.commentSow"></s:textarea>
+                                </div> 
+                            </div>                          
+                        </div>     
+                     </div>     
+                  
         <% if (entTypeSowId!=3) { %>
             <p class="warnField reqBef"><s:property value="getText('label.requirefields')" /></p>
         <% } %>
@@ -386,8 +521,12 @@
             $("#formCropSow_sowing_seedsNumberSow").mask("9?99999999",{placeholder:""});
             $("#formCropSow_maize_seedsNumberSiteMai").mask("9?99999999",{placeholder:""});
             $("#formCropSow_sowing_dateSow").datepicker({dateFormat: 'mm/dd/yy'});
-            $("#formCropSow_sowing_dateSow").mask("99/99/9999", {placeholder: " "});
+            $("#formCropSow_sowing_dateSow").mask("99/99/9999", {placeholder: " "});           
+            $("#formCropSow_sowing_costSeedSow").maskMoney({suffix: ' $'});              
+            $("#formCropSow_sowing_costSow").maskMoney({suffix: ' $'});
             $("#formCropSow_event_expected_production_pro_eve").numeric({negative: false});
+            showReSowing('sow.resow', 'divNoReSow','divYesReSow');
+            showTypeReSowing('sow.typeresow', 'divReSowPartial','divReSowTotal');
             
             $("#formCropSow_sowing_seedsNumberSow").numeric({decimal: false, negative: false});
             $("#formCropSow_sowing_furrowsDistanceSow").numeric({negative: false});
@@ -407,7 +546,7 @@
 <% if ((actExeSow=="create" && usrDao.getPrivilegeUser(user.getIdUsr(), "crop/create")) || (actExeSow=="modify" && usrDao.getPrivilegeUser(user.getIdUsr(), "crop/modify"))) { %>
     <% if (entTypeSowId!=3) { %>
         <div style="margin-bottom: 15px" id="divBtSowing">
-            <sj:submit type="button" formIds="formCropSow" cssClass="btn btn-initial btn-large" onclick="searchDecimalNumber('formCropSow'); addMessageProcess()" targets="divMessage" onCompleteTopics="completeSowing" validate="true" validateFunction="validationForm"><i class="icon-save"></i>  <s:property value="getText('button.sowingsave.crop')" /></sj:submit>
+            <sj:submit type="button" formIds="formCropSow" cssClass="btn btn-initial btn-large" onclick="removeMask(); addMessageProcess()" targets="divMessage" onCompleteTopics="completeSowing" validate="true" validateFunction="validationForm"><i class="icon-save"></i>  <s:property value="getText('button.sowingsave.crop')" /></sj:submit>
         </div>
     <% } %>
 <% } %>
@@ -423,5 +562,14 @@
         } else {
             location.reload();
         }
+         $("#formCropSow_sowing_costSeedSow").maskMoney({suffix: ' $'});   
+         $("#formCropSow_sowing_costSow").maskMoney({suffix: ' $'});
     });
+    
+    function removeMask() {       
+        $("#formCropSow_sowing_costSeedSow").maskMoney({thousands:"", decimal:'.'});
+        $("#formCropSow_sowing_costSeedSow").maskMoney('mask');
+        $("#formCropSow_sowing_costSow").maskMoney({thousands:"", decimal:'.'});
+        $("#formCropSow_sowing_costSow").maskMoney('mask');  
+    };
 </script>
