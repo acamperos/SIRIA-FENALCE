@@ -106,8 +106,8 @@
                 </div>
                 <div class="accordion-group">
                     <div class="accordion-heading">
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion7" href="#collapseEight">
-                            <h4><s:property value="getText('title.formphysiology.monitoring')" /> <i class="colSeven icon-chevron-down"></i></h4> 
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion8" href="#collapseEight">
+                            <h4><s:property value="getText('title.formphysiology.monitoring')" /> <i class="colEight icon-chevron-down"></i></h4> 
                         </a>
                     </div>
                     <div id="collapseEight" class="accordion-body collapse">
@@ -210,11 +210,11 @@
              
                 <div class="accordion-group">
                     <div class="accordion-heading">
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion8" href="#collapseEight">
-                            <h4>Costos indirectos<i class="colEight icon-chevron-down"></i></h4>
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion9" href="#collapseNine">
+                            <h4>Costos indirectos<i class="colNine icon-chevron-down"></i></h4>
                         </a>
                     </div>
-                    <div id="collapseEight" class="accordion-body collapse">                        
+                    <div id="collapseNine" class="accordion-body collapse">                        
                         <div class="accordion-inner">
                                  <%@ include file="view-cost-indirect.jsp" %>           
                         </div>
@@ -286,7 +286,7 @@
             });
             
             $('#collapseSeven').on('shown', function () {
-               $(".colSix").removeClass("icon-chevron-down").addClass("icon-chevron-up");
+               $(".colSeven").removeClass("icon-chevron-down").addClass("icon-chevron-up");
             });
             
             $('#collapseSeven').on('hidden', function () {
@@ -301,12 +301,12 @@
                 $(".colEight").removeClass("icon-chevron-up").addClass("icon-chevron-down");
             });
 
-            $('#collapseEight').on('shown', function () {
-               $(".colSix").removeClass("icon-chevron-down").addClass("icon-chevron-up");
+            $('#collapseNine').on('shown', function () {
+               $(".colNine").removeClass("icon-chevron-down").addClass("icon-chevron-up");
             });
 
-            $('#collapseEight').on('hidden', function () {
-                $(".colSix").removeClass("icon-chevron-up").addClass("icon-chevron-down");
+            $('#collapseNine').on('hidden', function () {
+                $(".colNine").removeClass("icon-chevron-up").addClass("icon-chevron-down");
             });
 
             $("#formCropHar_harv_dateHar").datepicker({changeMonth: true, changeYear: true});

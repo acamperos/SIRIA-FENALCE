@@ -103,8 +103,8 @@ public class ProductionEventsDao
                     }
                     temp.put("otherCrop", "");
                 }
-                temp.put("quant_area", data[10]);
-                temp.put("type_area", data[11]);
+                temp.put("quant_area", data[12]);
+                temp.put("type_area", data[13]);
                 result = temp;
             }
             tx.commit();

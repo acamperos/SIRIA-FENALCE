@@ -744,11 +744,11 @@ public class ActionReport extends BaseAction {
                 infoReport.put("conDiseases", checkControlsDiseases);
 //                fieldInfo.get("id_dep");
                 
-                findParams.put("dateSow", sowing.getDateSow());
+                if (sowing!=null) findParams.put("dateSow", sowing.getDateSow());
                 findParams.put("depId", String.valueOf(fieldInfo.get("id_dep")));
                 findParams.put("cropType", typeCrop);
                 if (typeCrop==2){
-                    findParams.put("growId", beans.getGrowingEnvironment().getIdGroEnv());
+                    if(beans.getGrowingEnvironment()!=null) findParams.put("growId", beans.getGrowingEnvironment().getIdGroEnv());
                 }
                 
                 double[] distrib   = fertDao.getDistribution(findParams);

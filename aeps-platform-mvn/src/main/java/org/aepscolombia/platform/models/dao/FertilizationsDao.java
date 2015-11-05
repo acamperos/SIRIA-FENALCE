@@ -1,5 +1,6 @@
 package org.aepscolombia.platform.models.dao;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,7 +18,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.aepscolombia.platform.models.entity.Fertilizations;
 import org.aepscolombia.platform.util.HibernateUtil;
-import static org.renjin.stats.internals.Distributions.dt;
 
 /**
  * Clase FertilizationsDao
@@ -945,8 +945,15 @@ public class FertilizationsDao
                 args.put("percentage", per);
                 nutrientsA=getNutrients(args);                
                 
-                dateSow = (Date) args.get("dateSow");                    
-                String dateNew = dateSow.toString();
+                String dateNew;
+                if (args.containsKey("dateSow")) {
+                    dateSow = (Date) args.get("dateSow");
+                    dateNew = dateSow.toString();
+                } else {
+                    dateNew = "2015-11-19";
+                }
+                
+                
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 String dateSowAsign = sdf.format(dateSow);
                 Calendar c = Calendar.getInstance();
