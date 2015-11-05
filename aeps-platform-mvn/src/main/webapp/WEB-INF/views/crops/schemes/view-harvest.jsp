@@ -73,7 +73,7 @@
                         <s:property value="getText('text.yieldhar.harvest')" /> <button type="button" class="btn btn-initial"><b>(kg/ha)</b></button>:
                     </label>
                     <div class="controls">
-                        <s:textfield name="harv.yieldHar"/>
+                        <s:textfield name="harv.yieldHar" maxlength="14"/>
                     </div>
                 </div>                                      
             </div>                          
@@ -83,7 +83,7 @@
                         <s:property value="getText('text.productionhar.harvest')" /> <button type="button" class="btn btn-initial"><b>(Kg)</b></button>:
                     </label>
                     <div class="controls">
-                        <s:textfield name="harv.productionHar"/>
+                        <s:textfield name="harv.productionHar" maxlength="14"/>
                     </div>                          
                 </div>    
             </div>
@@ -95,7 +95,7 @@
                          <button type="button" class="btn btn-initial"><b>(%)</b></button> <s:property value="getText('text.humiditypercentage.harvest')" />:
                     </label>
                     <div class="controls">
-                        <s:textfield name="harv.humidityPercentageHar" />
+                        <s:textfield name="harv.humidityPercentageHar" maxlength="14"/>
                     </div>                          
                 </div>                                          
             </div>       
@@ -121,7 +121,7 @@
                          <s:property value="getText('text.numbersacks.harvest')" /> <button type="button" class="btn btn-initial"><b>(ha)</b></button>:
                     </label>
                     <div class="controls">
-                        <s:textfield name="harv.numberSacksSow" />
+                        <s:textfield name="harv.numberSacksSow" maxlength="14"/>
                     </div>                          
                 </div>                                          
             </div>       
@@ -131,7 +131,7 @@
                         <s:property value="getText('text.weightavgsacks.harvest')" /> <button type="button" class="btn btn-initial"><b>(kg/bulto)</b></button>:
                     </label>
                     <div class="controls radioSelect">
-                        <s:textfield name="harv.weightAvgSacksSow" />
+                        <s:textfield name="harv.weightAvgSacksSow" maxlength="14"/>
                     </div>                         
                 </div>
             </div>
@@ -142,7 +142,7 @@
                     <s:property value="getText('text.loadhectare.harvest')" />: 
                 </label>
                 <div class="controls">
-                    <s:textfield name="harv.loadHectareSow" />
+                    <s:textfield name="harv.loadHectareSow" maxlength="14"/>
                 </div>					 
             </div>
         </s:if>
@@ -166,7 +166,7 @@
                                                         <s:property value="getText('text.hervestpvp.harvest')" />:
                                                     </label>
                                                     <div class="controls">
-                                                      <s:textfield name="harv.costSalepriceHar" />
+                                                      <s:textfield name="harv.costSalepriceHar" maxlength="14"/>
                                                   
                                                     </div>                         
                                                 </div>                          
@@ -177,7 +177,7 @@
                                                         <s:property value="getText('text.hervestnamecliente.harvest')" />:
                                                     </label>
                                                     <div class="controls">
-                                                        <s:textfield name="harv.costNamebuyerHar" />
+                                                        <s:textfield name="harv.costNamebuyerHar" maxlength="14"/>
                                                     </div>                         
                                                 </div>        
 
@@ -212,7 +212,7 @@
                                         <s:property value="getText('text.hervestcostpacking.harvest')" />:
                                     </label>
                                     <div class="controls">
-                                        <s:textfield name="harv.costPackingHar"/>
+                                        <s:textfield name="harv.costPackingHar" maxlength="14"/>
                                     </div>                         
                                 </div>                          
            </div> 
@@ -244,7 +244,7 @@
                                                         <s:property value="getText('text.hervestcosttractor.harvest')" />:
                                                     </label>
                                                     <div class="controls">
-                                                        <s:textfield name="harv.costTractorHar" />
+                                                        <s:textfield name="harv.costTractorHar" maxlength="14"/>
                                                     </div>                         
                                                 </div>                          
                                             </div> 
@@ -254,7 +254,7 @@
                                                         <s:property value="getText('text.hervestcosttrailer.harvest')" />:
                                                     </label>
                                                     <div class="controls">
-                                                        <s:textfield name="harv.costGranaleroTrailerHar" />
+                                                        <s:textfield name="harv.costGranaleroTrailerHar" maxlength="14"/>
                                                     </div>                         
                                                 </div>        
 
@@ -269,7 +269,7 @@
                                                         <s:property value="getText('text.hervestcostzorreo.harvest')" />:
                                                     </label>
                                                     <div class="controls">
-                                                        <s:textfield name="harv.costZorreoHar" />
+                                                        <s:textfield name="harv.costZorreoHar" maxlength="14"/>
                                                     </div>                         
                                                 </div>                          
                                             </div> 
@@ -284,7 +284,7 @@
                                                     <s:property value="getText('text.hervestcost.harvest')" />:
                                                 </label>
                                                 <div class="controls">
-                                                    <s:textfield name="harv.costCombineHar" />
+                                                    <s:textfield name="harv.costCombineHar" maxlength="14"/>
                                                 </div>                         
                                         </div>  
                                       </div>
@@ -299,7 +299,7 @@
                                                                     <s:property value="getText('text.hervestcoststorage.harvest')" />:
                                                                 </label>
                                                                 <div class="controls">
-                                                                    <s:textfield name="harv.costStorageHar" />
+                                                                    <s:textfield name="harv.costStorageHar" maxlength="14"/>
                                                                 </div>                         
                                                             </div>        
 
@@ -315,7 +315,7 @@
                                         <s:property value="getText('text.hervestcostworkforce.harvest')" />:
                                     </label>
                                     <div class="controls">
-                                        <s:textfield name="harv.costWorkforceHar"/>
+                                        <s:textfield name="harv.costWorkforceHar" maxlength="14"/>
                                     </div>                         
                                 </div>                          
            </div> 
@@ -325,7 +325,7 @@
                                         <s:property value="getText('text.hervestcosttrasportsd.harvest')" />:
                                     </label>
                                     <div class="controls">
-                                        <s:textfield name="harv.costTransportWorkforceHar" />
+                                        <s:textfield name="harv.costTransportWorkforceHar" maxlength="14"/>
                                     </div>                         
                                 </div>        
 
@@ -338,7 +338,7 @@
                                         <s:property value="getText('text.hervestcostdesgranadora.harvest')" />:
                                     </label>
                                     <div class="controls">
-                                        <s:textfield name="harv.costShellerHar" />
+                                        <s:textfield name="harv.costShellerHar" maxlength="14"/>
                                     </div>                         
                                 </div>                          
            </div> 
@@ -348,7 +348,7 @@
                                         <s:property value="getText('text.hervestcostdesgranadoraworkforce.harvest')" />:
                                     </label>
                                     <div class="controls">
-                                        <s:textfield name="harv.costWorkforceShellerHar" />
+                                        <s:textfield name="harv.costWorkforceShellerHar" maxlength="14"/>
                                     </div>                         
                                 </div>        
 
@@ -365,7 +365,7 @@
                                         <s:property value="getText('text.hervestcostcabuya.harvest')" />:
                                     </label>
                                     <div class="controls">
-                                        <s:textfield name="harv.costCabuyaHar" />
+                                        <s:textfield name="harv.costCabuyaHar" maxlength="14"/>
                                     </div>                         
                                 </div>                          
            </div> 
@@ -375,7 +375,7 @@
                                         <s:property value="getText('text.hervestcosttransport.harvest')" />:
                                     </label>
                                     <div class="controls">
-                                        <s:textfield name="harv.costTransportCollectioncenterHar" />
+                                        <s:textfield name="harv.costTransportCollectioncenterHar" maxlength="14"/>
                                     </div>                         
                                 </div>        
 

@@ -136,7 +136,7 @@
                                  <s:property value="getText('text.otherproductchem.fertilization')" />:
                             </label>
                             <div class="controls">
-                                <s:textfield name="%{#attr.formChe}.otherProductCheFer" id="%{#attr.formCheId}_otherProductCheFer" value="%{#attr.otherProductCheFer}"/>                                
+                                <s:textfield name="%{#attr.formChe}.otherProductCheFer" id="%{#attr.formCheId}_otherProductCheFer" value="%{#attr.otherProductCheFer}" maxlength="14"/>                                
                             </div>
                         </div>
                     </div>
@@ -216,7 +216,7 @@
                             <s:property value="getText('text.costapp.fertilization')" />:
                         </label>
                         <div class="controls">
-                            <s:textfield name="%{#attr.formChe}.costAppCheFer" id="%{#attr.formCheId}__costAppCheFer" value="%{#attr.costAppCheFer}"/>
+                            <s:textfield name="%{#attr.formChe}.costAppCheFer" id="%{#attr.formCheId}__costAppCheFer" value="%{#attr.costAppCheFer}" maxlength="14"/>
                         </div>                         
                     </div>                          
                 </div> 
@@ -269,7 +269,7 @@
                                         <s:property value="getText('text.costproduct.fertilization')" />:
                                     </label>
                                     <div class="controls">
-                                        <s:textfield name="%{#attr.formChe}.costProductCheFer" id="%{#attr.formCheId}__costProductCheFer" value="%{#attr.costProductCheFer}"/>
+                                        <s:textfield name="%{#attr.formChe}.costProductCheFer" id="%{#attr.formCheId}__costProductCheFer" value="%{#attr.costProductCheFer}" maxlength="14"/>
                                     </div>                         
                                 </div>                          
                             </div> 

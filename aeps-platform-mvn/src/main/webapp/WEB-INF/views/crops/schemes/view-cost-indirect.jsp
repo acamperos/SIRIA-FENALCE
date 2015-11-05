@@ -21,7 +21,7 @@
                                         Costos de vigilante:
                                     </label>
                                     <div class="controls">
-                                        <s:textfield name="costo.costVigilantPro" />
+                                        <s:textfield name="costo.costVigilantPro" maxlength="14"/>
                                     </div>                         
                                 </div>                          
            </div> 
@@ -31,7 +31,7 @@
                                         Costos de arrendamiento:
                                     </label>
                                     <div class="controls">
-                                       <s:textfield name="costo.costRentPro" />
+                                       <s:textfield name="costo.costRentPro" maxlength="14"/>
                                     </div>  
                                      
                     </div> 
@@ -44,7 +44,7 @@
                                                         Costos de asistencia técnica:
                                                     </label>
                                                     <div class="controls">
-                                                        <s:textfield name="costo.costTechnicalAssistancePro"/>
+                                                        <s:textfield name="costo.costTechnicalAssistancePro" maxlength="14"/>
                                                     </div>                         
                                                 </div>                          
                                             </div> 
@@ -54,7 +54,7 @@
                                                        Costos de impuestos:
                                                     </label>
                                                     <div class="controls">
-                                                        <s:textfield name="costo.costImpuestoPro" />
+                                                        <s:textfield name="costo.costImpuestoPro" maxlength="14"/>
                                                     </div>                         
                                                 </div>        
 
@@ -71,7 +71,7 @@
                                                    Costos de administración:
                                                 </label>
                                                 <div class="controls">
-                                                   <s:textfield name="costo.costAdministrationPro" />
+                                                   <s:textfield name="costo.costAdministrationPro" maxlength="14"/>
                                                 </div>                         
                                         </div>  
                                       </div>
@@ -82,7 +82,7 @@
                                                                   Costos Otros Servicios:
                                                                 </label>
                                                                 <div class="controls">
-                                                                    <s:textfield name="costo.costOthersPro" />
+                                                                    <s:textfield name="costo.costOthersPro" maxlength="14"/>
                                                                 </div>                         
                                                             </div>        
 
@@ -98,7 +98,7 @@
                                         Intereses financieros:
                                     </label>
                                     <div class="controls">
-                                        <s:textfield name="costo.costInterestsPro"/>
+                                        <s:textfield name="costo.costInterestsPro" maxlength="14"/>
                                     </div>                         
                                 </div>                          
             </div> 

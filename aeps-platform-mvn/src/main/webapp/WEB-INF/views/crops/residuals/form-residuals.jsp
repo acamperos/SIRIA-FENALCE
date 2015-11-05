@@ -66,7 +66,7 @@
                                         <s:property value="getText('text.cost.residual')"   />:
                                     </label>
                                     <div class="controls">
-                                        <s:textfield name="resMan.costResMan"/>
+                                        <s:textfield name="resMan.costResMan" maxlength="14"/>
                                     </div>
 
                                 </div>        

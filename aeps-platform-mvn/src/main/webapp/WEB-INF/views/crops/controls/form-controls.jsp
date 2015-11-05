@@ -419,7 +419,7 @@
                                         <s:property value="getText('text.controlcost.crop')" />:
                                     </label>
                                     <div class="controls">
-                                        <s:textfield name="con.costInputCon" />
+                                        <s:textfield name="con.costInputCon" maxlength="14"/>
                                     </div>                         
                                 </div>                          
                             </div> 
@@ -431,7 +431,7 @@
                                     </label>
                                     <div class="controls">
                                         <s:textfield 
-                                            name="con.costAppCon" />                                       
+                                            name="con.costAppCon" maxlength="14"/>                                       
                                                   
                                       
                                     </div>                         

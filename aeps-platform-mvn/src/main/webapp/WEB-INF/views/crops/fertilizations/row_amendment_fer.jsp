@@ -79,7 +79,7 @@
                             <s:property value="getText('text.costapp.fertilization')" />:
                         </label>
                         <div class="controls">
-                            <s:textfield name="%{#attr.formAmen}.costAppAmeFer" id="%{#attr.formAmeId}__costAppAmeFer" value="%{#attr.costAppAmeFer}"/>
+                            <s:textfield name="%{#attr.formAmen}.costAppAmeFer" id="%{#attr.formAmeId}__costAppAmeFer" value="%{#attr.costAppAmeFer}" maxlength="14"/>
                         </div>                         
                     </div>                          
                 </div> 
@@ -89,7 +89,7 @@
                             <s:property value="getText('text.amountproductamend.fertilization')" /> <button type="button" class="btn btn-initial"><b>(kg/ha)</b></button>:
                         </label>
                         <div class="controls">
-                            <s:textfield name="%{#attr.formAmen}.amountProductUsedAmeFer" value="%{#attr.amountProductUsedAmeFer}"/>
+                            <s:textfield name="%{#attr.formAmen}.amountProductUsedAmeFer" value="%{#attr.amountProductUsedAmeFer}" maxlength="14"/>
                         </div>                         
                     </div>                          
                 </div>   

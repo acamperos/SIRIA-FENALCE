@@ -79,7 +79,7 @@
                             <s:property value="getText('text.costapp.fertilization')" />:
                         </label>
                         <div class="controls">
-                            <s:textfield name="%{#attr.formOrg}.costAppOrgFer" id="%{#attr.formOrgId}__costAppOrgFer" value="%{#attr.costAppOrgFer}"/>
+                            <s:textfield name="%{#attr.formOrg}.costAppOrgFer" id="%{#attr.formOrgId}__costAppOrgFer" value="%{#attr.costAppOrgFer}" maxlength="14"/>
                         </div>                         
                     </div>                          
                 </div> 
@@ -102,7 +102,7 @@
                                     <s:property value="getText('text.costproduct.fertilization')" />:
                                 </label>
                                 <div class="controls">
-                                    <s:textfield name="%{#attr.formOrg}.costProductOrgFer" id="%{#attr.formOrgId}__costProductOrgFer" value="%{#attr.costProductOrgFer}"/>
+                                    <s:textfield name="%{#attr.formOrg}.costProductOrgFer" id="%{#attr.formOrgId}__costProductOrgFer" value="%{#attr.costProductOrgFer}" maxlength="14"/>
                                 </div>                         
                             </div>                          
                         </div> 

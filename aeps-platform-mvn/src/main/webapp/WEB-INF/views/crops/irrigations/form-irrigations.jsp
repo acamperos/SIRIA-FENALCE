@@ -162,7 +162,7 @@
                                             <s:property value="getText('text.costwaterirr.irrigation')" />:
                                         </label>
                                         <div class="controls">
-                                            <s:textfield name="irr.costWaterIrr"/>
+                                            <s:textfield name="irr.costWaterIrr" maxlength="14"/>
                                         </div>
                                         
                                         
@@ -176,7 +176,7 @@
                                               <s:property value="getText('text.costworkforceirr.irrigation')" />:
                                                     </label>
                                                     <div class="controls">
-                                              <s:textfield name="irr.costWorkforceIrr"/>
+                                              <s:textfield name="irr.costWorkforceIrr" maxlength="14"/>
                                                     </div>
                                       </div>
                                 </div>  
@@ -190,7 +190,7 @@
                                             <s:property value="getText('text.costditchesirr.irrigation')" />:
                                         </label>
                                         <div class="controls">
-                                            <s:textfield name="irr.costDitchesIrr"/>
+                                            <s:textfield name="irr.costDitchesIrr" maxlength="14"/>
                                         </div>
                                     </div>
                                 </div>  
@@ -201,7 +201,7 @@
                                               <s:property value="getText('text.costdrainageirr.irrigation')" />:
                                                     </label>
                                                     <div class="controls">
-                                              <s:textfield name="irr.costDrainageIrr"/>
+                                              <s:textfield name="irr.costDrainageIrr" maxlength="14"/>
                                                     </div>
                                       </div>
                                 </div>  
@@ -215,7 +215,7 @@
                                             <s:property value="getText('text.costfuelirr.irrigation')" />:
                                         </label>
                                         <div class="controls">
-                                            <s:textfield name="irr.costFuelIrr"/>
+                                            <s:textfield name="irr.costFuelIrr" maxlength="14"/>
                                         </div>
                                     </div>
                                 </div>  
@@ -226,7 +226,7 @@
                                               <s:property value="getText('text.costelectricpowerirr.irrigation')" />:
                                                     </label>
                                                     <div class="controls">
-                                                        <s:textfield name="irr.costElectricpowerIrr"/>
+                                                        <s:textfield name="irr.costElectricpowerIrr" maxlength="14"/>
                                                     </div>
                                       </div>
                                 </div>  
@@ -255,7 +255,7 @@
                                                                           <s:property value="getText('text.costdepreciationirr.irrigation')" />:
                                                                       </label>
                                                                       <div class="controls">
-                                                                          <s:textfield name="irr.costDepreciationIrr"/>
+                                                                          <s:textfield name="irr.costDepreciationIrr" maxlength="14"/>
                                                                       </div>
                                                                   </div>
                                                               </div>  
@@ -266,7 +266,7 @@
                                                                           <s:property value="getText('text.costrentedirr.irrigation')" />:
                                                                       </label>
                                                                       <div class="controls">
-                                                                          <s:textfield name="irr.costRentedIrr"/>
+                                                                          <s:textfield name="irr.costRentedIrr" maxlength="14"/>
                                                                       </div>
                                                                   </div>
                                                               </div>  

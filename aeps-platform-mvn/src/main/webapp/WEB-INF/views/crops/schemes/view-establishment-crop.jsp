@@ -103,7 +103,7 @@
                                        Costo de la semilla (Ha.):
                                     </label>
                                     <div class="controls">
-                                       <s:textfield name="sowing.costSeedSow"/>
+                                       <s:textfield name="sowing.costSeedSow" maxlength="14"/>
                                     </div>                         
                                 </div>                          
            </div> 
@@ -408,7 +408,7 @@
                                 <s:property value="getText('text.costsowing.crop')" />:
                             </label>
                             <div class="controls">
-                                <s:textfield name="sowing.costSow"/>
+                                <s:textfield name="sowing.costSow" maxlength="14"/>
                             </div>
                           </div>
                          </div>   

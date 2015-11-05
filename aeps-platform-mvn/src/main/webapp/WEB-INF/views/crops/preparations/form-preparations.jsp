@@ -103,7 +103,7 @@
                                             <s:property value="getText('text.costpreparation.preparation')" />:
                                         </label>
                                         <div class="controls">
-                                            <s:textfield name="prep.costPrep"/>
+                                            <s:textfield name="prep.costPrep" maxlength="14"/>
                                         </div>
                         </div>                        
                     </div>  
