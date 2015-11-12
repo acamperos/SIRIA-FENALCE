@@ -51,8 +51,9 @@ public class DoseUnitsDao {
         try {
             tx = session.beginTransaction();
             String sql  = "select p.id_dos_uni, p.name_dos_uni, p.status_dos_uni, p.country_dos_uni from dose_units p";
-            sql += " where p.id_dos_uni not in ("+exclude+")";
+            sql += " where p.status_dos_uni=1";
             if (countryCode!=null && !countryCode.equals("")) {
+                if (countryCode.equals("CO")) sql += " and p.id_dos_uni not in ("+exclude+")";
                 sql += " and p.country_dos_uni='"+countryCode+"'";
             } 
 //            sql += " where p.name_dos_uni not in ("+exclude+")";

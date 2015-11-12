@@ -165,6 +165,7 @@ public class LogEntitiesDao {
         }		        
         sql += " and ue.table_log_ent='"+tableName+"'";
         sql += " and ue.action_type_log_ent='"+actionName+"'";
+        sql += " limit 1";
 //        System.out.println("sql->"+sql);
         
         try {

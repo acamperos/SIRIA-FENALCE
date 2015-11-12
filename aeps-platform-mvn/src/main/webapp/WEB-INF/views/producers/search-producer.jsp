@@ -92,7 +92,7 @@
                     listValue="nameDocTyp" 
                     headerKey="-1" 
                     headerValue="---"
-                    onchange="selConf(this.value, 'formProducerSearch_num_ident_producer');
+                    onchange="selConf(this.value, 'formProducerSearch_num_ident_producer', '%{#attr.country_code}');
                               showOtherTypeDocument(this.value, 'divSearchInfoCompany', 'divSearchInfoPerson');"
                     />
             </div>

@@ -7,6 +7,7 @@
 <%@page import="org.aepscolombia.platform.util.APConstants"%>
 <% Users user = (Users) session.getAttribute(APConstants.SESSION_USER); %>
 <% UsersDao usrDao = new UsersDao(); %>
+<% String coCode   = (String) session.getAttribute(APConstants.COUNTRY_CODE); %>
 <html>
     <head></head>
     <body>
@@ -158,15 +159,17 @@
                                 />
                             </div>  
                         </div>
-                        <div class="control-group">
-                            <label for="formFarm_lane_property" class="control-label req">
-                                <s:property value="getText('text.lane.farm')" />:
-                                <i class="icon-info-sign s2b_tooltip pop-over" data-content="<s:property value="getText('desc.lane.farm')" />." data-title="<s:property value="getText('help.laneinfo.farm')" />" data-placement="right" data-trigger="hover"></i>
-                            </label>
-                            <div class="controls">
-                                <s:textfield name="lane_property" />
-                            </div>  
-                        </div> 
+                        <% if (coCode.equals("CO")) { %>                 
+                            <div class="control-group">
+                                <label for="formFarm_lane_property" class="control-label req">
+                                    <s:property value="getText('text.lane.farm')" />:
+                                    <i class="icon-info-sign s2b_tooltip pop-over" data-content="<s:property value="getText('desc.lane.farm')" />." data-title="<s:property value="getText('help.laneinfo.farm')" />" data-placement="right" data-trigger="hover"></i>
+                                </label>
+                                <div class="controls">
+                                    <s:textfield name="lane_property" />
+                                </div>  
+                            </div> 
+                        <% } %>
                         <div class="control-group">
                             <label for="formFarm_direction_property" class="control-label">
                                 <s:property value="getText('text.direction.farm')" />:

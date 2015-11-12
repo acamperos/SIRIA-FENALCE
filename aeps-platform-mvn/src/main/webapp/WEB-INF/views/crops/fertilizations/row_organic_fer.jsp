@@ -86,7 +86,12 @@
                 <div class="span5" style="padding-left: 28px">
                     <div class="control-group">
                         <label for="${formOrgId}__amountProductUsedOrgFer" class="control-label req">
-                            <s:property value="getText('text.amountproductorg.fertilization')" /> <button type="button" class="btn btn-initial"><b>(kg/ha)</b></button>:
+                            <s:property value="getText('text.amountproductorg.fertilization')" /> 
+                            <% if (coCode.equals("CO")) { %>
+                                <button type="button" class="btn btn-initial"><b>(kg/ha)</b></button>:
+                            <% } else if (coCode.equals("NI")) { %>
+                                <button type="button" class="btn btn-initial"><b>(q/mz)</b></button>:
+                            <% } %>
                         </label>
                         <div class="controls">
                             <s:textfield name="%{#attr.formOrg}.amountProductUsedOrgFer" value="%{#attr.amountProductUsedOrgFer}"/>

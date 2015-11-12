@@ -344,13 +344,20 @@ public class ActionIssues extends BaseAction {
             try {
                 tx = session.beginTransaction();                       
     //            System.out.println("archivo.getParent()=>"+archivo.getParent());
-                File newFile = new File("D:/ImagesUsers/"+archivoFileName);
+                String fileDirection = "";
+                String OS = System.getProperty("os.name").toLowerCase();
+                if (OS.indexOf("win") >= 0) {
+                    fileDirection  = ""+getText("file.imageissuewin");
+                } else {
+                    fileDirection  = ""+getText("file.imageissueunix");
+                }
+                File newFile = new File(fileDirection+archivoFileName);
                 if(!newFile.exists()) Files.move(archivo.toPath(), newFile.toPath());
                 session.saveOrUpdate(issRep);
             
                 LogEntities log = null;            
                 log = LogEntitiesDao.getData(idEntSystem, issRep.getIdIss(), "issues", action);
-                if (log==null) {
+                if ((log==null && action.equals("C")) || action.equals("M")) {
                     log = new LogEntities();
                     log.setIdLogEnt(null);
                     log.setIdEntityLogEnt(idEntSystem);
@@ -373,7 +380,7 @@ public class ActionIssues extends BaseAction {
                 EntitiesDao entDao = new EntitiesDao();
                 Entities entTemp   = entDao.findById(idEntSystem);
                 GlobalFunctions.sendEmail(getText("email.fromContact"), getText("email.from"), getText("email.fromPass"), getText("email.subjectContact"), GlobalFunctions.reportToSend(entTemp.getNameEnt(), entTemp.getEmailEnt(), issRep.getNameIss(), issRep.getDescriptionIss()), newFile);
-                this.getSession().put("routeImage", "D:/ImagesUsers/"+archivoFileName);
+                this.getSession().put("routeImage", fileDirection+archivoFileName);
                 archivo.delete();
             } catch (HibernateException e) {
                 if (tx != null) {

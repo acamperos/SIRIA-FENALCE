@@ -272,7 +272,7 @@ public class ActionPhys extends BaseAction {
 //            if (phys.getDaysPopulationMonFis()!=0) {
             if (phys.getDaysPopulationMonFis() != null) {
 //                System.out.println("values=>"+phys.getDaysPopulationMonFis());
-              if (phys.getDaysPopulationMonFis()<0 || phys.getDaysPopulationMonFis()>300000) {
+              if (phys.getDaysPopulationMonFis()<200 || phys.getDaysPopulationMonFis()>300000) {
                   addFieldError("phys.daysPopulationMonFis", getText("message.invaliddatapopulation.physiological"));
                   addActionError(getText("desc.invaliddatapopulation.physiological"));
               }
@@ -347,7 +347,7 @@ public class ActionPhys extends BaseAction {
             
             LogEntities log = null;            
             log = LogEntitiesDao.getData(idEntSystem, phys.getIdPhyMon(), "physiological_monitoring", action);
-            if (log==null) {
+            if ((log==null && action.equals("C")) || action.equals("M")) {
                 log = new LogEntities();
                 log.setIdLogEnt(null);
                 log.setIdEntityLogEnt(idEntSystem);

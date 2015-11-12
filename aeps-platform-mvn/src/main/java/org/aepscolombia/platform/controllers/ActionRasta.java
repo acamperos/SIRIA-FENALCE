@@ -582,7 +582,7 @@ public class ActionRasta extends BaseAction {
             required.put("rasta.costrasBlancasRas", rasta.getCostrasBlancasRas());
             required.put("rasta.costrasNegrasRas", rasta.getCostrasNegrasRas());
             required.put("rasta.plantasPequenasRas", rasta.getPlantasPequenasRas());
-            required.put("rasta.recubrimientoVegetalRas", rasta.getRecubrimientoVegetalRas());
+            required.put("rasta.recubrimientoVegetalRas", rasta.getRecubrimientoVegetalRas());            
             
             if (rasta.getCarbonatosRas()!=null && !rasta.getCarbonatosRas().equals("no tiene") && !rasta.getCarbonatosRas().equals("-1")) { 
                 required.put("rasta.profundidadCarbonatosRas", rasta.getProfundidadCarbonatosRas());
@@ -650,6 +650,10 @@ public class ActionRasta extends BaseAction {
             Double maxlon = Double.parseDouble(getText("max.lon"));
             Double minalt = Double.parseDouble(getText("min.alt"));
             Double maxalt = Double.parseDouble(getText("max.alt"));
+            
+            if (additionalsAtrib.size()<=0) {
+                addFieldError("rasta.numeroCapasRas", getText("message.addsomehorizonte.soil"));
+            }
             
             if (rasta.getLatitudRas()==null) {
                 addFieldError("rasta.latitudRas", getText("message.putsomedatalatitude.soil"));
@@ -1212,7 +1216,7 @@ public class ActionRasta extends BaseAction {
             
             LogEntities log = null;            
             log = LogEntitiesDao.getData(idEntSystem, rasta.getIdRas(), "rastas", action);
-            if (log==null) {
+            if ((log==null && action.equals("C")) || action.equals("M")) {
                 log = new LogEntities();
                 log.setIdLogEnt(null);
                 log.setIdEntityLogEnt(idEntSystem);

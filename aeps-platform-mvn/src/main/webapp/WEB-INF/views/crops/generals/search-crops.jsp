@@ -117,7 +117,7 @@
                         list="type_ident_producer" 
                         listKey="acronymDocTyp" 
                         listValue="nameDocTyp" 
-                        onchange="selConf(this.value, 'formCropSearch_num_doc');"
+                        onchange="selConf(this.value, 'formCropSearch_num_doc', '%{#attr.country_code}');"
                         headerKey="-1" 
                         headerValue="---" />
                     </div>                          

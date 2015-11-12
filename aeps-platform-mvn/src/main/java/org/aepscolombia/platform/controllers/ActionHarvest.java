@@ -253,7 +253,7 @@ public class ActionHarvest extends BaseAction {
             }
 
             if (harv.getProductionHar()!=null && harv.getProductionHar()!=0) {
-                if (harv.getProductionHar()<0) {
+                if (harv.getProductionHar()<200) {
                     addFieldError("harv.productionHar", getText("message.invaliddataproduction.harvest"));
                     addActionError(getText("desc.invaliddataproduction.harvest"));
                 }
@@ -268,9 +268,9 @@ public class ActionHarvest extends BaseAction {
                 }
                 
                 if (typeCrop==2) {
-                    if (harv.getYieldHar()<200 || harv.getYieldHar()>30000) {
-                        addFieldError("harv.yieldHar", "Dato invalido valor entre 200 y 30000");
-                        addActionError("Se ingreso un rendimiento invalido, por favor ingresar un valor entre 200 y 30000");
+                    if (harv.getYieldHar()<200 || harv.getYieldHar()>8000) {
+                        addFieldError("harv.yieldHar", "Dato invalido valor entre 200 y 8000");
+                        addActionError("Se ingreso un rendimiento invalido, por favor ingresar un valor entre 200 y 8000");
                     }                    
                 }                
             }
@@ -301,7 +301,7 @@ public class ActionHarvest extends BaseAction {
 //            }
             
             if (harv.getHumidityPercentageHar() != null) {
-                if (harv.getHumidityPercentageHar()<0 || harv.getHumidityPercentageHar()>100) {
+                if (harv.getHumidityPercentageHar()<1 || harv.getHumidityPercentageHar()>80) {
                     addFieldError("harv.humidityPercentageHar", getText("message.invaliddatahumidity.harvest"));
                     addActionError(getText("desc.invaliddatahumidity.harvest"));
                 }
@@ -370,7 +370,7 @@ public class ActionHarvest extends BaseAction {
             
             LogEntities log = null;            
             log = LogEntitiesDao.getData(idEntSystem, harv.getIdHar(), "harvests", action);
-            if (log==null) {
+            if ((log==null && action.equals("C")) || action.equals("M")) {
                 log = new LogEntities();
                 log.setIdLogEnt(null);
                 log.setIdEntityLogEnt(idEntSystem);

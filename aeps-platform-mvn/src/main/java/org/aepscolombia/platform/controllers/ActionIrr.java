@@ -295,14 +295,14 @@ public class ActionIrr extends BaseAction {
             }
 
             if (irr.getAmountIrr()!=null) {
-                if (irr.getAmountIrr()<0 || irr.getAmountIrr()>1000) {
+                if (irr.getAmountIrr()<0.1 || irr.getAmountIrr()>1000) {
                     addFieldError("irr.amountIrr", getText("message.invaliddataamount.irrigation"));
                     addActionError(getText("desc.invaliddataamount.irrigation"));
                 }
             }  
             
             if (irr.getDurationIrr()!=null) {
-                if (irr.getDurationIrr()<1 || irr.getDurationIrr()>5) {
+                if (irr.getDurationIrr()<1 || irr.getDurationIrr()>72) {
                     addFieldError("irr.durationIrr", getText("message.invaliddataduration.irrigation"));
                     addActionError(getText("desc.invaliddataduration.irrigation"));
                 }
@@ -437,7 +437,7 @@ public class ActionIrr extends BaseAction {
             
             LogEntities log = null;            
             log = LogEntitiesDao.getData(idEntSystem, irr.getIdIrr(), "irrigation", action);
-            if (log==null) {
+            if ((log==null && action.equals("C")) || action.equals("M")) {
                 log = new LogEntities();
                 log.setIdLogEnt(null);
                 log.setIdEntityLogEnt(idEntSystem);

@@ -25,7 +25,10 @@
         </div>
         <div class="control-group">
             <label for="formCropMon_phys_daysPopulationMonFis" class="control-label">
-                <s:property value="getText('text.dayspopulation.monitoring')" /> <button type="button" class="btn btn-initial"><b>(plantas/ha)</b></button>:
+                <s:property value="getText('text.dayspopulation.monitoring')" /> 
+                <% if (coCode.equals("CO")) { %>
+                    <button type="button" class="btn btn-initial"><b>(plantas/ha)</b></button>:
+                <% } %>
             </label>
             <div class="controls">
                 <s:textfield name="phys.daysPopulationMonFis"/>

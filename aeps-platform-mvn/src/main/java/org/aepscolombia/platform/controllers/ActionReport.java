@@ -495,7 +495,7 @@ public class ActionReport extends BaseAction {
          * 2) modify: Al momento de modificar un registro
          * 3) delete: Al momento de borrar un registro
          */
-        if (actExe.equals("create") || actExe.equals("modify")) {
+        if (actExe.equals("cropcheck") || actExe.equals("modify")) {
             HashMap required = new HashMap();
 //            required.put("nameField", nameField);
 //            required.put("typeCrop", typeCrop);
@@ -517,9 +517,17 @@ public class ActionReport extends BaseAction {
 //                }
 //            }
 //            
-//            if (enter) {
-//                addActionError("Faltan campos por ingresar por favor digitelos");
-//            }
+            Integer idCrop;        
+            try {
+                idCrop = (Integer.parseInt(this.getRequest().getParameter("idCrop")));
+            } catch (NumberFormatException e) {
+                idCrop = (-1);
+            } 
+            System.out.println("entreeeeeeeee=>"+idCrop);
+
+            if (idCrop==-1) {
+                addActionError("Debe seleccionar un cultivo");
+            }
 //            
 //            System.out.println("performObj->"+performObj);
         }
@@ -757,6 +765,8 @@ public class ActionReport extends BaseAction {
                 infoReport.put("elements", resultCompare);
                 
                 divisions = fertDao.getDivisions(findParams);
+        } else {
+            return INPUT;
         }        
         
         return SUCCESS;

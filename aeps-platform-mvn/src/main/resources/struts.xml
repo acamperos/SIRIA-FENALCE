@@ -664,9 +664,11 @@
             <result>/WEB-INF/views/reports/view-analysis.jsp</result>
         </action>
         <action name="viewCropcheck" method="viewCropcheck" class="org.aepscolombia.platform.controllers.ActionReport">
-            <interceptor-ref name="validateI18n"/>
-            <interceptor-ref name="defaultStackAeps"/>    
+            <interceptor-ref name="validateI18n"/>           
+            <interceptor-ref name="jsonValidationWorkflowStack"/> 
+            <interceptor-ref name="defaultStackAeps"/>                
             <result>/WEB-INF/views/reports/data-cropcheck.jsp</result>
+            <result name="input">/WEB-INF/views/reports/non-result.jsp</result>            
         </action>
     </package>
     <package name="sowing" extends="principal,struts-default,json-default" namespace="/crop">

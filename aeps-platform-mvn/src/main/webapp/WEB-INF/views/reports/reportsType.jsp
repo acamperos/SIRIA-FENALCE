@@ -16,6 +16,7 @@
         <% Users user = (Users) session.getAttribute(APConstants.SESSION_USER); %>
         <% UsersDao usrDao = new UsersDao(); %>
         <% Integer entTypeId = new EntitiesDao().getEntityTypeId(user.getIdUsr()); %>
+        <% String coCode   = (String) session.getAttribute(APConstants.COUNTRY_CODE); %>
         <div class="container">
             <ul id="breadcrumbs">
                 <s:set id="contextPath"  value="#request.get('javax.servlet.forward.context_path')" />
@@ -54,30 +55,32 @@
                     <% } %>   
                 </div>                            
             <% } %>
-            <div class="row">             
-                <% if (usrDao.getPrivilegeUser(user.getIdUsr(), "crop/view")) { %>
-                    <div class="span6 thumbnail custom-thumb">
-                        <s:a href="%{contextPath}/checkList.action" role="button" targets="divBodyLayout"><img class="img-responsive hidden-xs" src="img/crops.jpg" alt=""></s:a>
+            <% if (coCode.equals("CO")) { %>
+                <div class="row">             
+                    <% if (usrDao.getPrivilegeUser(user.getIdUsr(), "crop/view")) { %>
+                        <div class="span6 thumbnail custom-thumb">
+                            <s:a href="%{contextPath}/checkList.action" role="button" targets="divBodyLayout"><img class="img-responsive hidden-xs" src="img/crops.jpg" alt=""></s:a>
+                            <div class="caption">
+                                <h3><s:property value="getText('title.fenalcheck.report')" /></h3>
+                                <p><s:property value="getText('label.fenalcheck.report')" /></p>                        
+                                <p>
+                                    <s:a cssClass="btn btn-initial" href="%{contextPath}/checkList.action" role="button" targets="divBodyLayout"><s:property value="getText('link.fenalcheck.report')" /> <i class="icon-double-angle-right"></i></s:a>
+                                </p>
+                            </div>
+                        </div> 
+                     <% } %>           
+    <!--                <div class="span6 thumbnail custom-thumb" style="margin-left: 10px">
+                        <%--<s:a href="%{contextPath}/analysisReport.action" role="button" targets="divBodyLayout"><img class="img-responsive hidden-xs" src="img/RANDOM_FOREST/data.jpg" alt=""></s:a>--%>
                         <div class="caption">
-                            <h3><s:property value="getText('title.fenalcheck.report')" /></h3>
-                            <p><s:property value="getText('label.fenalcheck.report')" /></p>                        
+                            <h3>Analisis</h3>
+                            <p>Reporte para el analisis de la informacion</p>                        
                             <p>
-                                <s:a cssClass="btn btn-initial" href="%{contextPath}/checkList.action" role="button" targets="divBodyLayout"><s:property value="getText('link.fenalcheck.report')" /> <i class="icon-double-angle-right"></i></s:a>
+                                <%--<s:a cssClass="btn btn-initial" href="%{contextPath}/analysisReport.action" role="button" targets="divBodyLayout"><s:property value="getText('link.fenalcheck.report')" /> <i class="icon-double-angle-right"></i></s:a>--%>
                             </p>
                         </div>
-                    </div> 
-                 <% } %>           
-<!--                <div class="span6 thumbnail custom-thumb" style="margin-left: 10px">
-                    <%--<s:a href="%{contextPath}/analysisReport.action" role="button" targets="divBodyLayout"><img class="img-responsive hidden-xs" src="img/RANDOM_FOREST/data.jpg" alt=""></s:a>--%>
-                    <div class="caption">
-                        <h3>Analisis</h3>
-                        <p>Reporte para el analisis de la informacion</p>                        
-                        <p>
-                            <%--<s:a cssClass="btn btn-initial" href="%{contextPath}/analysisReport.action" role="button" targets="divBodyLayout"><s:property value="getText('link.fenalcheck.report')" /> <i class="icon-double-angle-right"></i></s:a>--%>
-                        </p>
-                    </div>
-                </div> -->
-            </div>  
+                    </div> -->
+                </div>  
+            <% } %>
         </div>
     </body>
 </html>

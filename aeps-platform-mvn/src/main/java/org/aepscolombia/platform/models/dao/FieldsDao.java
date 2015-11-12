@@ -67,16 +67,17 @@ public class FieldsDao
         String sqlAdd = "";
         
         sql += "select l.id_fie, l.id_farm_fie, l.contract_type_fie, l.name_fie, l.altitude_fie,";
-        sql += " l.latitude_fie, l.longitude_fie, l.area_fie, l.status, lp.id_producer_fie_pro,";
+        sql += " l.latitude_fie, l.longitude_fie, l.area_fie, l.status, fp.id_producer_far_pro,";
         sql += " e.name_ent, e.document_number_ent, e.document_type_ent, f.name_far,";
         sql += " mun.name_mun, d.name_dep, f.name_commune_far, l.available_area_fie, l.totally_area_fie, d.id_dep";
         sql += " from fields l";
         sql += " inner join log_entities le on le.id_object_log_ent=l.id_fie and le.table_log_ent='fields' and le.action_type_log_ent='C'";   
-        sql += " inner join fields_producers lp on lp.id_field_fie_pro=l.id_fie";        
+//        sql += " inner join fields_producers lp on lp.id_field_fie_pro=l.id_fie";        
         sql += " left join farms f on f.id_far=l.id_farm_fie";
         sql += " left join municipalities mun on mun.id_mun=f.id_municipipality_far";
         sql += " left join departments d on d.id_dep=mun.id_department_mun";
-        sql += " inner join producers p on p.id_pro=lp.id_producer_fie_pro"; 
+        sql += " inner join farms_producers fp on f.id_far = fp.id_farm_far_pro";
+        sql += " inner join producers p on p.id_pro = fp.id_producer_far_pro";
         sql += " inner join entities e on e.id_ent=p.id_entity_pro"; 
         sql += " where l.status=1 and f.status=1 and e.status=1";
 //        sql += " lp.tipo_contrato_lot_pro!=1";
@@ -183,7 +184,7 @@ public class FieldsDao
             sql += " le.date_log_ent";
         }
         sql += " from fields l";
-        sql += " inner join fields_producers lp on lp.id_field_fie_pro=l.id_fie";
+//        sql += " inner join fields_producers lp on lp.id_field_fie_pro=l.id_fie";
         sql += " inner join field_types ft on ft.id_fie_typ=l.contract_type_fie";
         sql += " left join farms f on f.id_far=l.id_farm_fie";
         
@@ -204,8 +205,8 @@ public class FieldsDao
                 sql += " inner join association ass on (ass.id_asc=agAsc.id_asso_age_asc)";
             }
         }
-//        sql += " inner join fincas_productores fp on fp.id_finca_fin_pro=f.id_fin"; 
-        sql += " inner join producers p on p.id_pro=lp.id_producer_fie_pro"; 
+        sql += " inner join farms_producers fp on f.id_far = fp.id_farm_far_pro";
+        sql += " inner join producers p on p.id_pro = fp.id_producer_far_pro";
         sql += " inner join entities e on e.id_ent=p.id_entity_pro"; 
         sql += " where l.status=1 and f.status=1 and e.status=1";
 //        sql += " where l.status=1 and l.contract_type_fie!=1";
@@ -597,13 +598,13 @@ public class FieldsDao
         sql += "ft.name_fie_typ as CONTRATO, n.latitude_fie as LATITUD, n.longitude_fie as LONGITUD, n.altitude_fie as ALTITUD, n.area_fie as AREA, m.name_mun as MUNICIPIO, d.name_dep as DEPARTAMENTO";
         sql += " from fields n";
         sql += " inner join field_types ft on ft.id_fie_typ=n.contract_type_fie";
-        sql += " inner join fields_producers lp on lp.id_field_fie_pro = n.id_fie";
+//        sql += " inner join fields_producers lp on lp.id_field_fie_pro = n.id_fie";
         sql += " inner join farms f on n.id_farm_fie=f.id_far";
         sql += " inner join farms_producers fp on f.id_far = fp.id_farm_far_pro";
         sql += " inner join producers p on p.id_pro = fp.id_producer_far_pro";
         sql += " inner join entities ent on ent.id_ent = p.id_entity_pro";
-        sql += " inner join municipalities m on m.id_mun  = f.id_municipipality_far";
-        sql += " inner join departments d on d.id_dep=m.id_department_mun";
+        sql += " left join municipalities m on m.id_mun  = f.id_municipipality_far";
+        sql += " left join departments d on d.id_dep=m.id_department_mun";
         sql += " left join log_entities le on le.id_object_log_ent = n.id_fie AND le.table_log_ent = 'fields'";
         sql += " inner join entities e on le.id_entity_log_ent = e.id_ent";
         if (entType.equals("3")) {
@@ -761,7 +762,7 @@ public class FieldsDao
         sql += " ent.entity_type_ent, m.name_mun,";
         sql += " le.date_log_ent, e.email_ent as emailUser";
         sql += " from fields l";
-        sql += " inner join fields_producers lp on lp.id_field_fie_pro = l.id_fie";
+//        sql += " inner join fields_producers lp on lp.id_field_fie_pro = l.id_fie";
         sql += " inner join farms f on l.id_farm_fie=f.id_far";
         sql += " inner join farms_producers fp on f.id_far = fp.id_farm_far_pro";
         sql += " inner join producers p on p.id_pro = fp.id_producer_far_pro";

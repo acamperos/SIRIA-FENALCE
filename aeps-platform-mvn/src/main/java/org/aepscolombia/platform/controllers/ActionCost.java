@@ -402,7 +402,7 @@ public class ActionCost extends BaseAction {
             
             LogEntities log = null;            
             log = LogEntitiesDao.getData(idEntSystem, costo.getIdCostIndPro(), "cost_indirect_production_event", action);
-            if (log==null && !action.equals("M")) {
+            if ((log==null && action.equals("C")) || action.equals("M")) {
                 log = new LogEntities();
                 log.setIdLogEnt(null);
                 log.setIdEntityLogEnt(idEntSystem);

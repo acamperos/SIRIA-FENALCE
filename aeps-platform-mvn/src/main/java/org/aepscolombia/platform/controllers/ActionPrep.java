@@ -274,7 +274,7 @@ public class ActionPrep extends BaseAction {
             }
 
             if (prep.getDepthPrep()!=null) {
-                if (prep.getDepthPrep()<0 || prep.getDepthPrep()>200) {
+                if (prep.getDepthPrep()<0.1 || prep.getDepthPrep()>200) {
                     addFieldError("prep.depthPrep", getText("message.invaliddatadepth.preparation"));
                     addActionError(getText("desc.invaliddatadepth.preparation"));
                 }
@@ -393,7 +393,7 @@ public class ActionPrep extends BaseAction {
             
             LogEntities log = null;            
             log = LogEntitiesDao.getData(idEntSystem, prep.getIdPrep(), "preparations", action);
-            if (log==null) {
+            if ((log==null && action.equals("C")) || action.equals("M")) {
                 log = new LogEntities();
                 log.setIdLogEnt(null);
                 log.setIdEntityLogEnt(idEntSystem);

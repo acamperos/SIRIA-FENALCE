@@ -268,13 +268,13 @@ public class ActionSowing extends BaseAction {
             
             if (typeCrop!=4) {        
                 required.put("sowing.furrowsDistanceSow", sowing.getFurrowsDistanceSow());
-                if (sowing.getFurrowsDistanceSow()!=null && sowing.getFurrowsDistanceSow()!=null && sowing.getFurrowsDistanceSow()!=0 && (sowing.getFurrowsDistanceSow()<0 || sowing.getFurrowsDistanceSow()>10)) {
+                if (sowing.getFurrowsDistanceSow()!=null && sowing.getFurrowsDistanceSow()!=null && sowing.getFurrowsDistanceSow()!=0 && (sowing.getFurrowsDistanceSow()<0.1 || sowing.getFurrowsDistanceSow()>10)) {
                     addFieldError("sowing.furrowsDistanceSow", getText("message.invaliddatafurrowsdistance.sowing"));
                     addActionError(getText("desc.invaliddatafurrowsdistance.sowing"));
                 }
 
                 required.put("sowing.sitesDistanceSow", sowing.getSitesDistanceSow());
-                if (sowing.getSitesDistanceSow()!=null && sowing.getSitesDistanceSow()!=0 && (sowing.getSitesDistanceSow()<0 || sowing.getSitesDistanceSow()>10)) {
+                if (sowing.getSitesDistanceSow()!=null && sowing.getSitesDistanceSow()!=0 && (sowing.getSitesDistanceSow()<0.1 || sowing.getSitesDistanceSow()>10)) {
                     addFieldError("sowing.sitesDistanceSow", getText("message.invaliddatasitesdistance.sowing"));
                     addActionError(getText("desc.invaliddatasitesdistance.sowing"));
                 }
@@ -310,9 +310,9 @@ public class ActionSowing extends BaseAction {
                 }
                 
                 if (typeCrop==2) {    
-                    if (event.getExpectedProductionProEve()<200 || event.getExpectedProductionProEve()>30000) {
-                        addFieldError("event.expectedProductionProEve", "Dato invalido valor entre 200 y 30000");
-                        addActionError("Se ingreso un rendimiento histórico obtenido invalido, por favor ingresar un valor entre 200 y 30000");
+                    if (event.getExpectedProductionProEve()<200 || event.getExpectedProductionProEve()>8000) {
+                        addFieldError("event.expectedProductionProEve", "Dato invalido valor entre 200 y 8000");
+                        addActionError("Se ingreso un rendimiento histórico obtenido invalido, por favor ingresar un valor entre 200 y 8000");
                     }
                 }
                 
@@ -423,7 +423,7 @@ public class ActionSowing extends BaseAction {
             
             LogEntities log = null;            
             log = LogEntitiesDao.getData(idEntSystem, sowing.getIdSow(), "sowing", action);
-            if (log==null) {
+            if ((log==null && action.equals("C")) || action.equals("M")) {
                 log = new LogEntities();
                 log.setIdLogEnt(null);
                 log.setIdEntityLogEnt(idEntSystem);

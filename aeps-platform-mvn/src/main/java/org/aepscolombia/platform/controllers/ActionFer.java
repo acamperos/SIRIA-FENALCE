@@ -769,11 +769,13 @@ public class ActionFer extends BaseAction {
                     ChemicalFertilizers cheFer = null;
                     ChemicalFertilizersCountry chemFerCountry = null;
                     if (ferCheTemp!=null) {
-                        if (ferCheTemp.getOtherProductCheFer()!=null && !ferCheTemp.getOtherProductCheFer().equals("")) {
+                        if (ferCheTemp.getOtherProductCheFer()!=null && !ferCheTemp.getOtherProductCheFer().equals("") && ferCheTemp.getApplicationTypes().getIdAppTyp()==1 && ferCheTemp.getChemicalFertilizers().getIdCheFer()==1000000) {
                             cheFer  = new ChemicalFertilizersDao().objectById(ferCheTemp.getIdCheFer());
-                            chemFerCountry = new ChemicalFertilizersDao().fertilizerByCountry(cheFer.getIdCheFer(), coCode);
-                            if (chemFerCountry!=null) session.delete(chemFerCountry);     
-                            if (cheFer!=null) session.delete(cheFer);                                 
+                            if (cheFer!=null) {
+                                chemFerCountry = new ChemicalFertilizersDao().fertilizerByCountry(cheFer.getIdCheFer(), coCode);
+                                if (chemFerCountry!=null) session.delete(chemFerCountry);     
+                                session.delete(cheFer);
+                            }
 
                             cheFer = new ChemicalFertilizers();
                             cheFer.setNameCheFer(ferCheTemp.getOtherProductCheFer());
@@ -804,12 +806,27 @@ public class ActionFer extends BaseAction {
                         amountProduct += ferCheTemp.getAmountProductUsedCheFer();
                         ChemicalFertilizations chemFer = new ChemicalFertilizations();           
                         Integer idCheFer = ferCheTemp.getIdCheFer();
+//                        System.out.println("idCheFer=>"+idCheFer);
+//                        if (idCheFer!=null) {
+//                            chemFer.setIdCheFer(idCheFer);
+//                        } else {
+//                            chemFer.setIdCheFer(null);
+//                        }
+                        
 //                        chemFer.setIdCheFer(idCheFer);
-                        chemFer.setIdCheFer(null);
+//                        chemFer.setIdCheFer(null);
                         chemFer.setFertilizations(fer);
                         chemFer.setStatus(true);
-                        chemFer.setChemicalFertilizers(ferCheTemp.getChemicalFertilizers());
-                        chemFer.setOtherProductCheFer(ferCheTemp.getOtherProductCheFer());
+                        chemFer.setCostAppCheFer(ferCheTemp.getCostAppCheFer());
+                        chemFer.setCostFormAppCheFer(ferCheTemp.getCostFormAppCheFer());
+                        chemFer.setCostProductCheFer(ferCheTemp.getCostProductCheFer());
+                        if(ferCheTemp.getApplicationTypes().getIdAppTyp()==2){
+                            chemFer.setChemicalFertilizers(null);
+                            chemFer.setOtherProductCheFer(ferCheTemp.getOtherProductCheFer());
+                        } else {
+                            chemFer.setChemicalFertilizers(ferCheTemp.getChemicalFertilizers());
+                            chemFer.setOtherProductCheFer(null);
+                        }                
                         chemFer.setApplicationTypes(ferCheTemp.getApplicationTypes());
                         if (coCode.equals("NI")) {                
                             if(ferCheTemp.getUnitCheFer()==12) ferCheTemp.setAmountProductUsedCheFer(ferCheTemp.getAmountProductUsedCheFer()*65.7143);
@@ -870,7 +887,7 @@ public class ActionFer extends BaseAction {
             
             LogEntities log = null;            
             log = LogEntitiesDao.getData(idEntSystem, fer.getIdFer(), "fertilizations", action);
-            if (log==null) {
+            if ((log==null && action.equals("C")) || action.equals("M")) {
                 log = new LogEntities();
                 log.setIdLogEnt(null);
                 log.setIdEntityLogEnt(idEntSystem);
@@ -907,7 +924,7 @@ public class ActionFer extends BaseAction {
                 info  = getText("message.failedit.fertilization");
             }
         } catch (Exception e) { 
-        
+            e.printStackTrace();
         } finally {
             session.close();
         }  

@@ -465,22 +465,22 @@ public class ActionCon extends BaseAction {
                 }	
             }
             
-            if (dosisConChe!=null && (dosisConChe<0 || dosisConChe>1000)) {
+            if (dosisConChe!=null && (dosisConChe<0.1 || dosisConChe>1000)) {
                 addFieldError("dosisConChe", getText("message.datainvalidrankchem.control"));                
                 addActionError(getText("desc.datainvalidrankchem.control"));
             }
 
-            if (dosisConOrg!=null && (dosisConOrg<0 || dosisConOrg>1000)) {
+            if (dosisConOrg!=null && (dosisConOrg<0.1 || dosisConOrg>1000)) {
                 addFieldError("dosisConOrg", getText("message.datainvalidrankorg.control"));                
                 addActionError(getText("desc.datainvalidrankorg.control"));
             }
             
-            if (dosisConMec!=null && (dosisConMec<0 || dosisConMec>1000)) {
+            if (dosisConMec!=null && (dosisConMec<0.1 || dosisConMec>1000)) {
                 addFieldError("dosisConMec", getText("message.datainvalidrankmec.control"));                
                 addActionError(getText("desc.datainvalidrankmec.control"));
             }
             
-            if (dosisConMan!=null && (dosisConMan<0 || dosisConMan>1000)) {
+            if (dosisConMan!=null && (dosisConMan<0.1 || dosisConMan>1000)) {
                 addFieldError("dosisConMan", getText("message.datainvalidrankman.control"));                
                 addActionError(getText("desc.datainvalidrankman.control"));
             }
@@ -787,7 +787,7 @@ public class ActionCon extends BaseAction {
             
             LogEntities log = null;            
             log = LogEntitiesDao.getData(idEntSystem, con.getIdCon(), "controls", action);
-            if (log==null) {
+            if ((log==null && action.equals("C")) || action.equals("M")) {
                 log = new LogEntities();
                 log.setIdLogEnt(null);
                 log.setIdEntityLogEnt(idEntSystem);

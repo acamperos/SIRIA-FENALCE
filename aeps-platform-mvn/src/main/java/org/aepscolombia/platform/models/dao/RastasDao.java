@@ -79,9 +79,10 @@ public class RastasDao
         sql += " from rastas r";
         sql += " inner join log_entities le on le.id_object_log_ent=r.id_ras and le.table_log_ent='rastas' and le.action_type_log_ent='C'";   
         sql += " inner join fields l on r.id_lote_ras=l.id_fie";
-        sql += " inner join fields_producers lp on lp.id_field_fie_pro=l.id_fie";
+//        sql += " inner join fields_producers lp on lp.id_field_fie_pro=l.id_fie";
         sql += " left join farms f on f.id_far=l.id_farm_fie";
-        sql += " inner join producers p on p.id_pro=lp.id_producer_fie_pro"; 
+        sql += " inner join farms_producers fp on f.id_far = fp.id_farm_far_pro";
+        sql += " inner join producers p on p.id_pro = fp.id_producer_far_pro";
         sql += " inner join entities e on e.id_ent=p.id_entity_pro"; 
         sql += " where l.status=1 and f.status=1";
         sql += " and r.status=1 and e.status=1";
@@ -186,9 +187,10 @@ public class RastasDao
             }
         }
         sql += " inner join fields l on r.id_lote_ras=l.id_fie";
-        sql += " inner join fields_producers lp on lp.id_field_fie_pro=l.id_fie";
+//        sql += " inner join fields_producers lp on lp.id_field_fie_pro=l.id_fie";
         sql += " left join farms f on f.id_far=l.id_farm_fie";
-        sql += " inner join producers p on p.id_pro=lp.id_producer_fie_pro"; 
+        sql += " inner join farms_producers fp on f.id_far = fp.id_farm_far_pro";
+        sql += " inner join producers p on p.id_pro = fp.id_producer_far_pro";
         sql += " inner join entities e on e.id_ent=p.id_entity_pro"; 
         sql += " where l.status=1 and f.status=1";
         sql += " and r.status=1 and e.status=1";    
@@ -390,9 +392,10 @@ public class RastasDao
             sql += " inner join association ass on (ass.id_asc=agAsc.id_asso_age_asc)";
         }
         sql += " inner join fields l on r.id_lote_ras=l.id_fie";
-        sql += " inner join fields_producers lp on lp.id_field_fie_pro=l.id_fie";
+//        sql += " inner join fields_producers lp on lp.id_field_fie_pro=l.id_fie";
         sql += " inner join farms f on f.id_far=l.id_farm_fie";
-        sql += " inner join producers p on p.id_pro=lp.id_producer_fie_pro"; 
+        sql += " inner join farms_producers fp on f.id_far = fp.id_farm_far_pro";
+        sql += " inner join producers p on p.id_pro = fp.id_producer_far_pro";
         sql += " inner join entities e on e.id_ent=p.id_entity_pro";
         
         sql += " where l.status=1 and f.status=1";
@@ -591,7 +594,7 @@ public class RastasDao
         sql += "IF(r.CERCA_RIOS_QUEBRADAS_RAS=1,'SI','NO'), UPPER(r.RECUBRIMIENTO_VEGETAL_RAS)";
         sql += " from fields l";
         sql += " inner join rastas r on r.id_lote_ras = l.id_fie";
-        sql += " left join fields_producers lp on lp.id_field_fie_pro = l.id_fie";
+//        sql += " left join fields_producers lp on lp.id_field_fie_pro = l.id_fie";
         sql += " inner join farms f on l.id_farm_fie=f.id_far";
         sql += " inner join farms_producers fp on f.id_far = fp.id_farm_far_pro";
         sql += " inner join producers p on p.id_pro = fp.id_producer_far_pro";
@@ -636,7 +639,7 @@ public class RastasDao
         sql += "select ent.name_ent, r.ph_ras, r.estructura_ras, r.exposicion_sol_ras, r.recubrimiento_vegetal_ras, r.pendiente_terreno_ras";
         sql += " from rastas r";
         sql += " inner join fields l on r.id_lote_ras = l.id_fie";
-        sql += " inner join fields_producers lp on lp.id_field_fie_pro = l.id_fie";
+//        sql += " inner join fields_producers lp on lp.id_field_fie_pro = l.id_fie";
         sql += " inner join farms f on l.id_farm_fie=f.id_far";
         sql += " inner join farms_producers fp on f.id_far = fp.id_farm_far_pro";
         sql += " inner join producers p on p.id_pro = fp.id_producer_far_pro";
@@ -805,7 +808,7 @@ public class RastasDao
         sql += "IF(r.CERCA_RIOS_QUEBRADAS_RAS=1,'SI','NO') as CERCA_RIOS_QUEBRADAS, UPPER(r.RECUBRIMIENTO_VEGETAL_RAS) as RECUBRIMIENTO_VEGETAL";
         sql += " from rastas r";
         sql += " inner join fields l on r.id_lote_ras = l.id_fie";
-        sql += " inner join fields_producers lp on lp.id_field_fie_pro = l.id_fie";
+//        sql += " inner join fields_producers lp on lp.id_field_fie_pro = l.id_fie";
         sql += " inner join farms f on l.id_farm_fie=f.id_far";
         sql += " inner join farms_producers fp on f.id_far = fp.id_farm_far_pro";
         sql += " inner join producers p on p.id_pro = fp.id_producer_far_pro";
@@ -1087,7 +1090,7 @@ public class RastasDao
         sql += "select l.id_fie, r.id_ras, l.name_fie, e.email_ent";
         sql += " from rastas r";
         sql += " inner join fields l on r.id_lote_ras = l.id_fie";
-        sql += " inner join fields_producers lp on lp.id_field_fie_pro = l.id_fie";
+//        sql += " inner join fields_producers lp on lp.id_field_fie_pro = l.id_fie";
         sql += " inner join farms f on l.id_farm_fie=f.id_far";
         sql += " inner join log_entities le on le.id_object_log_ent = r.ID_RAS AND le.table_log_ent = 'rastas'";
         sql += " inner join entities e on le.id_entity_log_ent = e.id_ent";

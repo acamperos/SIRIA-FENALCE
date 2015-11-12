@@ -110,10 +110,10 @@ public class ControlsDao
         String sql = "";     
         String sqlAdd = "";     
                       
-        sql += "select p.target_type_con, pl.name_pes, mal.name_wee, enf.name_dis, tp.name_che_con, p.other_chemical_product_con, cr.name_org_con, p.other_organic_product_con,";
-		sql += " p.id_con, p.date_con, tob.name_tar_typ, p.dosis_con, ud.name_dos_uni, p.cleanings_con, p.cleanings_frequence_con, p.comment_con,p.cost_app_con,p.cost_input_con,p.cost_form_app_con,";
-        sql += " p.other_pest_con, p.otro_weed_con, p.other_disease_con, p.control_type_con";
-		sql += " from controls p"; 
+        sql += "select p.target_type_con, pl.name_pes, mal.name_wee, enf.name_dis, tp.name_che_con, p.other_chemical_product_con, cr.name_org_con,";
+        sql += " p.other_organic_product_con, p.id_con, p.date_con, tob.name_tar_typ, p.dosis_con, ud.name_dos_uni, p.cleanings_con, p.cleanings_frequence_con,";
+        sql += " p.other_pest_con, p.otro_weed_con, p.other_disease_con, p.control_type_con, p.cost_app_con, p.comment_con, p.cost_input_con, p.cost_form_app_con";
+        sql += " from controls p"; 
         sql += " inner join production_events ep on ep.id_pro_eve=p.id_production_event_con";    
         sql += " inner join targets_types tob on tob.id_tar_typ=p.target_type_con";    
         sql += " left join diseases enf on enf.id_dis=p.id_disease_con and enf.status_dis=1";    
@@ -140,6 +140,7 @@ public class ControlsDao
 //            valIni = (valIni-1)*maxResults+1;
 //        }    
 //        events.toArray();
+//                System.out.println("sql->"+sql);
         try {
             tx = session.beginTransaction();
             Query query  = session.createSQLQuery(sql);

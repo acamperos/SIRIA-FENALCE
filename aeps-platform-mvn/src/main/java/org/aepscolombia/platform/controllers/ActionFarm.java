@@ -562,7 +562,7 @@ public class ActionFarm extends BaseAction {
             required.put("name_property", name_property);
             required.put("depFar", depFar);
             required.put("cityFar", cityFar);
-            required.put("lane_property", lane_property);
+            if (coCode.equals("CO")) required.put("lane_property", lane_property);
             required.put("altitude_property", altitude_property);
             boolean enter = false;
 //            if (option_geo == 1) {

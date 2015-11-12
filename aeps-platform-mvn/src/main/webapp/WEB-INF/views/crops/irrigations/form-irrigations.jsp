@@ -25,7 +25,7 @@
                         <% String classWet    = "hide"; %>
                         <% if (coCode.equals("NI")) { %>
                             <div class="row">
-                                <div class="span5">
+                                <div class="span7">
                                     <label for="formCropIrr_irr_whatDoYouUseIrr_idUseIrr" class="control-label req">
                                         <s:property value="getText('radio.irrwhatdoyouuse.irrigation')" />:
                                     </label>
