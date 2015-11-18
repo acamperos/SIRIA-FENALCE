@@ -19,13 +19,19 @@
     <% label = "display:none;";%> 
 </s:if>            
 
+ <% String classCostPreInf = "hide"; %>
+               <s:set name="costPre" value="costCrop"/>
+               <s:if test="%{#costPre==1}">
+                   <% classCostPreInf = "";  %>
+               </s:if> 
+
 <div class="msgWin" id="divMessListPrep"></div>
 <div id="divPrep" class="w-box">
     <fieldset>
         <legend><s:property value="getText('title.preparationlist.preparation')" /></legend>
         <% if (usrPrpDao.getPrivilegeUser(userPrp.getIdUsr(), "crop/create")) { %>
             <% if (entTypePrpId!=3) { %>
-                <s:if test="checkSowing!=true">
+                <s:if test="checkSowing==true">
                     <button type="button" class="btn btn-initial btn-space" onclick="viewForm('/crop/showPrep.action?action=create', 'idCrop', '${idCrop}', '<s:property value="getText('title.addpreparation.preparation')" />', 1050, 550);">
                         <i class="icon-plus"></i> <s:property value="getText('button.addpreparation.preparation')" />
                     </button>
@@ -40,7 +46,7 @@
                     <th><s:property value="getText('td.preparationtype.preparation')" /></th>
                     <th><s:property value="getText('td.otherpreparationtype.preparation')" /></th>
                     <th><s:property value="getText('td.passingnumber.preparation')" /></th>
-                    <th><s:property value="getText('td.costpreparation.preparation')" /></th>
+                    <th class="<%= classCostPreInf %>"><s:property value="getText('td.costpreparation.preparation')" /></th>
                     <% if (usrPrpDao.getPrivilegeUser(userPrp.getIdUsr(), "crop/modify") || (usrPrpDao.getPrivilegeUser(userPrp.getIdUsr(), "crop/delete"))) { %>
                         <th><s:property value="getText('td.action.preparation')" /></th>
                     <% } %>

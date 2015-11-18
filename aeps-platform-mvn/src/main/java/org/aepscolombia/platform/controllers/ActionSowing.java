@@ -52,6 +52,7 @@ public class ActionSowing extends BaseAction {
     private int idCrop;    
     private int typeCrop;
     private Users user;
+    private int costCrop;
     private Integer idEntSystem;    
     private Integer idUsrSystem;    
 
@@ -129,6 +130,14 @@ public class ActionSowing extends BaseAction {
 
     public void setTypeCrop(int typeCrop) {
         this.typeCrop = typeCrop;
+    }
+    
+    public int getCostCrop() {
+        return costCrop;
+    }
+
+    public void setCostCrop(int costCrop) {
+        this.costCrop = costCrop;
     }
 
     public Users getUser() {

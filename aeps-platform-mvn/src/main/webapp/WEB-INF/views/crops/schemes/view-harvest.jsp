@@ -157,7 +157,12 @@
                 <s:textarea rows="5" cssClass="span6" name="harv.commentHar"></s:textarea>
             </div>					 
         </div>	
-
+             <% String classCostHar = "hide"; %>
+               <s:set name="costHar" value="costCrop"/>
+               <s:if test="%{#costHar==1}">
+                   <% classCostHar = "";  %>
+               </s:if>  
+       <div class="<%= classCostHar %>" >     
         <div id ="divcosthar" class="row"> 
                                             <div class="span5" >
                                                 <div class="control-group">
@@ -177,14 +182,14 @@
                                                         <s:property value="getText('text.hervestnamecliente.harvest')" />:
                                                     </label>
                                                     <div class="controls">
-                                                        <s:textfield name="harv.costNamebuyerHar" maxlength="14"/>
+                                                        <s:textfield name="harv.costNamebuyerHar" />
                                                     </div>                         
                                                 </div>        
 
                                             </div>
 
          </div>
-            
+         </div>     
         <script>
             changeOptionsHarvest('formCropHar_harv_resultingProducts_idResPro', 'divYield', 'divHumidity', 'divNumberSacks', 'harvNumberSacks', 'Numero de bulto (ha):', 'Numero de bolsas:', 'harvWeightAvg', 'Peso promedio de un bulto (kg/bulto):', 'Peso promedio de la bolsa:');
             $("#formCropHar_harv_dateHar").datepicker({dateFormat: 'mm/dd/yy'});
@@ -203,7 +208,7 @@
         </script>
     </fieldset>
         
-   <fieldset>
+   <fieldset class="<%= classCostHar %>">
         <legend><s:property value="getText('title.formharvestcost.harvest')" /></legend>
         <div class="row"> 
              <div class="span5" >
@@ -381,10 +386,11 @@
 
             </div> 
         </div>   
+     </fieldset>                                    
         <% if (entTypeHarId!=3) { %>    
             <p class="warnField reqBef"><s:property value="getText('label.requirefields')" /></p>
         <% } %>                              
-   </fieldset>      
+    
    <script>       
        
        $("#formCropHar_harv_costSalepriceHar").maskMoney({suffix: ' $'});

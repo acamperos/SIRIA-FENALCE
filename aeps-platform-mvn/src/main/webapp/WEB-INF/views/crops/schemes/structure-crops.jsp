@@ -75,6 +75,7 @@
         <% Integer entTypeId = new EntitiesDao().getEntityTypeId(user.getIdUsr()); %>
         <% //String coCode     = user.getCountryUsr().getAcronymIdCo(); %>
         <% String coCode     = (String) session.getAttribute(APConstants.COUNTRY_CODE); %>
+        <% Boolean costCrop =  Boolean.valueOf(String.valueOf(request.getAttribute("costCrop")));  %>
         <div class="container" id="divDataInfoCrop">
             <%@ include file="../generals/data-crops.jsp" %>                 
         </div>       
@@ -206,9 +207,22 @@
                             <%@ include file="view-harvest.jsp" %>                            
                         </div>
                     </div>
-                </div>     
-             
-                <div class="accordion-group">
+                </div>    
+              <div class="accordion-group">
+                    <div class="accordion-heading">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion7" href="#collapseSeven">
+                            <h4><s:property value="getText('link.observations.crop')" /><i class="colSeven icon-chevron-down"></i></h4> 
+                        </a>
+                    </div>
+                    <div id="collapseSeven" class="accordion-body collapse">
+                        <div class="accordion-inner">
+                            <%@ include file="view-descriptions.jsp" %>
+                        </div>
+                    </div>
+                </div>              
+            
+              <% if (costCrop) { %>
+             <div class="accordion-group">
                     <div class="accordion-heading">
                         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion9" href="#collapseNine">
                             <h4>Costos indirectos<i class="colNine icon-chevron-down"></i></h4>
@@ -220,19 +234,8 @@
                         </div>
                     </div>
                 </div>   
-              
-             <div class="accordion-group">
-                    <div class="accordion-heading">
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion7" href="#collapseSeven">
-                            <h4><s:property value="getText('link.observations.crop')" /><i class="colSeven icon-chevron-down"></i></h4> 
-                        </a>
-                    </div>
-                    <div id="collapseSeven" class="accordion-body collapse">
-                        <div class="accordion-inner">
-                            <%@ include file="view-descriptions.jsp" %>
-                        </div>
-                    </div>
-                </div>           
+                 <% } %>       
+                    
                         
             </div>               
         </div>   

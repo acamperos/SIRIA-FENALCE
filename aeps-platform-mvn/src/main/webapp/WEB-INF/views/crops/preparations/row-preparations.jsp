@@ -1,10 +1,16 @@
+ <% String classCostPreRow = "hide"; %>
+               <s:set name="costPre" value="costCrop"/>
+               <s:if test="%{#costPre==1}">
+                   <% classCostPreRow = "";  %>
+               </s:if> 
+
 <s:date name="datePrep" format="MM/dd/yyyy" var="dateTransformRowPrep"/>
 <td><s:property value="%{#dateTransformRowPrep}" /></td>
 <td><s:property value="depthPrep" /></td>
 <td><s:property value="namePrep" /></td>
 <td><s:property value="otherNamePrep" /></td>
-<td><s:property value="passNum" /></td>
-<td><s:property value="costPrep" /></td>
+<td><s:property value="passingsNumberPrep" /></td>
+<td class="<%= classCostPreRow %>"><s:property value="costPrep" /></td>
 <td>
     <% if (usrPrpDao.getPrivilegeUser(userPrp.getIdUsr(), "crop/modify") || (usrPrpDao.getPrivilegeUser(userPrp.getIdUsr(), "crop/delete"))) { %>
         <% if (entTypePrpId!=3) { %>

@@ -128,10 +128,10 @@
                         <div class="controls">
                            
                                 <s:select
-                                    name="product_events_cost"
-                                    list="#{'1':'NO', '2':'SI'}"           
+                                    name="costCrop"
+                                    list="#{'true':'SI', 'false':'NO'}"           
                                     headerKey="-1" 
-                                    onchange="showOtherElement(this.value, 'prueba')"
+                                    headerValue="---"  
                                      />
                            
                         </div>

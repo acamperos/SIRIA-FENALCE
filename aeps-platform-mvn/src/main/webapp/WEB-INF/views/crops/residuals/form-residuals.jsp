@@ -23,9 +23,10 @@
                         <div class="span5">
                             <s:hidden name="idCrop"/>
                             <s:hidden name="typeCrop"/>
+                            <s:hidden name="costCrop"/>
                             <%--<s:hidden name="lanSel"/>--%>
                             <s:hidden name="actExe"/>
-                            <s:hidden name="resMan.idResMan"/>                          
+                            <s:hidden name="resMan.idResMan"/>     
                             <div class="control-group">
                                 <label for="formCropRes_resMan_dateResMan" class="control-label req">
                                     <s:property value="getText('text.dateresidual.residual')" />:
@@ -57,21 +58,26 @@
                             </div>                          
                         </div>   
                     </div>
-                               
+              <% String classCostRes = "hide"; %>
+               <s:set name="costRes" value="costCrop"/>
+               <s:if test="%{#costRes==1}">
+                   <% classCostRes = "";  %>
+               </s:if>   
                <div class="row">
-                   <div class="span5">
+               <div class="<%= classCostRes %>" >    
+               <div class="span5">
                         <div id="costresiduals" class="control-group">
 
                             <label for="formCropRes_resMan_costResMan" class="control-label"  >
-                                        <s:property value="getText('text.cost.residual')"   />:
+                                        <s:property value="getText('text.cost.residual')"  />:
                                     </label>
                                     <div class="controls">
                                         <s:textfield name="resMan.costResMan" maxlength="14"/>
                                     </div>
 
-                                </div>        
+                        </div>        
                </div>      
-                                    
+                </div>                     
                        <% String classNewRes="hide"; %>
                         <s:set name="idResidual" value="resMan.residualsClasification.idResCla"/>
                         <s:if test="%{#idResidual==1000000}">
@@ -100,7 +106,7 @@
                                         <s:textarea rows="5" cssClass="span6" name="resMan.commentResMan" ></s:textarea>
                                     </div>
 
-                                </div>        
+                        </div>        
                </div>                     
                </div>    
                 </fieldset>

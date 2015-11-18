@@ -116,11 +116,13 @@ public class ActionCrop extends BaseAction {
     private String nameField;
     private int typeCrop;
     private int lastCrop;  
+    
     private String nameTypeCrop;
     private String lastTypeCrop;
     private String nameDrainPlot;
     private Double areaCrop;
     private Integer typeArea;
+    private Boolean costCrop; 
     private Double availableArea;
     private Boolean totallyArea;
     private Double areaField;
@@ -637,6 +639,15 @@ public class ActionCrop extends BaseAction {
         this.typeArea = typeArea;
     }   
     
+    public Boolean getCostCrop() {
+        return costCrop;
+    }
+
+    public void setCostCrop(Boolean costCrop) {
+        this.costCrop = costCrop;
+    }   
+    
+    
     private boolean checkSowing;
 
     public boolean getCheckSowing() {
@@ -815,6 +826,7 @@ public class ActionCrop extends BaseAction {
             required.put("typeCrop", typeCrop);
             required.put("lastCrop", lastCrop);
             required.put("totallyArea", totallyArea);
+            required.put("costCrop", costCrop);
             if (totallyArea!=null && !totallyArea) {
                 required.put("typeArea", typeArea);
                 required.put("areaCrop", areaCrop);
@@ -903,18 +915,19 @@ public class ActionCrop extends BaseAction {
 //        this.setPerformObj(Double.parseDouble(String.valueOf(cropInfo.get("performObj"))));
         this.setLastCrop(Integer.parseInt(String.valueOf(cropInfo.get("lastCrop"))));
         this.setOtherCrop(String.valueOf(cropInfo.get("otherCrop")));
-//        CropsTypes crop = new CropsTypesDao().objectById(typeCrop);        
-//        if (this.getOtherCrop()!=null && !this.getOtherCrop().equals("")) {
-//            this.setLastCrop(1000000);
-//        }        
-        /* 
-        1-Porcentaje ((Area del lote * porcentaje/100)) = Area)
-        2-Hectarea	 ((Area/Area del lote)*100=porcentaje)
-        */
+      
         String areaTemp = String.valueOf(cropInfo.get("quant_area"));
         String typeTemp = String.valueOf(cropInfo.get("type_area"));
+        String costEvenTemp = String.valueOf(cropInfo.get("costCrop"));
+        //Boolean costE=false;
+        //if (costEvenTemp=="1") costE=true; 
         if (!areaTemp.equals("null")) this.setAreaCrop(Double.parseDouble(areaTemp));
         if (!typeTemp.equals("null")) this.setTypeArea(Integer.parseInt(typeTemp));
+        if (!costEvenTemp.equals("null")) 
+        {
+             this.setCostCrop(Boolean.valueOf(costEvenTemp));
+            
+        }
         HashMap fieldInfo = lotDao.findById(this.getIdField());
         double areaOld = Double.parseDouble(String.valueOf(fieldInfo.get("area_lot")));
         double avaArea = Double.parseDouble(String.valueOf(fieldInfo.get("available_area")));
@@ -1473,7 +1486,10 @@ public class ActionCrop extends BaseAction {
             pro.setTypeAreaProEve(typeArea);           
             pro.setFields(new Fields(idField));
             pro.setCropsTypes(new CropsTypes(typeCrop));
-            pro.setIdProjectProEve(1);            
+            pro.setIdProjectProEve(1);  
+            pro.setCostProEve(this.getCostCrop());
+//            System.out.println("cost=>"+this.getCostCrop());
+//            throw new HibernateException("Prueba de Costo");
             if (lastCrop==1000000) {
                 pro.setFormerCropProEve(null);
                 pro.setOtherFormerCropProEve(otherCrop);

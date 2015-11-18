@@ -64,6 +64,7 @@ public class ActionCon extends BaseAction {
     private int idCrop;    
     private int idCon;    
     private int typeCrop;
+    private int costCrop;
     private List<HashMap> listCont;
     private Users user;
     private Integer idEntSystem;    
@@ -262,6 +263,14 @@ public class ActionCon extends BaseAction {
         this.idCrop = idCrop;
     }  
     
+    public int getCostCrop() {
+        return costCrop;
+    }
+
+    public void setCostCrop(int costCrop) {
+        this.costCrop = costCrop;
+    }
+
     
     public int getTypeCrop() {
         return typeCrop;
@@ -584,6 +593,9 @@ public class ActionCon extends BaseAction {
         HashMap prod  = cropDao.findById(idCrop);
         Integer tyCro = Integer.parseInt(String.valueOf(prod.get("typeCrop")));
         this.setTypeCrop(tyCro);
+        Boolean costRes = Boolean.valueOf(String.valueOf(prod.get("costCrop")));
+        if (costRes) setCostCrop(1);
+        else setCostCrop(2);
 //        System.out.println("tyCro=>"+tyCro);
         
         try {

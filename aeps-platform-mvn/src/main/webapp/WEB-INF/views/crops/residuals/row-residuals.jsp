@@ -1,8 +1,14 @@
+<% String classCostResRow = "hide"; %>
+               <s:set name="costRes" value="costCrop"/>
+               <s:if test="%{#costRes==1}">
+                   <% classCostResRow = "";  %>
+               </s:if>   
+
 <s:date name="dateResMan" format="MM/dd/yyyy" var="dateTransformRowRes"/>
 <td><s:property value="%{#dateTransformRowRes}" /></td>
 <td><s:property value="residualsResMan" /></td>
 <td><s:property value="otherResidualsResMan"/></td>
-<td><s:property value="costResMan"/></td>
+<td class="<%= classCostResRow %>"> <s:property value="costResMan"/></td>
 <td>
     <% if (usrResDao.getPrivilegeUser(userRes.getIdUsr(), "crop/modify") || (usrResDao.getPrivilegeUser(userRes.getIdUsr(), "crop/delete"))) { %>
         <% if (entTypeResId!=3) { %>

@@ -51,6 +51,7 @@ public class ProductionEvents  implements java.io.Serializable {
      private Integer typeAreaProEve;        
      private Integer performanceProEve;
      private String commentPerformanceProEve;
+     private Boolean costProEve;
      private Integer createdBy;
 
     public ProductionEvents() {
@@ -61,14 +62,14 @@ public class ProductionEvents  implements java.io.Serializable {
     }
 
 	
-    public ProductionEvents(Fields fields, CropsTypes cropsTypes, Integer idProjectProEve, boolean status, Double expectedProductionProEve) {
+    public ProductionEvents(Fields fields, CropsTypes cropsTypes ,Integer idProjectProEve, boolean status, Double expectedProductionProEve) {
         this.fields = fields;
         this.cropsTypes = cropsTypes;
         this.idProjectProEve = idProjectProEve;
         this.status = status;
         this.expectedProductionProEve = expectedProductionProEve;
     }
-    public ProductionEvents(CropMainProblem cropMainProblem, Fields fields, Diseases diseases, CropsTypes cropsTypes, Pests pests, ReasonsSoilAnalysis reasonsSoilAnalysis, Weeds weeds, String commentProEve, Integer idProjectProEve, boolean status, Double expectedProductionProEve, Integer formerCropProEve, Boolean drainingProEve, Date dataCaptureDateProEve, Boolean didSoilAnalysisProEve, Boolean irrigateProEve, String otherFormerCropProEve, String otherMainPestProEve, String otherMainDiseaseProEve, String otherMainWeedProEve, Integer numCyclesBeforeProEve, Integer performanceProEve,String commentPerformanceProEve,Integer createdBy) {
+    public ProductionEvents(CropMainProblem cropMainProblem, Fields fields, Diseases diseases, CropsTypes cropsTypes, Pests pests, ReasonsSoilAnalysis reasonsSoilAnalysis, Weeds weeds, String commentProEve, Integer idProjectProEve, boolean status, Double expectedProductionProEve, Integer formerCropProEve, Boolean drainingProEve, Date dataCaptureDateProEve, Boolean didSoilAnalysisProEve, Boolean irrigateProEve, String otherFormerCropProEve, String otherMainPestProEve, String otherMainDiseaseProEve, String otherMainWeedProEve, Integer numCyclesBeforeProEve, Integer performanceProEve ,Boolean costProEve,String commentPerformanceProEve,Integer createdBy) {
        this.cropMainProblem = cropMainProblem;
        this.fields = fields;
        this.diseases = diseases;
@@ -92,6 +93,7 @@ public class ProductionEvents  implements java.io.Serializable {
        this.numCyclesBeforeProEve = numCyclesBeforeProEve;
        this.commentPerformanceProEve=commentPerformanceProEve;
        this.performanceProEve=performanceProEve;
+       this.costProEve=costProEve;
        this.createdBy = createdBy;
     }
    
@@ -339,6 +341,20 @@ public class ProductionEvents  implements java.io.Serializable {
     public void setTypeAreaProEve(Integer typeAreaProEve) {
         this.typeAreaProEve = typeAreaProEve;
     }
+    
+    /**
+     * 1= costos en el event, 0= Sin costos en el evento
+     * @return decision de cost
+     */
+     
+    @Column(name="cost_pro_eve")
+    public Boolean getCostProEve() {
+        return this.costProEve;
+    }
+    
+    public void setCostProEve(Boolean costProEve) {
+        this.costProEve = costProEve;
+    } 
 
 }
 

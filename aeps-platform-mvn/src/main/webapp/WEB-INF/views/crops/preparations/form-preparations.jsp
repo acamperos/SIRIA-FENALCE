@@ -95,8 +95,13 @@
                             </div>
                         </div>
                     </div>
-                                    
-                     <div id="costpreparations" class="row ">
+              <% String classCostPre = "hide"; %>
+               <s:set name="costPre" value="costCrop"/>
+               <s:if test="%{#costPre==1}">
+                   <% classCostPre = "";  %>
+               </s:if>   
+               
+                     <div class="<%= classCostPre %>" id="costpreparations" class="row ">
                         
                         <div class="span5">     
                                         <label for="formCropPrep_prep_costPrep" class="control-label ">

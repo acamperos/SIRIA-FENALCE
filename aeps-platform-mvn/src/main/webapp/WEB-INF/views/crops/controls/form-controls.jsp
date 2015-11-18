@@ -409,7 +409,12 @@
                     </div>
                    
                     </fieldset>
-                    <fieldset>
+              <% String classCostCon = "hide"; %>
+               <s:set name="costCon" value="costCrop"/>
+               <s:if test="%{#costCon==1}">
+                   <% classCostCon = "";  %>
+               </s:if>                   
+                    <fieldset  class="<%= classCostCon %>">
                     <legend><s:property value="getText('title.controlcostform.crop')" /></legend>  
                     <div class="row">
                           <div class="span5" >
