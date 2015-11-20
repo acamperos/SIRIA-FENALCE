@@ -1126,6 +1126,7 @@ public class ActionLogin extends BaseAction {
             if (tx != null) {
                 tx.rollback();
             }
+            e.printStackTrace();
             state = "failure";
             info  = getText("message.failadduser.login");
         } catch (NoSuchAlgorithmException ex) {

@@ -4,7 +4,7 @@
   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/ciat_ext</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/ciat_ext2</property>
     <property name="connection.password"></property>
     <!--<property name="connection.pool_size">1</property>-->
     <!--<property name="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property>-->
@@ -128,5 +128,6 @@
     <mapping class="org.aepscolombia.platform.models.entity.SoilAnalysis"/>
     <mapping class="org.aepscolombia.platform.models.entity.ChemicalFertilizersCountry"/>
     <mapping class="org.aepscolombia.platform.models.entity.CostIndirectProductionEvent"/>
+    <mapping class="org.aepscolombia.platform.models.entity.AgentsAssociation"/>
   </session-factory>
 </hibernate-configuration>

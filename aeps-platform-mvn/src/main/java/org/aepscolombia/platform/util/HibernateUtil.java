@@ -25,7 +25,7 @@ public class HibernateUtil {
     }
 
     // Database configuration
-    public static String url = "jdbc:mysql://localhost:3306/ciat_ext";
+    public static String url = "jdbc:mysql://localhost:3306/ciat_ext2";
     public static String dbdriver = "com.mysql.jdbc.Driver";
     public static String username = "ciat";
     public static String password = "GtA7U5BWcPATbGpT";

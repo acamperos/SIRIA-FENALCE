@@ -133,7 +133,7 @@
                             <div class="controls">
                                 <s:select
                                     name="typeUser"
-                                    list="#{'2':'Productor', '1':'Agronomo/Asistente', '3':'Gremio'}"           
+                                    list="#{'2':'Productor', '1':'Agronomo/Asistente', '3':'Gremio/Empresa'}"           
                                     headerKey="-1" 
                                     headerValue="---" 
                                     onchange="showOtherElementUser(this.value, 'divWorkType', 'divDataAssociation');"
@@ -419,7 +419,7 @@
         <script type="text/javascript" src="scripts/js/jquery/jquery.blockUI.js"></script>
         <script type="text/javascript" src="scripts/js/colorbox/jquery.colorbox.min.js"></script>
         <script type="text/javascript" src="scripts/js/jquery/pwdMeter/jquery.pwdMeter.min.js"></script>
-        <script type="text/javascript" src="scripts/js/generals/functions.js"></script>﻿  
+        <script type="text/javascript" src="scripts/js/generals/functions.js"></script>  
         <script type="text/javascript">            
             (function(a) {
                 a.fn.vAlign = function() {

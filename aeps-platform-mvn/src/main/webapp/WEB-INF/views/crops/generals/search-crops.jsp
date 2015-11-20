@@ -22,7 +22,7 @@
                         name="name_agronomist" 
                         list="list_agronomist" 
                         listKey="idEnt" 
-                        listValue="nameEnt" 
+                        listValue="%{nameEnt==null ? emailEnt : nameEnt}" 
                     />
                 </div> 
             </div> 
