@@ -464,10 +464,8 @@
                                                 </div> 
                                             </div> 
                                         </div> 
-                    </fieldset>
-                                                        
                                                         <fieldset>
-                                                            <legend>Observaciones</legend>                   
+                                                            <legend><s:property value="getText('title.formcontrolcomment.control')" /></legend>                   
                                                             <div class="row">
                                                                 <div class="span5">
                                                                     <div  class="control-group">

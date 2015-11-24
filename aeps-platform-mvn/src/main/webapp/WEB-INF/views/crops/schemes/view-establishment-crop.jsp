@@ -429,7 +429,7 @@
                           <div class="span5">
                            <div class="control-group">
                                <label for="formCropSow_sowing_commentSow" class="control-label">
-                                   Observaciones en la siembra
+                                <s:property value="getText('title.formsowingcomment.sowing')" /> 
                                 </label>
                                 <div class="controls">
                                     <s:textarea rows="5" cssClass="span6" name="sowing.commentSow"></s:textarea>

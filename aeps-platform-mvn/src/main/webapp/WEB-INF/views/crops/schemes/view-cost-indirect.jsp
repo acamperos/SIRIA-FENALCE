@@ -9,7 +9,7 @@
    
         
    <fieldset>
-        <legend>Formulario de costos indirectos</legend>
+        <legend><s:property value="getText('title.formcostinirect.costindirect')" /> </legend>
         <div class="row"> 
              <div class="span5" >
                 <s:hidden name="idCrop"/>
@@ -18,7 +18,7 @@
                 <s:hidden name="costo.idCostIndPro"/>
                                 <div class="control-group">
                                     <label id="formCropCost_costo_costVigilantPro" for="formCropCost_cost_costVigilantPro"  class="control-label">
-                                        Costos de vigilante:
+                                       <s:property value="getText('title.formcostinirectvigilante.costindirect')" />:
                                     </label>
                                     <div class="controls">
                                         <s:textfield name="costo.costVigilantPro" maxlength="14"/>
@@ -28,7 +28,7 @@
                                     
                 <div class="span5" style="padding-left: 28px">
                                     <label for="formCropCost_costo_costRentPro" class="control-label">
-                                        Costos de arrendamiento:
+                                       <s:property value="getText('title.formcostinirectarr.costindirect')" />:
                                     </label>
                                     <div class="controls">
                                        <s:textfield name="costo.costRentPro" maxlength="14"/>
@@ -41,7 +41,7 @@
                                             <div class="span5" >
                                                 <div class="control-group">
                                                     <label for="formCropCost_costo_costTechnicalAssistancePro" class="control-label">
-                                                        Costos de asistencia técnica:
+                                                       <s:property value="getText('title.formcostinirectasistec.costindirect')" />:
                                                     </label>
                                                     <div class="controls">
                                                         <s:textfield name="costo.costTechnicalAssistancePro" maxlength="14"/>
@@ -51,7 +51,7 @@
                                             <div class="span5" style="padding-left: 28px">
                                                 <div class="control-group">
                                                     <label for="formCropCost_costo_costImpuestoPro" class="control-label">
-                                                       Costos de impuestos:
+                                                       <s:property value="getText('title.formcostinidirectcostimp.costindirect')" />:
                                                     </label>
                                                     <div class="controls">
                                                         <s:textfield name="costo.costImpuestoPro" maxlength="14"/>
@@ -68,7 +68,7 @@
                                       <div class="span5" >
                                             <div class="control-group">
                                                 <label for="formCropCost_costo_costAdministrationPro"class="control-label">
-                                                   Costos de administración:
+                                                   <s:property value="getText('title.formcostinidirectcostadmin.costindirect')" />:
                                                 </label>
                                                 <div class="controls">
                                                    <s:textfield name="costo.costAdministrationPro" maxlength="14"/>
@@ -79,7 +79,7 @@
                                                         <div class="span5" style="padding-left: 28px">
                                                             <div class="control-group">
                                                                 <label for="formCropCost_costo_costOthersPro" class="control-label">
-                                                                  Costos Otros Servicios:
+                                                                  <s:property value="getText('title.formcostinidirectothercost.costindirect')" />:
                                                                 </label>
                                                                 <div class="controls">
                                                                     <s:textfield name="costo.costOthersPro" maxlength="14"/>
@@ -95,7 +95,7 @@
              <div class="span5" >
                                 <div class="control-group">
                                     <label for="formCropCost_costo_costInterestsPro"  class="control-label">
-                                        Intereses financieros:
+                                       <s:property value="getText('title.formcostinidirectintereses.costindirect')" />:
                                     </label>
                                     <div class="controls">
                                         <s:textfield name="costo.costInterestsPro" maxlength="14"/>

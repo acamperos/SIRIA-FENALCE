@@ -16,7 +16,7 @@
 
 <s:form id="formCropComment" action="saveComment" cssClass="form-horizontal">
     <fieldset>
-        <legend>Rendimiento obtenido</legend>
+        <legend> <s:property value="getText('title.formdesrendimiento.desc')" /></legend>
         <div class="control-group">
             <s:hidden name="idCrop"/>
             <s:hidden name="typeCrop"/>
@@ -68,7 +68,7 @@
                  <div class="span1" >
                                
                                     <label >
-                                        Observaciones del rendimiento:
+                                        <s:property value="getText('title.formdescriptionrendimiento.desc')" />:
                                     </label>
                                   
                                           <s:textarea rows="5" cssClass="span6" name="event.commentPerformanceProEve"></s:textarea>                                    

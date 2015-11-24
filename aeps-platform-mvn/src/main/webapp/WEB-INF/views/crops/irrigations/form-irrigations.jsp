@@ -282,7 +282,7 @@
                         </fieldset>                  
                       </div>
                 <fieldset>
-                <legend>Observaciones del riego</legend>                   
+                <legend><s:property value="getText('title.formirrigationcomment.irrigations')" /></legend>                   
                 <div class="row">
                    <div class="span5">
                         <div  class="control-group">
