@@ -33,7 +33,7 @@
                             listValue="nameDocTyp" 
                             headerKey="-1" 
                             headerValue="---"
-                            onchange="selConf(this.value, 'formProducer_num_ident_producer');
+                            onchange="selConf(this.value, 'formProducer_num_ident_producer', '%{#attr.country_code}');
                                       showOtherTypeDocument(this.value, 'divInfoCompany', 'divInfoPerson');"
                         />
                     </div>  
@@ -267,11 +267,16 @@
         </s:form>
         <% if (coCode.equals("NI")) { %>
             <script>
-                $.mask.definitions['h'] = "[8]";
+                $.mask.definitions['h'] = "[A-Za-z]";
+                $("#formProducer_telephone_producer").mask("99999999",{placeholder:""});
+                $("#formProducer_celphone_producer").mask("9999999999",{placeholder:""});
             </script>
         <% } else if (coCode.equals("CO")) { %>
             <script>
                 $.mask.definitions['h'] = "[3]";
+                $("#formProducer_dig_ver_producer").mask("9",{placeholder:""});
+                $("#formProducer_telephone_producer").mask("9999999",{placeholder:""});
+                $("#formProducer_celphone_producer").mask("h999999999",{placeholder:""});
             </script>
         <% } %>
         <script>           
@@ -296,10 +301,7 @@
 //                jQuery.struts2_jquery.bind(jQuery('#submit_492662557'),options_submit_492662557);
 //            }); 
 //            var requestSent = false;
-            
-            $("#formProducer_dig_ver_producer").mask("9",{placeholder:""});
-            $("#formProducer_telephone_producer").mask("9999999",{placeholder:""});
-            $("#formProducer_celphone_producer").mask("h999999999",{placeholder:""});
+                        
             $.subscribe('completeProducer', function(event, data) {
                 if(event.handled !== true){
                     var actExePro = $("#formProducer_actExe").val();

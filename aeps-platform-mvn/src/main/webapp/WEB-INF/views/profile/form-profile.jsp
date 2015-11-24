@@ -17,7 +17,7 @@
                     listValue="nameDocTyp" 
                     headerKey="-1" 
                     headerValue="---"
-                    onchange="selConf(this.value, 'formProfile_noDocument');
+                    onchange="selConf(this.value, 'formProfile_noDocument', '%{#attr.country_code}');
                               showOtherTypeDocument(this.value, 'divInfoCompany', 'divInfoPerson');
                              "
                 />

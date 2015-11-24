@@ -93,11 +93,11 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="span6 thumbnail custom-thumb" style="margin-left: 10px">
+                        <% if (false) { %> <div class="span6 thumbnail custom-thumb" style="margin-left: 10px"> <% } %>
                     <% } else { %>
-                        <div class="span6 thumbnail custom-thumb">
+                        <% if (false) { %> <div class="span6 thumbnail custom-thumb"> <% } %>
                     <% } %>
-                    <% if (true) { %>
+                    <% if (false) { %>
                             <img class="sprite sprite-climate"/>
                             <div class="caption">
                                 <h3><s:property value="getText('title.climate.getting')" /></h3>
@@ -165,7 +165,7 @@
                     <% } %>   
                 </div>
                 <div class="row">
-                    <% if (true) { %>
+                    <% if (false) { %>
                         <div class="span6 thumbnail custom-thumb">
                             <img class="sprite sprite-climate"/>
                             <div class="caption">

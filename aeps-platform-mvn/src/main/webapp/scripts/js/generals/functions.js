@@ -104,13 +104,23 @@ function showNumCycles(valSel, divShow) {
     }
 }
 
-function selConf(valSel, inputId) {
-    // $.mask.definitions['h'] = "[A-Fa-f0-9]";
-    if (valSel == 'CC') {
-        $("#" + inputId).mask("999999?9999", {placeholder: ""});
-    } else if (valSel == 'CE') {
-        $("#" + inputId).mask("999999?9999", {placeholder: ""});
-    } else if (valSel == 'NIT') {
+function selConf(valSel, inputId, country) {
+     $.mask.definitions['h'] = "[A-Za-z]";
+    
+    if (country=='CO') {
+        if (valSel == 'CC') {
+            $("#" + inputId).mask("999999?9999", {placeholder: ""});
+        } else if (valSel == 'CE') {
+            $("#" + inputId).mask("999999?9999", {placeholder: ""});
+        }
+    } else if (country=='NI') {
+        if (valSel == 'CC') {
+            $("#" + inputId).mask("9999999999999h", {placeholder: ""});
+        } else if (valSel == 'CE') {
+            $("#" + inputId).mask("9999999999999h", {placeholder: ""});
+        }
+    }
+    if (valSel == 'NIT') {
         $("#" + inputId).mask("999999999?9", {placeholder: ""});
     } else if (valSel == 'PS') {
         //$("#"+inputId).mask("999999?9999",{placeholder:""});
@@ -1550,12 +1560,17 @@ function generateDecimals(valDec, valDegrees, valMinutes, valSeconds) {
 function generateDegrees(valDec, valDegrees, valMinutes, valSeconds) {
 
     var valNumDecimal = parseCommaSeparated($('#'+valDec).val());
+    var negative      = false;
+    if (valNumDecimal<0) {
+        valNumDecimal = Math.abs(valNumDecimal);
+        negative      = true;
+    }
     if ($('#'+valDec).val()!=null && $('#'+valDec).val()!="") {
-        var d = Math.floor (valNumDecimal);
+        var d = Math.floor(valNumDecimal);
         var minfloat = (valNumDecimal-d)*60;
         var m = Math.floor(minfloat);
         var secfloat = (minfloat-m)*60;
-        var s = Math.round(secfloat);   
+        var s = Math.round(secfloat * 100) / 100;   
 
         if (s==60) {
           m++;
@@ -1566,6 +1581,9 @@ function generateDegrees(valDec, valDegrees, valMinutes, valSeconds) {
           m=0;
         }
 
+        if (negative) {
+            d = d*-1;
+        }
         $('#'+valDegrees).val(d);
         $('#'+valMinutes).val(m);
         $('#'+valSeconds).val(s);
@@ -1603,7 +1621,7 @@ function parsePointSeparated( strVal ) {
 }
 
 function parseCommaSeparated( strVal ) {
-    return strVal.replace(',','.');
+    return Number(strVal.replace(',','.'));
     /*if(navigator.language=='es-ES' || navigator.language=='es-CO' || navigator.language=='es-PE' || navigator.language=='es-NI' || navigator.language=='es') return parseFloat(strVal.replace(',','.'));
     if(navigator.language=='en-EN' || navigator.language=='en') return parseFloat(strVal.replace('.','.'));*/
 }
@@ -1760,6 +1778,8 @@ function viewPositionRasta(url, formId, valNameLat, valLatId, valNameLon, valLon
                     }
                 });
             } else {
+                $("#"+formId).find("div.error").removeClass("error");
+                $("#"+formId).find("span.s2_help_inline").remove();
                 $("#"+divHide).hide();
                 $("#"+divShow).show();
                 $("#"+divShow).html(information);       
@@ -1805,6 +1825,8 @@ function viewPosition(url, formId, valNameLat, valLatId, valNameLon, valLonId, d
 //                showMessError(divHide, json.info);
 //                $("#"+divHide).append(setTimerToMessage(8));
             } else {
+                $("#"+formId).find("div.error").removeClass("error");
+                $("#"+formId).find("span.s2_help_inline").remove();
                 $("#"+divHide).hide();
                 $("#"+divShow).show();
                 $("#"+divShow).html(information);       
@@ -2070,11 +2092,12 @@ function checkArea(valSelId, divInfo) {
     }
 }
 
-function showInfoArea(infoId, areaFieldId, areaAvaId, areaCropId, totField, avaField, typeAreaId, divInfo) {
+function showInfoArea(infoId, areaFieldId, areaAvaId, areaCropId, areaCropHec, totField, avaField, typeAreaId, divInfo) {
     var idCrop   = $("#"+infoId).val();
     var valTotal = $("#"+areaFieldId).val();
     var valArea  = $("#"+areaAvaId).val();
     var valCrop  = $("#"+areaCropId).val();
+    var valCropHec   = $("#"+areaCropHec).val();
     var valTypeArea  = $("#"+typeAreaId).val();
     
     var objLan = document.getElementsByName('lanSel');
@@ -2087,7 +2110,7 @@ function showInfoArea(infoId, areaFieldId, areaAvaId, areaCropId, totField, avaF
     2-Hectarea   ((Area/Area del lote)*100=porcentaje)
     */
     if (valTypeArea=='1') {
-        valCrop = ((valTotal*valCrop)/100);        
+        valCrop = (Number(valCrop)*(Number(valArea)+Number(valCropHec)))/100;        
     }
     
     if (valEs!=-1) {
@@ -2198,7 +2221,7 @@ function getCountry () {
     var deferred = $.Deferred();
     $.getJSON("http://ip-api.com/json", function(result){
         countryCode = result.countryCode;
-//        countryCode = "CO";
+//        countryCode = "NI";
 //                    alert('Country: ' + result.country_name + '\n' + 'Code: ' + result.country_code);
         deferred.resolve();
 //                    doAction();

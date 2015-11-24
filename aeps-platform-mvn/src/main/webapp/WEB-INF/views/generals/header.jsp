@@ -12,9 +12,9 @@
         <% String coCode = (String) session.getAttribute(APConstants.COUNTRY_CODE); %>
         <% IdiomCountry idiom = new IdiomCountryDao().objectById(coCode); %>
         <% String nameCountry = ""; %>
-        <% if (idiom != null) {%>
+        <% if (idiom != null) { %>
             <% nameCountry = idiom.getCountryIdCo(); %>
-        <% }%>
+        <% } %>
         
         <div class="container">
             <div class="masthead">
@@ -37,48 +37,48 @@
         <div class="navbar navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container">
-										<ul class="nav" id="ulOptionsMenu">
-												<li class="active homeCls">
-                                                                                                    <s:set id="contextPath"  value="#request.get('javax.servlet.forward.context_path')" />
-                                                                                                        <s:a href="locale.action" onclick="activeOption('ulOptionsMenu')"><i class="icon-home"></i><s:property value="getText('button.home.platform')" /></s:a>
-												</li>
-												<li class="aboutCls">
-														<s:a href="about.action" onclick="activeOption('ulOptionsMenu')"><s:property value="getText('button.howis.platform')" /></s:a>
-												</li>
-												<li class="contactCls">
-														<s:a href="contact.action" onclick="activeOption('ulOptionsMenu')"><s:property value="getText('button.contact.platform')" /></s:a>
-												</li>
-										</ul>
-										<div class="formIngress">
-												<% if (user != null) {%>
-												<p style="margin-bottom:0px"><s:property value="getText('label.youareconnect.header')" /></p>
-												<a style="float: right" href="signin.action" class="btn btn-initial"><s:property value="getText('link.ingress.header')" /></a>
-												<% } else {%>
-												<s:url id="ingress" namespace="/" action="signin" >
-														<%--<s:param name="request_locale" ><%= request.getParameter("lang") %></s:param>--%>                                    
-												</s:url>
-												<s:url id="register" namespace="/" action="signin" >
-														<s:param name="logSel" >new</s:param>                                    
-														<%--<s:param name="request_locale" ><%= request.getParameter("lang") %></s:param>--%>                                    
-												</s:url>
-												<s:a href="%{ingress}" cssClass="btn btn-initial btn-large"><s:property value="getText('button.ingress.platform')" /></s:a>
-												<s:a href="%{register}" cssClass="btn btn-default btn-large"><s:property value="getText('button.register.platform')" /></s:a>			
-												<% }%>
-										</div>
-                                <div class="formIngress">
-                                    <s:url id="localeEN" namespace="/" action="locale" >
+                    <ul class="nav" id="ulOptionsMenu">
+                        <li class="active homeCls">
+                            <s:set id="contextPath"  value="#request.get('javax.servlet.forward.context_path')" />
+                            <s:a href="locale.action" onclick="activeOption('ulOptionsMenu')"><i class="icon-home"></i><s:property value="getText('button.home.platform')" /></s:a>
+                            </li>
+                            <li class="aboutCls">
+                            <s:a href="about.action" onclick="activeOption('ulOptionsMenu')"><s:property value="getText('button.howis.platform')" /></s:a>
+                            </li>
+                            <li class="contactCls">
+                            <s:a href="contact.action" onclick="activeOption('ulOptionsMenu')"><s:property value="getText('button.contact.platform')" /></s:a>
+                            </li>
+                        </ul>
+                        <div class="formIngress">
+                        <% if (user != null) {%>
+                            <p style="margin-bottom:0px"><s:property value="getText('label.youareconnect.header')" /></p>
+                            <a style="float: right" href="signin.action" class="btn btn-initial"><s:property value="getText('link.ingress.header')" /></a>
+                        <% } else {%>
+                        <s:url id="ingress" namespace="/" action="signin" >
+                            <%--<s:param name="request_locale" ><%= request.getParameter("lang") %></s:param>--%>                                    
+                        </s:url>
+                        <s:url id="register" namespace="/" action="signin" >
+                            <s:param name="logSel" >new</s:param>                                    
+                            <%--<s:param name="request_locale" ><%= request.getParameter("lang") %></s:param>--%>                                    
+                        </s:url>
+                        <s:a href="%{ingress}" cssClass="btn btn-initial btn-large"><s:property value="getText('button.ingress.platform')" /></s:a>
+                        <s:a href="%{register}" cssClass="btn btn-default btn-large"><s:property value="getText('button.register.platform')" /></s:a>			
+                        <% }%>
+                    </div>
+<!--                                <div class="formIngress">
+                                    <%--<s:url id="localeEN" namespace="/" action="locale" >--%>
                                         <%--<s:param name="lang">en</s:param>--%>
-                                    </s:url>
-                                    <s:url id="localeES" namespace="/" action="locale" >
+                                    <%--</s:url>--%>
+                                    <%--<s:url id="localeES" namespace="/" action="locale" >--%>
                                         <%--<s:param name="lang">espe</s:param>--%>
-                                    </s:url>
+                                    <%--</s:url>--%>
                                     <ul class="nav">
                                         <li>
-                                            <a><s:property value="getText('select.language.header')" /></a>
+                                            <a><%--<s:property value="getText('select.language.header')" />--%></a>
                                         </li>
                                         <li>                                    
                                             <div class="btn-group">
-                                                <a class="btn" href="#"><s:property value="getText('link.languagespa.header')" /></a>
+                                                <a class="btn" href="#"><%--<s:property value="getText('link.languagespa.header')" />--%></a>
                                                 <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
                                                 <ul class="dropdown-menu">
                                                     <li><a onclick="sendCountry('initial.action?lang=en')"><img src="img/languages/kingdom-flat.png" class="img-rounded" /> <s:property value="getText('link.optenglish.header')" /></a></li>
@@ -87,11 +87,7 @@
                                             </div>
                                         </li>
                                     </ul>
-                                </div>                                    
-                            <!--</div>-->
-                            <!--</div>-->	
-                        <!--</div>-->    
-                    <!--</div>-->
+                                </div>                                    -->
             </div>
         </div>
         </div>

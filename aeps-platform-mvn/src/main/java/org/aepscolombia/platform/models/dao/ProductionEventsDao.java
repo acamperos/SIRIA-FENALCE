@@ -694,13 +694,12 @@ public class ProductionEventsDao
         sql += "d.name_dep, m.name_mun";
         sql += " from production_events ep";
         sql += " inner join fields l on ep.id_field_pro_eve = l.id_fie";
-        sql += " inner join fields_producers lp on lp.id_field_fie_pro = l.id_fie";
         sql += " inner join farms f on l.id_farm_fie=f.id_far";
         sql += " inner join farms_producers fp on f.id_far = fp.id_farm_far_pro";
         sql += " inner join producers p on p.id_pro = fp.id_producer_far_pro";
         sql += " inner join entities ent on ent.id_ent = p.id_entity_pro";
-        sql += " inner join municipalities m on m.id_mun  = f.id_municipipality_far";
-        sql += " inner join departments d on d.id_dep=m.id_department_mun";
+        sql += " left join municipalities m on m.id_mun  = f.id_municipipality_far";
+        sql += " left join departments d on d.id_dep=m.id_department_mun";
         sql += " left join crops_types t on t.id_cro_typ=ep.former_crop_pro_eve and t.status_cro_typ=1";
         sql += " left join sowing sie on sie.id_production_event_sow = ep.id_pro_eve";
         sql += " left join genotypes mg on mg.id_gen=sie.genotype_sow and mg.status_gen=1";
@@ -726,7 +725,7 @@ public class ProductionEventsDao
         }
         sql += " where le.action_type_log_ent = 'C'";
         sql += " and ep.status=1 and l.status=1 and f.status=1 and ent.status=1";
-        sql += " and ep.id_crop_type_pro_eve in (1,2)";
+        sql += " and ep.id_crop_type_pro_eve in (1,2,4)";
         if (!entType.equals("3") && args.containsKey("idEntUser")) {
             sql += " and le.id_entity_log_ent="+args.get("idEntUser");
         } else {

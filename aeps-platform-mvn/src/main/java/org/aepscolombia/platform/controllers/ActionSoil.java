@@ -677,7 +677,7 @@ public class ActionSoil extends BaseAction {
             
             LogEntities log = null;            
             log = LogEntitiesDao.getData(idEntSystem, soil.getIdSoAna(), "soil_analysis", action);
-            if (log==null) {
+            if ((log==null && action.equals("C")) || action.equals("M")) {
                 log = new LogEntities();
                 log.setIdLogEnt(null);
                 log.setIdEntityLogEnt(idEntSystem);

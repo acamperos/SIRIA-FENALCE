@@ -128,5 +128,6 @@
     <mapping class="org.aepscolombia.platform.models.entity.SoilAnalysis"/>
     <mapping class="org.aepscolombia.platform.models.entity.ChemicalFertilizersCountry"/>
     <mapping class="org.aepscolombia.platform.models.entity.CostIndirectProductionEvent"/>
+    <mapping class="org.aepscolombia.platform.models.entity.AgentsAssociation"/>
   </session-factory>
 </hibernate-configuration>

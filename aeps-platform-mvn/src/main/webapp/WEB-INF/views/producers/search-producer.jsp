@@ -20,7 +20,7 @@
                     name="name_agronomist" 
                     list="list_agronomist" 
                     listKey="idEnt" 
-                    listValue="nameEnt" 
+                    listValue="%{nameEnt==null ? emailEnt : nameEnt}" 
                 />
             </div> 
             <div class="span1" style="padding-left: 28px">
@@ -92,7 +92,7 @@
                     listValue="nameDocTyp" 
                     headerKey="-1" 
                     headerValue="---"
-                    onchange="selConf(this.value, 'formProducerSearch_num_ident_producer');
+                    onchange="selConf(this.value, 'formProducerSearch_num_ident_producer', '%{#attr.country_code}');
                               showOtherTypeDocument(this.value, 'divSearchInfoCompany', 'divSearchInfoPerson');"
                     />
             </div>

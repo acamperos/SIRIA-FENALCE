@@ -51,6 +51,18 @@ public class SoilAnalysis  implements java.io.Serializable {
      private Double exchangeableAcidityHSoAna;
      private Double exchangeableAcidityThreeSoAna;
      private String idProjectSoAna;
+     private Integer boronUnitSoAna;
+     private Integer phosphorusUnitSoAna;
+     private Integer zincUnitSoAna;
+     private Integer potassiumUnitSoAna;
+     private Integer ironUnitSoAna;
+     private Integer calciumUnitSoAna;
+     private Integer magnesiumUnitSoAna;
+     private Integer manganeseUnitSoAna;
+     private Integer sulfurUnitSoAna;
+     private Integer copperUnitSoAna;
+     
+     
      private boolean status;
      private Integer createdBy;
 
@@ -403,6 +415,95 @@ public class SoilAnalysis  implements java.io.Serializable {
         this.idProjectSoAna = idProjectSoAna;
     }
 
+    @Column(name="boron_unit_so_ana")
+    public Integer getBoronUnitSoAna() {
+        return boronUnitSoAna;
+    }
+    
+    public void setBoronUnitSoAna(Integer boronUnitSoAna) {
+        this.boronUnitSoAna = boronUnitSoAna;
+    }
+
+    @Column(name="phosphorus_unit_so_ana")
+    public Integer getPhosphorusUnitSoAna() {
+        return phosphorusUnitSoAna;
+    }
+
+    public void setPhosphorusUnitSoAna(Integer phosphorusUnitSoAna) {
+        this.phosphorusUnitSoAna = phosphorusUnitSoAna;
+    }
+
+    @Column(name="zinc_unit_so_ana")
+    public Integer getZincUnitSoAna() {
+        return zincUnitSoAna;
+    }
+
+    public void setZincUnitSoAna(Integer zincUnitSoAna) {
+        this.zincUnitSoAna = zincUnitSoAna;
+    }
+
+    @Column(name="potassium_unit_so_ana")
+    public Integer getPotassiumUnitSoAna() {
+        return potassiumUnitSoAna;
+    }
+
+    public void setPotassiumUnitSoAna(Integer potassiumUnitSoAna) {
+        this.potassiumUnitSoAna = potassiumUnitSoAna;
+    }
+
+    @Column(name="iron_unit_so_ana")
+    public Integer getIronUnitSoAna() {
+        return ironUnitSoAna;
+    }
+
+    public void setIronUnitSoAna(Integer ironUnitSoAna) {
+        this.ironUnitSoAna = ironUnitSoAna;
+    }
+
+    @Column(name="calcium_unit_so_ana")
+    public Integer getCalciumUnitSoAna() {
+        return calciumUnitSoAna;
+    }
+
+    public void setCalciumUnitSoAna(Integer calciumUnitSoAna) {
+        this.calciumUnitSoAna = calciumUnitSoAna;
+    }
+
+    @Column(name="magnesium_unit_so_ana")
+    public Integer getMagnesiumUnitSoAna() {
+        return magnesiumUnitSoAna;
+    }
+
+    public void setMagnesiumUnitSoAna(Integer magnesiumUnitSoAna) {
+        this.magnesiumUnitSoAna = magnesiumUnitSoAna;
+    }
+
+    @Column(name="manganese_unit_so_ana")
+    public Integer getManganeseUnitSoAna() {
+        return manganeseUnitSoAna;
+    }
+
+    public void setManganeseUnitSoAna(Integer manganeseUnitSoAna) {
+        this.manganeseUnitSoAna = manganeseUnitSoAna;
+    }
+
+    @Column(name="sulfur_unit_so_ana")
+    public Integer getSulfurUnitSoAna() {
+        return sulfurUnitSoAna;
+    }
+
+    public void setSulfurUnitSoAna(Integer sulfurUnitSoAna) {
+        this.sulfurUnitSoAna = sulfurUnitSoAna;
+    }
+
+    @Column(name="copper_unit_so_ana")
+    public Integer getCopperUnitSoAna() {
+        return copperUnitSoAna;
+    }
+
+    public void setCopperUnitSoAna(Integer copperUnitSoAna) {
+        this.copperUnitSoAna = copperUnitSoAna;
+    }    
     
     @Column(name="status", nullable=false)
     public boolean isStatus() {

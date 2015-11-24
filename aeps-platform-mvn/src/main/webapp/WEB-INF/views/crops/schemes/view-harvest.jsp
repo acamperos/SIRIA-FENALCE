@@ -70,7 +70,12 @@
             <div class="span5">
                 <div class="control-group">
                     <label for="formCropHar_harv_yieldHar" class="control-label req">
-                        <s:property value="getText('text.yieldhar.harvest')" /> <button type="button" class="btn btn-initial"><b>(kg/ha)</b></button>:
+                        <s:property value="getText('text.yieldhar.harvest')" /> 
+                        <% if (coCode.equals("CO")) { %>
+                            <button type="button" class="btn btn-initial"><b>(kg/ha)</b></button>:
+                        <% } else if (coCode.equals("NI")) { %>
+                            <button type="button" class="btn btn-initial"><b>(q/mz)</b></button>:
+                        <% } %>
                     </label>
                     <div class="controls">
                         <s:textfield name="harv.yieldHar" maxlength="14"/>
@@ -80,7 +85,12 @@
             <div class="span4" style="padding-left: 28px">
                 <div class="control-group">
                     <label for="formCropHar_harv_productionHar" class="control-label">
-                        <s:property value="getText('text.productionhar.harvest')" /> <button type="button" class="btn btn-initial"><b>(Kg)</b></button>:
+                        <s:property value="getText('text.productionhar.harvest')" /> 
+                        <% if (coCode.equals("CO")) { %>
+                            <button type="button" class="btn btn-initial"><b>(Kg)</b></button>:
+                        <% } else if (coCode.equals("NI")) { %>
+                            <button type="button" class="btn btn-initial"><b>(Q)</b></button>:
+                        <% } %>
                     </label>
                     <div class="controls">
                         <s:textfield name="harv.productionHar" maxlength="14"/>

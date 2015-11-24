@@ -121,6 +121,7 @@ public class ActionCrop extends BaseAction {
     private String lastTypeCrop;
     private String nameDrainPlot;
     private Double areaCrop;
+    private Double areaCropHec;
     private Integer typeArea;
     private Boolean costCrop; 
     private Double availableArea;
@@ -606,6 +607,10 @@ public class ActionCrop extends BaseAction {
     public void setAreaCrop(Double areaCrop) {
         this.areaCrop = areaCrop;
     }   
+
+    public Double getAreaCropHec() {
+        return areaCropHec;
+    }    
     
     public Double getAvailableArea() {
         return availableArea;
@@ -855,25 +860,25 @@ public class ActionCrop extends BaseAction {
             HashMap fieldInfo = lotDao.findById(this.getIdField());
             double availableArea = 0.0;
             double areaOld       = 0.0;
-            if (totallyArea!=null && actExe.equals("modify")) {
-                availableArea = Double.parseDouble(String.valueOf(fieldInfo.get("available_area")));
+            if (totallyArea!=null) {
+                availableArea = Double.parseDouble(String.valueOf(fieldInfo.get("available_area")));                
                 areaOld = Double.parseDouble(String.valueOf(fieldInfo.get("area_lot")));
             }
             
-            if (totallyArea!=null && !totallyArea && typeArea!=null && areaCrop!=null) {
-                if (typeArea==1) {
-                    areaCrop = ((areaCrop*areaOld)/100);
-                }
+            if (totallyArea!=null && !totallyArea && typeArea!=null && areaCrop!=null) {                
                 if (idCrop!=null && idCrop>0) {
                     HashMap temp  = cropDao.findById(idCrop);
                     Double areaCropTemp  = Double.parseDouble(String.valueOf(temp.get("quant_area")));
 //                    Integer typeAreaTemp = Integer.parseInt(String.valueOf(temp.get("type_area")));
 //                    if (typeAreaTemp==1) areaCropTemp = (areaCropTemp*areaOld)/100;
                     if (areaCropTemp>0) availableArea = availableArea + areaCropTemp;
-    }
+                }
+                if (typeArea==1) {
+                    areaCrop = ((areaCrop*availableArea)/100);
+                }
                 /* 
-                1-Porcentaje ((Area del lote * porcentaje/100)) = Area)
-                2-Hectarea	 ((Area/Area del lote)*100=porcentaje)
+                1-Porcentaje ((Area seleccionada * porcentaje/100)) = Area en Hectarea)
+                2-Hectarea	 ((Area seleccionada/Area del lote)*100=porcentaje)
                 */
                 if (areaCrop>availableArea) {
                     if (typeArea==1) {
@@ -929,11 +934,12 @@ public class ActionCrop extends BaseAction {
             
         }
         HashMap fieldInfo = lotDao.findById(this.getIdField());
-        double areaOld = Double.parseDouble(String.valueOf(fieldInfo.get("area_lot")));
-        double avaArea = Double.parseDouble(String.valueOf(fieldInfo.get("available_area")));
+        double areaOld  = Double.parseDouble(String.valueOf(fieldInfo.get("area_lot")));
+        double avaArea  = Double.parseDouble(String.valueOf(fieldInfo.get("available_area")));
         Boolean totArea = (Boolean)(fieldInfo.get("totally_area"));
         if (this.getTypeArea()!=null && this.getTypeArea()==1) {
-            this.setAreaCrop((this.getAreaCrop()/areaOld)*100);
+            areaCropHec = this.getAreaCrop();
+            this.setAreaCrop((this.getAreaCrop()/(avaArea+this.getAreaCrop()))*100);            
         } 
         this.setAreaField(areaOld);
         this.setAvailableArea(avaArea);
@@ -1477,7 +1483,11 @@ public class ActionCrop extends BaseAction {
             if (totallyArea) {
                 typeArea = 2;
             }
-            lot.setTotallyAreaFie(totallyArea);
+            if (availableArea==0) {
+                lot.setTotallyAreaFie(true);
+            } else {
+                lot.setTotallyAreaFie(false);
+            }
             lot.setAvailableAreaFie(availableArea);
             session.saveOrUpdate(lot);            
 //            throw new HibernateException("Perros");
@@ -1557,7 +1567,7 @@ public class ActionCrop extends BaseAction {
             
             LogEntities log = null;            
             log = LogEntitiesDao.getData(idEntSystem, pro.getIdProEve(), "production_events", action);
-            if (log==null) {
+            if ((log==null && action.equals("C")) || action.equals("M")) {
                 log = new LogEntities();
                 log.setIdLogEnt(null);
                 log.setIdEntityLogEnt(idEntSystem);

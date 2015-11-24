@@ -92,7 +92,12 @@
                 <div class="span5" style="padding-left: 28px">
                     <div class="control-group">
                         <label for="${formAmenId}__amountProductUsedAmeFer" class="control-label req">
-                            <s:property value="getText('text.amountproductamend.fertilization')" /> <button type="button" class="btn btn-initial"><b>(kg/ha)</b></button>:
+                            <s:property value="getText('text.amountproductamend.fertilization')" /> 
+                            <% if (coCode.equals("CO")) { %>
+                                <button type="button" class="btn btn-initial"><b>(kg/ha)</b></button>:
+                            <% } else if (coCode.equals("NI")) { %>
+                                <button type="button" class="btn btn-initial"><b>(q/mz)</b></button>:
+                            <% } %>                    
                         </label>
                         <div class="controls">
                             <s:textfield name="%{#attr.formAmen}.amountProductUsedAmeFer" value="%{#attr.amountProductUsedAmeFer}" maxlength="14"/>

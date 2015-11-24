@@ -77,6 +77,7 @@
                                 <s:textfield name="areaCrop" />
                                 <s:hidden name="areaField" />
                                 <s:hidden name="availableArea" />
+                                <s:hidden name="areaCropHec" />
                                 <div id="divAreaAva" class="hide">
                                     <label style="float: left;">Area total: </label>&nbsp;
                                     <label style="float: left; " id="formCrop_totalArea"></label>
@@ -131,7 +132,7 @@
                                     name="costCrop"
                                     list="#{'true':'SI', 'false':'NO'}"           
                                     headerKey="-1" 
-                                    headerValue="---"  
+                                    
                                      />
                            
                         </div>
@@ -175,7 +176,7 @@
                 if($('.pop-over').length) {
                     $('.pop-over').popover();
                 }
-                showInfoArea('formCrop_idCrop', 'formCrop_areaField', 'formCrop_availableArea', 'formCrop_areaCrop', 'formCrop_totalArea', 'formCrop_avaArea', 'formCrop_typeArea', 'divAreaAva');
+                showInfoArea('formCrop_idCrop', 'formCrop_areaField', 'formCrop_availableArea', 'formCrop_areaCrop', 'formCrop_areaCropHec', 'formCrop_totalArea', 'formCrop_avaArea', 'formCrop_typeArea', 'divAreaAva');
             </script>
         </div>
         <div class="row-fluid" id="divListCropForm"></div>

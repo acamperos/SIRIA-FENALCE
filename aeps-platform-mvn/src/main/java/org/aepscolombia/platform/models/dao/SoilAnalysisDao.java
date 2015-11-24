@@ -74,9 +74,10 @@ public class SoilAnalysisDao
         sql += " inner join log_entities le on le.id_object_log_ent=r.id_so_ana and le.table_log_ent='soil_analysis' and le.action_type_log_ent='C'";   
         sql += " inner join production_events ep on ep.id_pro_eve=r.id_production_event_so_ana";  
         sql += " inner join fields l on ep.id_field_pro_eve=l.id_fie";
-        sql += " inner join fields_producers lp on lp.id_field_fie_pro=l.id_fie";
-        sql += " left join farms f on f.id_far=l.id_farm_fie";
-        sql += " inner join producers p on p.id_pro=lp.id_producer_fie_pro"; 
+//        sql += " inner join fields_producers lp on lp.id_field_fie_pro=l.id_fie";
+        sql += " inner join farms f on f.id_far=l.id_farm_fie";
+        sql += " inner join farms_producers fp on f.id_far = fp.id_farm_far_pro";
+        sql += " inner join producers p on p.id_pro = fp.id_producer_far_pro";
         sql += " inner join entities e on e.id_ent=p.id_entity_pro"; 
         sql += " where l.status=1 and f.status=1";
         sql += " and r.status=1 and e.status=1";
@@ -179,11 +180,12 @@ public class SoilAnalysisDao
             }
         }
         sql += " inner join fields l on ep.id_field_pro_eve=l.id_fie";
-        sql += " inner join fields_producers lp on lp.id_field_fie_pro=l.id_fie";
+//        sql += " inner join fields_producers lp on lp.id_field_fie_pro=l.id_fie";
         sql += " left join farms f on f.id_far=l.id_farm_fie";
         sql += " left join municipalities m on m.id_mun = f.id_municipipality_far";
         sql += " left join departments d on d.id_dep=m.id_department_mun";
-        sql += " inner join producers p on p.id_pro=lp.id_producer_fie_pro"; 
+        sql += " inner join farms_producers fp on f.id_far = fp.id_farm_far_pro";
+        sql += " inner join producers p on p.id_pro = fp.id_producer_far_pro";
         sql += " inner join entities e on e.id_ent=p.id_entity_pro"; 
         sql += " where ep.status=1 and f.status=1";
         sql += " and r.status=1 and e.status=1";    
@@ -310,7 +312,7 @@ public class SoilAnalysisDao
 //                Date newDate   = new SimpleDateFormat("yyyy-MM-dd").parse(val);              
                 temp.put("ph", data[15]);                
                 temp.put("cation", data[17]);                    
-                temp.put("status", data[35]);
+                temp.put("status", data[35]);        
                 temp.put("dateLog", data[36]);
                 if (entType.equals("3")) {
                     temp.put("nameAgro", data[37]);
@@ -356,9 +358,10 @@ public class SoilAnalysisDao
         }
         sql += " inner join production_events ep on ep.id_pro_eve=r.id_production_event_so_ana";  
         sql += " inner join fields l on ep.id_field_pro_eve=l.id_fie";
-        sql += " inner join fields_producers lp on lp.id_field_fie_pro=l.id_fie";
+//        sql += " inner join fields_producers lp on lp.id_field_fie_pro=l.id_fie";
         sql += " inner join farms f on f.id_far=l.id_farm_fie";
-        sql += " inner join producers p on p.id_pro=lp.id_producer_fie_pro"; 
+        sql += " inner join farms_producers fp on f.id_far = fp.id_farm_far_pro";
+        sql += " inner join producers p on p.id_pro = fp.id_producer_far_pro";
         sql += " inner join entities e on e.id_ent=p.id_entity_pro";
         
         sql += " where ep.status=1 and f.status=1";
@@ -474,7 +477,7 @@ public class SoilAnalysisDao
         sql += " inner join textures tex on tex.id_tex=r.texture_so_ana";
         sql += " inner join crops_types crop on ep.id_crop_type_pro_eve=crop.id_cro_typ";
         sql += " inner join fields l on ep.id_field_pro_eve=l.id_fie";
-        sql += " inner join fields_producers lp on lp.id_field_fie_pro = l.id_fie";
+//        sql += " inner join fields_producers lp on lp.id_field_fie_pro = l.id_fie";
         sql += " inner join farms f on l.id_farm_fie=f.id_far";
         sql += " inner join farms_producers fp on f.id_far = fp.id_farm_far_pro";
         sql += " inner join producers p on p.id_pro = fp.id_producer_far_pro";
@@ -673,7 +676,10 @@ public class SoilAnalysisDao
         sql += "r.co_so_ana, r.nitrogen_so_ana, r.phosphorus_so_ana, r.potassium_so_ana, r.calcium_so_ana,";	
         sql += "r.magnesium_so_ana, r.sulfur_so_ana, r.boron_so_ana, r.zinc_so_ana,"; 	
         sql += "r.iron_so_ana, r.sodium_so_ana, r.manganese_so_ana, r.copper_so_ana, r.silicon_so_ana,"; 	
-        sql += "r.exchangeable_acidity_h_so_ana, r.exchangeable_acidity_three_so_ana, r.id_project_so_ana,"; 	
+        sql += "r.exchangeable_acidity_h_so_ana, r.exchangeable_acidity_three_so_ana, r.id_project_so_ana,";
+        sql += "r.phosphorus_unit_so_ana, r.sulfur_unit_so_ana, r.boron_unit_so_ana,";
+        sql += "r.iron_unit_so_ana, r.copper_unit_so_ana, r.zinc_unit_so_ana,";
+        sql += "r.manganese_unit_so_ana, r.potassium_unit_so_ana, r.calcium_unit_so_ana, r.magnesium_unit_so_ana,";        
         sql += "r.status, r.created_by";
         sql += " from soil_analysis r";
         if (!valSel.equals("")) sql += " where r.status=1 and r.id_so_ana in ("+valSel+")";

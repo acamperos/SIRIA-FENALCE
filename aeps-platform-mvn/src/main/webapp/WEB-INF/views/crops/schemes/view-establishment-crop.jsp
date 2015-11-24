@@ -62,7 +62,12 @@
             <div class="span5">
                 <div class="control-group">
                     <label for="formCropSow_event_expected_production_pro_eve" class="control-label">
-                        <s:property value="getText('text.bestyield.crop')" /> <button type="button" class="btn btn-initial"><b>(kg/ha)</b></button>:
+                        <s:property value="getText('text.bestyield.crop')" /> 
+                        <% if (coCode.equals("CO")) { %>
+                            <button type="button" class="btn btn-initial"><b>(kg/ha)</b></button>:
+                        <% } else if (coCode.equals("NI")) { %>
+                            <button type="button" class="btn btn-initial"><b>(q/mz)</b></button>:
+                        <% } %>
                         <i class="icon-info-sign s2b_tooltip pop-over" data-content="<s:property value="getText('desc.bestyield.crop')" />." data-title="<s:property value="getText('help.bestyield.crop')" />" data-placement="right" data-trigger="hover"></i>
                     </label>
                     <div class="controls">
@@ -92,7 +97,7 @@
                         <% } else if (typeCrop==2) { %>
                             <s:property value="getText('text.seednumber.crop')" />:
                         <% } else if (typeCrop==4) { %>
-                            <s:property value="getText('text.seednumberrice.crop')" />:
+                            <s:property value="getText('text.seednumberrice.crop')" /><button type="button" class="btn btn-initial"><b>(q/mz)</b></button>:
                         <% } %>                        
                     </label>
                     <div class="controls">
@@ -106,7 +111,7 @@
            <div class="span4" style="padding-left: 28px">
                                 <div class="control-group">
                                     <label for="formCropSow_sowing_costSeedSow" class="control-label">
-                                       Costo de la semilla (Ha.):
+                                       <s:property value="getText('text.sowcost.crop')" />:
                                     </label>
                                     <div class="controls">
                                        <s:textfield name="sowing.costSeedSow" maxlength="14"/>
@@ -442,7 +447,7 @@
             <p class="warnField reqBef"><s:property value="getText('label.requirefields')" /></p>
         <% } %>
         <script>
-            $("#formCropSow_event_expectedProductionProEve").mask("999?999",{placeholder:""});
+            $("#formCropSow_event_expectedProductionProEve").mask("9?99999",{placeholder:""});
             $("#formCropSow_sowing_seedsNumberSow").mask("9?99999999",{placeholder:""});
             $("#formCropSow_maize_seedsNumberSiteMai").mask("9?99999999",{placeholder:""});
             $("#formCropSow_sowing_dateSow").datepicker({dateFormat: 'mm/dd/yy'});

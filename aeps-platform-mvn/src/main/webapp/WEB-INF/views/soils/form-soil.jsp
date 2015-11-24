@@ -124,7 +124,7 @@
                         </div>
                     </div>
                     <div class="control-group">
-                        <s:label for="formRasta_rasta_pendienteTerrenoRas" cssClass="control-label req" value="%{getText('text.pendant.soil')}:"></s:label>
+                        <s:label for="formRasta_rasta_pendienteTerrenoRas" cssClass="control-label req" value="%{getText('text.pendant.soil')}(%):"></s:label>
                             <div class="controls">
                             <s:textfield cssClass="form-control" id="formRasta_rasta_pendienteTerrenoRas" name="rasta.pendienteTerrenoRas" tooltip="%{getText('desc.pendant.soil')}"/>
                         </div>
@@ -150,41 +150,43 @@
                         </div>   
                     </div>
                     <div class="control-group">
-                        <fieldset>         
-                            <legend><s:property value="getText('title.horizonts.soil')" /></legend>
-                            <%@page import="java.lang.*"%>
-                            <%@page import="java.util.List"%>
-                            <%@page import="java.util.ArrayList"%>
+                        <div class="controls" style="margin-left:0px">
+                            <s:hidden name="rasta.numeroCapasRas"/>    
                             <% String actionOpt = String.valueOf(request.getAttribute("actExe"));%>
                             <% String rowNew    = String.valueOf(request.getAttribute("rowNew"));%>
-                            <table class="table table-condensed" style="width: auto;">
-                                <thead>
-                                    <tr>
-                                        <th colspan="1" rowspan="1" style="width:64px;padding-left:0;text-align: center;"><s:property value="getText('td.nolayer.soil')" /></th>
-                                        <th colspan="1" rowspan="1" style="width:64px;padding-left:0;text-align: center;"><s:property value="getText('td.density.soil')" /></th>
-                                        <th colspan="1" rowspan="1" style="width:60px;padding-left:0;text-align: center;"><s:property value="getText('td.drycolor.soil')" /></th>
-                                        <th colspan="1" rowspan="1" style="width:60px;padding-left:0;text-align: center;"><s:property value="getText('td.wetcolor.soil')" /></th>
-                                        <th colspan="1" rowspan="1" style="width:175px;padding-left:0;text-align: center;"><s:property value="getText('td.texture.soil')" /></th>
-                                        <th colspan="1" rowspan="1" style="width:250px;padding-left:0;text-align: center;"><s:property value="getText('td.resistance.soil')" /></th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tableAdit">
-                                    <s:if test="additionalsAtrib.size()>0">
-                                        <s:iterator value="additionalsAtrib" var="horizon" status="estatus">
-                                            <s:include value="row-additional-horizon.jsp">
-                                                <s:param name="numRows" value="#estatus.index+1" />
-                                                <s:param name="actionOpt" value="{request.actExe}" />
-                                            </s:include>
-                                        </s:iterator>
-                                    </s:if>
-                                    <s:else>
-                                        <tr value="0">
-                                        </tr>   
-                                    </s:else>
-                                </tbody>
-                            </table>
-                            <button type="button" class="btn btn-default" onclick="showRowAdditionalItem('../soil/showRowAdditional?action=<%=actionOpt%>&rowNew=<%=rowNew%>', 'tableAdit')"><i class="icon-plus"></i> <s:property value="getText('button.addhorizon.soil')" /></button>
-                        </fieldset>
+                            <fieldset>         
+                                <legend><s:property value="getText('title.horizonts.soil')" />&nbsp;<button type="button" class="btn btn-initial btn-large" onclick="showRowAdditionalItem('../soil/showRowAdditional?action=<%=actionOpt%>&rowNew=<%=rowNew%>', 'tableAdit')"><i class="icon-plus"></i> <s:property value="getText('button.addhorizon.soil')" /></button></legend>
+                                <%@page import="java.lang.*"%>
+                                <%@page import="java.util.List"%>
+                                <%@page import="java.util.ArrayList"%>                            
+                                <table class="table table-condensed" style="width: auto;">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="1" rowspan="1" style="width:64px;padding-left:0;text-align: center;"><s:property value="getText('td.nolayer.soil')" /></th>
+                                            <th colspan="1" rowspan="1" style="width:64px;padding-left:0;text-align: center;"><s:property value="getText('td.density.soil')" /></th>
+                                            <th colspan="1" rowspan="1" style="width:60px;padding-left:0;text-align: center;"><s:property value="getText('td.drycolor.soil')" /></th>
+                                            <th colspan="1" rowspan="1" style="width:60px;padding-left:0;text-align: center;"><s:property value="getText('td.wetcolor.soil')" /></th>
+                                            <th colspan="1" rowspan="1" style="width:175px;padding-left:0;text-align: center;"><s:property value="getText('td.texture.soil')" /></th>
+                                            <th colspan="1" rowspan="1" style="width:250px;padding-left:0;text-align: center;"><s:property value="getText('td.resistance.soil')" /></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tableAdit">
+                                        <s:if test="additionalsAtrib.size()>0">
+                                            <s:iterator value="additionalsAtrib" var="horizon" status="estatus">
+                                                <s:include value="row-additional-horizon.jsp">
+                                                    <s:param name="numRows" value="#estatus.index+1" />
+                                                    <s:param name="actionOpt" value="{request.actExe}" />
+                                                </s:include>
+                                            </s:iterator>
+                                        </s:if>
+                                        <s:else>
+                                            <tr value="0">
+                                            </tr>   
+                                        </s:else>
+                                    </tbody>
+                                </table>                            
+                            </fieldset>
+                        </div> 
                     </div> 
                     <div class="control-group">
                         <s:label for="formRasta_rasta_phRas" cssClass="control-label req" value="%{getText('text.amountph.soil')}:"></s:label>

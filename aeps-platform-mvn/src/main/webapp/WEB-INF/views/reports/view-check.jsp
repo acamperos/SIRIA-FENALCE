@@ -24,6 +24,7 @@
                                 <s:label for="formCrop_nameCrop" cssClass="control-label req" value="%{getText('text.selectcrop.report')}:"></s:label>
                                 <div class="controls">
                                     <s:hidden name="idCrop"/>
+                                    <s:hidden name="actExe" value="cropcheck"/>
                                     <s:textfield name="nameCrop" readonly="true" onclick="viewForm('/crop/viewCrop.action?selected=cropcheck', 'idCrop', '', '%{getText('title.selectcrop.report')}', 1050, 550)" />
                                     <a class="btn" onclick="viewForm('/crop/viewCrop.action?selected=cropcheck', 'idCrop', '', '<s:property value="getText('title.selectcrop.report')" />', 1050, 550)"><i class="icon-search"></i></a>
                                 </div>  
