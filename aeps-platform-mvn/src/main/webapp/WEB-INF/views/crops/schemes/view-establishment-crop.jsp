@@ -104,6 +104,7 @@
                         <s:textfield name="sowing.seedsNumberSow"/>
                     </div>                          
                 </div>                          
+
             </div>   
             
                 
@@ -122,6 +123,7 @@
           
         </div>
                                     
+
         <div class="row">
                 <div class="span5">
                 <div class="control-group">
