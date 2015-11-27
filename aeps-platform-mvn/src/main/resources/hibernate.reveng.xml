@@ -127,4 +127,5 @@
   <table-filter match-name="chemical_fertilizers_country"/>
   <table-filter match-name="cost_indirect_production_event"/>
   <table-filter match-name="agents_association"/>
+  <table-filter match-name="products_controls"/>
 </hibernate-reverse-engineering>

@@ -85,7 +85,29 @@ public class ChemicalsControlsDao
     }
     
     public ChemicalsControls objectById(Integer id) {
+        SessionFactory sessions = HibernateUtil.getSessionFactory();
+        Session session = sessions.openSession();
+
+        String sql  = "";        
         ChemicalsControls event = null;
+        Transaction tx = null;
+				
+        sql += "select p.id_che_con, p.name_che_con, p.comer_name_che_con, p.target_name_che_con";
+        sql += " from chemicals_controls p";
+        sql += " where p.id_che_con="+id;
+        try {
+            tx = session.beginTransaction();
+            Query query = session.createSQLQuery(sql).addEntity("p", ChemicalsControls.class);
+            event = (ChemicalsControls)query.uniqueResult();
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
         return event;
     }    
 

@@ -586,6 +586,16 @@
             <interceptor-ref name="validateI18n"/>
             <result>/WEB-INF/views/crops/generals/form-crops.jsp</result>
         </action>
+        <action name="showRowAdditionalControl" method="showRowAdditionalControl" class="org.aepscolombia.platform.controllers.ActionCon">
+            <interceptor-ref name="defaultStackAeps"/>
+            <interceptor-ref name="validateI18n"/>
+            <result>/WEB-INF/views/crops/controls/control-additional.jsp</result>
+        </action>
+        <action name="addControlAdditional" method="addControlAdditional" class="org.aepscolombia.platform.controllers.ActionCon">
+            <interceptor-ref name="defaultStackAeps"/>
+            <result name="states" type="json"></result>
+            <result>/WEB-INF/views/crops/controls/row-product.jsp</result>
+        </action>
         <action name="saveCrop" method="saveData" class="org.aepscolombia.platform.controllers.ActionCrop">
             <interceptor-ref name="validateI18n"/>
             <interceptor-ref name="jsonValidationWorkflowStack"/>

@@ -146,8 +146,8 @@ public class ControlsDao
                 temp.put("cleaning", (String.valueOf(data[3]).equals("1")) ? "Si" : "No");
                 temp.put("frequence", data[4]);
 
-                resultProd = getProductsControls(temp);
-                result.addAll(resultProd);
+//                resultProd = getProductsControls(temp);
+//                result.addAll(resultProd);
             }
             tx.commit();
         } catch (HibernateException e) {
@@ -172,7 +172,7 @@ public class ControlsDao
         String sqlAdd = "";
 
         sql += "select p.target_type_pro_con, pl.name_pes, mal.name_wee, enf.name_dis, tp.name_che_con, p.other_chemical_product_pro_con, cr.name_org_con,";
-        sql += " p.other_organic_product_pro_con, tob.name_tar_typ, p.dosis_pro_con, ud.name_dos_uni,";
+        sql += " p.other_organic_product_pro_con, tar.name_tar_typ, p.dosis_pro_con, ud.name_dos_uni,";
         sql += " p.other_pest_pro_con, p.otro_weed_pro_con, p.other_disease_pro_con, p.control_type_pro_con, p.id_pro_con, p.id_control_pro_con, count(p.id_pro_con)";
         sql += " from products_controls p";
         sql += " inner join controls con on p.id_control_pro_con=con.id_con";

@@ -2406,6 +2406,49 @@ function showInfoCrop(selId, depId, divView) {
     }
 }
 
+function showFormAdditionalControl(url, formId, tableId, divHide, divShow)
+{
+    //url = "/aeps"+url;
+    var rows  = $('#'+tableId).children("tr");
+    var child = $(rows)[rows.length-1];
+    
+//    alert($(child).attr("value"));
+    var data  = '&numRows='+$(child).attr("value");
+    var dataForm = '&'+$('#'+formId+' input').serialize();
+//    var data  = '&numRows='+$(child).attr("value");
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: data+dataForm,
+        success: function(information) {
+            $('#'+divShow).html(information);
+            $('#'+divShow).show();
+            $('#'+divHide).hide();            
+        }
+    });
+}
+
+
+function addAdditionalControl(url, formId, tableId, divShow, divHide)
+{
+    var data  = $('#'+formId).serializeArray();
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: data,
+        success: function(json) {            
+//            alert(1);
+            if (json.state == 'failure') {
+                validationForm($('#'+formId), json.jRes);
+            } else {
+                $('#'+tableId).append(json);
+//                console.log(information);
+                toggleAndClean(divShow, divHide);
+            }            
+        }
+    });
+}
+
 /*
 var o = {"0":"1","1":"2","2":"3","3":"4"};
 

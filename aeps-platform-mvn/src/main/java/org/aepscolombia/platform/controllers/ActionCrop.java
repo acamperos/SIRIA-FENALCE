@@ -849,8 +849,8 @@ public class ActionCrop extends BaseAction {
             double availableArea = 0.0;
             double areaOld       = 0.0;
             if (totallyArea!=null) {
-                availableArea = Double.parseDouble(String.valueOf(fieldInfo.get("available_area")));                
-                areaOld = Double.parseDouble(String.valueOf(fieldInfo.get("area_lot")));
+                availableArea = (fieldInfo.get("available_area")!=null) ? Double.parseDouble(String.valueOf(fieldInfo.get("available_area"))) : 0.0;                
+                areaOld = (fieldInfo.get("area_lot")!=null) ? Double.parseDouble(String.valueOf(fieldInfo.get("area_lot"))) : 0.0;
             }
             
             if (totallyArea!=null && !totallyArea && typeArea!=null && areaCrop!=null) {                

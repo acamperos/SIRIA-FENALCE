@@ -66,7 +66,7 @@ public class ProductsControls  implements java.io.Serializable {
        this.status = status;
        this.createdBy = createdBy;
     }
-   
+    
     @Id @GeneratedValue(strategy=IDENTITY)    
     @Column(name="id_pro_con", unique=true, nullable=false)
     public Integer getIdProCon() {

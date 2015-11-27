@@ -14,7 +14,8 @@
 <% request.setAttribute("formChe", "chemFert["+(numRowsChe-1)+"]"); %>
 <% request.setAttribute("formCheSel", "chemFert_"+(numRowsChe-1)); %>
 <% request.setAttribute("formCheId", "formCropFer_chemFert_"+(numRowsChe-1)); %>
-<% String coCode      = (String) session.getAttribute(APConstants.COUNTRY_CODE); %>
+<%@page import="org.aepscolombia.platform.util.APConstants"%>
+<% String coCodeChe   = (String) session.getAttribute(APConstants.COUNTRY_CODE); %>
 <tr value="<%= numRowsChe %>" id="RowAdditChe_<%= numRowsChe %>">
     <td>
         <div id="divChemicalRow_<%= numRowsChe %>">
@@ -240,7 +241,7 @@
                             <s:property value="getText('select.unitchem.fertilization')" />:
                         </label>
                         <div class="controls">
-                            <% if (coCode.equals("CO")) { %>
+                            <% if (coCodeChe.equals("CO")) { %>
                                 <s:select
                                     id="%{#attr.formCheId}__unitCheFer"
                                     name="%{#attr.formChe}.unitCheFer"
@@ -249,7 +250,7 @@
                                     headerKey="-1" 
                                     headerValue="---"
                                 />
-                            <% } else if (coCode.equals("NI")) { %>
+                            <% } else if (coCodeChe.equals("NI")) { %>
                                 <s:select
                                     id="%{#attr.formCheId}__unitCheFer"
                                     name="%{#attr.formChe}.unitCheFer"

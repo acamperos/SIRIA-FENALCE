@@ -1,6 +1,10 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
-<s:form id="formProCon" action="addProductCon" cssClass="form-horizontal">
-    <s:hidden name="prodCon"/>
+<%@ taglib prefix="sj" uri="/struts-jquery-tags" %>
+<s:form id="formProCon" action="addControlAdditional" cssClass="form-horizontal">
+    <%--<s:hidden name="prodCon"/>--%>
+    <s:hidden name="idCrop"/>
+    <s:hidden name="numRows"/>
+    <s:hidden name="actExe"/>
     <s:hidden name="prod.idProCon"/>
     <div class="row">
         <div class="span5">
@@ -14,7 +18,7 @@
                         headerKey="-1" 
                         headerValue="---"                                                                                
                         onclick="chargeValuesObjective('prod.targetsTypes.idTarTyp', 'divListPest', 'divListWee', 'divListDis');
-                                  chargeValuesControls('/crop/comboControls.action?typeCrop=%{typeCrop}', 'idTarget', 'prod.targetsTypes.idTarTyp', 'typeCon', 'formCropCon_prod_controlsTypes_idConTyp', 'formCropCon_prod_chemicalsControls_idCheCon', 'formCropCon_prod_organicControls_idOrgCon', 'divMessage');
+                                  chargeValuesControls('/crop/comboControls.action?typeCrop=%{typeCrop}', 'idTarget', 'prod.targetsTypes.idTarTyp', 'typeCon', 'formProCon_prod_controlsTypes_idConTyp', 'formProCon_prod_chemicalsControls_idCheCon', 'formProCon_prod_organicControls_idOrgCon', 'divMessage');
                                   hideInformationControls('divNewObjControlPes', 'divNewObjControlWee', 'divNewObjControlDis', 'divNewProCheCon', 'divNewProOrgCon');"
                     />
                 </div>                         
@@ -38,7 +42,7 @@
     <div class="<%= classTarPet %> row" id="divListPest">
         <div class="span5">
             <div class="control-group">
-                <label for="formCropCon_prod_pests_idPes" class="control-label req">
+                <label for="formProCon_prod_pests_idPes" class="control-label req">
                     <s:property value="getText('select.targetpest.crop')" />:
                 </label>
                 <div class="controls">
@@ -62,7 +66,7 @@
         <div class="<%= classNewObjConPes %>" id="divNewObjControlPes">
             <div class="span4" style="padding-left: 28px">
                 <div class="control-group">
-                    <label for="formCropCon_prod_otherPestProCon" class="control-label req">
+                    <label for="formProCon_prod_otherPestProCon" class="control-label req">
                         <s:property value="getText('text.newtargetpest.crop')" />:
                     </label>
                     <div class="controls">
@@ -75,7 +79,7 @@
     <div class="<%= classTarWee %> row" id="divListWee">
         <div class="span5">
             <div class="control-group">
-                <label for="formCropCon_prod_weeds_idWee" class="control-label req">
+                <label for="formProCon_prod_weeds_idWee" class="control-label req">
                     <s:property value="getText('select.targetweed.crop')" />:
                 </label>
                 <div class="controls">
@@ -99,7 +103,7 @@
         <div class="<%= classNewObjConWee %>" id="divNewObjControlWee">
             <div class="span4" style="padding-left: 28px">
                 <div class="control-group">
-                    <label for="formCropCon_prod_otroWeedProCon" class="control-label req">
+                    <label for="formProCon_prod_otroWeedProCon" class="control-label req">
                         <s:property value="getText('text.newtargetweed.crop')" />:
                     </label>
                     <div class="controls">
@@ -112,7 +116,7 @@
     <div class="<%= classTarDis %> row" id="divListDis">
         <div class="span5">
             <div class="control-group">
-                <label for="formCropCon_prod_diseases_idDis" class="control-label req">
+                <label for="formProCon_prod_diseases_idDis" class="control-label req">
                     <s:property value="getText('select.targetdiseases.crop')" />:
                 </label>
                 <div class="controls">
@@ -136,7 +140,7 @@
         <div class="<%= classNewObjConDis %>" id="divNewObjControlDis">
             <div class="span4" style="padding-left: 28px">
                 <div class="control-group">
-                    <label for="formCropCon_prod_otherDiseaseProCon" class="control-label req">
+                    <label for="formProCon_prod_otherDiseaseProCon" class="control-label req">
                         <s:property value="getText('text.newtargetdiseases.crop')" />:
                     </label>
                     <div class="controls">
@@ -149,19 +153,19 @@
     <div class="row">
         <div class="span5">
             <div class="control-group">
-                <label for="formCropCon_prod_controlsTypes_idConTyp" class="control-label req">
+                <label for="formProCon_prod_controlsTypes_idConTyp" class="control-label req">
                     <s:property value="getText('select.controltype.crop')" />:
                 </label>
                 <div class="controls">
                     <s:select
                         name="prod.controlsTypes.idConTyp"
-                        list="type_prod_typ" 
+                        list="type_con_typ" 
                         listKey="idConTyp" 
                         listValue="nameConType"            
                         headerKey="-1" 
                         headerValue="---"       
-                        onchange="showTypeFertilizerControl('formCropCon_prod_controlsTypes_idConTyp', 'divOrganicCon', 'divChemicalCon', 'divMechanicCon', 'divMechanizedCon', 'divManualCon');
-                                  chargeValuesControls('/crop/comboControls.action?typeCrop=%{typeCrop}', 'idTarget', 'prod.targetsTypes.idTarTyp', 'typeCon', 'formCropCon_prod_controlsTypes_idConTyp', 'formCropCon_prod_chemicalsControls_idCheCon', 'formCropCon_prod_organicControls_idOrgCon', 'divMessage');
+                        onchange="showTypeFertilizerControl('formProCon_prod_controlsTypes_idConTyp', 'divOrganicCon', 'divChemicalCon', 'divMechanicCon', 'divMechanizedCon', 'divManualCon');
+                                  chargeValuesControls('/crop/comboControls.action?typeCrop=%{typeCrop}', 'idTarget', 'prod.targetsTypes.idTarTyp', 'typeCon', 'formProCon_prod_controlsTypes_idConTyp', 'formProCon_prod_chemicalsControls_idCheCon', 'formProCon_prod_organicControls_idOrgCon', 'divMessage');
                                   hideInformationControls('divNewObjControlPes', 'divNewObjControlWee', 'divNewObjControlDis', 'divNewProCheCon', 'divNewProOrgCon');"
                     />
                 </div>                         
@@ -172,7 +176,7 @@
         <div class="row">
             <div class="span5">
                 <div class="control-group">
-                    <label for="formCropCon_prod_chemicalsControls_idCheCon" class="control-label req">
+                    <label for="formProCon_prod_chemicalsControls_idCheCon" class="control-label req">
                         <s:property value="getText('select.chemicalcontrol.crop')" />:
                     </label>
                     <div class="controls">
@@ -196,7 +200,7 @@
             <div class="<%= classNewProCheCon %>" id="divNewProCheCon">
                 <div class="span4" style="padding-left: 28px">
                     <div class="control-group">
-                        <label for="formCropCon_prod_otherChemicalProductProCon" class="control-label req">
+                        <label for="formProCon_prod_otherChemicalProductProCon" class="control-label req">
                             <s:property value="getText('text.newchemicalcontrol.crop')" />:
                         </label>
                         <div class="controls">
@@ -211,7 +215,7 @@
         <div class="row">
             <div class="span5">
                 <div class="control-group">
-                    <label for="formCropCon_prod_organicControls_idOrgCon" class="control-label req">
+                    <label for="formProCon_prod_organicControls_idOrgCon" class="control-label req">
                         <s:property value="getText('select.organiccontrol.crop')" />:
                     </label>
                     <div class="controls">
@@ -235,7 +239,7 @@
             <div class="<%= classNewProOrgCon %>" id="divNewProOrgCon">
                 <div class="span4" style="padding-left: 28px">
                     <div class="control-group">
-                        <label for="formCropCon_prod_otherOrganicProductProCon" class="control-label req">
+                        <label for="formProCon_prod_otherOrganicProductProCon" class="control-label req">
                             <s:property value="getText('text.neworganiccontrol.crop')" />:
                         </label>
                         <div class="controls">
@@ -255,7 +259,7 @@
     <div class="row">
         <div class="span5">
             <div class="control-group">
-                <label for="formCropCon_prod_dosisProCon" class="control-label">
+                <label for="formProCon_prod_dosisProCon" class="control-label req">
                     <s:property value="getText('text.dosechemicalcontrol.crop')" />:
                 </label>
                 <div class="controls">
@@ -265,12 +269,12 @@
         </div> 
         <div class="span4" style="padding-left: 6px">
             <div class="control-group">
-                <label for="formCropCon_prod_doseUnits" class="control-label">
+                <label for="formProCon_prod_doseUnits_idDosUni" class="control-label req">
                     <s:property value="getText('select.doseunitchecontrol.crop')" />:
                 </label>
                 <div class="controls">
                     <s:select
-                        name="prod.doseUnits"
+                        name="prod.doseUnits.idDosUni"
                         list="type_dose_units" 
                         listKey="idDosUni" 
                         listValue="nameDosUni"            
@@ -280,5 +284,22 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>    
 </s:form>
+<div id="divBtCon">
+    <button class="btn btn-initial btn-large" onclick="removeMaskControls();  searchDecimalNumber('formProCon'); addAdditionalControl('../crop/addControlAdditional.action', 'formProCon', 'tableProduct', 'divConForm', 'divListConForm');"><i class="icon-ban-circle"></i>  <s:property value="getText('button.controlsave.crop')" /></button>
+    <button class="btn btn_default btn-large" onclick="resetForm('formProCon'); toggleAndClean('divConForm', 'divListConForm')"><i class="icon-ban-circle"></i>  <s:property value="getText('button.cancel')" /></button>
+</div>
+<%--<sj:submit type="button" cssClass="btn btn-initial btn-large" onclick="removeMaskControls();searchDecimalNumber('formProCon');" targets="tableProduct" onCompleteTopics="completeConAdd" validate="true" validateFunction="validationForm"><i class="icon-save"></i>  <s:property value="getText('button.controlsave.crop')" /></sj:submit>--%>
+<script>
+    $.subscribe('completeConAdd', function(event, data) {
+        alert(1)
+        toggleAndClean('divConForm', 'divListConForm');
+//        if (event.handled !== true) {
+//            setTimeout(function() {
+//                toggleAndClean('divConForm', 'divListConForm');
+//            }, 2000);
+//            event.handled = true;
+//        }
+    });     
+</script>

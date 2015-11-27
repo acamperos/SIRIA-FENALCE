@@ -51,9 +51,9 @@ public class TargetsTypesDao {
         TargetsTypes event = null;
         Transaction tx = null;
 				
-        sql += "select p.id_cro_typ, p.name_cro_typ, p.status_cro_typ, p.country_tar_typ";
+        sql += "select p.id_tar_typ, p.name_tar_typ, p.country_tar_typ, p.status_tar_typ";
         sql += " from targets_types p";
-        sql += " where p.id_cro_typ="+id;
+        sql += " where p.id_tar_typ="+id;
         try {
             tx = session.beginTransaction();
             Query query = session.createSQLQuery(sql).addEntity("p", TargetsTypes.class);

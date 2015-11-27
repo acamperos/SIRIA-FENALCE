@@ -125,7 +125,8 @@ public class FertilizationsDao
 //        if (args.containsKey("idEntUser")) {
 //			sql += " and le.id_entity_log_ent="+args.get("idEntUser");
 //		}
-		sql += " order by p.id_fer ASC";
+        sql += " order by p.id_fer ASC";
+        System.out.println("sql=>"+sql);
         
         try {
             tx = session.beginTransaction();
@@ -147,14 +148,14 @@ public class FertilizationsDao
                 result.addAll(resultAme);
             }
             tx.commit();
-		} catch (HibernateException e) {
+        } catch (HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
             e.printStackTrace();
-		} finally {
+        } finally {
             session.close();
-		}
+        }
         return result;
     }    
     

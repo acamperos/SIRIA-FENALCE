@@ -167,11 +167,24 @@ public class ProductsControlsDao
             String sql = "select p.id_pro_con, p.id_control_pro_con, p.control_type_pro_con,";
             sql += " p.target_type_pro_con, p.chemical_product_used_pro_con, p.organic_product_used_pro_con, p.dosis_pro_con, p.dose_units_pro_con, p.id_pest_pro_con, p.id_disease_pro_con,"; 
             sql += " p.id_weed_pro_con, p.other_pest_pro_con, p.other_disease_pro_con, p.otro_weed_pro_con, p.other_chemical_product_pro_con,"; 
-            sql += " p.other_organic_product_pro_con, p.status, p.created_by"; 
+            sql += " p.other_organic_product_pro_con, p.status, p.created_by, c.id_con, du.id_dos_uni, t.id_tar_typ, ct.id_con_typ, oc.id_org_con, cc.id_che_con,"; 
+            sql += " d.id_disease_pro_con, pes.id_pest_pro_con, w.id_weed_pro_con"; 
             sql += " from products_controls p";
+            sql += " inner join controls c on c.id_con = p.id_control_pro_con";
+            sql += " inner join dose_units du on du.id_dos_uni = p.dose_units_pro_con";
+            sql += " inner join targets_types t on t.id_tar_typ = p.target_type_pro_con";
+            sql += " inner join controls_types ct on ct.id_con_typ = p.control_type_pro_con";
+            sql += " inner join organic_controls oc on oc.id_org_con = p.organic_product_used_pro_con";
+            sql += " inner join chemicals_controls cc on cc.id_che_con = p.chemical_product_used_pro_con";
+            sql += " inner join diseases d on d.id_disease_pro_con = p.id_dis";
+            sql += " inner join pests pes on pes.id_pest_pro_con = p.id_pes";
+            sql += " inner join weeds w on w.id_weed_pro_con = p.id_wee";
             sql += " where p.status=1 and p.id_control_pro_con="+idCon;
 //            System.out.println("sql=>"+sql);
-            Query query = session.createSQLQuery(sql).addEntity("p", ProductsControls.class);
+            Query query = session.createSQLQuery(sql).addEntity("p", ProductsControls.class).addJoin("c", "p.controls").addJoin("t", "p.targetsTypes")
+                    .addJoin("ct", "p.controlsTypes").addJoin("cc", "p.chemicalsControls").addJoin("oc", "p.organicControls")
+                    .addJoin("du", "p.doseUnits").addJoin("pes", "p.pests").addJoin("d", "p.diseases")
+                    .addJoin("w", "p.weeds").addJoin("ct", "p.controlsTypes").addEntity("p", ProductsControls.class);
             eventsTemp = query.list();
             for (ProductsControls data : eventsTemp) {
                 if (coCode.equals("NI")) {

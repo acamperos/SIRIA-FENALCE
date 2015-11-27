@@ -81,7 +81,29 @@ public class WeedsDao
     }
     
     public Weeds objectById(Integer id) {
+        SessionFactory sessions = HibernateUtil.getSessionFactory();
+        Session session = sessions.openSession();
+
+        String sql  = "";        
         Weeds event = null;
+        Transaction tx = null;
+				
+        sql += "select p.id_wee, p.name_wee, p.status_wee";
+        sql += " from weeds p";
+        sql += " where p.id_wee="+id;
+        try {
+            tx = session.beginTransaction();
+            Query query = session.createSQLQuery(sql).addEntity("p", Weeds.class);
+            event = (Weeds)query.uniqueResult();
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
         return event;
     }    
 

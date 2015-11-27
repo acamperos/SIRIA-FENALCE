@@ -7,6 +7,8 @@
 <% } %>
 <% request.setAttribute("formOrg", "orgFert["+(numRowsOrg-1)+"]"); %>
 <% request.setAttribute("formOrgId", "formCropFer_orgFert_"+(numRowsOrg-1)); %>
+<%@page import="org.aepscolombia.platform.util.APConstants"%>
+<% String coCodeOrg   = (String) session.getAttribute(APConstants.COUNTRY_CODE); %>
 <tr value="<%= numRowsOrg %>" id="RowAdditOrg_<%= numRowsOrg %>">
     <td>
         <div id="divOrganicoFer_<%= numRowsOrg %>" value="<%= numRowsOrg %>">
@@ -87,9 +89,9 @@
                     <div class="control-group">
                         <label for="${formOrgId}__amountProductUsedOrgFer" class="control-label req">
                             <s:property value="getText('text.amountproductorg.fertilization')" /> 
-                            <% if (coCode.equals("CO")) { %>
+                            <% if (coCodeOrg.equals("CO")) { %>
                                 <button type="button" class="btn btn-initial"><b>(kg/ha)</b></button>:
-                            <% } else if (coCode.equals("NI")) { %>
+                            <% } else if (coCodeOrg.equals("NI")) { %>
                                 <button type="button" class="btn btn-initial"><b>(q/mz)</b></button>:
                             <% } %>
                         </label>

@@ -83,7 +83,29 @@ public class PestsDao
     }
     
     public Pests objectById(Integer id) {
+        SessionFactory sessions = HibernateUtil.getSessionFactory();
+        Session session = sessions.openSession();
+
+        String sql  = "";        
         Pests event = null;
+        Transaction tx = null;
+				
+        sql += "select p.id_pes, p.name_pes, p.status_pes";
+        sql += " from pests p";
+        sql += " where p.id_pes="+id;
+        try {
+            tx = session.beginTransaction();
+            Query query = session.createSQLQuery(sql).addEntity("p", Pests.class);
+            event = (Pests)query.uniqueResult();
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
         return event;
     }    
 

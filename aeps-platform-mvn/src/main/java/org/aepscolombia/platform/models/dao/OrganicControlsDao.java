@@ -80,7 +80,29 @@ public class OrganicControlsDao
     }
     
     public OrganicControls objectById(Integer id) {
+        SessionFactory sessions = HibernateUtil.getSessionFactory();
+        Session session = sessions.openSession();
+
+        String sql  = "";        
         OrganicControls event = null;
+        Transaction tx = null;
+				
+        sql += "select p.id_org_con, p.name_org_con, p.target_type_org_con, p.country_org_con";
+        sql += " from organic_controls p";
+        sql += " where p.id_org_con="+id;
+        try {
+            tx = session.beginTransaction();
+            Query query = session.createSQLQuery(sql).addEntity("p", OrganicControls.class);
+            event = (OrganicControls)query.uniqueResult();
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
         return event;
     }    
 

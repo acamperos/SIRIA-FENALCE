@@ -83,7 +83,29 @@ public class DiseasesDao
     }
     
     public Diseases objectById(Integer id) {
+        SessionFactory sessions = HibernateUtil.getSessionFactory();
+        Session session = sessions.openSession();
+
+        String sql  = "";        
         Diseases event = null;
+        Transaction tx = null;
+				
+        sql += "select p.id_dis, p.name_dis, p.status_dis";
+        sql += " from diseases p";
+        sql += " where p.id_dis="+id;
+        try {
+            tx = session.beginTransaction();
+            Query query = session.createSQLQuery(sql).addEntity("p", Diseases.class);
+            event = (Diseases)query.uniqueResult();
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
         return event;
     }    
 

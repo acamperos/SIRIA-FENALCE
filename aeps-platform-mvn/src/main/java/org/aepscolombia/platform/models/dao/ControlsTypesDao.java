@@ -78,7 +78,29 @@ public class ControlsTypesDao
     }
     
     public ControlsTypes objectById(Integer id) {
+        SessionFactory sessions = HibernateUtil.getSessionFactory();
+        Session session = sessions.openSession();
+
+        String sql  = "";        
         ControlsTypes event = null;
+        Transaction tx = null;
+				
+        sql += "select p.id_con_typ, p.name_con_type, p.country_con_typ, p.status_con_typ";
+        sql += " from controls_types p";
+        sql += " where p.id_con_typ="+id;
+        try {
+            tx = session.beginTransaction();
+            Query query = session.createSQLQuery(sql).addEntity("p", ControlsTypes.class);
+            event = (ControlsTypes)query.uniqueResult();
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
         return event;
     }    
 

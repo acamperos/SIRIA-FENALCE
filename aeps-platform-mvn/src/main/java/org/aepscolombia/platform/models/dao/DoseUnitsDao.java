@@ -93,6 +93,33 @@ public class DoseUnitsDao {
         }
         return events;
     }
+    
+    public DoseUnits objectById(Integer id) {
+        SessionFactory sessions = HibernateUtil.getSessionFactory();
+        Session session = sessions.openSession();
+
+        String sql  = "";        
+        DoseUnits event = null;
+        Transaction tx = null;
+				
+        sql += "select p.id_dos_uni, p.name_dos_uni, p.country_dos_uni, p.status_dos_uni";
+        sql += " from dose_units p";
+        sql += " where p.id_dos_uni="+id;
+        try {
+            tx = session.beginTransaction();
+            Query query = session.createSQLQuery(sql).addEntity("p", DoseUnits.class);
+            event = (DoseUnits)query.uniqueResult();
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return event;
+    }    
 
     public void save(DoseUnits event) {
         SessionFactory sessions = HibernateUtil.getSessionFactory();
