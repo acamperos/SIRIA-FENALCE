@@ -112,7 +112,7 @@ public class PreparationsDao
         String sql = "";     
         String sqlAdd = "";     
                       
-        sql  += "select p.id_prep, p.date_prep, tp.name_pre_typ, p.other_preparation_type_prep, p.depth_prep, p.comment_prep,p.cost_prep,p.passings_number_prep";
+        sql  += "select p.id_prep, p.date_prep, tp.name_pre_typ, p.other_preparation_type_prep, p.depth_prep,p.passings_number_prep,p.cost_prep, p.comment_prep";
         sql += " from preparations p"; 
         sql += " inner join production_events ep on ep.id_pro_eve=p.id_production_event_prep";    
         sql += " left join preparations_types tp on tp.id_pre_typ=p.preparation_type_prep and tp.status_pre_typ=1";     

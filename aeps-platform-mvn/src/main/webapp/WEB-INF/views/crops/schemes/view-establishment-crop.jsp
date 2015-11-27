@@ -14,7 +14,11 @@
 <div id="divListPrep">
     <%@ include file="../preparations/info-preparations.jsp" %>            
 </div>
-    
+   <% String classCostSow = "hide"; %>  
+     <s:set name="costSow" value="costCrop"/>
+               <s:if test="%{#costSow==1}">
+                   <% classCostSow = "";  %>
+               </s:if> 
 <hr class="divider-inner-separator">
     <fieldset>
         <legend><s:property value="getText('title.formsowing.crop')" /></legend>    
@@ -100,18 +104,26 @@
                         <s:textfield name="sowing.seedsNumberSow"/>
                     </div>                          
                 </div>                          
-            </div>                   
-            <div class="span4" style="padding-left: 28px">
-                <div class="control-group">
-                    <label for="formCropSow_sowing_costSeedSow" class="control-label">
-                        Costo de la semilla (Ha.):
-                    </label>
-                    <div class="controls">
-                        <s:textfield name="sowing.costSeedSow" maxlength="14"/>
-                    </div>                         
-                </div>                          
-            </div> 
-        </div>                                    
+
+            </div>   
+            
+                
+           <div class="<%= classCostSow %>">       
+           <div class="span4" style="padding-left: 28px">
+                                <div class="control-group">
+                                    <label for="formCropSow_sowing_costSeedSow" class="control-label">
+                                       <s:property value="getText('text.sowcost.crop')" />:
+                                    </label>
+                                    <div class="controls">
+                                       <s:textfield name="sowing.costSeedSow" maxlength="14"/>
+                                    </div>                         
+                                </div>                          
+           </div> 
+           </div>           
+          
+        </div>
+                                    
+
         <div class="row">
                 <div class="span5">
                 <div class="control-group">
@@ -402,6 +414,7 @@
             </div>
                    
         </div>
+                     <div class="<%= classCostSow %>"> 
                         <div id="costsowing" class="row ">
                           <div class="span5">
                            <div class="control-group">
@@ -413,99 +426,17 @@
                             </div>
                           </div>
                          </div>   
-                                <%--<div class="span4" style="padding-left: 28px">
-                                    <div class="control-group">
-                                        <label for="formCropHar_harv_storageHar" class="control-label">
-                                            Hubo resiembra?:
-                                        </label>
-                                        <div class="controls radioSelect">
-                                            <s:radio 
-                                                list="#{'true':'Si', 'false':'No'}" 
-                                                name="sow.resow"
-                                                onclick="showReSowing('sow.resow', 'divNoReSow','divYesReSow');"
-                                                />
-                                        </div>                         
-                                    </div>
-                                </div>--%>
+                                
                           
    
                         </div>     
-                 <%-- <div  id="divNoReSow">                               
-                  <div   class="row ">                     
-                        <div  id="divYesReSow" >
-                          <div class="span5">
-                           <div class="control-group">
-                                        <label for="formCropHar_harv_storageHar" class="control-label">
-                                            Tipo de resiembra? :
-                                        </label>
-                                        <div class="controls radioSelect">
-                                            <s:radio 
-                                                list="#{'true':'Total', 'false':'Parcial'}" 
-                                                name="sow.typeresow"
-                                                onclick="showTypeReSowing('sow.typeresow', 'divReSowPartial','divReSowTotal');"
-                                                />
-                                        </div>                         
-                           </div>                     
-                        </div> 
-                        </div>                 
-                                <div id="divReSowTotal">
-                                 <div class="span4" style="padding-left: 28px">
-                                  <div class="control-group">
-                                                    <label for="costControlCon" class="control-label">
-                                                        Observaciones de la resiembra total:
-                                                    </label>
-                                                    <div class="controls">
-                                                    <s:textarea rows="5" name="desPro.obsDesPro"></s:textarea>
-                                                     </div>                         
-                                 </div>  
-                                </div>
-                               </div>
-                     
-                  </div> 
-                    <div id="divReSowPartial"  >                                 
-                      <div id="divReSowPartial"  class="row ">
-                          <div class="span5">
-                           <div class="control-group">
-                               <label for="formCropDes_desPro_obsDesPro" class="control-label">
-                                  No. Jornales para la resiembra :
-                                </label>
-                                <div class="controls">
-                                <s:textfield name="sowing.costSow"/>
-                            </div>
-                            </div>                          
-                        </div>     
-                                 <div class="span4" style="padding-left: 28px">
-                                  <div class="control-group">
-                                                    <label for="costControlCon" class="control-label">
-                                                        Cantidad por semilla usada x Ha.:
-                                                    </label>
-                                                    <div class="controls">
-                                                        <s:textfield name="%{#attr.formChe}.costProductCheFer" id="%{#attr.formCheId}__costProductCheFer" value="%{#attr.costProductCheFer}"/>
-                                                    </div>                         
-                                 </div>  
-                                </div>
-                     </div>  
-                                                    
-                     <div  class="row ">
-                          <div class="span5">
-                           <div class="control-group">
-                               <label for="formCropDes_desPro_obsDesPro" class="control-label">
-                                  Costo de la resiembra :
-                                </label>
-                                <div class="controls">
-                                     <s:textfield name="%{#attr.formChe}.costProductCheFer" id="%{#attr.formCheId}__costProductCheFer" value="%{#attr.costProductCheFer}"/>
-                                </div> 
-                            </div>                          
-                        </div> 
-                     </div>     
-                   </div>     
-                   </div> --%>
+                     </div>
                
                    <div  class="row ">
                           <div class="span5">
                            <div class="control-group">
                                <label for="formCropSow_sowing_commentSow" class="control-label">
-                                   Observaciones en la siembra
+                                <s:property value="getText('title.formsowingcomment.sowing')" /> 
                                 </label>
                                 <div class="controls">
                                     <s:textarea rows="5" cssClass="span6" name="sowing.commentSow"></s:textarea>

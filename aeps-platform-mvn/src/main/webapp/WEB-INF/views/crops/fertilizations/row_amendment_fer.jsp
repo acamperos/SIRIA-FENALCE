@@ -74,7 +74,12 @@
                 </div>
             </div>                                        
             <div class="row">
-                
+               <% String classCostAme = "hide"; %>
+               <s:set name="costAme" value="costCrop"/>
+               <s:if test="%{#costAme==1}">
+                   <% classCostAme = "";  %>
+               </s:if>   
+               <div class="<%= classCostAme %>"> 
                 <div class="span5">
                     <div class="control-group">
                         <label for="${formAmenId}__costAppAmeFer" class="control-label">
@@ -84,7 +89,8 @@
                             <s:textfield name="%{#attr.formAmen}.costAppAmeFer" id="%{#attr.formAmeId}__costAppAmeFer" value="%{#attr.costAppAmeFer}" maxlength="14"/>
                         </div>                         
                     </div>                          
-                </div> 
+                </div>
+                </div>        
                 <div class="span5" style="padding-left: 28px">
                     <div class="control-group">
                         <label for="${formAmenId}__amountProductUsedAmeFer" class="control-label req">
@@ -104,6 +110,7 @@
             </div>     
                 
                 <div class="row">
+                    <div class="<%= classCostAme %>">  
                         <div class="span5" >
                             <div class="control-group">
                                 <label for="${formAmenId}__costProductAmeFer" class="control-label">
@@ -113,7 +120,8 @@
                                     <s:textfield name="%{#attr.formAmen}.costProductAmeFer" id="%{#attr.formAmeId}__costProductAmeFer" value="%{#attr.costProductAmeFer}"/>
                                 </div>                         
                             </div>                          
-                        </div> 
+                        </div>
+                     </div>           
                  <div class="span2" style="padding-left:10px">
                     <a class="btn btn-small delete_rows_dt" title="<s:property value="getText('link.removeamendfert.fertilization')" />" style="margin-bottom:1.2em" onclick="$('#RowAdditAme_<%= numRowsAmen %>').remove();"><i class="icon-trash"></i></a>
                 </div>

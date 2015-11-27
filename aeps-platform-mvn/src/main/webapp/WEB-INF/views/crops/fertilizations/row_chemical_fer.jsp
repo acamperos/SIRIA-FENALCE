@@ -210,7 +210,12 @@
                 </div>
             </div>
             <div class="row">
-                
+                 <% String classCostChe = "hide"; %>
+               <s:set name="costChe" value="costCrop"/>
+               <s:if test="%{#costChe==1}">
+                   <% classCostChe = "";  %>
+               </s:if>   
+               <div class="<%= classCostChe %>">
                  <div class="span5">
                     <div class="control-group">
                         <label for="${formCheId}__costAppCheFer" class="control-label">
@@ -221,7 +226,7 @@
                         </div>                         
                     </div>                          
                 </div> 
-                
+                </div>
                 
                 <div class="span5" style="padding-left: 28px">
                     <div class="control-group">
@@ -263,7 +268,7 @@
                         </div>
                     </div>
                 </div>
-                        
+                        <div class="<%= classCostChe %>"> 
                             <div class="span5" style="padding-left: 28px">
                                 <div class="control-group"> 
                                     <label for="${formCheId}__costProductCheFer" class="control-label">
@@ -274,6 +279,7 @@
                                     </div>                         
                                 </div>                          
                             </div> 
+                         </div>
                          </div>             
             
             <script>	

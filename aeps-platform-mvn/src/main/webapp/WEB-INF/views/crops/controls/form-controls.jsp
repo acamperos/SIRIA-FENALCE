@@ -49,10 +49,15 @@
 
 
                     </fieldset>
-                    <fieldset>
-                        <legend><s:property value="getText('title.controlcostform.crop')" /></legend>  
-                        <div class="row">
-                            <div class="span5" >
+              <% String classCostCon = "hide"; %>
+               <s:set name="costCon" value="costCrop"/>
+               <s:if test="%{#costCon==1}">
+                   <% classCostCon = "";  %>
+               </s:if>                   
+                    <fieldset  class="<%= classCostCon %>">
+                    <legend><s:property value="getText('title.controlcostform.crop')" /></legend>  
+                    <div class="row">
+                          <div class="span5" >
                                 <div class="control-group">
 
                                     <label for="formCropCon_con_costInputCon" class="control-label">
@@ -93,26 +98,24 @@
                                             headerKey="-1" 
 
                                             />
+                                                </div> 
+                                            </div> 
+                                        </div> 
+                                                        <fieldset>
+                                                            <legend><s:property value="getText('title.formcontrolcomment.control')" /></legend>                   
+                                                            <div class="row">
+                                                                <div class="span5">
+                                                                    <div  class="control-group">
 
-                                    </div>
+                                                                        <div class="controls">                                      
+                                                                            <s:textarea rows="5" cssClass="span6" name="con.commentCon"></s:textarea>
+                                                                        </div>
 
-                                </div> 
-                            </div> 
-                        </div> 
-                    </fieldset>
-                    <fieldset>
-                        <legend>Observaciones</legend>                   
-                        <div class="row">
-                            <div class="span5">
-                                <div  class="control-group">
-                                    <div class="controls">                                      
-                                        <s:textarea rows="5" cssClass="span6" name="con.commentCon"></s:textarea>
-                                    </div>
-                                </div>        
-                            </div>                     
-                        </div>    
-                    </fieldset>    
-                    <p class="warnField reqBef"><s:property value="getText('label.requirefields')" /></p>
+                                                                    </div>        
+                                                                </div>                     
+                                                            </div>    
+                                                        </fieldset>    
+                     <p class="warnField reqBef"><s:property value="getText('label.requirefields')" /></p>
                     <script>
                         $("#formCropCon_con_dateCon").datepicker({dateFormat: 'mm/dd/yy'});
                         $("#formCropCon_con_dateCon").mask("99/99/9999", {placeholder: " "});

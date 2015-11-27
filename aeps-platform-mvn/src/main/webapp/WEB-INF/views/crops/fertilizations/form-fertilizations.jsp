@@ -136,7 +136,7 @@
                     </fieldset>
                     
                             <fieldset>
-                                <legend>Observaciones</legend>                   
+                                <legend><s:property value="getText('title.formfertcomment.fertilization')" /></legend>                   
                                 <div class="row">
                                     <div class="span5">
                                         <div  class="control-group">

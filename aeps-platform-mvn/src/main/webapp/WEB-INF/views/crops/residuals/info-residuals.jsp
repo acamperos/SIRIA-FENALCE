@@ -18,7 +18,11 @@
     <% tableRes = "";%>
     <% labelRes = "display:none;";%> 
 </s:if>            
-
+<% String classCostResInfo = "hide"; %>
+               <s:set name="costRes" value="costCrop"/>
+               <s:if test="%{#costRes==1}">
+                   <% classCostResInfo = "";  %>
+               </s:if>   
 <div class="msgWin" id="divMessListRes"></div>
 <div id="divRes" class="w-box">
     <fieldset>
@@ -36,7 +40,7 @@
                     <th><s:property value="getText('td.residualdate.residual')" /></th>
                     <th><s:property value="getText('td.residualmanage.residual')" /></th>
                     <th><s:property value="getText('td.otherresidual.residual')" /></th>
-                    <th><s:property value="getText('td.costresidual.residual')" /></th>
+                    <th class="<%= classCostResInfo %>"><s:property value="getText('td.costresidual.residual')" /></th>
                     <% if (usrResDao.getPrivilegeUser(userRes.getIdUsr(), "crop/modify") || (usrResDao.getPrivilegeUser(userRes.getIdUsr(), "crop/delete"))) { %>
                         <th><s:property value="getText('td.action.residual')" /></th>
                     <% } %>

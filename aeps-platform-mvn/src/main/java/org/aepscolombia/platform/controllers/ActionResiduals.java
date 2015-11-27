@@ -50,6 +50,7 @@ public class ActionResiduals extends BaseAction {
     private int idCrop;    
     private int idResMan;    
     private int typeCrop;
+    private int costCrop;
     private List<HashMap> listResMan;
     private Users user;
     private Integer idEntSystem;    
@@ -60,6 +61,7 @@ public class ActionResiduals extends BaseAction {
     private List<ResidualsClasification> type_res_clas;
     private UsersDao usrDao;
     private String coCode;
+    private ProductionEvents event = new ProductionEvents();
 
     /**
      * Metodos getter y setter por cada variable del formulario
@@ -112,6 +114,15 @@ public class ActionResiduals extends BaseAction {
         this.typeCrop = typeCrop;
     }
 
+     public int getCostCrop() {
+        return costCrop;
+    }
+
+    public void setCostCrop(int costCrop) {
+        this.costCrop = costCrop;
+    }
+
+    
     public Users getUser() {
         return user;
     }
@@ -122,6 +133,14 @@ public class ActionResiduals extends BaseAction {
     
     public List<HashMap> getListResMan() {
         return listResMan;
+    }
+    
+       public ProductionEvents getEvent() {
+        return event;
+    }
+    
+    public void setEvent(ProductionEvents event) {
+        this.event = event;
     }
     
     /**
@@ -288,8 +307,11 @@ public class ActionResiduals extends BaseAction {
         
         HashMap prod  = cropDao.findById(idCrop);
         Integer tyCro = Integer.parseInt(String.valueOf(prod.get("typeCrop")));
-//        System.out.println("tyCro=>"+tyCro);
-        
+        Boolean costRes = Boolean.valueOf(String.valueOf(prod.get("costCrop")));
+        if (costRes) setCostCrop(1);
+        else setCostCrop(2);
+        System.out.println("mjk: CostRes=>"+costRes);
+        System.out.println("mjk2: CostCroo=>"+getCostCrop());
         try {
             this.setIdResMan(Integer.parseInt(this.getRequest().getParameter("idResMan")));
         } catch (NumberFormatException e) {

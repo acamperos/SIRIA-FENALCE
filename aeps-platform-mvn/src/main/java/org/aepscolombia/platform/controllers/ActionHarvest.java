@@ -45,7 +45,8 @@ public class ActionHarvest extends BaseAction {
      * Atributos provenientes del formulario
      */
     private int idCrop;    
-    private int typeCrop;
+    private int typeCrop; 
+    private int costCrop;
     private Users user;
     private Integer idEntSystem;    
     private Integer idUsrSystem;    
@@ -89,6 +90,15 @@ public class ActionHarvest extends BaseAction {
     public void setTypeCrop(int typeCrop) {
         this.typeCrop = typeCrop;
     }
+    
+    public int getCostCrop() {
+        return costCrop;
+    }
+
+    public void setCostCrop(int costCrop) {
+        this.costCrop = costCrop;
+    }
+
 
     public Users getUser() {
         return user;

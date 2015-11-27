@@ -73,6 +73,7 @@ public class ActionFer extends BaseAction {
     private int idCrop;    
     private int idFer;    
     private int typeCrop;
+    private int costCrop;
     private List<HashMap> listFert;
     private Users user;
     private Integer idEntSystem;    
@@ -290,6 +291,13 @@ public class ActionFer extends BaseAction {
         this.appTyp = appTyp;
     }   
     
+    public int getCostCrop() {
+        return costCrop;
+    }
+
+    public void setCostCrop(int costCrop) {
+        this.costCrop = costCrop;
+    }
     private List<ChemicalFertilizationsObj> chemFert; 
 
     public List<ChemicalFertilizationsObj> getChemFert() {
@@ -635,6 +643,9 @@ public class ActionFer extends BaseAction {
         
         HashMap prod  = cropDao.findById(idCrop);
         Integer tyCro = Integer.parseInt(String.valueOf(prod.get("typeCrop")));
+        Boolean costRes = Boolean.valueOf(String.valueOf(prod.get("costCrop")));
+        if (costRes) setCostCrop(1);
+        else setCostCrop(2);
 //        System.out.println("tyCro=>"+tyCro);
         
         try {

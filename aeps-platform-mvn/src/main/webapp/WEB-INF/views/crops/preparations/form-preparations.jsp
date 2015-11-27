@@ -95,8 +95,13 @@
                             </div>
                         </div>
                     </div>
-                                    
-                     <div id="costpreparations" class="row ">
+              <% String classCostPre = "hide"; %>
+               <s:set name="costPre" value="costCrop"/>
+               <s:if test="%{#costPre==1}">
+                   <% classCostPre = "";  %>
+               </s:if>   
+               <div class="<%= classCostPre %>">
+                     <div  id="costpreparations" class="row ">
                         
                         <div class="span5">     
                                         <label for="formCropPrep_prep_costPrep" class="control-label ">
@@ -106,9 +111,10 @@
                                             <s:textfield name="prep.costPrep" maxlength="14"/>
                                         </div>
                         </div>                        
-                    </div>  
+                    </div> 
+               </div>
                <fieldset>
-                <legend>Observaciones</legend>                   
+                <legend><s:property value="getText('title.formpreparationcomment.preparation')" /></legend>                   
                 <div class="row">
                    <div class="span5">
                         <div  class="control-group">
