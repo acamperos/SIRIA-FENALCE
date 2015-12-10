@@ -387,9 +387,10 @@ function showWindow(title, width, height, htmlInfo) {
         height: height,
         width: width,
         modal: true,
-        close: function() {
-            // allFields.val( "" ).removeClass( "ui-state-error" );
-        }
+        closeOnEscape: false,
+        close: function() {}
+//        open: function(event, ui) { $(".ui-dialog-titlebar-close", ui.dialog | ui).hide(); },
+//        beforeClose: function(event, ui) { alert(2) }
     });    
 }
 
@@ -1511,9 +1512,16 @@ function showRowAdditionalFert(url, idTypeApp, divUpdateChe, divUpdateOrg, divUp
         
     //url = "/aeps"+url;
     var child = $(rows)[rows.length-1];
+//    if (rows.length==0) child = 0;
+    var numRows;
+    if (typeof child === 'undefined') {
+        numRows = 0;
+    } else {
+        numRows = $(child).attr("value");
+    }
 //    var data  = $('#'+formId).serialize();
     var data;
-    data  += '&numRows='+$(child).attr("value")+'&appTyp='+valTypeApp;
+    data  += '&numRows='+numRows+'&appTyp='+valTypeApp;
     $.ajax({
         type: "POST",
         url: url,
@@ -1742,14 +1750,14 @@ function changeRepYear(valSelId, divRepA, divRepB) {
 
 function viewPositionRasta(url, formId, valNameLat, valLatId, valNameLon, valLonId, divHide, divShow)
 {
-    var strValLat = $("#"+valLatId).val();
+    /*var strValLat = $("#"+valLatId).val();
     strValLat = strValLat.replace('.',',');
     
     var strValLon = $("#"+valLonId).val();
     strValLon = strValLon.replace('.',',');
     
     $("#"+valLatId).val(strValLat);
-    $("#"+valLonId).val(strValLon);
+    $("#"+valLonId).val(strValLon);*/
     var valLat  = $('#'+valLatId).val();
     var valLon  = $('#'+valLonId).val();
     var data    = '';
@@ -1759,6 +1767,7 @@ function viewPositionRasta(url, formId, valNameLat, valLatId, valNameLon, valLon
         url: url,
         data: data,
         success: function(information) {     
+            $(".ui-dialog-titlebar-close").hide();
             var json = information;
             if (json.state == 'failure') {
                 $.each(json.fieldError, function(index, value) {
@@ -1800,7 +1809,8 @@ function viewPosition(url, formId, valNameLat, valLatId, valNameLon, valLonId, d
         type: "GET",
         url: url,
         data: data,
-        success: function(information) {     
+        success: function(information) {    
+            $(".ui-dialog-titlebar-close").hide();
 //            alert(information.state)
 //            var json = jQuery.parseJSON(information);
             var json = information;
@@ -2404,49 +2414,6 @@ function showInfoCrop(selId, depId, divView) {
     } else {
         $('#'+divView).hide();
     }
-}
-
-function showFormAdditionalControl(url, formId, tableId, divHide, divShow)
-{
-    //url = "/aeps"+url;
-    var rows  = $('#'+tableId).children("tr");
-    var child = $(rows)[rows.length-1];
-    
-//    alert($(child).attr("value"));
-    var data  = '&numRows='+$(child).attr("value");
-    var dataForm = '&'+$('#'+formId+' input').serialize();
-//    var data  = '&numRows='+$(child).attr("value");
-    $.ajax({
-        type: "POST",
-        url: url,
-        data: data+dataForm,
-        success: function(information) {
-            $('#'+divShow).html(information);
-            $('#'+divShow).show();
-            $('#'+divHide).hide();            
-        }
-    });
-}
-
-
-function addAdditionalControl(url, formId, tableId, divShow, divHide)
-{
-    var data  = $('#'+formId).serializeArray();
-    $.ajax({
-        type: "POST",
-        url: url,
-        data: data,
-        success: function(json) {            
-//            alert(1);
-            if (json.state == 'failure') {
-                validationForm($('#'+formId), json.jRes);
-            } else {
-                $('#'+tableId).append(json);
-//                console.log(information);
-                toggleAndClean(divShow, divHide);
-            }            
-        }
-    });
 }
 
 /*

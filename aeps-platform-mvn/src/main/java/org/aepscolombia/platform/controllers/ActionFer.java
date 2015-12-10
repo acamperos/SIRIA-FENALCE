@@ -1,3 +1,5 @@
+//ActionFer.java
+
 
 package org.aepscolombia.platform.controllers;
 
@@ -73,7 +75,6 @@ public class ActionFer extends BaseAction {
     private int idCrop;    
     private int idFer;    
     private int typeCrop;
-    private int costCrop;
     private List<HashMap> listFert;
     private Users user;
     private Integer idEntSystem;    
@@ -291,13 +292,6 @@ public class ActionFer extends BaseAction {
         this.appTyp = appTyp;
     }   
     
-    public int getCostCrop() {
-        return costCrop;
-    }
-
-    public void setCostCrop(int costCrop) {
-        this.costCrop = costCrop;
-    }
     private List<ChemicalFertilizationsObj> chemFert; 
 
     public List<ChemicalFertilizationsObj> getChemFert() {
@@ -490,7 +484,7 @@ public class ActionFer extends BaseAction {
                 }
                 contAme++;
             }               
-
+            
 //            System.out.println("amountTotal=>"+amountTotal);
 //            System.out.println("fer.getAmountProductUsedFer()=>"+fer.getAmountProductUsedFer());
             /*double sumTotal = amountTotal.doubleValue();
@@ -643,9 +637,6 @@ public class ActionFer extends BaseAction {
         
         HashMap prod  = cropDao.findById(idCrop);
         Integer tyCro = Integer.parseInt(String.valueOf(prod.get("typeCrop")));
-        Boolean costRes = Boolean.valueOf(String.valueOf(prod.get("costCrop")));
-        if (costRes) setCostCrop(1);
-        else setCostCrop(2);
 //        System.out.println("tyCro=>"+tyCro);
         
         try {
@@ -781,7 +772,8 @@ public class ActionFer extends BaseAction {
                     ChemicalFertilizersCountry chemFerCountry = null;
                     if (ferCheTemp!=null) {
                         if (ferCheTemp.getOtherProductCheFer()!=null && !ferCheTemp.getOtherProductCheFer().equals("") && ferCheTemp.getApplicationTypes().getIdAppTyp()==1 && ferCheTemp.getChemicalFertilizers().getIdCheFer()==1000000) {
-                            cheFer  = new ChemicalFertilizersDao().objectById(ferCheTemp.getIdCheFer());
+                            ChemicalFertilizations cheFerOld = new ChemicalFertilizationsDao().chemicalById(ferCheTemp.getIdCheFer());
+                            if (!cheFerOld.getOtherProductCheFer().equals("")) cheFer  = new ChemicalFertilizersDao().objectById(ferCheTemp.getIdCheFer());
                             if (cheFer!=null) {
                                 chemFerCountry = new ChemicalFertilizersDao().fertilizerByCountry(cheFer.getIdCheFer(), coCode);
                                 if (chemFerCountry!=null) session.delete(chemFerCountry);     
@@ -836,7 +828,7 @@ public class ActionFer extends BaseAction {
                             chemFer.setOtherProductCheFer(ferCheTemp.getOtherProductCheFer());
                         } else {
                             chemFer.setChemicalFertilizers(ferCheTemp.getChemicalFertilizers());
-                            chemFer.setOtherProductCheFer(null);
+                            chemFer.setOtherProductCheFer(ferCheTemp.getOtherProductCheFer());
                         }                
                         chemFer.setApplicationTypes(ferCheTemp.getApplicationTypes());
                         if (coCode.equals("NI")) {                

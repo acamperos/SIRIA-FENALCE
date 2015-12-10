@@ -12,15 +12,14 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
         <link rel="stylesheet" href="<%= request.getContextPath() %>/scripts/css/generals/beoro.min.css">       		
-        <sj:head jqueryui="true"/>
+        <sj:head jqueryui="true" loadAtOnce="true"/>
         <sb:head includeScripts="true" includeScriptsValidation="true"/>
         <link rel="stylesheet" href="<%= request.getContextPath() %>/scripts/css/colorbox/colorbox.css"/>
         <link rel="stylesheet" href="<%= request.getContextPath() %>/scripts/css/generals/main.css">        
         <link rel="stylesheet" href="<%= request.getContextPath() %>/scripts/css/font-awesome/css/font-awesome.min.css">               
         <link href='http://fonts.googleapis.com/css?family=Istok+Web:500,700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="<%= request.getContextPath() %>/scripts/css/geoxml/gmap.css"/>
-        <link rel="stylesheet" href="<%= request.getContextPath() %>/scripts/css/generals/multiple-select.css"/>        
-        <script src="<%= request.getContextPath() %>/scripts/js/generals/vis.min.js"></script>
+        <link rel="stylesheet" href="<%= request.getContextPath() %>/scripts/css/generals/multiple-select.css"/> 
         <link href="<%= request.getContextPath() %>/scripts/css/generals/vis.min.css" rel="stylesheet" type="text/css" />
         <!--<script src="http://t4t5.github.io/sweetalert/dist/sweetalert.min.js"></script>-->
         <!--<link href="http://t4t5.github.io/sweetalert/dist/sweetalert.css" rel="stylesheet" type="text/css"/>-->
@@ -37,8 +36,7 @@
         </div>
         <div class="footer">
             <%@ include file="footer.jsp" %>
-        </div>
-        <script type="text/javascript" src="<%= request.getContextPath() %>/scripts/js/generals/functions.js"></script>
+        </div>        
         <script type="text/javascript" src="<%= request.getContextPath() %>/scripts/js/jquery/jquery.maskedinput.js"></script>
         <script type="text/javascript" src="<%= request.getContextPath() %>/scripts/js/jquery/jquery.maskMoney.js"></script>
         <script type="text/javascript" src="<%= request.getContextPath() %>/scripts/js/jquery/jquery.base64.min.js"></script>
@@ -47,13 +45,15 @@
         <script type="text/javascript" src="<%= request.getContextPath() %>/scripts/js/jquery/jquery-ui/ui/jquery-ui.js"></script>	
         <script type="text/javascript" src="<%= request.getContextPath() %>/scripts/js/jquery/jquery-ui/ui/jquery.ui.dialog.js"></script>
         <script type="text/javascript" src="<%= request.getContextPath() %>/scripts/js/colorbox/jquery.colorbox.min.js"></script>
-        <script type="text/javascript" src="<%= request.getContextPath() %>/scripts/js/jquery/pwdMeter/jquery.pwdMeter.min.js"></script>
-        <script type="text/javascript" src="<%= request.getContextPath() %>/scripts/js/generals/responsiveslides.js"></script>
+        <script type="text/javascript" src="<%= request.getContextPath() %>/scripts/js/jquery/pwdMeter/jquery.pwdMeter.min.js"></script>        
         <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
         <script type="text/javascript" src="<%= request.getContextPath() %>/scripts/js/geoxml/geoxml3.js"></script>  
         <script type="text/javascript" src="<%= request.getContextPath() %>/scripts/js/bootbox/bootbox.min.js"></script>
         <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/src/markerclusterer.js"></script>
         <script type="text/javascript" src="<%= request.getContextPath() %>/scripts/js/generals/jquery.multiple.select.js"></script>
+        <script type="text/javascript" src="<%= request.getContextPath() %>/scripts/js/generals/responsiveslides.js"></script>
+        <script type="text/javascript" src="<%= request.getContextPath() %>/scripts/js/generals/functions.js"></script>
+        <script type="text/javascript" src="<%= request.getContextPath() %>/scripts/js/generals/vis.min.js"></script>
         <script>
             var actionName   = '<%= session.getAttribute("action") %>';
             var actionUrl    = '<%= session.getAttribute("actionUrl") %>';      

@@ -13,6 +13,7 @@
 <div class="container">
     <div class="panel">
         <div class="panel-body">
+            <%@ include file="../generals/googleAnalytics.jsp" %>   
             <div id="divMessProfile"></div>
             <div class="tabbable tabbable-bordered">
                 <ul class="nav nav-tabs">

@@ -56,6 +56,35 @@ public class ChemicalFertilizationsDao
         }
         return events;
     }
+    
+    public ChemicalFertilizations chemicalById(Integer id) {
+        SessionFactory sessions = HibernateUtil.getSessionFactory();
+        Session session = sessions.openSession();
+
+        String sql  = "";        
+        ChemicalFertilizations event = null;
+        Transaction tx = null;
+				
+        sql += "select p.id_che_fer, p.id_fertilization_che_fer, p.application_type_che_fer, p.id_product_che_fer,";
+        sql += "p.other_product_che_fer, p.amount_product_used_che_fer, p.unit_che_fer, p.cost_app_che_fer,";
+        sql += "p.status, p.created_by, p.cost_product_che_fer, p.cost_form_app_che_fer";
+        sql += " from chemical_fertilizations p";
+        sql += " where p.id_che_fer="+id;
+        try {
+            tx = session.beginTransaction();
+            Query query = session.createSQLQuery(sql).addEntity("p", ChemicalFertilizations.class);
+            event = (ChemicalFertilizations)query.uniqueResult();
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return event;
+    }    
 
     public List findByParams(HashMap args) {
         SessionFactory sessions = HibernateUtil.getSessionFactory();

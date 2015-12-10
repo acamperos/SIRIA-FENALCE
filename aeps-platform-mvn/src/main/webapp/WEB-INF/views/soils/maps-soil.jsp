@@ -15,9 +15,9 @@
         <div class="row">
             <div class="span12">
                 <div style="margin-left: 40%; position: absolute;"> 
-                    <button class="btn btn-large bt_cancel_field" onclick="toggleAndClean('divRastaForm', 'divListRastaForm');"><i class="icon-arrow-left"></i>  <s:property value="getText('button.backarrow.soil')" /></button>
+                    <button class="btn btn-large bt_cancel_field" onclick="toggleAndClean('divRastaForm', 'divListRastaForm'); $('.ui-dialog-titlebar-close').show();"><i class="icon-arrow-left"></i>  <s:property value="getText('button.backarrow.soil')" /></button>
                     <button class="btn btn-large bt_cancel_field" onclick="selValPos('formRasta_rasta_latitudRas', 'rasta_latitudRas', 'formRasta_rasta_longitudRas', 'rasta_longitudRas'); generateDegrees('formRasta_rasta_latitudRas', 'formRasta_rasta_latitude_degrees', 'formRasta_rasta_latitude_minutes', 'formRasta_rasta_latitude_seconds');
-                    generateDegrees('formRasta_rasta_longitudRas', 'formRasta_rasta_length_degrees', 'formRasta_rasta_length_minutes', 'formRasta_rasta_length_seconds'); toggleAndClean('divRastaForm', 'divListRastaForm');"><i class="icon-check"></i>  <s:property value="getText('button.pointsel.soil')" /></button>
+                    generateDegrees('formRasta_rasta_longitudRas', 'formRasta_rasta_length_degrees', 'formRasta_rasta_length_minutes', 'formRasta_rasta_length_seconds'); $('.ui-dialog-titlebar-close').show(); toggleAndClean('divRastaForm', 'divListRastaForm');"><i class="icon-check"></i>  <s:property value="getText('button.pointsel.soil')" /></button>
                 </div>
             </div>
             <div class="span12">

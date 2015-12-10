@@ -553,10 +553,10 @@
                 $("#formRasta_rasta_altitudRas").numeric({decimal: false, negative: false});                
                 $("#formRasta_rasta_length_degrees").numeric({decimal: false});
                 $("#formRasta_rasta_length_minutes").numeric({decimal: false});
-                $("#formRasta_rasta_length_seconds").numeric({decimal: false});
+                $("#formRasta_rasta_length_seconds").numeric();
                 $("#formRasta_rasta_latitude_degrees").numeric({decimal: false});
                 $("#formRasta_rasta_latitude_minutes").numeric({decimal: false});
-                $("#formRasta_rasta_latitude_seconds").numeric({decimal: false});
+                $("#formRasta_rasta_latitude_seconds").numeric();
                 
                 $("#formRasta_rasta_pendienteTerrenoRas").numeric({negative: false});
                 $("#formRasta_rasta_pendienteTerrenoRas").val(parsePointSeparated($("#formRasta_rasta_pendienteTerrenoRas").val()));

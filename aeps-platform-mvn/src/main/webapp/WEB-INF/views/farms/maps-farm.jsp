@@ -17,9 +17,9 @@
         <div class="row">
             <div class="span12">
                 <div style="margin-left: 40%; position: absolute;"> 
-                    <button class="btn btn-large bt_cancel_field" onclick="toggleAndClean('divFarmsForm', 'divListFarmsForm');"><i class="icon-arrow-left"></i>  <s:property value="getText('button.backarrow.farm')" /></button>
+                    <button class="btn btn-large bt_cancel_field" onclick="toggleAndClean('divFarmsForm', 'divListFarmsForm'); $('.ui-dialog-titlebar-close').show();"><i class="icon-arrow-left"></i>  <s:property value="getText('button.backarrow.farm')" /></button>
                     <button class="btn btn-large bt_cancel_field" onclick="selValPos('formFarm_latitude_property', 'latitude_property', 'formFarm_length_property', 'length_property'); generateDegrees('formFarm_latitude_property', 'formFarm_latitude_degrees_property', 'formFarm_latitude_minutes_property', 'formFarm_latitude_seconds_property');
-                    generateDegrees('formFarm_length_property', 'formFarm_length_degrees_property', 'formFarm_length_minutes_property', 'formFarm_length_seconds_property'); toggleAndClean('divFarmsForm', 'divListFarmsForm');"><i class="icon-check"></i>  <s:property value="getText('button.pointsel.farm')" /></button>
+                    generateDegrees('formFarm_length_property', 'formFarm_length_degrees_property', 'formFarm_length_minutes_property', 'formFarm_length_seconds_property'); $('.ui-dialog-titlebar-close').show(); toggleAndClean('divFarmsForm', 'divListFarmsForm');"><i class="icon-check"></i>  <s:property value="getText('button.pointsel.farm')" /></button>
                 </div>
             </div>
             <div class="span12">

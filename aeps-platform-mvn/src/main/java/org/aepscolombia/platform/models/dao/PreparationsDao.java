@@ -112,7 +112,7 @@ public class PreparationsDao
         String sql = "";     
         String sqlAdd = "";     
                       
-        sql  += "select p.id_prep, p.date_prep, tp.name_pre_typ, p.other_preparation_type_prep, p.depth_prep,p.passings_number_prep,p.cost_prep, p.comment_prep";
+        sql  += "select p.id_prep, p.date_prep, tp.name_pre_typ, p.other_preparation_type_prep, p.depth_prep, p.comment_prep, p.cost_prep, p.passings_number_prep";
         sql += " from preparations p"; 
         sql += " inner join production_events ep on ep.id_pro_eve=p.id_production_event_prep";    
         sql += " left join preparations_types tp on tp.id_pre_typ=p.preparation_type_prep and tp.status_pre_typ=1";     
@@ -147,7 +147,7 @@ public class PreparationsDao
                 temp.put("namePrep", data[2]);             
                 temp.put("otherNamePrep", data[3]);                
                 temp.put("depthPrep", data[4]);            
-                temp.put("passNum", data[5]);      
+                temp.put("passNum", data[7]);      
                 temp.put("costPrep", data[6]);   
                 result.add(temp);
             }

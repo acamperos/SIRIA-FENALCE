@@ -890,7 +890,7 @@ public class ActionCrop extends BaseAction {
                 }
             } else {
 //                areaCrop = areaOld;
-                areaCrop = availableArea;
+//                areaCrop = availableArea;
             }
         }
     }
@@ -1478,11 +1478,12 @@ public class ActionCrop extends BaseAction {
              2-Hectarea   ((Area/Area del lote)*100=porcentaje)
              */
 //            System.out.println("areaCrop=>"+areaCrop);
-            double availableArea = areaAvaOld + areaCropSel;
-            availableArea -= areaCrop;
+            double availableArea = areaAvaOld + areaCropSel;                        
             if (totallyArea) {
                 typeArea = 2;
+                areaCrop += areaAvaOld;
             }
+            availableArea -= areaCrop;
             if (availableArea==0) {
                 lot.setTotallyAreaFie(true);
             } else {

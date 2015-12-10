@@ -15,9 +15,9 @@
         <div class="row">
             <div class="span12">
                 <div style="margin-left: 40%; position: absolute;"> 
-                    <button class="btn btn-large bt_cancel_field" onclick="toggleAndClean('divFieldsForm', 'divListFieldsForm');"><i class="icon-arrow-left"></i>  <s:property value="getText('button.backarrow.field')" /></button>
+                    <button class="btn btn-large bt_cancel_field" onclick="toggleAndClean('divFieldsForm', 'divListFieldsForm'); $('.ui-dialog-titlebar-close').show();"><i class="icon-arrow-left"></i>  <s:property value="getText('button.backarrow.field')" /></button>
                     <button class="btn btn-large bt_cancel_field" onclick="selValPos('formField_latitude_lot', 'latitude_lot', 'formField_length_lot', 'length_lot'); generateDegrees('formField_latitude_lot', 'formField_latitude_degrees_lot', 'formField_latitude_minutes_lot', 'formField_latitude_seconds_lot');
-                    generateDegrees('formField_length_lot', 'formField_length_degrees_lot', 'formField_length_minutes_lot', 'formField_length_seconds_lot'); toggleAndClean('divFieldsForm', 'divListFieldsForm');"><i class="icon-check"></i>  <s:property value="getText('button.pointsel.field')" /></button>
+                    generateDegrees('formField_length_lot', 'formField_length_degrees_lot', 'formField_length_minutes_lot', 'formField_length_seconds_lot'); $('.ui-dialog-titlebar-close').show(); toggleAndClean('divFieldsForm', 'divListFieldsForm');"><i class="icon-check"></i>  <s:property value="getText('button.pointsel.field')" /></button>
                 </div>
             </div>
             <div class="span12">

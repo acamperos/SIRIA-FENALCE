@@ -12,7 +12,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width"> 							
         <link rel="stylesheet" href="scripts/css/generals/beoro.min.css">        
-        <sj:head jqueryui="false"/>
+        <sj:head jqueryui="true" loadAtOnce="true"/>
         <sb:head includeScripts="true" includeScriptsValidation="true"/>        
         <link rel="stylesheet" href="scripts/css/generals/main.css">
         <link rel="stylesheet" href="scripts/css/font-awesome/css/font-awesome.min.css">   
@@ -35,7 +35,7 @@
         <script type="text/javascript" src="scripts/js/jquery/jquery.numeric.js"></script>
         <script type="text/javascript" src="scripts/js/jquery/jquery.blockUI.js"></script>        
         <script type="text/javascript" src="scripts/js/generals/functions.js"></script>	 
-        <script src="scripts/js/generals/responsiveslides.js"></script>        
+        <script type="text/javascript" src="scripts/js/generals/responsiveslides.js"></script>        
         <script>            
             var actionName = '<%= session.getAttribute("action") %>';
             function doAction() {
