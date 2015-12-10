@@ -225,7 +225,7 @@
              <div class="accordion-group">
                     <div class="accordion-heading">
                         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion9" href="#collapseNine">
-                            <h4>Costos indirectos<i class="colNine icon-chevron-down"></i></h4>
+                            <h4><s:property value="getText('link.observations.crop')" /><i class="colNine icon-chevron-down"></i></h4>
                         </a>
                     </div>
                     <div id="collapseNine" class="accordion-body collapse">                        

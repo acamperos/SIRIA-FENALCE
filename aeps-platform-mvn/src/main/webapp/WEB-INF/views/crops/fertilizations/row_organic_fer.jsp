@@ -81,18 +81,18 @@
                <s:if test="%{#costOrg==1}">
                    <% classCostOrg = "";  %>
                </s:if>   
-               <div class="<%= classCostOrg %>"> 
-                <div class="span5">
-                    <div class="control-group">
-                        <label for="${formOrgId}__costAppCheFer" class="control-label">
-                            <s:property value="getText('text.costapp.fertilization')" />:
-                        </label>
-                        <div class="controls">
-                            <s:textfield name="%{#attr.formOrg}.costAppOrgFer" id="%{#attr.formOrgId}__costAppOrgFer" value="%{#attr.costAppOrgFer}" maxlength="14"/>
-                        </div>                         
-                    </div>                          
-                </div> 
-                </div>
+               <div class="<%= classCostOrg%>"> 
+                   <div class="span5">
+                       <div class="control-group">
+                           <label for="${formOrgId}__costAppCheFer" class="control-label">
+                               <s:property value="getText('text.costapp.fertilization')" />:
+                           </label>
+                           <div class="controls">
+                               <s:textfield name="%{#attr.formOrg}.costAppOrgFer" id="%{#attr.formOrgId}__costAppOrgFer" value="%{#attr.costAppOrgFer}" maxlength="14"/>
+                           </div>                         
+                       </div>                          
+                   </div> 
+               </div>
                 <div class="span5" style="padding-left: 28px">
                     <div class="control-group">
                         <label for="${formOrgId}__amountProductUsedOrgFer" class="control-label req">
@@ -111,17 +111,17 @@
                
             </div>     
                     <div class="row">
-                         <div class="<%= classCostOrg %>"> 
-                        <div class="span5" >
-                            <div class="control-group">   
-                                <label for="${formOrgId}__costProductOrgFer" class="control-label">
-                                    <s:property value="getText('text.costproduct.fertilization')" />:
-                                </label>
-                                <div class="controls">
-                                    <s:textfield name="%{#attr.formOrg}.costProductOrgFer" id="%{#attr.formOrgId}__costProductOrgFer" value="%{#attr.costProductOrgFer}" maxlength="14"/>
-                                </div>                         
-                            </div>                          
-                        </div> 
+                        <div class="<%= classCostOrg %>"> 
+                            <div class="span5" >
+                                <div class="control-group">   
+                                    <label for="${formOrgId}__costProductOrgFer" class="control-label">
+                                        <s:property value="getText('text.costproduct.fertilization')" />:
+                                    </label>
+                                    <div class="controls">
+                                        <s:textfield name="%{#attr.formOrg}.costProductOrgFer" id="%{#attr.formOrgId}__costProductOrgFer" value="%{#attr.costProductOrgFer}" maxlength="14"/>
+                                    </div>                         
+                                </div>                          
+                            </div> 
                         </div> 
                 <div class="span2" style="padding-left:10px">
                     <a class="btn btn-small delete_rows_dt" title="<s:property value="getText('link.removeorgfert.fertilization')" />" style="margin-bottom:1.2em" onclick="$('#RowAdditOrg_<%= numRowsOrg %>').remove();"><i class="icon-trash"></i></a>

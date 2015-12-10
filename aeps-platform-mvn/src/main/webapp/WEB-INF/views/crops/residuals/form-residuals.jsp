@@ -64,20 +64,20 @@
                    <% classCostRes = "";  %>
                </s:if>   
                <div class="row">
-               <div class="<%= classCostRes %>" >    
-               <div class="span5">
-                        <div id="costresiduals" class="control-group">
+                   <div class="<%= classCostRes%>" >    
+                       <div class="span5">
+                           <div id="costresiduals" class="control-group">
 
-                            <label for="formCropRes_resMan_costResMan" class="control-label"  >
-                                        <s:property value="getText('text.cost.residual')"  />:
-                                    </label>
-                                    <div class="controls">
-                                        <s:textfield name="resMan.costResMan" maxlength="14"/>
-                                    </div>
+                               <label for="formCropRes_resMan_costResMan" class="control-label"  >
+                                   <s:property value="getText('text.cost.residual')"  />:
+                               </label>
+                               <div class="controls">
+                                   <s:textfield name="resMan.costResMan" maxlength="14"/>
+                               </div>
 
-                        </div>        
-               </div>      
-                </div>                     
+                           </div>        
+                       </div>      
+                   </div>                     
                        <% String classNewRes="hide"; %>
                         <s:set name="idResidual" value="resMan.residualsClasification.idResCla"/>
                         <s:if test="%{#idResidual==1000000}">

@@ -80,17 +80,17 @@
                    <% classCostAme = "";  %>
                </s:if>   
                <div class="<%= classCostAme %>"> 
-                <div class="span5">
-                    <div class="control-group">
-                        <label for="${formAmenId}__costAppAmeFer" class="control-label">
-                            <s:property value="getText('text.costapp.fertilization')" />:
-                        </label>
-                        <div class="controls">
-                            <s:textfield name="%{#attr.formAmen}.costAppAmeFer" id="%{#attr.formAmeId}__costAppAmeFer" value="%{#attr.costAppAmeFer}" maxlength="14"/>
-                        </div>                         
-                    </div>                          
-                </div>
-                </div>        
+                   <div class="span5">
+                       <div class="control-group">
+                           <label for="${formAmenId}__costAppAmeFer" class="control-label">
+                               <s:property value="getText('text.costapp.fertilization')" />:
+                           </label>
+                           <div class="controls">
+                               <s:textfield name="%{#attr.formAmen}.costAppAmeFer" id="%{#attr.formAmeId}__costAppAmeFer" value="%{#attr.costAppAmeFer}" maxlength="14"/>
+                           </div>                         
+                       </div>                          
+                   </div>
+               </div>        
                 <div class="span5" style="padding-left: 28px">
                     <div class="control-group">
                         <label for="${formAmenId}__amountProductUsedAmeFer" class="control-label req">

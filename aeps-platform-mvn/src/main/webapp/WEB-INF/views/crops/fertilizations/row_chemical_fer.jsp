@@ -216,17 +216,17 @@
                    <% classCostChe = "";  %>
                </s:if>   
                <div class="<%= classCostChe %>">
-                 <div class="span5">
-                    <div class="control-group">
-                        <label for="${formCheId}__costAppCheFer" class="control-label">
-                            <s:property value="getText('text.costapp.fertilization')" />:
-                        </label>
-                        <div class="controls">
-                            <s:textfield name="%{#attr.formChe}.costAppCheFer" id="%{#attr.formCheId}__costAppCheFer" value="%{#attr.costAppCheFer}" maxlength="14"/>
-                        </div>                         
-                    </div>                          
-                </div> 
-                </div>
+                   <div class="span5">
+                       <div class="control-group">
+                           <label for="${formCheId}__costAppCheFer" class="control-label">
+                               <s:property value="getText('text.costapp.fertilization')" />:
+                           </label>
+                           <div class="controls">
+                               <s:textfield name="%{#attr.formChe}.costAppCheFer" id="%{#attr.formCheId}__costAppCheFer" value="%{#attr.costAppCheFer}" maxlength="14"/>
+                           </div>                         
+                       </div>                          
+                   </div> 
+               </div>
                 
                 <div class="span5" style="padding-left: 28px">
                     <div class="control-group">

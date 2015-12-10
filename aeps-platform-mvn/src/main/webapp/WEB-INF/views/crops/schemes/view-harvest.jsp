@@ -181,7 +181,7 @@
                                                         <s:property value="getText('text.hervestpvp.harvest')" />:
                                                     </label>
                                                     <div class="controls">
-                                                      <s:textfield name="harv.costSalepriceHar" maxlength="14"/>
+                                                      <s:textfield name="harv.costSalepriceHar" />
                                                   
                                                     </div>                         
                                                 </div>                          

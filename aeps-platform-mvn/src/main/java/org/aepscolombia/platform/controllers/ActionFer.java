@@ -75,6 +75,7 @@ public class ActionFer extends BaseAction {
     private int idCrop;    
     private int idFer;    
     private int typeCrop;
+    private int costCrop;
     private List<HashMap> listFert;
     private Users user;
     private Integer idEntSystem;    
@@ -291,6 +292,14 @@ public class ActionFer extends BaseAction {
     public void setAppTyp(Integer appTyp) {
         this.appTyp = appTyp;
     }   
+    
+    public int getCostCrop() {
+        return costCrop;
+    }
+
+    public void setCostCrop(int costCrop) {
+        this.costCrop = costCrop;
+    }
     
     private List<ChemicalFertilizationsObj> chemFert; 
 
@@ -652,6 +661,9 @@ public class ActionFer extends BaseAction {
         this.setType_prod_che(new ChemicalFertilizersDao().findAllByStatus(coCode));
         this.setType_prod_org(new OrganicFertilizersDao().findAllByStatus());
         this.setType_prod_ame(new AmendmentsFertilizersDao().findAllByStatus(coCode));
+        Boolean costRes = Boolean.valueOf(String.valueOf(prod.get("costCrop")));
+        if (costRes) setCostCrop(1);
+        else setCostCrop(2);
 //        additionalsElem = new ChemicalElementsDao().findByParams(this.getIdFer());
         if (this.getIdFer()!= -1) {
             fer      = ferDao.objectById(this.getIdFer());
