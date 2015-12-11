@@ -219,7 +219,8 @@
                    <div class="span5">
                        <div class="control-group">
                            <label for="${formCheId}__costAppCheFer" class="control-label">
-                               <s:property value="getText('text.costapp.fertilization')" />:
+                               <s:property value="getText('text.costapp.fertilization')" />
+                               <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                            </label>
                            <div class="controls">
                                <s:textfield name="%{#attr.formChe}.costAppCheFer" id="%{#attr.formCheId}__costAppCheFer" value="%{#attr.costAppCheFer}" maxlength="14"/>
@@ -272,7 +273,8 @@
                             <div class="span5" style="padding-left: 28px">
                                 <div class="control-group"> 
                                     <label for="${formCheId}__costProductCheFer" class="control-label">
-                                        <s:property value="getText('text.costproduct.fertilization')" />:
+                                        <s:property value="getText('text.costproduct.fertilization')" />
+                                        <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                                     </label>
                                     <div class="controls">
                                         <s:textfield name="%{#attr.formChe}.costProductCheFer" id="%{#attr.formCheId}__costProductCheFer" value="%{#attr.costProductCheFer}" maxlength="14"/>
@@ -285,11 +287,11 @@
             <script>	
                 var formCheId = '<%= request.getAttribute("formCheId") %>';
                 
-                $("#__costAppCheFer").maskMoney({suffix: ' $'});
-                $("#"+formCheId+"__costAppCheFer").maskMoney({suffix: ' $'});
+                $("#__costAppCheFer").maskMoney({prefix: ' $'});
+                $("#"+formCheId+"__costAppCheFer").maskMoney({prefix: ' $'});
                 //formCropFer_chemFert_0__costAppCheFer
-                $("#__costProductCheFer").maskMoney({suffix: ' $'});
-                $("#"+formCheId+"__costProductCheFer").maskMoney({suffix: ' $'});
+                $("#__costProductCheFer").maskMoney({prefix: ' $'});
+                $("#"+formCheId+"__costProductCheFer").maskMoney({prefix: ' $'});
                 
                 $("#"+formCheId+"__amountProductUsedCheFer").numeric({ negative: false });
                 $("#"+formCheId+"__amountProductUsedCheFer").val(parsePointSeparated($("#"+formCheId+"__amountProductUsedCheFer").val())); 

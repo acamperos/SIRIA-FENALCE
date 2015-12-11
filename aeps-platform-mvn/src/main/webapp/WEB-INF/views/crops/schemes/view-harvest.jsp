@@ -178,7 +178,8 @@
                                                 <div class="control-group">
                                                                 
                                                     <label for="formCropHar_harv_costSalepriceHar" class="control-label">
-                                                        <s:property value="getText('text.hervestpvp.harvest')" />:
+                                                        <s:property value="getText('text.hervestpvp.harvest')" />
+                                                        :
                                                     </label>
                                                     <div class="controls">
                                                       <s:textfield name="harv.costSalepriceHar" />
@@ -224,7 +225,8 @@
              <div class="span5" >
                                 <div class="control-group">
                                     <label for="formCropHar_harv_costPackingHar"  class="control-label">
-                                        <s:property value="getText('text.hervestcostpacking.harvest')" />:
+                                        <s:property value="getText('text.hervestcostpacking.harvest')" />
+                                        <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                                     </label>
                                     <div class="controls">
                                         <s:textfield name="harv.costPackingHar" maxlength="14"/>
@@ -256,7 +258,8 @@
                                             <div class="span5" >
                                                 <div class="control-group">
                                                     <label for="formCropHar_harv_costTractorHar" class="control-label">
-                                                        <s:property value="getText('text.hervestcosttractor.harvest')" />:
+                                                        <s:property value="getText('text.hervestcosttractor.harvest')" />
+                                                        <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                                                     </label>
                                                     <div class="controls">
                                                         <s:textfield name="harv.costTractorHar" maxlength="14"/>
@@ -266,7 +269,8 @@
                                             <div class="span5" style="padding-left: 28px">
                                                 <div class="control-group">
                                                     <label for="formCropHar_harv_costGranaleroTrailerHar" class="control-label">
-                                                        <s:property value="getText('text.hervestcosttrailer.harvest')" />:
+                                                        <s:property value="getText('text.hervestcosttrailer.harvest')" />
+                                                        <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                                                     </label>
                                                     <div class="controls">
                                                         <s:textfield name="harv.costGranaleroTrailerHar" maxlength="14"/>
@@ -281,7 +285,8 @@
                                             <div class="span5" >
                                                 <div class="control-group">
                                                     <label for="formCropHar_harv_costZorreoHar" class="control-label">
-                                                        <s:property value="getText('text.hervestcostzorreo.harvest')" />:
+                                                        <s:property value="getText('text.hervestcostzorreo.harvest')" />
+                                                        <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                                                     </label>
                                                     <div class="controls">
                                                         <s:textfield name="harv.costZorreoHar" maxlength="14"/>
@@ -296,7 +301,8 @@
                                       <div class="span5" >
                                             <div class="control-group">
                                                 <label  for="formCropHar_harv_costCombineHar"  class="control-label">
-                                                    <s:property value="getText('text.hervestcost.harvest')" />:
+                                                    <s:property value="getText('text.hervestcost.harvest')" />
+                                                    <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                                                 </label>
                                                 <div class="controls">
                                                     <s:textfield name="harv.costCombineHar" maxlength="14"/>
@@ -311,7 +317,8 @@
                                                         <div class="span5" >
                                                             <div class="control-group">
                                                                 <label for="formCropHar_harv_costStorageHar" class="control-label">
-                                                                    <s:property value="getText('text.hervestcoststorage.harvest')" />:
+                                                                    <s:property value="getText('text.hervestcoststorage.harvest')" />
+                                                                    <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                                                                 </label>
                                                                 <div class="controls">
                                                                     <s:textfield name="harv.costStorageHar" maxlength="14"/>
@@ -327,7 +334,8 @@
              <div class="span5" >
                                 <div class="control-group">
                                     <label for="formCropHar_harv_costWorkforceHar" class="control-label">
-                                        <s:property value="getText('text.hervestcostworkforce.harvest')" />:
+                                        <s:property value="getText('text.hervestcostworkforce.harvest')" />
+                                        <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                                     </label>
                                     <div class="controls">
                                         <s:textfield name="harv.costWorkforceHar" maxlength="14"/>
@@ -337,7 +345,8 @@
              <div class="span5" style="padding-left: 28px">
                                 <div class="control-group">
                                     <label for="formCropHar_harv_costTransportWorkforceHar" class="control-label">
-                                        <s:property value="getText('text.hervestcosttrasportsd.harvest')" />:
+                                        <s:property value="getText('text.hervestcosttrasportsd.harvest')" />
+                                        <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                                     </label>
                                     <div class="controls">
                                         <s:textfield name="harv.costTransportWorkforceHar" maxlength="14"/>
@@ -350,7 +359,8 @@
              <div class="span5" >
                                 <div class="control-group">
                                     <label for="formCropHar_harv_costShellerHar" class="control-label">
-                                        <s:property value="getText('text.hervestcostdesgranadora.harvest')" />:
+                                        <s:property value="getText('text.hervestcostdesgranadora.harvest')" />
+                                        <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                                     </label>
                                     <div class="controls">
                                         <s:textfield name="harv.costShellerHar" maxlength="14"/>
@@ -360,7 +370,8 @@
              <div class="span5" style="padding-left: 28px">
                                 <div class="control-group">
                                     <label for="formCropHar_harv_costWorkforceShellerHar" class="control-label">
-                                        <s:property value="getText('text.hervestcostdesgranadoraworkforce.harvest')" />:
+                                        <s:property value="getText('text.hervestcostdesgranadoraworkforce.harvest')" />
+                                        <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                                     </label>
                                     <div class="controls">
                                         <s:textfield name="harv.costWorkforceShellerHar" maxlength="14"/>
@@ -377,7 +388,8 @@
              <div class="span5" >
                                 <div class="control-group">
                                     <label for="formCropHar_harv_costCabuyaHar" class="control-label">
-                                        <s:property value="getText('text.hervestcostcabuya.harvest')" />:
+                                        <s:property value="getText('text.hervestcostcabuya.harvest')" />
+                                        <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                                     </label>
                                     <div class="controls">
                                         <s:textfield name="harv.costCabuyaHar" maxlength="14"/>
@@ -387,7 +399,8 @@
              <div class="span5" style="padding-left: 28px">
                                 <div class="control-group">
                                     <label for="formCropHar_harv_costTransportCollectioncenterHar" class="control-label">
-                                        <s:property value="getText('text.hervestcosttransport.harvest')" />:
+                                        <s:property value="getText('text.hervestcosttransport.harvest')" />
+                                        <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                                     </label>
                                     <div class="controls">
                                         <s:textfield name="harv.costTransportCollectioncenterHar" maxlength="14"/>
@@ -403,19 +416,19 @@
     
    <script>       
        
-       $("#formCropHar_harv_costSalepriceHar").maskMoney({suffix: ' $'});
-       $("#formCropHar_harv_costPackingHar").maskMoney({suffix: ' $'});       
-       $("#formCropHar_harv_costTractorHar").maskMoney({suffix: ' $'});
-       $("#formCropHar_harv_costGranaleroTrailerHar").maskMoney({suffix: ' $'});
-       $("#formCropHar_harv_costZorreoHar").maskMoney({suffix: ' $'});
-       $("#formCropHar_harv_costWorkforceHar").maskMoney({suffix: ' $'});
-       $("#formCropHar_harv_costTransportWorkforceHar").maskMoney({suffix: ' $'});
-       $("#formCropHar_harv_costShellerHar").maskMoney({suffix: ' $'});
-       $("#formCropHar_harv_costWorkforceShellerHar").maskMoney({suffix: ' $'});
-       $("#formCropHar_harv_costCabuyaHar").maskMoney({suffix: ' $'});
-       $("#formCropHar_harv_costTransportCollectioncenterHar").maskMoney({suffix: ' $'});
-       $("#formCropHar_harv_costStorageHar").maskMoney({suffix: ' $'});
-       $("#formCropHar_harv_costCombineHar").maskMoney({suffix: ' $'});           
+       $("#formCropHar_harv_costSalepriceHar").maskMoney({prefix: ' $'});
+       $("#formCropHar_harv_costPackingHar").maskMoney({prefix: ' $'});       
+       $("#formCropHar_harv_costTractorHar").maskMoney({prefix: ' $'});
+       $("#formCropHar_harv_costGranaleroTrailerHar").maskMoney({prefix: ' $'});
+       $("#formCropHar_harv_costZorreoHar").maskMoney({prefix: ' $'});
+       $("#formCropHar_harv_costWorkforceHar").maskMoney({prefix: ' $'});
+       $("#formCropHar_harv_costTransportWorkforceHar").maskMoney({prefix: ' $'});
+       $("#formCropHar_harv_costShellerHar").maskMoney({prefix: ' $'});
+       $("#formCropHar_harv_costWorkforceShellerHar").maskMoney({prefix: ' $'});
+       $("#formCropHar_harv_costCabuyaHar").maskMoney({prefix: ' $'});
+       $("#formCropHar_harv_costTransportCollectioncenterHar").maskMoney({prefix: ' $'});
+       $("#formCropHar_harv_costStorageHar").maskMoney({prefix: ' $'});
+       $("#formCropHar_harv_costCombineHar").maskMoney({prefix: ' $'});           
        
    </script>
         
@@ -430,19 +443,19 @@
 </s:form>	
 <script>
     $.subscribe('completeHarvest', function(event, data) {      
-        $("#formCropHar_harv_costSalepriceHar").maskMoney({suffix: ' $'});
-        $("#formCropHar_harv_costPackingHar").maskMoney({suffix: ' $'});       
-        $("#formCropHar_harv_costTractorHar").maskMoney({suffix: ' $'});
-        $("#formCropHar_harv_costGranaleroTrailerHar").maskMoney({suffix: ' $'});
-        $("#formCropHar_harv_costZorreoHar").maskMoney({suffix: ' $'});
-        $("#formCropHar_harv_costWorkforceHar").maskMoney({suffix: ' $'});
-        $("#formCropHar_harv_costTransportWorkforceHar").maskMoney({suffix: ' $'});
-        $("#formCropHar_harv_costShellerHar").maskMoney({suffix: ' $'});
-        $("#formCropHar_harv_costWorkforceShellerHar").maskMoney({suffix: ' $'});
-        $("#formCropHar_harv_costCabuyaHar").maskMoney({suffix: ' $'});
-        $("#formCropHar_harv_costTransportCollectioncenterHar").maskMoney({suffix: ' $'});
-        $("#formCropHar_harv_costStorageHar").maskMoney({suffix: ' $'});
-        $("#formCropHar_harv_costCombineHar").maskMoney({suffix: ' $'});    
+        $("#formCropHar_harv_costSalepriceHar").maskMoney({prefix: ' $'});
+        $("#formCropHar_harv_costPackingHar").maskMoney({prefix: ' $'});       
+        $("#formCropHar_harv_costTractorHar").maskMoney({prefix: ' $'});
+        $("#formCropHar_harv_costGranaleroTrailerHar").maskMoney({prefix: ' $'});
+        $("#formCropHar_harv_costZorreoHar").maskMoney({prefix: ' $'});
+        $("#formCropHar_harv_costWorkforceHar").maskMoney({prefix: ' $'});
+        $("#formCropHar_harv_costTransportWorkforceHar").maskMoney({prefix: ' $'});
+        $("#formCropHar_harv_costShellerHar").maskMoney({prefix: ' $'});
+        $("#formCropHar_harv_costWorkforceShellerHar").maskMoney({prefix: ' $'});
+        $("#formCropHar_harv_costCabuyaHar").maskMoney({prefix: ' $'});
+        $("#formCropHar_harv_costTransportCollectioncenterHar").maskMoney({prefix: ' $'});
+        $("#formCropHar_harv_costStorageHar").maskMoney({prefix: ' $'});
+        $("#formCropHar_harv_costCombineHar").maskMoney({prefix: ' $'});    
         if(event.handled !== true){                
             completeFormCrop('', 'formCropHar', 'divMessHarvest', event.originalEvent.request.responseText);
             showTimeline("/crop/viewInfoTime.action?idCrop="+$("#formCropHar_idCrop").val(), "divInfoTimeline", "timeline");

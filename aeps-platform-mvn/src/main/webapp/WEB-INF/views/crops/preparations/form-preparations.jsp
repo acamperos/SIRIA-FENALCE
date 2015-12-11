@@ -105,7 +105,8 @@
                         
                         <div class="span5">     
                                         <label for="formCropPrep_prep_costPrep" class="control-label ">
-                                            <s:property value="getText('text.costpreparation.preparation')" />:
+                                            <s:property value="getText('text.costpreparation.preparation')" />
+                                            <button type="button" class="btn btn-initial"><b>(Ha.)</b></button> :
                                         </label>
                                         <div class="controls">
                                             <s:textfield name="prep.costPrep" maxlength="14"/>
@@ -136,7 +137,7 @@
                         $("#formCropPrep_prep_depthPrep").numeric({decimal: false, negative: false});
                         $("#formCropPrep_prep_passingsNumberPrep").numeric({decimal: false, negative: false});
                         $("#formCropPrep_prep_depthPrep").val(parsePointSeparated($("#formCropPrep_prep_depthPrep").val())); 
-                        $("#formCropPrep_prep_costPrep").maskMoney({suffix: ' $'});
+                        $("#formCropPrep_prep_costPrep").maskMoney({prefix: ' $'});
                     </script>
                     <div id="divBtPrep">
                         <% String actExe   = String.valueOf(request.getAttribute("actExe")); %>

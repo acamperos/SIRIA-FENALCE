@@ -85,7 +85,8 @@
                    <div class="span5">
                        <div class="control-group">
                            <label for="${formOrgId}__costAppCheFer" class="control-label">
-                               <s:property value="getText('text.costapp.fertilization')" />:
+                               <s:property value="getText('text.costapp.fertilization')" />
+                               <button type="button" class="btn btn-initial"><b>(Ha.)</b></button> :
                            </label>
                            <div class="controls">
                                <s:textfield name="%{#attr.formOrg}.costAppOrgFer" id="%{#attr.formOrgId}__costAppOrgFer" value="%{#attr.costAppOrgFer}" maxlength="14"/>
@@ -115,7 +116,8 @@
                             <div class="span5" >
                                 <div class="control-group">   
                                     <label for="${formOrgId}__costProductOrgFer" class="control-label">
-                                        <s:property value="getText('text.costproduct.fertilization')" />:
+                                        <s:property value="getText('text.costproduct.fertilization')" />
+                                        <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                                     </label>
                                     <div class="controls">
                                         <s:textfield name="%{#attr.formOrg}.costProductOrgFer" id="%{#attr.formOrgId}__costProductOrgFer" value="%{#attr.costProductOrgFer}" maxlength="14"/>
@@ -132,10 +134,10 @@
                 $("#"+formOrgId+"__amountProductUsedOrgFer").numeric({ negative: false });
                 $("#"+formOrgId+"__amountProductUsedOrgFer").val(parsePointSeparated($("#"+formOrgId+"__amountProductUsedOrgFer").val())); 
                 
-                 $("#__costAppOrgFer").maskMoney({suffix: ' $'});
-                 $("#"+formOrgId+"__costAppOrgFer").maskMoney({suffix: ' $'});
-                 $("#__costProductOrgFer").maskMoney({suffix: ' $'});
-                 $("#"+formOrgId+"__costProductOrgFer").maskMoney({suffix: ' $'});
+                 $("#__costAppOrgFer").maskMoney({prefix: ' $'});
+                 $("#"+formOrgId+"__costAppOrgFer").maskMoney({prefix: ' $'});
+                 $("#__costProductOrgFer").maskMoney({prefix: ' $'});
+                 $("#"+formOrgId+"__costProductOrgFer").maskMoney({prefix: ' $'});
                  
                  
             

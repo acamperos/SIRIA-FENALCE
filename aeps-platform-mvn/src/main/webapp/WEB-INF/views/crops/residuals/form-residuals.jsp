@@ -69,7 +69,8 @@
                            <div id="costresiduals" class="control-group">
 
                                <label for="formCropRes_resMan_costResMan" class="control-label"  >
-                                   <s:property value="getText('text.cost.residual')"  />:
+                                   <s:property value="getText('text.cost.residual')"  />
+                                   <button type="button" class="btn btn-initial"><b>(Ha.)</b></button> :
                                </label>
                                <div class="controls">
                                    <s:textfield name="resMan.costResMan" maxlength="14"/>
@@ -114,7 +115,7 @@
                     <script>
                         $("#formCropRes_resMan_dateResMan").datepicker({dateFormat: 'mm/dd/yy'});
                         $("#formCropRes_resMan_dateResMan").mask("99/99/9999", {placeholder: " "});
-                        $("#formCropRes_resMan_costResMan").maskMoney({suffix: ' $'});
+                        $("#formCropRes_resMan_costResMan").maskMoney({prefix: ' $'});
                     </script>
                     <div id="divBtRes">
                         <% String actExe   = String.valueOf(request.getAttribute("actExe")); %>

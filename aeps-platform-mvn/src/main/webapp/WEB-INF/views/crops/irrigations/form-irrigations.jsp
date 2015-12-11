@@ -165,7 +165,8 @@
                                 <div class="span5">
                                     <div class="control-group">
                                         <label for="formCropIrr_irr_costWaterIrr" class="control-label">
-                                            <s:property value="getText('text.costwaterirr.irrigation')" />:
+                                            <s:property value="getText('text.costwaterirr.irrigation')" />
+                                            <button type="button" class="btn btn-initial"><b>(Ha.)</b></button> :
                                         </label>
                                         <div class="controls">
                                             <s:textfield name="irr.costWaterIrr" maxlength="14"/>
@@ -179,7 +180,8 @@
                                 <div class="span5">
                                       <div class="control-group">
                                           <label for="formCropIrr_irr_costWorkforceIrr" class="control-label">
-                                              <s:property value="getText('text.costworkforceirr.irrigation')" />:
+                                              <s:property value="getText('text.costworkforceirr.irrigation')" />
+                                              <button type="button" class="btn btn-initial"><b>(Ha.)</b></button> :
                                                     </label>
                                                     <div class="controls">
                                               <s:textfield name="irr.costWorkforceIrr" maxlength="14"/>
@@ -193,7 +195,8 @@
                                 <div  class="span5">
                                     <div class="control-group">
                                         <label for="formCropIrr_irr_costDitchesIrr" class="control-label">
-                                            <s:property value="getText('text.costditchesirr.irrigation')" />:
+                                            <s:property value="getText('text.costditchesirr.irrigation')" />
+                                            <button type="button" class="btn btn-initial"><b>(Ha.)</b></button> :
                                         </label>
                                         <div class="controls">
                                             <s:textfield name="irr.costDitchesIrr" maxlength="14"/>
@@ -204,7 +207,8 @@
                                  <div  class="span5">
                                       <div class="control-group">
                                           <label for="formCropIrr_irr_costDrainageIrr" class="control-label">
-                                              <s:property value="getText('text.costdrainageirr.irrigation')" />:
+                                              <s:property value="getText('text.costdrainageirr.irrigation')" />
+                                              <button type="button" class="btn btn-initial"><b>(Ha.)</b></button> :
                                                     </label>
                                                     <div class="controls">
                                               <s:textfield name="irr.costDrainageIrr" maxlength="14"/>
@@ -218,7 +222,8 @@
                                 <div  class="span5">
                                     <div class="control-group">
                                         <label for="formCropIrr_irr_costFuelIrr" class="control-label">
-                                            <s:property value="getText('text.costfuelirr.irrigation')" />:
+                                            <s:property value="getText('text.costfuelirr.irrigation')" />
+                                            <button type="button" class="btn btn-initial"><b>(Ha.)</b></button> :
                                         </label>
                                         <div class="controls">
                                             <s:textfield name="irr.costFuelIrr" maxlength="14"/>
@@ -229,7 +234,8 @@
                                  <div  class="span5">
                                       <div class="control-group">
                                           <label for="formCropIrr_irr_costElectricpowerIrr" class="control-label">
-                                              <s:property value="getText('text.costelectricpowerirr.irrigation')" />:
+                                              <s:property value="getText('text.costelectricpowerirr.irrigation')" />
+                                              <button type="button" class="btn btn-initial"><b>(Ha.)</b></button> :
                                                     </label>
                                                     <div class="controls">
                                                         <s:textfield name="irr.costElectricpowerIrr" maxlength="14"/>
@@ -258,7 +264,8 @@
                                                               <div id="divcostown" class="span5">
                                                                   <div class="control-group">
                                                                       <label for="formCropIrr_irr_costDepreciationIrr" class="control-label">
-                                                                          <s:property value="getText('text.costdepreciationirr.irrigation')" />:
+                                                                          <s:property value="getText('text.costdepreciationirr.irrigation')" />
+                                                                          <button type="button" class="btn btn-initial"><b>(Ha.)</b></button> :
                                                                       </label>
                                                                       <div class="controls">
                                                                           <s:textfield name="irr.costDepreciationIrr" maxlength="14"/>
@@ -269,7 +276,8 @@
                                                               <div id="divcostrented" class="span5">
                                                                   <div class="control-group">
                                                                       <label for="formCropIrr_irr_costRentedIrr" class="control-label">
-                                                                          <s:property value="getText('text.costrentedirr.irrigation')" />:
+                                                                          <s:property value="getText('text.costrentedirr.irrigation')" />
+                                                                          <button type="button" class="btn btn-initial"><b>(Ha.)</b></button> :
                                                                       </label>
                                                                       <div class="controls">
                                                                           <s:textfield name="irr.costRentedIrr" maxlength="14"/>
@@ -309,14 +317,14 @@
                         $("#formCropIrr_irr_dateWetIrr").datepicker({dateFormat: 'mm/dd/yy', showOn: "focus"});
                         $("#formCropIrr_irr_dateWetIrr").mask("99/99/9999", {placeholder: " "});
                          
-                        $("#formCropIrr_irr_costWaterIrr").maskMoney({suffix: ' $'});
-                        $("#formCropIrr_irr_costWorkforceIrr").maskMoney({suffix: ' $'});
-                        $("#formCropIrr_irr_costDitchesIrr").maskMoney({suffix: ' $'});
-                        $("#formCropIrr_irr_costDrainageIrr").maskMoney({suffix: ' $'});
-                        $("#formCropIrr_irr_costFuelIrr").maskMoney({suffix: ' $'});
-                        $("#formCropIrr_irr_costElectricpowerIrr").maskMoney({suffix: ' $'});
-                        $("#formCropIrr_irr_costDepreciationIrr").maskMoney({suffix: ' $'});
-                        $("#formCropIrr_irr_costRentedIrr").maskMoney({suffix: ' $'});
+                        $("#formCropIrr_irr_costWaterIrr").maskMoney({prefix: ' $'});
+                        $("#formCropIrr_irr_costWorkforceIrr").maskMoney({prefix: ' $'});
+                        $("#formCropIrr_irr_costDitchesIrr").maskMoney({prefix: ' $'});
+                        $("#formCropIrr_irr_costDrainageIrr").maskMoney({prefix: ' $'});
+                        $("#formCropIrr_irr_costFuelIrr").maskMoney({prefix: ' $'});
+                        $("#formCropIrr_irr_costElectricpowerIrr").maskMoney({prefix: ' $'});
+                        $("#formCropIrr_irr_costDepreciationIrr").maskMoney({prefix: ' $'});
+                        $("#formCropIrr_irr_costRentedIrr").maskMoney({prefix: ' $'});
                         
                         showTypeIrrigations('formCropIrr_irr_irrigationsTypes_idIrrTyp', 'divcostsprinkling', 'divcostgravity', 'divMechanicCon', 'divMechanizedCon', 'divManualCon','divIrrRented');
                         showRentedquestionIrrigations('irr.costRentedquestionIrr', 'divcostown', 'divcostrented');

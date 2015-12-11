@@ -112,7 +112,9 @@
            <div class="span4" style="padding-left: 28px">
                                 <div class="control-group">
                                     <label for="formCropSow_sowing_costSeedSow" class="control-label">
-                                       <s:property value="getText('text.sowcost.crop')" />:
+                                       <s:property value="getText('text.sowcost.crop')" />
+                                      <button type="button" class="btn btn-initial"><b>(Ha.)</b></button> 
+                                       :
                                     </label>
                                     <div class="controls">
                                        <s:textfield name="sowing.costSeedSow" maxlength="14"/>
@@ -419,7 +421,8 @@
                           <div class="span5">
                            <div class="control-group">
                             <label for="formCropSow_sowing_costSow" class="control-label ">
-                                <s:property value="getText('text.costsowing.crop')" />:
+                                <s:property value="getText('text.costsowing.crop')" />
+                                <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                             </label>
                             <div class="controls">
                                 <s:textfield name="sowing.costSow" maxlength="14"/>
@@ -451,8 +454,8 @@
             $("#formCropSow_maize_seedsNumberSiteMai").mask("9?99999999",{placeholder:""});
             $("#formCropSow_sowing_dateSow").datepicker({dateFormat: 'mm/dd/yy'});
             $("#formCropSow_sowing_dateSow").mask("99/99/9999", {placeholder: " "});           
-            $("#formCropSow_sowing_costSeedSow").maskMoney({suffix: ' $'});              
-            $("#formCropSow_sowing_costSow").maskMoney({suffix: ' $'});
+            $("#formCropSow_sowing_costSeedSow").maskMoney({prefix: ' $'});              
+            $("#formCropSow_sowing_costSow").maskMoney({prefix: ' $'});
             $("#formCropSow_event_expected_production_pro_eve").numeric({negative: false});
             showReSowing('sow.resow', 'divNoReSow','divYesReSow');
             showTypeReSowing('sow.typeresow', 'divReSowPartial','divReSowTotal');
@@ -491,8 +494,8 @@
         } else {
             location.reload();
         }
-         $("#formCropSow_sowing_costSeedSow").maskMoney({suffix: ' $'});   
-         $("#formCropSow_sowing_costSow").maskMoney({suffix: ' $'});
+         $("#formCropSow_sowing_costSeedSow").maskMoney({prefix: ' $'});   
+         $("#formCropSow_sowing_costSow").maskMoney({prefix: ' $'});
     });
     
     function removerMask() {       

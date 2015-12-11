@@ -83,7 +83,8 @@
                    <div class="span5">
                        <div class="control-group">
                            <label for="${formAmenId}__costAppAmeFer" class="control-label">
-                               <s:property value="getText('text.costapp.fertilization')" />:
+                               <s:property value="getText('text.costapp.fertilization')" />
+                               <button type="button" class="btn btn-initial"><b>(Ha.)</b></button> :
                            </label>
                            <div class="controls">
                                <s:textfield name="%{#attr.formAmen}.costAppAmeFer" id="%{#attr.formAmeId}__costAppAmeFer" value="%{#attr.costAppAmeFer}" maxlength="14"/>
@@ -114,7 +115,8 @@
                         <div class="span5" >
                             <div class="control-group">
                                 <label for="${formAmenId}__costProductAmeFer" class="control-label">
-                                    <s:property value="getText('text.costproduct.fertilization')" />:
+                                    <s:property value="getText('text.costproduct.fertilization')" />
+                                    <button type="button" class="btn btn-initial"><b>(Ha.)</b></button> :
                                 </label>
                                 <div class="controls">
                                     <s:textfield name="%{#attr.formAmen}.costProductAmeFer" id="%{#attr.formAmeId}__costProductAmeFer" value="%{#attr.costProductAmeFer}"/>
@@ -133,11 +135,11 @@
                 $("#"+formAmenId+"__amountProductUsedAmeFer").numeric({ negative: false });
                 $("#"+formAmenId+"__amountProductUsedAmeFer").val(parsePointSeparated($("#"+formAmenId+"__amountProductUsedAmeFer").val())); 
                     
-                $("#"+formAmenId+"__costAppAmeFer").maskMoney({suffix: ' $'});
-                $("#__costAppAmeFer").maskMoney({suffix: ' $'});
+                $("#"+formAmenId+"__costAppAmeFer").maskMoney({prefix: ' $'});
+                $("#__costAppAmeFer").maskMoney({prefix: ' $'});
                 
-                $("#"+formAmenId+"__costProductAmeFer").maskMoney({suffix: ' $'});
-                 $("#__costProductAmeFer").maskMoney({suffix: ' $'});
+                $("#"+formAmenId+"__costProductAmeFer").maskMoney({prefix: ' $'});
+                 $("#__costProductAmeFer").maskMoney({prefix: ' $'});
             </script>
         </div>
     </td>

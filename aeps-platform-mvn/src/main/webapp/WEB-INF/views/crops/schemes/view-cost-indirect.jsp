@@ -18,7 +18,8 @@
                 <s:hidden name="costo.idCostIndPro"/>
                                 <div class="control-group">
                                     <label id="formCropCost_costo_costVigilantPro" for="formCropCost_cost_costVigilantPro"  class="control-label">
-                                       <s:property value="getText('title.formcostinirectvigilante.costindirect')" />:
+                                       <s:property value="getText('title.formcostinirectvigilante.costindirect')" />
+                                       <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                                     </label>
                                     <div class="controls">
                                         <s:textfield name="costo.costVigilantPro" maxlength="14"/>
@@ -28,7 +29,8 @@
                                     
                 <div class="span5" style="padding-left: 28px">
                                     <label for="formCropCost_costo_costRentPro" class="control-label">
-                                       <s:property value="getText('title.formcostinirectarr.costindirect')" />:
+                                       <s:property value="getText('title.formcostinirectarr.costindirect')" />
+                                       <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                                     </label>
                                     <div class="controls">
                                        <s:textfield name="costo.costRentPro" maxlength="14"/>
@@ -41,7 +43,8 @@
                                             <div class="span5" >
                                                 <div class="control-group">
                                                     <label for="formCropCost_costo_costTechnicalAssistancePro" class="control-label">
-                                                       <s:property value="getText('title.formcostinirectasistec.costindirect')" />:
+                                                       <s:property value="getText('title.formcostinirectasistec.costindirect')" />
+                                                       <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                                                     </label>
                                                     <div class="controls">
                                                         <s:textfield name="costo.costTechnicalAssistancePro" maxlength="14"/>
@@ -51,7 +54,8 @@
                                             <div class="span5" style="padding-left: 28px">
                                                 <div class="control-group">
                                                     <label for="formCropCost_costo_costImpuestoPro" class="control-label">
-                                                       <s:property value="getText('title.formcostinidirectcostimp.costindirect')" />:
+                                                       <s:property value="getText('title.formcostinidirectcostimp.costindirect')" />
+                                                       <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                                                     </label>
                                                     <div class="controls">
                                                         <s:textfield name="costo.costImpuestoPro" maxlength="14"/>
@@ -68,7 +72,8 @@
                                       <div class="span5" >
                                             <div class="control-group">
                                                 <label for="formCropCost_costo_costAdministrationPro"class="control-label">
-                                                   <s:property value="getText('title.formcostinidirectcostadmin.costindirect')" />:
+                                                   <s:property value="getText('title.formcostinidirectcostadmin.costindirect')" />
+                                                   <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                                                 </label>
                                                 <div class="controls">
                                                    <s:textfield name="costo.costAdministrationPro" maxlength="14"/>
@@ -79,7 +84,8 @@
                                                         <div class="span5" style="padding-left: 28px">
                                                             <div class="control-group">
                                                                 <label for="formCropCost_costo_costOthersPro" class="control-label">
-                                                                  <s:property value="getText('title.formcostinidirectothercost.costindirect')" />:
+                                                                  <s:property value="getText('title.formcostinidirectothercost.costindirect')" />
+                                                                  <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                                                                 </label>
                                                                 <div class="controls">
                                                                     <s:textfield name="costo.costOthersPro" maxlength="14"/>
@@ -95,7 +101,8 @@
              <div class="span5" >
                                 <div class="control-group">
                                     <label for="formCropCost_costo_costInterestsPro"  class="control-label">
-                                       <s:property value="getText('title.formcostinidirectintereses.costindirect')" />:
+                                       <s:property value="getText('title.formcostinidirectintereses.costindirect')" />
+                                       <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                                     </label>
                                     <div class="controls">
                                         <s:textfield name="costo.costInterestsPro" maxlength="14"/>
@@ -113,13 +120,13 @@
             <p class="warnField reqBef"><s:property value="getText('label.requirefields')" /></p>
             <script>
                                    
-               $("#formCropCos_costo_costVigilantPro").maskMoney({suffix: '$'});
-               $("#formCropCos_costo_costRentPro").maskMoney({suffix: '$'});
-               $("#formCropCos_costo_costTechnicalAssistancePro").maskMoney({suffix: '$'});
-               $("#formCropCos_costo_costImpuestoPro").maskMoney({suffix: '$'});
-               $("#formCropCos_costo_costAdministrationPro").maskMoney({suffix: '$'});
-               $("#formCropCos_costo_costOthersPro").maskMoney({suffix: '$'});
-               $("#formCropCos_costo_costInterestsPro").maskMoney({suffix: '$'});
+               $("#formCropCos_costo_costVigilantPro").maskMoney({prefix: '$'});
+               $("#formCropCos_costo_costRentPro").maskMoney({prefix: '$'});
+               $("#formCropCos_costo_costTechnicalAssistancePro").maskMoney({prefix: '$'});
+               $("#formCropCos_costo_costImpuestoPro").maskMoney({prefix: '$'});
+               $("#formCropCos_costo_costAdministrationPro").maskMoney({prefix: '$'});
+               $("#formCropCos_costo_costOthersPro").maskMoney({prefix: '$'});
+               $("#formCropCos_costo_costInterestsPro").maskMoney({prefix: '$'});
                
             </script>                 
    </fieldset>      
@@ -137,19 +144,19 @@
 <script>
     $.subscribe('completeCos', function(event, data) {
         
-               $("#formCropCos_costo_costVigilantPro").maskMoney({suffix: '$'});
-               $("#formCropCos_costo_costRentPro").maskMoney({suffix: '$'});
-               $("#formCropCos_costo_costTechnicalAssistancePro").maskMoney({suffix: '$'});
-               $("#formCropCos_costo_costImpuestoPro").maskMoney({suffix: '$'});
-               $("#formCropCos_costo_costAdministrationPro").maskMoney({suffix: '$'});
-               $("#formCropCos_costo_costOthersPro").maskMoney({suffix: '$'});
-               $("#formCropCos_costo_costInterestsPro").maskMoney({suffix: '$'});
+               $("#formCropCos_costo_costVigilantPro").maskMoney({prefix: '$'});
+               $("#formCropCos_costo_costRentPro").maskMoney({prefix: '$'});
+               $("#formCropCos_costo_costTechnicalAssistancePro").maskMoney({prefix: '$'});
+               $("#formCropCos_costo_costImpuestoPro").maskMoney({prefix: '$'});
+               $("#formCropCos_costo_costAdministrationPro").maskMoney({prefix: '$'});
+               $("#formCropCos_costo_costOthersPro").maskMoney({prefix: '$'});
+               $("#formCropCos_costo_costInterestsPro").maskMoney({prefix: '$'});
         completeFormCrop('', 'formCropCos', 'divMessCost', event.originalEvent.request.responseText);
     });
     //showCostTypeHarvest('formCropHar_harv_harvestType_idHarTyp', 'divcostgranel', 'divcostbulto','divcostmanual3');
     //showCostMethodsHarvest('formCropHar_harv_harvestMethods_idHarMet', 'divcostmechanized', 'divcostmanual','divcostmanual3');
     //showStorageHar('harv.storageHar', 'divCostStorage', 'divcostrented');
-$(function(){ $("#formCropCost_costo_costVigilantPro").maskMoney({suffix: '$'});
+$(function(){ $("#formCropCost_costo_costVigilantPro").maskMoney({prefix: '$'});
 });
 
     function removeMaskCost() {       

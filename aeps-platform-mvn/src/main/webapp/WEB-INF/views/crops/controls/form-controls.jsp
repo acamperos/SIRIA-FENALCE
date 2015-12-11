@@ -61,7 +61,8 @@
                                 <div class="control-group">
 
                                     <label for="formCropCon_con_costInputCon" class="control-label">
-                                        <s:property value="getText('text.controlcost.crop')" />:
+                                        <s:property value="getText('text.controlcost.crop')" />
+                                        <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                                     </label>
                                     <div class="controls">
                                         <s:textfield name="con.costInputCon" maxlength="14"/>
@@ -72,7 +73,8 @@
                             <div class="span5" style="padding-left: 28px">
                                 <div class="control-group">
                                     <label for="formCropCon_con_costAppCon" class="control-label">
-                                        <s:property value="getText('text.controlcostapp.crop')" />:
+                                        <s:property value="getText('text.controlcostapp.crop')" />
+                                        <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                                     </label>
                                     <div class="controls">
                                         <s:textfield 
@@ -101,7 +103,8 @@
                                                 </div> 
                                             </div> 
                                         </div> 
-                                                        <fieldset>
+                          </div>       
+                                                <fieldset>
                                                             <legend><s:property value="getText('title.formcontrolcomment.control')" /></legend>                   
                                                             <div class="row">
                                                                 <div class="span5">
@@ -125,8 +128,8 @@
                         $("#formCropCon_dosisConChe").val(parsePointSeparated($("#formCropCon_dosisConChe").val()));
                         showTypeFertilizerControl('formCropCon_con_controlsTypes_idConTyp', 'divOrganicCon', 'divChemicalCon', 'divMechanicCon', 'divMechanizedCon', 'divManualCon');
 
-                        $("#formCropCon_con_costInputCon").maskMoney({suffix: ' $'});
-                        $("#formCropCon_con_costAppCon").maskMoney({suffix: ' $'});
+                        $("#formCropCon_con_costInputCon").maskMoney({prefix: ' $'});
+                        $("#formCropCon_con_costAppCon").maskMoney({prefix: ' $'});
 
                     </script>
                     <div id="divBtCon">
