@@ -76,6 +76,7 @@
         <% //String coCode     = user.getCountryUsr().getAcronymIdCo(); %>
         <% String coCode     = (String) session.getAttribute(APConstants.COUNTRY_CODE); %>
         <% Boolean costCrop =  Boolean.valueOf(String.valueOf(request.getAttribute("costCrop")));  %>
+        
         <div class="container" id="divDataInfoCrop">
             <%@ include file="../generals/data-crops.jsp" %>                 
         </div>       
@@ -225,7 +226,7 @@
              <div class="accordion-group">
                     <div class="accordion-heading">
                         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion9" href="#collapseNine">
-                            <h4><s:property value="getText('link.observations.crop')" /><i class="colNine icon-chevron-down"></i></h4>
+                            <h4><s:property value="getText('link.costindirect.crop')" /><i class="colNine icon-chevron-down"></i></h4>
                         </a>
                     </div>
                     <div id="collapseNine" class="accordion-body collapse">                        
