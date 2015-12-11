@@ -178,11 +178,11 @@
                                                 <div class="control-group">
                                                                 
                                                     <label for="formCropHar_harv_costSalepriceHar" class="control-label">
-                                                        <s:property value="getText('text.hervestpvp.harvest')" />
+                                                        <s:property value="getText('text.hervestpvp.harvest')"  />
                                                         :
                                                     </label>
                                                     <div class="controls">
-                                                      <s:textfield name="harv.costSalepriceHar" />
+                                                      <s:textfield name="harv.costSalepriceHar" maxlength="14" />
                                                   
                                                     </div>                         
                                                 </div>                          
@@ -193,7 +193,7 @@
                                                         <s:property value="getText('text.hervestnamecliente.harvest')" />:
                                                     </label>
                                                     <div class="controls">
-                                                        <s:textfield name="harv.costNamebuyerHar" />
+                                                        <s:textfield name="harv.costNamebuyerHar" maxlength="80" />
                                                     </div>                         
                                                 </div>        
 
