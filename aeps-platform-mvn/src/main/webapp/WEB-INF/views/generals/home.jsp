@@ -19,15 +19,15 @@
                             </div>
                         </div>
                     </div>
-                    <div class="item">
+<!--                    <div class="item">
                         <a href="https://play.google.com/store/apps/details?id=com.aepsmovil.aepsmovil"><img class="slide slide-apps-mobile"/></a>
                         <div class="container">
                             <div class="carousel-caption">
-                                <p class="lead" style="margin-bottom:20px !important;"><s:property value="getText('area.descaepsmobile.mobile')" /></p>
-                                <a href="https://play.google.com/store/apps/details?id=com.aepsmovil.aepsmovil" class="btn btn-primary btn-large"><s:property value="getText('button.go.mobile')" /></a>
+                                <p class="lead" style="margin-bottom:20px !important;">countryCode!=null<%--<s:property value="getText('area.descaepsmobile.mobile')" />--%></p>
+                                <a href="https://play.google.com/store/apps/details?id=com.aepsmovil.aepsmovil" class="btn btn-primary btn-large"><%--<s:property value="getText('button.go.mobile')" />--%></a>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                     <div class="item">
                         <a href="tryFree.action"><img class="slide slide-usuario-prueba" /></a>
                         <div class="container">

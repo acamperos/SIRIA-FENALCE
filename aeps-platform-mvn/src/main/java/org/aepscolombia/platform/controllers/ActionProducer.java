@@ -96,6 +96,8 @@ public class ActionProducer extends BaseAction {
     private List<Entities> list_agronomist;
     private AssociationDao assDao;
     private String coCode;
+    private String linkProducer;
+    private Integer idOldEntity;
 
     /**
      * Metodos getter y setter por cada variable del formulario
@@ -311,6 +313,22 @@ public class ActionProducer extends BaseAction {
         return type_ident_producer;
     }
 
+    public String getLinkProducer() {
+        return linkProducer;
+    }
+
+    public void setLinkProducer(String linkProducer) {
+        this.linkProducer = linkProducer;
+    }   
+
+    public Integer getIdOldEntity() {
+        return idOldEntity;
+    }
+
+    public void setIdOldEntity(Integer idOldEntity) {
+        this.idOldEntity = idOldEntity;
+    }   
+
     public String getIdentProducer() {
         return identProducer;
     }
@@ -443,7 +461,7 @@ public class ActionProducer extends BaseAction {
          * 2) modify: Al momento de modificar un registro
          * 3) delete: Al momento de borrar un registro
          */
-        if (actExe.equals("create") || actExe.equals("modify")) {
+        if ((actExe.equals("create") || actExe.equals("modify")) && (linkProducer.equals("0") || linkProducer==null)) {
             //        ArrayList[] errors = new ArrayList[10];
             //        if ($option=="modify") {
             // $fields = array("id", "code", "types_barcode", "handle_type");
@@ -515,17 +533,6 @@ public class ActionProducer extends BaseAction {
                     addActionError(getText("desc.datainvalidemailagent.producer"));
                 }
             }
-
-            if (actExe.equals("create")) {
-                if (this.getTypeIdent() != null && this.getNum_ident_producer() != null) {
-                    Entities entReg = entDao.checkEntityIdent(this.getTypeIdent(), this.getNum_ident_producer());
-
-                    if (entReg != null) {
-                        addFieldError("num_ident_producer", getText("message.documentexists.producer"));
-                        addActionError(getText("desc.documentexists.producer"));
-                    }
-                }
-            }
         }
     }
 
@@ -578,6 +585,36 @@ public class ActionProducer extends BaseAction {
         state = "success";
         info = chain;
         return "combo";
+    }
+    
+    Entities entReg;
+
+    public Entities getEntReg() {
+        return entReg;
+    }
+
+    public void setEntReg(Entities entReg) {
+        this.entReg = entReg;
+    }   
+    
+    public String checkDocumentNumber() 
+    {
+        String typeDoc = ""; 
+        String action  = "";
+        String numDoc  = "";
+        entReg = null;
+        try {
+            typeDoc = String.valueOf(this.getRequest().getParameter("typeDoc"));
+            action  = String.valueOf(this.getRequest().getParameter("action"));
+            numDoc  = String.valueOf(this.getRequest().getParameter("numDoc"));            
+        } catch (Exception e) {
+//            e.printStackTrace();
+        }
+        
+        if (action.equals("create")) {
+            if (!typeDoc.equals("") && !numDoc.equals("")) entReg = entDao.checkEntityIdent(typeDoc, numDoc);
+        }
+        return SUCCESS;
     }
 
     private String name_agronomist;
@@ -862,6 +899,8 @@ public class ActionProducer extends BaseAction {
             tx = session.beginTransaction();
             SfGuardUserDao sfDao = new SfGuardUserDao();
             SfGuardUser sfUser = sfDao.getUserByLogin(user.getCreatedBy(), user.getNameUserUsr(), "");
+            Integer idUserMobile = null;
+            if (sfUser != null) idUserMobile = sfUser.getId().intValue();
             HashMap proData = proDao.findById(idProducer);
             int idEnt = 0;
 //            System.out.println("values->"+proData);
@@ -869,82 +908,95 @@ public class ActionProducer extends BaseAction {
                 idEnt = ((String.valueOf(proData.get("id_entity"))) != null) ? (Integer.parseInt(String.valueOf(proData.get("id_entity")))) : null;
             }
 //            System.out.println("idEnt->"+idEnt);
-            int digVer = (dig_ver_producer.equals("")) ? -1 : Integer.parseInt(dig_ver_producer);
+            int digVer   = (dig_ver_producer.equals("")) ? -1 : Integer.parseInt(dig_ver_producer);
             Entities ent = null;
-            if (idEnt <= 0) {
-                ent = new Entities();
-                ent.setIdEnt(null);
-                ent.setEntitiesTypes(new EntitiesTypes(2));
-            } else {
-                ent = entDao.findById(idEnt);
-            }
-
-//            ent.setEntityTypeEnt(2);
-//            ent.setDocumentsTypes(typeIdent);
-            if (typeIdent.equals("NIT")) {
-                if (digVer > -1) {
-                    ent.setValidationNumberEnt(digVer);
-                }
-                ent.setNameEnt(nameCompany);
-                ent.setAgentNameEnt(firstNameRep + " " + secondNameRep + " " + firstLastNameRep + " " + secondLastNameRep);
-                ent.setEmail2Ent(emailRes);
-                ent.setFirstName1Ent(firstNameRep);
-                ent.setFirstName2Ent(secondNameRep);
-                ent.setLastName1Ent(firstLastNameRep);
-                ent.setLastName2Ent(secondLastNameRep);
-            } else {
-                ent.setNameEnt(names_producer_1 + " " + names_producer_2 + " " + last_names_producer_1 + " " + last_names_producer_2);
-                ent.setFirstName1Ent(names_producer_1);
-                ent.setFirstName2Ent(names_producer_2);
-                ent.setLastName1Ent(last_names_producer_1);
-                ent.setLastName2Ent(last_names_producer_2);
-            }
-            ent.setDocumentsTypes(new DocumentsTypes(typeIdent));
-            ent.setDocumentNumberEnt(num_ident_producer);
-
-            ent.setEmailEnt(email_producer);
-            ent.setAddressEnt(direction_producer);
-            ent.setMunicipalities(new Municipalities(Integer.parseInt(cityPro)));
-            depPro = String.valueOf(MunicipalitiesDao.getDepartmentId(Integer.parseInt(cityPro)));
-//            ent.setIdMunicipalityEnt(new Municipalities(Integer.parseInt(cityPro), new Departments(Integer.parseInt(depPro))));
-            if (telephone_producer != null && telephone_producer > 0) {
-                ent.setPhoneEnt(telephone_producer);
-            }
-            if (celphone_producer != null && celphone_producer > 0) {
-                ent.setCellphoneEnt(celphone_producer);
-            }
-            ent.setStatus(true);
-            Integer idUserMobile = null;
-            if (sfUser != null) {
-                idUserMobile = sfUser.getId().intValue();
-            }
-            ent.setCreatedBy(idUserMobile);
-            session.saveOrUpdate(ent);
-
-//            entDao.save(ent);          
-//            System.out.println("pruebaCrea");
-            if (idProducer <= 0) {
+            if (linkProducer.equals("1")) {
+                ent = entDao.findById(idOldEntity);
+                
+                Entities entCopy = ent;
+                entCopy.setIdEnt(null);
+                entCopy.setStatus(true);
+                entCopy.setCreatedBy(idUserMobile);
+                session.saveOrUpdate(entCopy);
+                
                 Producers pro = new Producers();
                 pro.setIdPro(null);
-                pro.setEntities(ent);
+                pro.setEntities(entCopy);
                 pro.setStatus(true);
-                pro.setAddressPro(direction_producer);
+                pro.setAddressPro(ent.getAddressEnt());
                 pro.setCreatedBy(idUserMobile);
                 session.saveOrUpdate(pro);
-//                proDao.save(pro);
+            } else {                
+                if (idEnt <= 0) {
+                    ent = new Entities();
+                    ent.setIdEnt(null);
+                    ent.setEntitiesTypes(new EntitiesTypes(2));
+                } else {
+                    ent = entDao.findById(idEnt);
+                }
 
-                /*LogEntities logPro = new LogEntities();
-                 logPro.setIdLogEnt(null);
-                 logPro.setIdEntityLogEnt(idEntSystem); 
-                 logPro.setIdObjectLogEnt(pro.getIdPro());
-                 logPro.setTableLogEnt("producers");
-                 logPro.setDateLogEnt(new Date());
-                 logPro.setActionTypeLogEnt(action);
-                 session.saveOrUpdate(logPro);
-                 idProducer = pro.getIdPro();*/
-//                logDao.save(logPro);
+    //            ent.setEntityTypeEnt(2);
+    //            ent.setDocumentsTypes(typeIdent);
+                if (typeIdent.equals("NIT")) {
+                    if (digVer > -1) {
+                        ent.setValidationNumberEnt(digVer);
+                    }
+                    ent.setNameEnt(nameCompany);
+                    ent.setAgentNameEnt(firstNameRep + " " + secondNameRep + " " + firstLastNameRep + " " + secondLastNameRep);
+                    ent.setEmail2Ent(emailRes);
+                    ent.setFirstName1Ent(firstNameRep);
+                    ent.setFirstName2Ent(secondNameRep);
+                    ent.setLastName1Ent(firstLastNameRep);
+                    ent.setLastName2Ent(secondLastNameRep);
+                } else {
+                    ent.setNameEnt(names_producer_1 + " " + names_producer_2 + " " + last_names_producer_1 + " " + last_names_producer_2);
+                    ent.setFirstName1Ent(names_producer_1);
+                    ent.setFirstName2Ent(names_producer_2);
+                    ent.setLastName1Ent(last_names_producer_1);
+                    ent.setLastName2Ent(last_names_producer_2);
+                }
+                ent.setDocumentsTypes(new DocumentsTypes(typeIdent));
+                ent.setDocumentNumberEnt(num_ident_producer);
+
+                ent.setEmailEnt(email_producer);
+                ent.setAddressEnt(direction_producer);
+                ent.setMunicipalities(new Municipalities(Integer.parseInt(cityPro)));
+                depPro = String.valueOf(MunicipalitiesDao.getDepartmentId(Integer.parseInt(cityPro)));
+    //            ent.setIdMunicipalityEnt(new Municipalities(Integer.parseInt(cityPro), new Departments(Integer.parseInt(depPro))));
+                if (telephone_producer != null && telephone_producer > 0) {
+                    ent.setPhoneEnt(telephone_producer);
+                }
+                if (celphone_producer != null && celphone_producer > 0) {
+                    ent.setCellphoneEnt(celphone_producer);
+                }
+                ent.setStatus(true);                
+                ent.setCreatedBy(idUserMobile);
+                session.saveOrUpdate(ent);
+
+    //            entDao.save(ent);          
+    //            System.out.println("pruebaCrea");
+                if (idProducer <= 0) {
+                    Producers pro = new Producers();
+                    pro.setIdPro(null);
+                    pro.setEntities(ent);
+                    pro.setStatus(true);
+                    pro.setAddressPro(direction_producer);
+                    pro.setCreatedBy(idUserMobile);
+                    session.saveOrUpdate(pro);
+    //                proDao.save(pro);
+
+                    /*LogEntities logPro = new LogEntities();
+                     logPro.setIdLogEnt(null);
+                     logPro.setIdEntityLogEnt(idEntSystem); 
+                     logPro.setIdObjectLogEnt(pro.getIdPro());
+                     logPro.setTableLogEnt("producers");
+                     logPro.setDateLogEnt(new Date());
+                     logPro.setActionTypeLogEnt(action);
+                     session.saveOrUpdate(logPro);
+                     idProducer = pro.getIdPro();*/
+    //                logDao.save(logPro);
+                }
             }
-
             /*LogEntities log = new LogEntities();
              log.setIdLogEnt(null);
              log.setIdEntityLogEnt(idEntSystem); 
@@ -1086,7 +1138,7 @@ public class ActionProducer extends BaseAction {
             tx = session.beginTransaction();
             HashMap pro = proDao.findById(idPro);
 //            System.out.println("dataPro->"+pro);
-            Entities ent = entDao.findById(Integer.parseInt(String.valueOf(pro.get("id_entity"))));
+            Entities ent = entDao.findById(Integer.parseInt(String.valueOf(pro.get("id_entity"))));            
 //            System.out.println("idEnt->"+pro.get("id_entity"));
 //            System.out.println("numEnt->"+ent.getDocumentNumberEnt());
             ent.setStatus(false);

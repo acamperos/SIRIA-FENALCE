@@ -44,9 +44,11 @@
                         <i class="icon-info-sign s2b_tooltip pop-over" data-content="<s:property value="getText('desc.docnumber.producer')" />." data-title="<s:property value="getText('help.docnumber.producer')" />" data-placement="right" data-trigger="hover"></i>
                     </label>
                     <div class="controls">
-                        <s:textfield name="num_ident_producer" />
+                        <%--<s:textfield name="num_ident_producer" onblur="validateProducer('/checkDocumentNumber.action', 'formProducer_actExe', 'formProducer_typeIdent', 'formProducer_num_ident_producer', 'divInfoProducerOld')" />--%>
+                        <s:textfield name="num_ident_producer" onblur="validateProducer('/checkDocumentNumber.action', 'formProducer_actExe', 'formProducer_typeIdent', 'formProducer_num_ident_producer', 'divInfoProducerOld')" />
                     </div>  
                 </div> 
+                <div id="divInfoProducerOld"></div>
                 <% String classInfoPerson  = "hide"; %>
                 <% String classInfoCompany = "hide"; %>
                 <s:set name="typeDoc" value="typeIdent"/>

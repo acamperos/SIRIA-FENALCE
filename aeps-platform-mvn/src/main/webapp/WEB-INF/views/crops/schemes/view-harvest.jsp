@@ -59,7 +59,7 @@
                             headerKey="-1" 
                             headerValue="---"
                             onchange="
-                            changeOptionsHarvest('formCropHar_harv_resultingProducts_idResPro', 'divYield', 'divHumidity', 'divNumberSacks', 'harvNumberSacks', 'Numero de bulto (ha):', 'Numero de bolsas:', 'harvWeightAvg', 'Peso promedio de un bulto (kg/bulto):', 'Peso promedio de la bolsa:');
+                            changeOptionsHarvest('formCropHar_harv_resultingProducts_idResPro', 'divYield', 'divHumidity', 'divNumberSacks', 'harvNumberSacks', 'harvNumberBags', 'harvWeightAvg', 'harvWeightAvgBags');
                             "
                         />
                     </div>
@@ -128,7 +128,10 @@
             <div class="span5">
                 <div class="control-group">
                     <label for="formCropHar_harv_numberSacksSow" id="harvNumberSacks" class="control-label req">
-                         <s:property value="getText('text.numbersacks.harvest')" /> <button type="button" class="btn btn-initial"><b>(ha)</b></button>:
+                        <s:property value="getText('text.numbersacks.harvest')" /> <button type="button" class="btn btn-initial"><b>(ha)</b></button>:
+                    </label>
+                    <label for="formCropHar_harv_numberSacksSow" id="harvNumberBags" class="control-label req">
+                        <s:property value="getText('text.numberbags.harvest')" />:
                     </label>
                     <div class="controls">
                         <s:textfield name="harv.numberSacksSow" maxlength="14"/>
@@ -139,6 +142,9 @@
                 <div class="control-group">
                     <label for="formCropHar_harv_weightAvgSacksSow" id="harvWeightAvg" class="control-label">
                         <s:property value="getText('text.weightavgsacks.harvest')" /> <button type="button" class="btn btn-initial"><b>(kg/bulto)</b></button>:
+                    </label>
+                    <label for="formCropHar_harv_weightAvgSacksSow" id="harvWeightAvgBags" class="control-label">
+                        <s:property value="getText('text.weightavgbags.harvest')" />:
                     </label>
                     <div class="controls radioSelect">
                         <s:textfield name="harv.weightAvgSacksSow" maxlength="14"/>
@@ -178,8 +184,7 @@
                                                 <div class="control-group">
                                                                 
                                                     <label for="formCropHar_harv_costSalepriceHar" class="control-label">
-                                                        <s:property value="getText('text.hervestpvp.harvest')"  />
-                                                        :
+                                                        <s:property value="getText('text.hervestpvp.harvest')"  /> <button type="button" class="btn btn-initial"><b>(Tn/Ha)</b></button>:
                                                     </label>
                                                     <div class="controls">
                                                       <s:textfield name="harv.costSalepriceHar" maxlength="14" />

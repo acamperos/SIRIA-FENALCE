@@ -25,22 +25,9 @@ public class Controls  implements java.io.Serializable {
 
 
      private Integer idCon;
-     private Diseases diseases;
-     private Weeds weeds;
-     private ControlsTypes controlsTypes;
-     private ChemicalsControls chemicalsControls;
      private ProductionEvents productionEvents;
-     private TargetsTypes targetsTypes;
-     private OrganicControls organicControls;
-     private DoseUnits doseUnits;
-     private Pests pests;
      private Date dateCon;
      private Double dosisCon;
-     private String otherPestCon;
-     private String otherDiseaseCon;
-     private String otroWeedCon;
-     private String otherChemicalProductCon;
-     private String otherOrganicProductCon;
      private Boolean cleaningsCon;
      private Integer cleaningsFrequenceCon;
      private String commentCon;
@@ -55,27 +42,14 @@ public class Controls  implements java.io.Serializable {
     }
 
 	
-    public Controls(ControlsTypes controlsTypes, ProductionEvents productionEvents) {
-        this.controlsTypes = controlsTypes;
+    public Controls(ProductionEvents productionEvents) {
         this.productionEvents = productionEvents;
     }
-    public Controls(Diseases diseases, Weeds weeds, ControlsTypes controlsTypes, ChemicalsControls chemicalsControls, ProductionEvents productionEvents, TargetsTypes targetsTypes, OrganicControls organicControls, DoseUnits doseUnits, Pests pests, Date dateCon, Double dosisCon, String otherPestCon, String otherDiseaseCon, String otroWeedCon, String otherChemicalProductCon, String otherOrganicProductCon, Boolean cleaningsCon, Integer cleaningsFrequenceCon, String commentCon ,Boolean status, Integer createdBy, BigDecimal costInputCon, Integer costFormAppCon, BigDecimal costAppCon) {
-       this.diseases = diseases;
-       this.weeds = weeds;
-       this.controlsTypes = controlsTypes;
-       this.chemicalsControls = chemicalsControls;
+    
+    public Controls(ProductionEvents productionEvents, Date dateCon, Double dosisCon, Boolean cleaningsCon, Integer cleaningsFrequenceCon, String commentCon ,Boolean status, Integer createdBy, BigDecimal costInputCon, Integer costFormAppCon, BigDecimal costAppCon) {
        this.productionEvents = productionEvents;
-       this.targetsTypes = targetsTypes;
-       this.organicControls = organicControls;
-       this.doseUnits = doseUnits;
-       this.pests = pests;
        this.dateCon = dateCon;
        this.dosisCon = dosisCon;
-       this.otherPestCon = otherPestCon;
-       this.otherDiseaseCon = otherDiseaseCon;
-       this.otroWeedCon = otroWeedCon;
-       this.otherChemicalProductCon = otherChemicalProductCon;
-       this.otherOrganicProductCon = otherOrganicProductCon;
        this.cleaningsCon = cleaningsCon;
        this.cleaningsFrequenceCon = cleaningsFrequenceCon;
        this.commentCon=commentCon;
@@ -96,42 +70,7 @@ public class Controls  implements java.io.Serializable {
     public void setIdCon(Integer idCon) {
         this.idCon = idCon;
     }
-@ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="id_disease_con")
-    public Diseases getDiseases() {
-        return this.diseases;
-    }
-    
-    public void setDiseases(Diseases diseases) {
-        this.diseases = diseases;
-    }
-@ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="id_weed_con")
-    public Weeds getWeeds() {
-        return this.weeds;
-    }
-    
-    public void setWeeds(Weeds weeds) {
-        this.weeds = weeds;
-    }
-@ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="control_type_con", nullable=false)
-    public ControlsTypes getControlsTypes() {
-        return this.controlsTypes;
-    }
-    
-    public void setControlsTypes(ControlsTypes controlsTypes) {
-        this.controlsTypes = controlsTypes;
-    }
-@ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="chemical_product_used_con")
-    public ChemicalsControls getChemicalsControls() {
-        return this.chemicalsControls;
-    }
-    
-    public void setChemicalsControls(ChemicalsControls chemicalsControls) {
-        this.chemicalsControls = chemicalsControls;
-    }
+
 @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="id_production_event_con", nullable=false)
     public ProductionEvents getProductionEvents() {
@@ -141,42 +80,7 @@ public class Controls  implements java.io.Serializable {
     public void setProductionEvents(ProductionEvents productionEvents) {
         this.productionEvents = productionEvents;
     }
-@ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="target_type_con")
-    public TargetsTypes getTargetsTypes() {
-        return this.targetsTypes;
-    }
-    
-    public void setTargetsTypes(TargetsTypes targetsTypes) {
-        this.targetsTypes = targetsTypes;
-    }
-@ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="organic_product_used_con")
-    public OrganicControls getOrganicControls() {
-        return this.organicControls;
-    }
-    
-    public void setOrganicControls(OrganicControls organicControls) {
-        this.organicControls = organicControls;
-    }
-@ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="dose_units_con")
-    public DoseUnits getDoseUnits() {
-        return this.doseUnits;
-    }
-    
-    public void setDoseUnits(DoseUnits doseUnits) {
-        this.doseUnits = doseUnits;
-    }
-@ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="id_pest_con")
-    public Pests getPests() {
-        return this.pests;
-    }
-    
-    public void setPests(Pests pests) {
-        this.pests = pests;
-    }
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name="date_con", length=19)
     public Date getDateCon() {
@@ -194,52 +98,7 @@ public class Controls  implements java.io.Serializable {
     
     public void setDosisCon(Double dosisCon) {
         this.dosisCon = dosisCon;
-    }
-    
-    @Column(name="other_pest_con", length=65535)
-    public String getOtherPestCon() {
-        return this.otherPestCon;
-    }
-    
-    public void setOtherPestCon(String otherPestCon) {
-        this.otherPestCon = otherPestCon;
-    }
-    
-    @Column(name="other_disease_con", length=65535)
-    public String getOtherDiseaseCon() {
-        return this.otherDiseaseCon;
-    }
-    
-    public void setOtherDiseaseCon(String otherDiseaseCon) {
-        this.otherDiseaseCon = otherDiseaseCon;
-    }
-    
-    @Column(name="otro_weed_con", length=65535)
-    public String getOtroWeedCon() {
-        return this.otroWeedCon;
-    }
-    
-    public void setOtroWeedCon(String otroWeedCon) {
-        this.otroWeedCon = otroWeedCon;
-    }
-    
-    @Column(name="other_chemical_product_con", length=65535)
-    public String getOtherChemicalProductCon() {
-        return this.otherChemicalProductCon;
-    }
-    
-    public void setOtherChemicalProductCon(String otherChemicalProductCon) {
-        this.otherChemicalProductCon = otherChemicalProductCon;
-    }
-    
-    @Column(name="other_organic_product_con", length=65535)
-    public String getOtherOrganicProductCon() {
-        return this.otherOrganicProductCon;
-    }
-    
-    public void setOtherOrganicProductCon(String otherOrganicProductCon) {
-        this.otherOrganicProductCon = otherOrganicProductCon;
-    }
+    }   
     
     @Column(name="cleanings_con")
     public Boolean getCleaningsCon() {
@@ -315,9 +174,6 @@ public class Controls  implements java.io.Serializable {
     public void setCreatedBy(Integer createdBy) {
         this.createdBy = createdBy;
     }
-
-
-
 
 }
 

@@ -126,7 +126,7 @@ public class FertilizationsDao
 //			sql += " and le.id_entity_log_ent="+args.get("idEntUser");
 //		}
         sql += " order by p.id_fer ASC";
-        System.out.println("sql=>"+sql);
+//        System.out.println("sql=>"+sql);
         
         try {
             tx = session.beginTransaction();

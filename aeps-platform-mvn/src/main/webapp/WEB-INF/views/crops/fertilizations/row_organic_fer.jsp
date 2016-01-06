@@ -33,25 +33,27 @@
                         </div>                         
                     </div>                          
                 </div> 
-                        
-                              <div   class="span5" style="padding-left: 28px">
-                             <div class="control-group">
-                                    <s:label for="formRowChemical_fer" cssClass="control-label " value="%{getText('select.chemfertilizer.formapp')}:"></s:label>
-                                        <div class="controls">
+                <% String classCostOrg = "hide"; %>
+                <s:set name="costOrg" value="costCrop"/>
+                <s:if test="%{#costOrg==1}">
+                    <% classCostOrg = "";  %>
+                </s:if>   
+                <div class="span5 <%= classCostOrg %>" style="padding-left: 28px">
+                    <div class="control-group">
+                       <s:label for="formRowChemical_fer" cssClass="control-label " value="%{getText('select.chemfertilizer.formapp')}:"></s:label>
+                       <div class="controls">
+                           <s:select
 
-                                        <s:select
-                                            
-                                              id="%{#attr.formOrgId}__costFormAppOrgFer"
-                                              name="%{#attr.formOrg}.costFormAppOrgFer"
-                                              value="%{#attr.costFormAppOrgFer}"             
-                                              list="#{'0':'---','1':'Manual', '2':'Mecánica','3':'Aérea'}"            
-                                              headerKey="-1" 
-                                            />
+                                 id="%{#attr.formOrgId}__costFormAppOrgFer"
+                                 name="%{#attr.formOrg}.costFormAppOrgFer"
+                                 value="%{#attr.costFormAppOrgFer}"             
+                                 list="#{'0':'---','1':'Manual', '2':'Mecánica','3':'Aérea'}"            
+                                 headerKey="-1" 
+                               />
 
-                                    </div>
-                                     
-                                </div> 
-                              </div>
+                       </div>
+                   </div> 
+                </div>
                                         
                                         
             </div> 
@@ -76,11 +78,7 @@
             </div>
             <div class="row">
                
-                <% String classCostOrg = "hide"; %>
-               <s:set name="costOrg" value="costCrop"/>
-               <s:if test="%{#costOrg==1}">
-                   <% classCostOrg = "";  %>
-               </s:if>   
+               
                <div class="<%= classCostOrg%>"> 
                    <div class="span5">
                        <div class="control-group">

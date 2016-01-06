@@ -31,7 +31,7 @@
         <legend><s:property value="getText('title.preparationlist.preparation')" /></legend>
         <% if (usrPrpDao.getPrivilegeUser(userPrp.getIdUsr(), "crop/create")) { %>
             <% if (entTypePrpId!=3) { %>
-                <s:if test="checkSowing==true">
+                <s:if test="checkSowing!=true">
                     <button type="button" class="btn btn-initial btn-space" onclick="viewForm('/crop/showPrep.action?action=create', 'idCrop', '${idCrop}', '<s:property value="getText('title.addpreparation.preparation')" />', 1050, 550);">
                         <i class="icon-plus"></i> <s:property value="getText('button.addpreparation.preparation')" />
                     </button>

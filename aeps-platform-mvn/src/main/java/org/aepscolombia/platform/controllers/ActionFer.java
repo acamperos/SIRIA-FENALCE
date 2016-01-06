@@ -785,7 +785,7 @@ public class ActionFer extends BaseAction {
                     if (ferCheTemp!=null) {
                         if (ferCheTemp.getOtherProductCheFer()!=null && !ferCheTemp.getOtherProductCheFer().equals("") && ferCheTemp.getApplicationTypes().getIdAppTyp()==1 && ferCheTemp.getChemicalFertilizers().getIdCheFer()==1000000) {
                             ChemicalFertilizations cheFerOld = new ChemicalFertilizationsDao().chemicalById(ferCheTemp.getIdCheFer());
-                            if (!cheFerOld.getOtherProductCheFer().equals("")) cheFer  = new ChemicalFertilizersDao().objectById(ferCheTemp.getIdCheFer());
+                            if (cheFerOld!=null && !cheFerOld.getOtherProductCheFer().equals("")) cheFer  = new ChemicalFertilizersDao().objectById(ferCheTemp.getIdCheFer());
                             if (cheFer!=null) {
                                 chemFerCountry = new ChemicalFertilizersDao().fertilizerByCountry(cheFer.getIdCheFer(), coCode);
                                 if (chemFerCountry!=null) session.delete(chemFerCountry);     

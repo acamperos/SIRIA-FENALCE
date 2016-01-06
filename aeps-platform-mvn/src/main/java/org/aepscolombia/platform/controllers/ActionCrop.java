@@ -831,7 +831,7 @@ public class ActionCrop extends BaseAction {
             required.put("typeCrop", typeCrop);
             required.put("lastCrop", lastCrop);
             required.put("totallyArea", totallyArea);
-            required.put("costCrop", costCrop);
+            if (coCode.equals("CO")) required.put("costCrop", costCrop);
             if (totallyArea!=null && !totallyArea) {
                 required.put("typeArea", typeArea);
                 required.put("areaCrop", areaCrop);
@@ -1478,6 +1478,7 @@ public class ActionCrop extends BaseAction {
              2-Hectarea   ((Area/Area del lote)*100=porcentaje)
              */
 //            System.out.println("areaCrop=>"+areaCrop);
+            if (areaCrop == null) areaCrop = 0.0;
             double availableArea = areaAvaOld + areaCropSel;                        
             if (totallyArea) {
                 typeArea = 2;
@@ -1498,6 +1499,7 @@ public class ActionCrop extends BaseAction {
             pro.setFields(new Fields(idField));
             pro.setCropsTypes(new CropsTypes(typeCrop));
             pro.setIdProjectProEve(1);  
+            if (coCode.equals("NI")) this.setCostCrop(false);
             pro.setCostProEve(this.getCostCrop());
 //            System.out.println("cost=>"+this.getCostCrop());
 //            throw new HibernateException("Prueba de Costo");

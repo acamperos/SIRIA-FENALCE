@@ -450,7 +450,7 @@
         <% } %>
         <script>
             $("#formCropSow_event_expectedProductionProEve").mask("9?99999",{placeholder:""});
-            $("#formCropSow_sowing_seedsNumberSow").mask("9?99999999",{placeholder:""});
+//            $("#formCropSow_sowing_seedsNumberSow").mask("9?99999999",{placeholder:""});
             $("#formCropSow_maize_seedsNumberSiteMai").mask("9?99999999",{placeholder:""});
             $("#formCropSow_sowing_dateSow").datepicker({dateFormat: 'mm/dd/yy'});
             $("#formCropSow_sowing_dateSow").mask("99/99/9999", {placeholder: " "});           
@@ -460,7 +460,7 @@
             showReSowing('sow.resow', 'divNoReSow','divYesReSow');
             showTypeReSowing('sow.typeresow', 'divReSowPartial','divReSowTotal');
             
-            $("#formCropSow_sowing_seedsNumberSow").numeric({decimal: false, negative: false});
+            $("#formCropSow_sowing_seedsNumberSow").numeric({negative: false});
             $("#formCropSow_sowing_furrowsDistanceSow").numeric({negative: false});
             $("#formCropSow_sowing_sitesDistanceSow").numeric({negative: false});
             $("#formCropSow_beans_seedsNumberSiteBea").numeric({ decimal: false, negative: false });

@@ -123,20 +123,21 @@
                             </div>
                         </div>
                     </div>  
-                                
-                     <div class="control-group">
-                        <s:label for="formCrop_costCrop" cssClass="control-label " value="%{getText('select.cropcost.crop')}:"></s:label>
-                        <div class="controls">
-                           
-                                <s:select
-                                    name="costCrop"
-                                    list="#{'true':'SI', 'false':'NO'}"           
-                                    headerKey="-1" 
-                                    
-                                     />
-                           
-                        </div>
-                    </div>  
+                    <% if (coCode.equals("CO")) { %>             
+                        <div class="control-group">
+                           <s:label for="formCrop_costCrop" cssClass="control-label " value="%{getText('select.cropcost.crop')}:"></s:label>
+                           <div class="controls">
+
+                                   <s:select
+                                       name="costCrop"
+                                       list="#{'true':'SI', 'false':'NO'}"           
+                                       headerKey="-1" 
+
+                                        />
+
+                           </div>
+                       </div>  
+                    <% } %>
                 </fieldset>  
                 <p class="warnField reqBef"><s:property value="getText('label.requirefields')" /></p>
                 <div> 

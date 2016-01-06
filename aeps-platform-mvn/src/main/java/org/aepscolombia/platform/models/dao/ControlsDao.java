@@ -111,7 +111,7 @@ public class ControlsDao
         String sqlAdd = "";     
                       
         sql += "select p.id_con, p.date_con, p.dosis_con, p.cleanings_con, p.cleanings_frequence_con,";
-        sql += " p.other_pest_con, p.otro_weed_con, p.other_disease_con, p.control_type_con, p.cost_app_con, p.comment_con, p.cost_input_con, p.cost_form_app_con";
+        sql += " p.cost_app_con, p.comment_con, p.cost_input_con, p.cost_form_app_con";
         sql += " from controls p";
         sql += " inner join production_events ep on ep.id_pro_eve=p.id_production_event_con";
         sql += " inner join log_entities le on le.id_object_log_ent=p.id_con and le.table_log_ent='controls' and le.action_type_log_ent='C'";
@@ -141,13 +141,14 @@ public class ControlsDao
 
             for (Object[] data : events) {
                 HashMap temp = new HashMap();
-                temp.put("idCon", data[8]);
+                temp.put("idCon", data[0]);
+                temp.put("dateCon", data[1]);
                 temp.put("coCode", args.get("coCode"));
                 temp.put("cleaning", (String.valueOf(data[3]).equals("1")) ? "Si" : "No");
                 temp.put("frequence", data[4]);
 
-//                resultProd = getProductsControls(temp);
-//                result.addAll(resultProd);
+                resultProd = getProductsControls(temp);
+                result.addAll(resultProd);
             }
             tx.commit();
         } catch (HibernateException e) {
@@ -173,7 +174,7 @@ public class ControlsDao
 
         sql += "select p.target_type_pro_con, pl.name_pes, mal.name_wee, enf.name_dis, tp.name_che_con, p.other_chemical_product_pro_con, cr.name_org_con,";
         sql += " p.other_organic_product_pro_con, tar.name_tar_typ, p.dosis_pro_con, ud.name_dos_uni,";
-        sql += " p.other_pest_pro_con, p.otro_weed_pro_con, p.other_disease_pro_con, p.control_type_pro_con, p.id_pro_con, p.id_control_pro_con, count(p.id_pro_con)";
+        sql += " p.other_pest_pro_con, p.otro_weed_pro_con, p.other_disease_pro_con, p.control_type_pro_con, p.id_pro_con, p.id_control_pro_con, con.date_con";
         sql += " from products_controls p";
         sql += " inner join controls con on p.id_control_pro_con=con.id_con";
         sql += " inner join dose_units dose on p.dose_units_pro_con=dose.id_dos_uni";
@@ -212,15 +213,17 @@ public class ControlsDao
                 String nameChe = (!String.valueOf(data[4]).equals("null") ? String.valueOf(data[4]) : String.valueOf(data[5]));
                 String nameOrg = (!String.valueOf(data[6]).equals("null") ? String.valueOf(data[6]) : String.valueOf(data[7]));
                 HashMap temp = new HashMap();
-                temp.put("idCon", data[16]);
-                temp.put("idTarTyp", targetTy);
-                temp.put("nameTarTyp", data[8]);
-                temp.put("nameConTyp", nameObj);
-                temp.put("conType", data[14]);
+                temp.put("idCon", data[16]);                
+                temp.put("dateCon", data[17]);                                                
 
                 HashMap tempInfo = new HashMap();
+                tempInfo.put("idProCon", data[15]);
                 tempInfo.put("chemCon", nameChe);
                 tempInfo.put("orgCon", nameOrg);
+                tempInfo.put("idTarTyp", targetTy);
+                tempInfo.put("nameTarTyp", data[8]);
+                tempInfo.put("nameConTyp", nameObj);
+                tempInfo.put("conType", data[14]);
                 String valUnit = "";
                 String unit = String.valueOf(data[10]);
                 if (data[10] != null) {
@@ -241,8 +244,9 @@ public class ControlsDao
                     }
                 }
                 tempInfo.put("doseCon", doseCon + valUnit);
-                tempInfo.put("contControls", Integer.parseInt(String.valueOf(data[17])));
+                temp.put("contControls", getTotalProductsCon(String.valueOf(temp.get("idCon"))));
                 temp.put("infoControl", tempInfo);
+//                System.out.println("tempInfo=>"+temp);
                 resultProd.add(temp);
             }
             tx.commit();
@@ -255,6 +259,34 @@ public class ControlsDao
             session.close();
         }
         return resultProd;
+    }
+    
+    public Integer getTotalProductsCon(String idCont) {
+        SessionFactory sessions = HibernateUtil.getSessionFactory();
+        Session session = sessions.openSession();
+        int total = 0;
+        Transaction tx = null;
+        
+        String sql = "";             
+        HashMap temp = new HashMap();
+        try {
+            tx = session.beginTransaction();
+            sql = "select count(p.id_pro_con)";
+            sql += " from products_controls p"; 
+            sql += " where p.id_control_pro_con=" + idCont;
+            Query query  = session.createSQLQuery(sql);
+            total += Integer.parseInt(String.valueOf(query.uniqueResult()));
+            
+            tx.commit();
+		} catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+		} finally {
+            session.close();
+		}
+        return total;
     }
     
     public Boolean checkControlsWeeds(HashMap args) {
@@ -351,8 +383,7 @@ public class ControlsDao
         String sql = "";     
         String sqlAdd = "";     
                       
-        sql += "select p.id_con, p.date_con, p.dosis_con, p.cleanings_con, p.cleanings_frequence_con,";
-        sql += " p.other_pest_con, p.otro_weed_con, p.other_disease_con, p.control_type_con";
+        sql += "select p.id_con, p.date_con, p.dosis_con, p.cleanings_con, p.cleanings_frequence_con";
         sql += " from controls p"; 
         sql += " where p.status=1";
         if (idEvent!=null && idEvent!=-1) {

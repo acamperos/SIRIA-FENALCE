@@ -44,11 +44,23 @@
                 </tr>
             </thead>
             <tbody>
-                <s:iterator value="listCont" var="Con">
-                    <tr id="trCon${idCon}">
-                        <%@ include file="row-controls.jsp" %>                                
+                <s:set name="valIdCon" value="0"/>                
+                <s:iterator value="listCont" var="conGen" status="estatus">
+                    <tr id="trProCon${idProCon}">
+                        <s:if test="%{#valIdCon!=#attr.idCon}">   
+                            <%@ include file="row-conmain.jsp" %>
+                        </s:if>                                
+                        <s:else>
+                            <%@ include file="row-congen.jsp" %>
+                        </s:else>                                                               
                     </tr>
+                    <s:set name="valIdCon" value="%{#attr.idCon}"/>
                 </s:iterator>
+
+
+                <!--<tr id="trCon">-->
+                    <%--<%@ include file="row-controls.jsp" %>--%>                                
+                <!--</tr>-->
             </tbody>
         </table>
         <label style="<%= labelCon %>"><s:property value="getText('label.nofounddata.control')" /></label>

@@ -50,8 +50,8 @@ public class EntitiesDao {
         
 //        sql += "select usr.id_usr, usr.name_user_usr, usr.password_usr, usr.cod_validation_usr, usr.status";
         sql += " from entities usr";
-        if (!typeIdent.equals("")) sql += " where usr.status=1 and usr.document_type_ent='"+typeIdent+"'";
-        if (!ident.equals("")) sql += " and usr.document_number_ent="+ident;
+        if (!typeIdent.equals("")) sql += " where usr.status=1 and usr.entity_type_ent=2 and usr.document_type_ent='"+typeIdent+"'";
+        if (!ident.equals("")) sql += " and usr.document_number_ent="+ident+" limit 1";
 //        System.out.println("sql->"+sql);
         
         try {
@@ -380,7 +380,7 @@ public class EntitiesDao {
             tx = session.beginTransaction();
             Query query = session.createSQLQuery(sql).addEntity("usr", Entities.class);
             event = (Entities)query.uniqueResult();
-            valEntity = (event.getNameEnt()!=null) ? event.getNameEnt() : event.getEmailEnt();
+            valEntity = (event.getNameEnt()!=null && !event.getNameEnt().equals("")) ? event.getNameEnt() : event.getEmailEnt();
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) {

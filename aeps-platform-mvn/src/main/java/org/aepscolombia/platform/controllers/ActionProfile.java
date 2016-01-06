@@ -524,7 +524,24 @@ public class ActionProfile extends BaseAction {
                 ent.setLastName2Ent(secondLastNameRep);
                 ent.setValidationNumberEnt(digVer);
             } else {
-                ent.setNameEnt(firstName+" "+secondName+" "+firstLastName+" "+secondLastName);
+                String entireName = "";
+                if (firstName.length()>0) {
+                    entireName += firstName;
+                }
+                
+                if (secondName.length()>0) {
+                    entireName += " "+secondName;
+                }
+                
+                if (firstLastName.length()>0) {
+                    entireName += " "+firstLastName;
+                }
+                
+                if (secondLastName.length()>0) {
+                    entireName += " "+secondLastName;
+                }                
+                
+                ent.setNameEnt(entireName);
                 ent.setFirstName1Ent(firstName);
                 ent.setFirstName2Ent(secondName);
                 ent.setLastName1Ent(firstLastName);

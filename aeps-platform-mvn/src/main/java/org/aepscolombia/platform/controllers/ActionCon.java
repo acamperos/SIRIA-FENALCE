@@ -416,49 +416,7 @@ public class ActionCon extends BaseAction {
             boolean enter = false;
             sowing = sowDao.objectById(this.getIdCrop());
             HashMap required = new HashMap();
-            required.put("con.dateCon", con.getDateCon());                  
-            required.put("con.controlsTypes.idConTyp", con.getControlsTypes().getIdConTyp());    
-		
-            if (con.getTargetsTypes()!=null) {
-                required.put("con.targetsTypes.idTarTyp", con.getTargetsTypes().getIdTarTyp());        
-                if (con.getTargetsTypes().getIdTarTyp()==1) {
-                    required.put("con.pests.idPes", con.getPests().getIdPes());
-                    if (con.getPests().getIdPes() == 1000000) {
-                        required.put("con.otherPestCon", con.getOtherPestCon());
-                    }
-                } else if (con.getTargetsTypes().getIdTarTyp()==2) {
-                    required.put("con.weeds.idWee", con.getWeeds().getIdWee());
-                    if (con.getWeeds().getIdWee() == 1000000) {
-                        required.put("con.otroWeedCon", con.getOtroWeedCon());
-                    }
-                } else if (con.getTargetsTypes().getIdTarTyp()==3) {
-                    required.put("con.diseases.idDis", con.getDiseases().getIdDis());
-                    if (con.getDiseases().getIdDis() == 1000000) {
-                        required.put("con.otherDiseaseCon", con.getOtherDiseaseCon());
-                    }
-                }
-            }
-            
-            if (con.getControlsTypes()!=null) {
-                if (con.getControlsTypes().getIdConTyp() == 2) {
-                    required.put("con.chemicalsControls.idCheCon", con.getChemicalsControls().getIdCheCon());
-    //                required.put("dosisConChe", dosisConChe);
-    //                required.put("doseUnitsChe", doseUnitsChe);
-                    if (con.getChemicalsControls().getIdCheCon() == 1000000) {
-                        required.put("con.otherChemicalProductCon", con.getOtherChemicalProductCon());
-                    }
-                } else if (con.getControlsTypes().getIdConTyp() == 1) {
-                    required.put("con.organicControls.idOrgCon", con.getOrganicControls().getIdOrgCon());
-    //                required.put("dosisConOrg", dosisConOrg);
-    //                required.put("doseUnitsOrg", doseUnitsOrg);
-                    if (con.getOrganicControls().getIdOrgCon() == 1000000) {
-                        required.put("con.otherOrganicProductCon", con.getOtherOrganicProductCon());
-                    }
-                } else if (con.getControlsTypes().getIdConTyp() == 3) {
-        //			$fields[] = 'realiza_limpias';
-                }	
-            }
-                                 			       	               
+            required.put("con.dateCon", con.getDateCon());                                                      			       	               
             
             for (Iterator it = required.keySet().iterator(); it.hasNext();) {
                 String sK = (String) it.next();
@@ -499,26 +457,6 @@ public class ActionCon extends BaseAction {
 
                 }	
             }
-            
-            if (dosisConChe!=null && (dosisConChe<0.1 || dosisConChe>1000)) {
-                addFieldError("dosisConChe", getText("message.datainvalidrankchem.control"));                
-                addActionError(getText("desc.datainvalidrankchem.control"));
-            }
-
-            if (dosisConOrg!=null && (dosisConOrg<0.1 || dosisConOrg>1000)) {
-                addFieldError("dosisConOrg", getText("message.datainvalidrankorg.control"));                
-                addActionError(getText("desc.datainvalidrankorg.control"));
-            }
-            
-            if (dosisConMec!=null && (dosisConMec<0.1 || dosisConMec>1000)) {
-                addFieldError("dosisConMec", getText("message.datainvalidrankmec.control"));                
-                addActionError(getText("desc.datainvalidrankmec.control"));
-            }
-            
-            if (dosisConMan!=null && (dosisConMan<0.1 || dosisConMan>1000)) {
-                addFieldError("dosisConMan", getText("message.datainvalidrankman.control"));                
-                addActionError(getText("desc.datainvalidrankman.control"));
-            }
 
             sowing=null;            
         }
@@ -539,7 +477,7 @@ public class ActionCon extends BaseAction {
             } catch (NumberFormatException e) {
                 idTarget   = 0;
             }
-            int typeCon    = Integer.parseInt(this.getRequest().getParameter("typeCon"));
+            int typeCon = (this.getRequest().getParameter("typeCon")!=null && !String.valueOf(this.getRequest().getParameter("typeCon")).equals("")) ? Integer.parseInt(this.getRequest().getParameter("typeCon")) : 0;
             int typeCropId = Integer.parseInt(this.getRequest().getParameter("typeCrop"));
             
             if (idTarget != 0) {
@@ -616,10 +554,10 @@ public class ActionCon extends BaseAction {
             this.setIdCrop(-1);
         }
         
-        HashMap prod  = cropDao.findById(idCrop);
-        Integer tyCro = Integer.parseInt(String.valueOf(prod.get("typeCrop")));
+        HashMap prodInfo  = cropDao.findById(idCrop);
+        Integer tyCro = Integer.parseInt(String.valueOf(prodInfo.get("typeCrop")));
         this.setTypeCrop(tyCro);
-        Boolean costRes = Boolean.valueOf(String.valueOf(prod.get("costCrop")));
+        Boolean costRes = Boolean.valueOf(String.valueOf(prodInfo.get("costCrop")));
         if (costRes) setCostCrop(1);
         else setCostCrop(2);
 //        System.out.println("tyCro=>"+tyCro);
@@ -667,7 +605,7 @@ public class ActionCon extends BaseAction {
             }
             
             prodCon = new ProductsControlsDao().getListProducts(this.getIdCon(), coCode);
-            
+            prod  = new ProductsControls();
             /*if (con.getDoseUnits()!=null) {
                 doseUnitsChe = con.getDoseUnits().getIdDosUni();            
                 doseUnitsOrg = con.getDoseUnits().getIdDosUni();
@@ -717,7 +655,16 @@ public class ActionCon extends BaseAction {
         this.prodConTemp = prodConTemp;
     }
     
-            
+    public String position;
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+    
     /**
     * Accion que permite cargar una nueva fila en el formulario de Controles
     *
@@ -726,7 +673,7 @@ public class ActionCon extends BaseAction {
     {     
         actExe = (String)(this.getRequest().getParameter("action"));
         String valNum   = (this.getRequest().getParameter("numRows"));
-        String position = (this.getRequest().getParameter("position"));
+        position = (String)(this.getRequest().getParameter("position"));
         
         try {
             this.setIdCrop(Integer.parseInt(this.getRequest().getParameter("idCrop")));
@@ -737,7 +684,11 @@ public class ActionCon extends BaseAction {
         HashMap event  = cropDao.findById(idCrop);
         Integer tyCro = Integer.parseInt(String.valueOf(event.get("typeCrop")));
         if (valNum!=null) {
-            this.setNumRows(Integer.parseInt(valNum)+1);
+            if (actExe!=null && actExe.equals("temp")){
+                this.setNumRows(Integer.parseInt(position));
+            } else {
+                this.setNumRows(Integer.parseInt(valNum)+1);
+            }            
         } else {
             this.setNumRows(1);
         }
@@ -756,6 +707,23 @@ public class ActionCon extends BaseAction {
         } else {
             prod = new ProductsControls();
         }
+//        System.out.println("coCode=>"+coCode);
+        
+//        System.out.println("prod.getChemicalsControls().getIdCheCon()=>"+prod.getChemicalsControls().getIdCheCon());
+        if (prod.getControlsTypes()!= null) {
+            if (prod.getControlsTypes()!= null && prod.getControlsTypes().getIdConTyp()==1) {
+                this.setType_prod_org_con(new OrganicControlsDao().findAllByTargetType(prod.getTargetsTypes().getIdTarTyp(), tyCro));            
+                prod.setOrganicControls(new OrganicControlsDao().objectById(prod.getOrganicControls().getIdOrgCon()));
+            } else if (prod.getControlsTypes().getIdConTyp()==2 || prod.getControlsTypes().getIdConTyp()==6) {
+                this.setType_prod_che_con(new ChemicalsControlsDao().findAllByTargetType(prod.getTargetsTypes().getIdTarTyp(), tyCro, coCode));
+                prod.setChemicalsControls(new ChemicalsControlsDao().objectById(prod.getChemicalsControls().getIdCheCon()));
+            }
+        }
+        if (prod.getOtherPestProCon()!=null && !prod.getOtherPestProCon().equals("") && prod.getPests()==null) prod.setPests(new Pests(1000000, "Otro"));
+        if (prod.getOtherDiseaseProCon()!=null && !prod.getOtherDiseaseProCon().equals("") && prod.getDiseases()==null) prod.setDiseases(new Diseases(1000000, "Otro"));
+        if (prod.getOtroWeedProCon()!=null && !prod.getOtroWeedProCon().equals("") && prod.getWeeds()==null) prod.setWeeds(new Weeds(1000000, "Otro"));
+        if (prod.getOtherChemicalProductProCon()!=null && !prod.getOtherChemicalProductProCon().equals("") && prod.getChemicalsControls()==null) prod.setChemicalsControls(new ChemicalsControls(1000000, "Otro"));
+        if (prod.getOtherOrganicProductProCon()!=null && !prod.getOtherOrganicProductProCon().equals("") && prod.getOrganicControls()==null) prod.setOrganicControls(new OrganicControls(1000000, "Otro"));
         
 //        if (prodCon.size()==0) {
 //            prodConTemp.add(prod);
@@ -785,12 +753,19 @@ public class ActionCon extends BaseAction {
     */
     public String addControlAdditional()
     {     
-        actExe = (String)(this.getRequest().getParameter("action"));
+        actExe   = (String)(this.getRequest().getParameter("action"));
+        position = (String)(this.getRequest().getParameter("position"));
         prod.setStatus(true);
+        
+        try {
+            this.setIdCrop(Integer.parseInt(this.getRequest().getParameter("idCrop")));
+        } catch (NumberFormatException e) {
+            this.setIdCrop(-1);
+        }
         
         HashMap resVal  = validateInfoControl(prod);
         if (!resVal.get("empty").equals("0")){
-            System.out.println("no puedo entrar");
+//            System.out.println("no puedo entrar");
             jRes = new JSONObject();
             jRes.putAll(resVal);
             state = "failure";
@@ -798,21 +773,25 @@ public class ActionCon extends BaseAction {
         }
         
         ControlsTypes conTy = new ControlsTypesDao().objectById(prod.getControlsTypes().getIdConTyp());
+//        System.out.println("prod.getControlsTypes().getIdConTyp()=>"+prod.getControlsTypes().getIdConTyp());
         prod.setControlsTypes(conTy);
         
-        if (prod.getPests()!=null) {
+        if (prod.getPests()!=null && prod.getPests().getIdPes()!=1000000) {
             Pests pest = new PestsDao().objectById(prod.getPests().getIdPes());
             prod.setPests(pest);
+            prod.setOtherPestProCon(null);
         }
         
-        if (prod.getWeeds()!=null) {
+        if (prod.getWeeds()!=null && prod.getWeeds().getIdWee()!=1000000) {
             Weeds weed = new WeedsDao().objectById(prod.getWeeds().getIdWee());
             prod.setWeeds(weed);
+            prod.setOtroWeedProCon(null);
         }
         
-        if (prod.getDiseases()!=null) {
+        if (prod.getDiseases()!=null && prod.getDiseases().getIdDis()!=1000000) {
             Diseases dis = new DiseasesDao().objectById(prod.getDiseases().getIdDis());
             prod.setDiseases(dis);
+            prod.setOtherDiseaseProCon(null);
         }
         
         if (prod.getTargetsTypes()!=null) {
@@ -820,24 +799,34 @@ public class ActionCon extends BaseAction {
             prod.setTargetsTypes(tarTy);
         }
         
-        if (prod.getOrganicControls()!=null) {
+        if (prod.getOrganicControls()!=null && prod.getOrganicControls().getIdOrgCon()!=1000000) {
             OrganicControls orgCon = new OrganicControlsDao().objectById(prod.getOrganicControls().getIdOrgCon());
             prod.setOrganicControls(orgCon);
+            prod.setOtherOrganicProductProCon(null);
         }
         
-        if (prod.getChemicalsControls()!=null) {
+        if (prod.getChemicalsControls()!=null && prod.getChemicalsControls().getIdCheCon()!=1000000) {
             ChemicalsControls cheCon = new ChemicalsControlsDao().objectById(prod.getChemicalsControls().getIdCheCon());
             prod.setChemicalsControls(cheCon);
-        }
+            prod.setOtherChemicalProductProCon(null);
+        } 
         
         DoseUnits dosUn = new DoseUnitsDao().objectById(prod.getDoseUnits().getIdDosUni());
-        prod.setDoseUnits(dosUn);       
+        prod.setDoseUnits(dosUn); 
         
         for (int i=0;i<numRows;i++) {
-            if (i==numRows-1) {
-                prodCon.add(i, prod);
+            if (!position.equals("")) {
+                if (i==Integer.parseInt(position)-1) {
+                    prodCon.add(i, prod);
+                } else {
+                    prodCon.add(i, new ProductsControls());
+                }
             } else {
-                prodCon.add(i, new ProductsControls());
+                if (i==numRows-1) {
+                    prodCon.add(i, prod);
+                } else {
+                    prodCon.add(i, new ProductsControls());
+                }
             }
         }
         return SUCCESS;
@@ -871,7 +860,7 @@ public class ActionCon extends BaseAction {
                 if (prod.getPests()!=null) {
                     required.put("prod.pests.idPes", prod.getPests().getIdPes());
                     if (prod.getPests().getIdPes()!=null && prod.getPests().getIdPes() == 1000000) {
-                        required.put("prod.otherPestCon", prod.getOtherPestProCon());
+                        required.put("prod.otherPestProCon", prod.getOtherPestProCon());
                     }
                 } else {
                     required.put("prod.pests.idPes", "");
@@ -880,7 +869,7 @@ public class ActionCon extends BaseAction {
                 if (prod.getWeeds()!=null) {
                     required.put("prod.weeds.idWee", prod.getWeeds().getIdWee());
                     if (prod.getWeeds().getIdWee()!=null && prod.getWeeds().getIdWee() == 1000000) {
-                        required.put("prod.otroWeedCon", prod.getOtroWeedProCon());
+                        required.put("prod.otroWeedProCon", prod.getOtroWeedProCon());
                     }
                 } else {
                     required.put("prod.weeds.idWee", "");
@@ -889,7 +878,7 @@ public class ActionCon extends BaseAction {
                 if (prod.getDiseases()!=null) {
                     required.put("prod.diseases.idDis", prod.getDiseases().getIdDis());
                     if (prod.getDiseases().getIdDis()!=null && prod.getDiseases().getIdDis() == 1000000) {
-                        required.put("prod.otherDiseaseCon", prod.getOtherDiseaseProCon());
+                        required.put("prod.otherDiseaseProCon", prod.getOtherDiseaseProCon());
                     }
                 } else {
                     required.put("prod.diseases.idDis", "");
@@ -1000,23 +989,26 @@ public class ActionCon extends BaseAction {
             con.setDateCon(dateCon);    
             
             if (action.equals("M")) {
-                if (con.getIdCon()>0) {
-                    List<ProductsControls> prodsOld = new ProductsControlsDao().getListProducts(con.getIdCon(), coCode);
-                    for (ProductsControls prOld : prodsOld) {
-                        session.delete(prOld);
-                    }
-                }
+                if (con.getIdCon()>0) new ProductsControlsDao().deleteProducts(con.getIdCon());
             }
-            
+            double dosisTotal = 0.0;
+            session.saveOrUpdate(con);            
             if (prodCon!=null) {
                 for (ProductsControls prodNew : prodCon) {
                     if (prodNew!=null) {
-                        prodNew.setIdProCon(null);
-                        prodNew.setControls(con);
-                        prodNew.setStatus(true);
+                        ProductsControls prodTemp = new ProductsControls();
+                        prodTemp.setIdProCon(null);
+                        prodTemp.setControls(con);
+                        prodTemp.setStatus(true);
                         if (coCode.equals("NI")) {                
-                            prodNew.setDosisProCon(prodNew.getDosisProCon()*65.7143);
+                            prodTemp.setDosisProCon(prodNew.getDosisProCon()*65.7143);
+                        } else {
+                            prodTemp.setDosisProCon(prodNew.getDosisProCon());
                         }
+                        dosisTotal += prodNew.getDosisProCon();
+                        prodTemp.setDoseUnits(prodNew.getDoseUnits());
+                        prodTemp.setControlsTypes(prodNew.getControlsTypes());
+                        prodTemp.setTargetsTypes(prodNew.getTargetsTypes());
                         /*if (coCode.equals("NI")) {                
                             if(doseUnitsOrg==12) dosisConOrg = dosisConOrg*65.7143;
                             if(doseUnitsChe==12) dosisConChe = dosisConChe*65.7143;
@@ -1024,87 +1016,97 @@ public class ActionCon extends BaseAction {
                             if(doseUnitsMan==12) dosisConMan = dosisConMan*65.7143;
                         }*/ 
                         if (prodNew.getControlsTypes().getIdConTyp()==1) {
-                            prodNew.setChemicalsControls(null);
+                            if (prodNew.getOrganicControls()!=null && prodNew.getOrganicControls().getIdOrgCon()==1000000 && prodNew.getOtherOrganicProductProCon()!=null && !prodNew.getOtherOrganicProductProCon().equals("")) {
+            //                System.out.println("organic");
+                                prodTemp.setOrganicControls(null);
+                                prodTemp.setOtherChemicalProductProCon("");
+                                prodTemp.setOtherOrganicProductProCon(prodNew.getOtherOrganicProductProCon());
+                            } else {
+                                prodTemp.setOrganicControls(prodNew.getOrganicControls());
+                                prodTemp.setOtherOrganicProductProCon("");
+                            }
+                            prodTemp.setChemicalsControls(null);
                             if (prodNew.getDoseUnits()==null) {
-                                prodNew.setDoseUnits(null);
+                                prodTemp.setDoseUnits(null);
                             }             
                         } else if (prodNew.getControlsTypes().getIdConTyp()==2 || prodNew.getControlsTypes().getIdConTyp()==6) {
-                            prodNew.setOrganicControls(null);
+//                            System.out.println("prodNew.getChemicalsControls().getIdCheCon()=>"+prodNew.getChemicalsControls().getIdCheCon());
+                            if (prodNew.getChemicalsControls()!=null && prodNew.getChemicalsControls().getIdCheCon()==1000000 && prodNew.getOtherChemicalProductProCon()!=null && !prodNew.getOtherChemicalProductProCon().equals("")) {
+            //                System.out.println("chemical");
+                                prodTemp.setChemicalsControls(null);
+                                prodTemp.setOtherOrganicProductProCon("");
+                                prodTemp.setOtherChemicalProductProCon(prodNew.getOtherChemicalProductProCon());
+                            } else {
+                                prodTemp.setChemicalsControls(prodNew.getChemicalsControls());
+                                prodTemp.setOtherChemicalProductProCon("");
+                            }
+                            prodTemp.setOrganicControls(null);
                             if (prodNew.getDoseUnits()==null ) { 
-                                prodNew.setDoseUnits(null);
+                                prodTemp.setDoseUnits(null);
                             }              
                         } else if (prodNew.getControlsTypes().getIdConTyp()==4 || prodNew.getControlsTypes().getIdConTyp()==8) {
-                            prodNew.setChemicalsControls(null);
-                            prodNew.setOrganicControls(null);
+                            prodTemp.setChemicalsControls(null);
+                            prodTemp.setOrganicControls(null);
                             if (prodNew.getDoseUnits()==null) { 
-                                prodNew.setDoseUnits(null);
+                                prodTemp.setDoseUnits(null);
                             }              
                         } else if (prodNew.getControlsTypes().getIdConTyp()==5 || prodNew.getControlsTypes().getIdConTyp()==9) {
-                            prodNew.setChemicalsControls(null);
-                            prodNew.setOrganicControls(null);
+                            prodTemp.setChemicalsControls(null);
+                            prodTemp.setOrganicControls(null);
                             if (prodNew.getDoseUnits()==null) { 
-                                prodNew.setDoseUnits(null);
+                                prodTemp.setDoseUnits(null);
                             }                
                         }  
 
-                        if (prodNew.getPests().getIdPes()==1000000 && prodNew.getOtherPestProCon()!=null && !prodNew.getOtherPestProCon().equals("")) {
-                            prodNew.setPests(null);
-                            prodNew.setOtherDiseaseProCon("");
-                            prodNew.setOtroWeedProCon("");
-                        } else {
-                            prodNew.setOtherPestProCon("");
+                        if (prodNew.getTargetsTypes().getIdTarTyp()==1 && prodNew.getPests().getIdPes()==1000000 && prodNew.getOtherPestProCon()!=null && !prodNew.getOtherPestProCon().equals("")) {
+                            prodTemp.setPests(null);
+                            prodTemp.setOtherDiseaseProCon("");
+                            prodTemp.setOtroWeedProCon("");
+                            prodTemp.setOtherPestProCon(prodNew.getOtherPestProCon());
+                        } else {                            
+                            prodTemp.setOtherPestProCon("");
                         }
 
-                        if (prodNew.getDiseases().getIdDis()==1000000 && prodNew.getOtherDiseaseProCon()!=null && !prodNew.getOtherDiseaseProCon().equals("")) {
+                        if (prodNew.getTargetsTypes().getIdTarTyp()==3 && prodNew.getDiseases().getIdDis()==1000000 && prodNew.getOtherDiseaseProCon()!=null && !prodNew.getOtherDiseaseProCon().equals("")) {
             //                System.out.println("disease");
-                            prodNew.setDiseases(null);
-                            prodNew.setOtherPestProCon("");
-                            prodNew.setOtroWeedProCon("");
+                            prodTemp.setDiseases(null);
+                            prodTemp.setOtherPestProCon("");
+                            prodTemp.setOtroWeedProCon("");
+                            prodTemp.setOtherDiseaseProCon(prodNew.getOtherDiseaseProCon());
                         } else {
-                            prodNew.setOtherDiseaseProCon("");
+                            prodTemp.setOtherDiseaseProCon("");
                         }
 
-                        if (prodNew.getWeeds().getIdWee()==1000000 && prodNew.getOtroWeedProCon()!=null && !prodNew.getOtroWeedProCon().equals("")) {
+                        if (prodNew.getTargetsTypes().getIdTarTyp()==2 && prodNew.getWeeds().getIdWee()==1000000 && prodNew.getOtroWeedProCon()!=null && !prodNew.getOtroWeedProCon().equals("")) {
             //                System.out.println("weed");
-                            prodNew.setWeeds(null);
-                            prodNew.setOtherDiseaseProCon("");
-                            prodNew.setOtherPestProCon("");
+                            prodTemp.setWeeds(null);
+                            prodTemp.setOtherDiseaseProCon("");
+                            prodTemp.setOtherPestProCon("");
+                            prodTemp.setOtroWeedProCon(prodNew.getOtroWeedProCon());
                         } else {
-                            prodNew.setOtroWeedProCon("");
-                        }
+                            prodTemp.setOtroWeedProCon("");
+                        }              
 
-                        if (prodNew.getChemicalsControls()!=null && prodNew.getChemicalsControls().getIdCheCon()==1000000 && prodNew.getOtherChemicalProductProCon()!=null && !prodNew.getOtherChemicalProductProCon().equals("")) {
-            //                System.out.println("chemical");
-                            prodNew.setChemicalsControls(null);
-                            prodNew.setOtherOrganicProductProCon("");
-                        } else {
-                            prodNew.setOtherChemicalProductProCon("");
-                        }
-
-                        if (prodNew.getOrganicControls()!=null && prodNew.getOrganicControls().getIdOrgCon()==1000000 && prodNew.getOtherOrganicProductProCon()!=null && !prodNew.getOtherOrganicProductProCon().equals("")) {
-            //                System.out.println("organic");
-                            prodNew.setOrganicControls(null);
-                            prodNew.setOtherChemicalProductProCon("");
-                        } else {
-                            prodNew.setOtherOrganicProductProCon("");
-                        }
-
-                        if (prodNew.getTargetsTypes().getIdTarTyp()==1) {
-                            prodNew.setWeeds(null);
-                            prodNew.setDiseases(null);
-                        } else if (prodNew.getTargetsTypes().getIdTarTyp()==2) {
-                            prodNew.setPests(null);
-                            prodNew.setDiseases(null);
-                        } else if (prodNew.getTargetsTypes().getIdTarTyp()==3) {
-                            prodNew.setWeeds(null);
-                            prodNew.setPests(null);
+                        if (prodNew.getTargetsTypes().getIdTarTyp()==1 && prodNew.getPests().getIdPes()!=1000000) {
+                            prodTemp.setPests(prodNew.getPests());
+                            prodTemp.setWeeds(null);
+                            prodTemp.setDiseases(null);
+                        } else if (prodNew.getTargetsTypes().getIdTarTyp()==2 && prodNew.getWeeds().getIdWee()!=1000000) {
+                            prodTemp.setWeeds(prodNew.getWeeds());
+                            prodTemp.setPests(null);
+                            prodTemp.setDiseases(null);
+                        } else if (prodNew.getTargetsTypes().getIdTarTyp()==3 && prodNew.getDiseases().getIdDis()!=1000000) {
+                            prodTemp.setDiseases(prodNew.getDiseases());
+                            prodTemp.setWeeds(null);
+                            prodTemp.setPests(null);
                         }
                         
-                        session.saveOrUpdate(prodNew);    
+                        session.saveOrUpdate(prodTemp);    
                     }
                 }
             }   
             
+            con.setDosisCon(dosisTotal);
             con.setStatus(true);
             session.saveOrUpdate(con);
             

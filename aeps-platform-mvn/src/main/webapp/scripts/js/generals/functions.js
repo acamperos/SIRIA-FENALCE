@@ -762,7 +762,8 @@ function hideInformationControls(divPes, divWee, divDis, divChe, divOrg) {
   $('#'+divOrg).removeClass('hide').addClass('hide');
 }
 
-function changeOptionsHarvest(valSendId, divYield, divHumidity, divNumberSacks, lblNumberId, lblNumTextA, lblNumTextB, lblWeightId, lblWeightTextA, lblWeightTextB)
+//function changeOptionsHarvest(valSendId, divYield, divHumidity, divNumberSacks, lblNumberId, lblNumTextA, lblNumTextB, lblWeightId, lblWeightTextA, lblWeightTextB)
+function changeOptionsHarvest(valSendId, divYield, divHumidity, divNumberSacks, lblNumberId, lblNumberBagId, lblWeightId, lblWeightBagId)
 {
     var valSend = $('#' + valSendId).val();
     if (valSend==1 || valSend==2 || valSend==5 || valSend==6 || valSend==7){
@@ -773,14 +774,20 @@ function changeOptionsHarvest(valSendId, divYield, divHumidity, divNumberSacks, 
         $('#' + divYield).addClass("hide");
         $('#' + divHumidity).addClass("hide");
         $('#' + divNumberSacks).removeClass("hide");
-        $('#'+lblNumberId).text(lblNumTextA);
-        $('#'+lblWeightId).text(lblWeightTextA);
+        
+        $('#'+lblNumberId).removeClass("hide"); 
+        $('#'+lblNumberBagId).addClass("hide");        
+        $('#'+lblWeightId).removeClass("hide"); 
+        $('#'+lblWeightBagId).addClass("hide");
     } else if (valSend==4){
         $('#' + divYield).removeClass("hide");
         $('#' + divHumidity).addClass("hide");
         $('#' + divNumberSacks).removeClass("hide");
-        $('#'+lblNumberId).text(lblNumTextB);
-        $('#'+lblWeightId).text(lblWeightTextB);
+        
+        $('#'+lblNumberId).addClass("hide"); 
+        $('#'+lblNumberBagId).removeClass("hide");        
+        $('#'+lblWeightId).addClass("hide"); 
+        $('#'+lblWeightBagId).removeClass("hide");    
     } else {
         $('#' + divYield).addClass("hide");
         $('#' + divHumidity).addClass("hide");
@@ -2414,6 +2421,90 @@ function showInfoCrop(selId, depId, divView) {
     } else {
         $('#'+divView).hide();
     }
+}
+
+function showFormAdditionalControl(url, formId, tableId, divHide, divShow)
+{
+    //url = "/aeps"+url;
+    var rows  = $('#'+tableId).children("tr");
+    var child = $(rows)[rows.length-1];
+    
+//    alert($(child).attr("value"));
+    var data  = '&numRows='+$(child).attr("value");
+    var dataForm = '&'+$('#'+formId+' input').serialize();
+//    var data  = '&numRows='+$(child).attr("value");
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: data+dataForm,
+        success: function(information) {
+            $('#'+divShow).html(information);
+            $('#'+divShow).show();
+            $('#'+divHide).hide();            
+        }
+    });
+}
+
+
+function addAdditionalControl(url, formId, tableId, tablePrin, divShow, divHide)
+{
+    var data  = $('#'+formId).serializeArray();
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: data,
+        success: function(json) {            
+//            alert(1);
+            if (json.state == 'failure') {
+                validationForm($('#'+formId), json.jRes);
+            } else {
+                $('#'+tableId).append(json);
+                $('#'+tablePrin).show();
+//                console.log(information);
+                toggleAndClean(divShow, divHide);
+            }            
+        }
+    });
+}
+
+function changeAdditionalControl(url, formId, rowId, tablePrin, divShow, divHide)
+{
+    var data  = $('#'+formId).serializeArray();
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: data,
+        success: function(json) {            
+//            alert(1);
+            if (json.state == 'failure') {
+                validationForm($('#'+formId), json.jRes);
+            } else {
+                $('#'+rowId).replaceWith(json);
+                $('#'+tablePrin).show();
+                toggleAndClean(divShow, divHide);
+            }            
+        }
+    });
+}
+
+function validateProducer(url, actId, typeId, docNumberId, div)
+{
+    var act       = $('#'+actId).val();
+    var typeDoc   = $('#'+typeId).val();
+    var docNumber = $('#'+docNumberId).val();
+    
+    var data = "&action="+act+"&typeDoc="+typeDoc+"&numDoc="+docNumber;
+    $('#'+div).html("");
+    $('#'+div).removeClass("alert");
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: data,
+        success: function(information) {
+            $('#'+div).html(information);
+        }
+    });
+//    $('#'+docNumberId).val('1231');
 }
 
 /*

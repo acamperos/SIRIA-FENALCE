@@ -4,6 +4,10 @@ package org.aepscolombia.platform.controllers;
 import com.opensymphony.xwork2.ActionContext;
 import java.util.Locale;
 import java.util.Map;
+import org.aepscolombia.platform.models.dao.EntitiesDao;
+import org.aepscolombia.platform.models.dao.UsersDao;
+import org.aepscolombia.platform.models.entity.Entities;
+import org.aepscolombia.platform.models.entity.Users;
 import org.aepscolombia.platform.util.APConstants;
 import org.aepscolombia.platform.util.GlobalFunctions;
 
@@ -20,6 +24,7 @@ public class LocaleAction extends BaseAction
     
     private String lang="";
     private String lanSel;
+    private String dataUser;
 
     public String getLang() {
         return lang;
@@ -36,6 +41,14 @@ public class LocaleAction extends BaseAction
     public void setLanSel(String lanSel) {
         this.lanSel = lanSel;
     }
+
+    public String getDataUser() {
+        return dataUser;
+    }
+
+    public void setDataUser(String dataUser) {
+        this.dataUser = dataUser;
+    }   
 
     @Override
     public String execute() throws Exception {
@@ -56,13 +69,21 @@ public class LocaleAction extends BaseAction
 //        System.out.println("langAssign=>"+langTemp);
 //        System.out.println("countryCode=>"+countryCode);
 //        countryCode = "CO";
-        
-        if (countryCode.equals("CO")) {
+        if (countryCode!=null && countryCode.equals("CO")) {
             lang = "esco";
-        } else if (countryCode.equals("NI")) {
+        } else if (countryCode!=null && countryCode.equals("NI")) {
             lang = "esni";
         }
         
+        Users user = (Users) this.getSession().get(APConstants.SESSION_USER);
+        if (user!=null) {        
+            Integer idEntSystem = UsersDao.getEntitySystem(user.getIdUsr());
+            Entities entTemp = new EntitiesDao().findById(idEntSystem);
+            dataUser = "1";
+            if (entTemp.getNameEnt()==null || entTemp.getNameEnt().equals("") || entTemp.getNameEnt().isEmpty()) {
+                dataUser = "0";
+            }
+        }
         
         userSession.put(APConstants.COUNTRY_CODE, countryCode);
         Locale locale=null;

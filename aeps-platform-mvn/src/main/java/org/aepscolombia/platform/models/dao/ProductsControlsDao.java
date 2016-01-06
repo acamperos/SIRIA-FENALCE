@@ -3,6 +3,10 @@ package org.aepscolombia.platform.models.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import org.aepscolombia.platform.models.entity.ChemicalsControls;
+import org.aepscolombia.platform.models.entity.Diseases;
+import org.aepscolombia.platform.models.entity.OrganicControls;
+import org.aepscolombia.platform.models.entity.Pests;
 //import org.aepscolombia.plataforma.models.dao.IEventoDao;
 import org.hibernate.Transaction;
 import org.hibernate.HibernateException;
@@ -10,7 +14,9 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.aepscolombia.platform.models.entity.ProductsControls;
+import org.aepscolombia.platform.models.entity.Weeds;
 import org.aepscolombia.platform.util.HibernateUtil;
+import org.hibernate.Criteria;
 
 /**
  * Clase ProductsControlsDao
@@ -156,6 +162,29 @@ public class ProductsControlsDao
         return resultProd;
     }
     
+    public int deleteProducts(Integer idCon) {
+        SessionFactory sessions = HibernateUtil.getSessionFactory();
+        Session session = sessions.openSession();
+        int numDelete = 0;
+        Transaction tx = null;
+
+        try {
+            tx = session.beginTransaction();
+            String sql  = "delete from products_controls where id_control_pro_con="+idCon;
+            Query query = session.createSQLQuery(sql);
+            numDelete   = query.executeUpdate();
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return numDelete;
+    }
+       
     public List<ProductsControls> getListProducts(Integer idCon, String coCode) {
         SessionFactory sessions = HibernateUtil.getSessionFactory();
         Session session = sessions.openSession();
@@ -166,33 +195,66 @@ public class ProductsControlsDao
             tx = session.beginTransaction();
             String sql = "select p.id_pro_con, p.id_control_pro_con, p.control_type_pro_con,";
             sql += " p.target_type_pro_con, p.chemical_product_used_pro_con, p.organic_product_used_pro_con, p.dosis_pro_con, p.dose_units_pro_con, p.id_pest_pro_con, p.id_disease_pro_con,"; 
-            sql += " p.id_weed_pro_con, p.other_pest_pro_con, p.other_disease_pro_con, p.otro_weed_pro_con, p.other_chemical_product_pro_con,"; 
-            sql += " p.other_organic_product_pro_con, p.status, p.created_by, c.id_con, du.id_dos_uni, t.id_tar_typ, ct.id_con_typ, oc.id_org_con, cc.id_che_con,"; 
-            sql += " d.id_disease_pro_con, pes.id_pest_pro_con, w.id_weed_pro_con"; 
+            sql += " p.id_weed_pro_con, p.other_pest_pro_con, p.other_disease_pro_con, p.otro_weed_pro_con, p.other_chemical_product_pro_con, c.cleanings_con, c.cleanings_frequence_con, c.id_production_event_con,"; 
+            sql += " c.date_con, c.dosis_con, c.cost_app_con, c.comment_con, c.cost_input_con, c.cost_form_app_con, c.status, c.created_by,";
+            sql += " t.id_tar_typ, t.name_tar_typ, t.country_tar_typ, t.status_tar_typ,";
+            sql += " ct.id_con_typ, ct.name_con_type, ct.country_con_typ, ct.status_con_typ,";
+            sql += " du.id_dos_uni, du.name_dos_uni, du.country_dos_uni, du.status_dos_uni,";
+            sql += " oc.id_org_con, oc.name_org_con, oc.target_type_org_con, oc.country_org_con,";
+            sql += " cc.id_che_con, cc.name_che_con, cc.comer_name_che_con, cc.target_name_che_con,";
+            sql += " d.id_dis, d.name_dis, d.status_dis,";
+            sql += " pes.id_pes, pes.name_pes, pes.status_pes,";
+            sql += " w.id_wee, w.name_wee, w.status_wee,";
+            sql += " p.other_organic_product_pro_con, p.status, p.created_by, c.id_con";             
             sql += " from products_controls p";
             sql += " inner join controls c on c.id_con = p.id_control_pro_con";
-            sql += " inner join dose_units du on du.id_dos_uni = p.dose_units_pro_con";
             sql += " inner join targets_types t on t.id_tar_typ = p.target_type_pro_con";
             sql += " inner join controls_types ct on ct.id_con_typ = p.control_type_pro_con";
-            sql += " inner join organic_controls oc on oc.id_org_con = p.organic_product_used_pro_con";
-            sql += " inner join chemicals_controls cc on cc.id_che_con = p.chemical_product_used_pro_con";
-            sql += " inner join diseases d on d.id_disease_pro_con = p.id_dis";
-            sql += " inner join pests pes on pes.id_pest_pro_con = p.id_pes";
-            sql += " inner join weeds w on w.id_weed_pro_con = p.id_wee";
+            sql += " inner join dose_units du on du.id_dos_uni = p.dose_units_pro_con";
+            sql += " left join organic_controls oc on oc.id_org_con = p.organic_product_used_pro_con";
+            sql += " left join chemicals_controls cc on cc.id_che_con = p.chemical_product_used_pro_con";
+            sql += " left join diseases d on p.id_disease_pro_con = d.id_dis";
+            sql += " left join pests pes on p.id_pest_pro_con = pes.id_pes";
+            sql += " left join weeds w on p.id_weed_pro_con = w.id_wee";
             sql += " where p.status=1 and p.id_control_pro_con="+idCon;
 //            System.out.println("sql=>"+sql);
             Query query = session.createSQLQuery(sql).addEntity("p", ProductsControls.class).addJoin("c", "p.controls").addJoin("t", "p.targetsTypes")
-                    .addJoin("ct", "p.controlsTypes").addJoin("cc", "p.chemicalsControls").addJoin("oc", "p.organicControls")
-                    .addJoin("du", "p.doseUnits").addJoin("pes", "p.pests").addJoin("d", "p.diseases")
-                    .addJoin("w", "p.weeds").addJoin("ct", "p.controlsTypes").addEntity("p", ProductsControls.class);
-            eventsTemp = query.list();
+                    .addJoin("ct", "p.controlsTypes").addJoin("du", "p.doseUnits")
+                    .addJoin("cc", "p.chemicalsControls").addJoin("oc", "p.organicControls")
+                    .addJoin("pes", "p.pests").addJoin("d", "p.diseases").addJoin("w", "p.weeds")
+                    .addEntity("p", ProductsControls.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+            eventsTemp = query.list();            
+            tx.commit();
             for (ProductsControls data : eventsTemp) {
+                /*PestsDao pestDao = new PestsDao();
+                WeedsDao weedDao = new WeedsDao();
+                DiseasesDao disDao = new DiseasesDao();
+                if (data.getTargetsTypes().getIdTarTyp()==1) {
+                    data.setPests(pestDao.objectById(data.getPests().getIdPes()));                    
+                } else if (data.getTargetsTypes().getIdTarTyp()==2) {
+                    data.setWeeds(weedDao.objectById(data.getWeeds().getIdWee()));                    
+                } else if (data.getTargetsTypes().getIdTarTyp()==3) {
+                    data.setDiseases(disDao.objectById(data.getDiseases().getIdDis()));                    
+                }
+                
+                ChemicalsControlsDao cheDao = new ChemicalsControlsDao();
+                OrganicControlsDao orgDao = new OrganicControlsDao();
+                if (data.getControlsTypes().getIdConTyp()==1) {
+                    data.setOrganicControls(orgDao.objectById(data.getOrganicControls().getIdOrgCon()));                    
+                } else if (data.getControlsTypes().getIdConTyp()==2 || data.getControlsTypes().getIdConTyp()==6) {
+                    data.setChemicalsControls(cheDao.objectById(data.getChemicalsControls().getIdCheCon()));                    
+                }*/
+//                System.out.println("data.weed=>"+data.getWeeds().getNameWee());
+                if (data.getOtherPestProCon()!=null && !data.getOtherPestProCon().equals("")) data.setPests(new Pests(1000000, "Otro"));
+                if (data.getOtherDiseaseProCon()!=null && !data.getOtherDiseaseProCon().equals("")) data.setDiseases(new Diseases(1000000, "Otro"));
+                if (data.getOtroWeedProCon()!=null && !data.getOtroWeedProCon().equals("")) data.setWeeds(new Weeds(1000000, "Otro"));
+                if (data.getOtherChemicalProductProCon()!=null && !data.getOtherChemicalProductProCon().equals("")) data.setChemicalsControls(new ChemicalsControls(1000000, "Otro"));
+                if (data.getOtherOrganicProductProCon()!=null && !data.getOtherOrganicProductProCon().equals("")) data.setOrganicControls(new OrganicControls(1000000, "Otro"));
                 if (coCode.equals("NI")) {
                     data.setDosisProCon(data.getDosisProCon()*0.01522);
                 }
                 result.add(data);
             }
-            tx.commit();
         } catch (HibernateException e) {
             if (tx != null) {
                 tx.rollback();

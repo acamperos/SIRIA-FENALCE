@@ -60,8 +60,13 @@
             <s:if test="%{#idAppTyp==1}">
                 <% classAppTyp = "";%>
             </s:if> 
+            <% String classCostChe = "hide"; %>
+            <s:set name="costChe" value="costCrop"/>
+            <s:if test="%{#costChe==1}">
+                <% classCostChe = "";  %>
+            </s:if>
                      <div class="span5">    
-                           <div  id = "divValAppTyp1<%= (numRowsChe-1) %>"  class="<%= classAppTyp %>" style="padding-left: 28px">
+                           <div  id = "divValAppTyp1<%= (numRowsChe-1) %>"  class="<%= classCostChe %>" style="padding-left: 28px">
                              <div class="control-group">
                                     <s:label for="formRowChemical_fer" cssClass="control-label " value="%{getText('select.chemfertilizer.formapp')}:"></s:label>
                                         <div class="controls">
@@ -204,17 +209,13 @@
                                 $("#"+formCheId+"__additionalsElem_6__valueCheEle").numeric({ negative: false });
                                 $("#"+formCheId+"__additionalsElem_7__valueCheEle").numeric({ negative: false });
                                 $("#"+formCheId+"__additionalsElem_8__valueCheEle").numeric({ negative: false });
+                                $("#"+formCheId+"__additionalsElem_9__valueCheEle").numeric({ negative: false });
                             </script>
                         </s:iterator>
                     </table>
                 </div>
             </div>
-            <div class="row">
-                 <% String classCostChe = "hide"; %>
-               <s:set name="costChe" value="costCrop"/>
-               <s:if test="%{#costChe==1}">
-                   <% classCostChe = "";  %>
-               </s:if>   
+            <div class="row">                    
                <div class="<%= classCostChe %>">
                    <div class="span5">
                        <div class="control-group">
@@ -252,7 +253,7 @@
                                     id="%{#attr.formCheId}__unitCheFer"
                                     name="%{#attr.formChe}.unitCheFer"
                                     value="%{#attr.unitCheFer}"
-                                    list="#{'10':'kg/ha', '11':'lt/ha'}"           
+                                    list="#{'1':'kg/ha', '11':'lt/ha'}"           
                                     headerKey="-1" 
                                     headerValue="---"
                                 />

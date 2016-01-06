@@ -29,11 +29,21 @@
 <td>
     #<s:property value="num_crop" />
 </td>
-<s:date name="date_sowing" format="MM/dd/yyyy" var="dateTransformSow"/>
-<td><s:property value="%{#dateTransformSow}" /></td>
+<s:if test="%{date_sowing!=null}">    
+    <s:date name="date_sowing" format="MM/dd/yyyy" var="dateTransformSow"/>
+    <td><s:property value="%{#dateTransformSow}" /></td>
+</s:if>
+<s:else>
+    <td></td>
+</s:else>
 <td><s:property value="name_genotype" /></td>
-<s:date name="dateLog" format="MM/dd/yyyy" var="dateLog"/>
-<td><s:property value="%{#dateLog}" /></td>
+<s:if test="%{dateLog!=null}">    
+    <s:date name="dateLog" format="MM/dd/yyyy" var="dateStory"/>
+    <td><s:property value="%{#dateStory}" /></td>
+</s:if>
+<s:else>
+    <td></td>
+</s:else>
 <% if (usrCropDao.getPrivilegeUser(userCrop.getIdUsr(), "crop/modify") || (usrCropDao.getPrivilegeUser(userCrop.getIdUsr(), "crop/delete"))) { %>
     <% if (value == "crop" || value.equals("crop")) {%>
         <td>

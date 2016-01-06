@@ -1,17 +1,17 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<% String valAmen  = String.valueOf(request.getAttribute("numRows")); %>
+<% String valAmen = String.valueOf(request.getAttribute("numRows")); %>
 <% int numRowsAmen = Integer.parseInt(valAmen); %>
-<% if(numRowsAmen==0) { %>
-    <% numRowsAmen = Integer.parseInt(String.valueOf(request.getParameter("numRows"))); %>
+<% if (numRowsAmen == 0) { %>
+<% numRowsAmen = Integer.parseInt(String.valueOf(request.getParameter("numRows"))); %>
 <% } %>
-<% request.setAttribute("formAmen", "amenFert["+(numRowsAmen-1)+"]"); %>
-<% request.setAttribute("formAmenId", "formCropFer_amenFert_"+(numRowsAmen-1)); %>
+<% request.setAttribute("formAmen", "amenFert[" + (numRowsAmen - 1) + "]"); %>
+<% request.setAttribute("formAmenId", "formCropFer_amenFert_" + (numRowsAmen - 1)); %>
 <%@page import="org.aepscolombia.platform.util.APConstants"%>
-<% String coCodeAmend   = (String) session.getAttribute(APConstants.COUNTRY_CODE); %>
-<tr value="<%= numRowsAmen %>" id="RowAdditAme_<%= numRowsAmen %>">
+<% String coCodeAmend = (String) session.getAttribute(APConstants.COUNTRY_CODE);%>
+<tr value="<%= numRowsAmen%>" id="RowAdditAme_<%= numRowsAmen%>">
     <td>
-        <div id="divEnmiendasFer_<%= numRowsAmen %>" value="<%= numRowsAmen %>">
+        <div id="divEnmiendasFer_<%= numRowsAmen%>" value="<%= numRowsAmen%>">
             <div class="row">
                 <div class="span5">
                     <s:hidden name="%{#attr.formAmen}.idAmeFer"/>
@@ -29,38 +29,39 @@
                                 headerKey="-1" 
                                 headerValue="---"
                                 onchange="showOtherElement(this.value, 'divNewProAme')"
-                            />
+                                />
                         </div>                         
                     </div>                          
                 </div> 
-                             <div   class="span5" style="padding-left: 28px">
-                             <div class="control-group">
-                                    <s:label for="formRowChemical_fer" cssClass="control-label " value="%{getText('select.chemfertilizer.formapp')}:"></s:label>
-                                        <div class="controls">
-
-                                        <s:select
-                                           
-                                             id="%{#attr.formAmeId}__costFormAppAmeFer"
-                                              name="%{#attr.formAmen}.costFormAppAmeFer"
-                                              value="%{#attr.costFormAppAmeFer}"             
-                                              list="#{'0':'---','1':'Manual', '2':'Mecánica','3':'Aérea'}"         
-                                              headerKey="-1" 
-                                            />
-
-                                    </div>
-                                     
-                                </div> 
-                              </div>
+                <% String classCostAme = "hide"; %>
+                <s:set name="costAme" value="costCrop"/>
+                <s:if test="%{#costAme==1}">
+                    <% classCostAme = "";%>
+                </s:if>
+                <div   class="span5 <%= classCostAme %>" style="padding-left: 28px">
+                    <div class="control-group">
+                        <s:label for="formRowChemical_fer" cssClass="control-label " value="%{getText('select.chemfertilizer.formapp')}:"></s:label>
+                            <div class="controls">
+                            <s:select
+                                id="%{#attr.formAmeId}__costFormAppAmeFer"
+                                name="%{#attr.formAmen}.costFormAppAmeFer"
+                                value="%{#attr.costFormAppAmeFer}"             
+                                list="#{'0':'---','1':'Manual', '2':'Mecánica','3':'Aérea'}"         
+                                headerKey="-1" 
+                                />
+                        </div>
+                    </div> 
+                </div>
             </div> 
-            <% String classNewProAme="hide"; %>
+            <% String classNewProAme = "hide"; %>
             <s:set name="idCheAme" value="%{#attr.amendmentsFertilizers.idAmeFer}"/>
             <s:if test="%{#idCheAme==1000000}">
                 <% classNewProAme = "";%>
             </s:if> 
-            <div class="<%= classNewProAme %>" id="divNewProAme">
+            <div class="<%= classNewProAme%>" id="divNewProAme">
                 <div class="row">
-                    
-                    
+
+
                     <div class="span5">
                         <div class="control-group">
                             <label for="${formAmenId}__otherProductAmeFer" class="control-label req">
@@ -73,73 +74,68 @@
                     </div>
                 </div>
             </div>                                        
-            <div class="row">
-               <% String classCostAme = "hide"; %>
-               <s:set name="costAme" value="costCrop"/>
-               <s:if test="%{#costAme==1}">
-                   <% classCostAme = "";  %>
-               </s:if>   
-               <div class="<%= classCostAme %>"> 
-                   <div class="span5">
-                       <div class="control-group">
-                           <label for="${formAmenId}__costAppAmeFer" class="control-label">
-                               <s:property value="getText('text.costapp.fertilization')" />
-                               <button type="button" class="btn btn-initial"><b>(Ha.)</b></button> :
-                           </label>
-                           <div class="controls">
-                               <s:textfield name="%{#attr.formAmen}.costAppAmeFer" id="%{#attr.formAmeId}__costAppAmeFer" value="%{#attr.costAppAmeFer}" maxlength="14"/>
-                           </div>                         
-                       </div>                          
-                   </div>
-               </div>        
+            <div class="row"> 
+                <div class="<%= classCostAme%>"> 
+                    <div class="span5">
+                        <div class="control-group">
+                            <label for="${formAmenId}__costAppAmeFer" class="control-label">
+                                <s:property value="getText('text.costapp.fertilization')" />
+                                <button type="button" class="btn btn-initial"><b>(Ha.)</b></button> :
+                            </label>
+                            <div class="controls">
+                                <s:textfield name="%{#attr.formAmen}.costAppAmeFer" id="%{#attr.formAmeId}__costAppAmeFer" value="%{#attr.costAppAmeFer}" maxlength="14"/>
+                            </div>                         
+                        </div>                          
+                    </div>
+                </div>        
                 <div class="span5" style="padding-left: 28px">
                     <div class="control-group">
                         <label for="${formAmenId}__amountProductUsedAmeFer" class="control-label req">
                             <s:property value="getText('text.amountproductamend.fertilization')" /> 
                             <% if (coCodeAmend.equals("CO")) { %>
-                                <button type="button" class="btn btn-initial"><b>(kg/ha)</b></button>:
+                            <button type="button" class="btn btn-initial"><b>(kg/ha)</b></button>:
                             <% } else if (coCodeAmend.equals("NI")) { %>
-                                <button type="button" class="btn btn-initial"><b>(q/mz)</b></button>:
-                            <% } %>                    
+                            <button type="button" class="btn btn-initial"><b>(q/mz)</b></button>:
+                            <% }%>                    
                         </label>
                         <div class="controls">
                             <s:textfield name="%{#attr.formAmen}.amountProductUsedAmeFer" value="%{#attr.amountProductUsedAmeFer}" maxlength="14"/>
                         </div>                         
                     </div>                          
                 </div>   
-             
+
             </div>     
-                
-                <div class="row">
-                    <div class="<%= classCostAme %>">  
-                        <div class="span5" >
-                            <div class="control-group">
-                                <label for="${formAmenId}__costProductAmeFer" class="control-label">
-                                    <s:property value="getText('text.costproduct.fertilization')" />
-                                    <button type="button" class="btn btn-initial"><b>(Ha.)</b></button> :
-                                </label>
-                                <div class="controls">
-                                    <s:textfield name="%{#attr.formAmen}.costProductAmeFer" id="%{#attr.formAmeId}__costProductAmeFer" value="%{#attr.costProductAmeFer}"/>
-                                </div>                         
-                            </div>                          
-                        </div>
-                     </div>           
-                 <div class="span2" style="padding-left:10px">
-                    <a class="btn btn-small delete_rows_dt" title="<s:property value="getText('link.removeamendfert.fertilization')" />" style="margin-bottom:1.2em" onclick="$('#RowAdditAme_<%= numRowsAmen %>').remove();"><i class="icon-trash"></i></a>
+
+            <div class="row">
+                <div class="<%= classCostAme%>">  
+                    <div class="span5" >
+                        <div class="control-group">
+                            <label for="${formAmenId}__costProductAmeFer" class="control-label">
+                                <s:property value="getText('text.costproduct.fertilization')" />
+                                <button type="button" class="btn btn-initial"><b>(Ha.)</b></button> :
+                            </label>
+                            <div class="controls">
+                                <s:textfield name="%{#attr.formAmen}.costProductAmeFer" id="%{#attr.formAmeId}__costProductAmeFer" value="%{#attr.costProductAmeFer}"/>
+                            </div>                         
+                        </div>                          
+                    </div>
+                </div>           
+                <div class="span2" style="padding-left:10px">
+                    <a class="btn btn-small delete_rows_dt" title="<s:property value="getText('link.removeamendfert.fertilization')" />" style="margin-bottom:1.2em" onclick="$('#RowAdditAme_<%= numRowsAmen%>').remove();"><i class="icon-trash"></i></a>
                 </div>
             </div>  
-               
-            <script>	
-                var formAmenId = '<%= request.getAttribute("formAmenId") %>';
-                
-                $("#"+formAmenId+"__amountProductUsedAmeFer").numeric({ negative: false });
-                $("#"+formAmenId+"__amountProductUsedAmeFer").val(parsePointSeparated($("#"+formAmenId+"__amountProductUsedAmeFer").val())); 
-                    
-                $("#"+formAmenId+"__costAppAmeFer").maskMoney({prefix: ' $'});
+
+            <script>
+                var formAmenId = '<%= request.getAttribute("formAmenId")%>';
+
+                $("#" + formAmenId + "__amountProductUsedAmeFer").numeric({negative: false});
+                $("#" + formAmenId + "__amountProductUsedAmeFer").val(parsePointSeparated($("#" + formAmenId + "__amountProductUsedAmeFer").val()));
+
+                $("#" + formAmenId + "__costAppAmeFer").maskMoney({prefix: ' $'});
                 $("#__costAppAmeFer").maskMoney({prefix: ' $'});
-                
-                $("#"+formAmenId+"__costProductAmeFer").maskMoney({prefix: ' $'});
-                 $("#__costProductAmeFer").maskMoney({prefix: ' $'});
+
+                $("#" + formAmenId + "__costProductAmeFer").maskMoney({prefix: ' $'});
+                $("#__costProductAmeFer").maskMoney({prefix: ' $'});
             </script>
         </div>
     </td>

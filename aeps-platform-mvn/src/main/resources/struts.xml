@@ -303,6 +303,11 @@
             <interceptor-ref name="validateI18n"/>
             <result>/WEB-INF/views/producers/form-producer.jsp</result>
         </action>
+        <action name="checkDocumentNumber" method="checkDocumentNumber" class="org.aepscolombia.platform.controllers.ActionProducer">
+            <interceptor-ref name="defaultStackAeps"/>
+            <interceptor-ref name="validateI18n"/>
+            <result>/WEB-INF/views/producers/data-producer.jsp</result>
+        </action>
         <action name="saveProducer" method="saveData" class="org.aepscolombia.platform.controllers.ActionProducer">            
             <interceptor-ref name="validateI18n"/>
             <interceptor-ref name="jsonValidationWorkflowStack"/>
@@ -592,7 +597,6 @@
             <result>/WEB-INF/views/crops/controls/control-additional.jsp</result>
         </action>
         <action name="addControlAdditional" method="addControlAdditional" class="org.aepscolombia.platform.controllers.ActionCon">
-            <interceptor-ref name="defaultStackAeps"/>
             <result name="states" type="json"></result>
             <result>/WEB-INF/views/crops/controls/row-product.jsp</result>
         </action>

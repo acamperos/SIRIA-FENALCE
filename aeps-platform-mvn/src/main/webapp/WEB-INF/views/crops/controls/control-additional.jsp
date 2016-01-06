@@ -3,12 +3,17 @@
 <s:form id="formProCon" action="addControlAdditional" cssClass="form-horizontal">
     <%--<s:hidden name="prodCon"/>--%>
     <s:hidden name="idCrop"/>
+    <s:hidden name="prod.controls.idCon"/>
     <s:hidden name="numRows"/>
     <s:hidden name="actExe"/>
+    <s:hidden name="position"/>
     <s:hidden name="prod.idProCon"/>
     <div class="row">
         <div class="span5">
             <div class="control-group">
+                <label for="formProCon_prod_targetsTypes_idTarTyp" class="control-label req">
+                    <s:property value="getText('radio.targettype.control')" />:
+                </label>
                 <div class="controls radioSelect">
                     <s:radio
                         name="prod.targetsTypes.idTarTyp"
@@ -287,13 +292,21 @@
     </div>    
 </s:form>
 <div id="divBtCon">
-    <button class="btn btn-initial btn-large" onclick="removeMaskControls();  searchDecimalNumber('formProCon'); addAdditionalControl('../crop/addControlAdditional.action', 'formProCon', 'tableProduct', 'divConForm', 'divListConForm');"><i class="icon-ban-circle"></i>  <s:property value="getText('button.controlsave.crop')" /></button>
+    <s:if test="%{actExe=='temp'}">
+        <button class="btn btn-initial btn-large" onclick="removeMaskControls();  searchDecimalNumber('formProCon'); changeAdditionalControl('../crop/addControlAdditional.action', 'formProCon', 'RowAddit_${position}', 'tbControl', 'divConForm', 'divListConForm');"><i class="icon-save"></i>  <s:property value="getText('button.controlsave.crop')" /></button>
+    </s:if>
+    <s:else>
+        <button class="btn btn-initial btn-large" onclick="removeMaskControls();  searchDecimalNumber('formProCon'); addAdditionalControl('../crop/addControlAdditional.action', 'formProCon', 'tableProduct', 'tbControl', 'divConForm', 'divListConForm');"><i class="icon-save"></i>  <s:property value="getText('button.controlsave.crop')" /></button>
+    </s:else>
     <button class="btn btn_default btn-large" onclick="resetForm('formProCon'); toggleAndClean('divConForm', 'divListConForm')"><i class="icon-ban-circle"></i>  <s:property value="getText('button.cancel')" /></button>
 </div>
 <%--<sj:submit type="button" cssClass="btn btn-initial btn-large" onclick="removeMaskControls();searchDecimalNumber('formProCon');" targets="tableProduct" onCompleteTopics="completeConAdd" validate="true" validateFunction="validationForm"><i class="icon-save"></i>  <s:property value="getText('button.controlsave.crop')" /></sj:submit>--%>
 <script>
+    $("#formProCon_prod_dosisProCon").numeric({negative: false });
+    $("#formProCon_prod_dosisProCon").val(parsePointSeparated($("#formProCon_prod_dosisProCon").val()));
+    showTypeFertilizerControl('formProCon_prod_controlsTypes_idConTyp', 'divOrganicCon', 'divChemicalCon', 'divMechanicCon', 'divMechanizedCon', 'divManualCon');
+    
     $.subscribe('completeConAdd', function(event, data) {
-        alert(1)
         toggleAndClean('divConForm', 'divListConForm');
 //        if (event.handled !== true) {
 //            setTimeout(function() {

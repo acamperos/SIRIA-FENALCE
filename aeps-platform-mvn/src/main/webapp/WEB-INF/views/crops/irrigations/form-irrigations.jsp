@@ -98,7 +98,7 @@
                                     <div class="span5">
                                         <div class="control-group">
                                             <label for="formCropIrr_irr_thicknessSheetIrr" class="control-label">
-                                                <s:property value="getText('text.thicknessheetirr.irrigation')" />:
+                                                <s:property value="getText('text.thicknessheetirr.irrigation')" /> <button type="button" class="btn btn-initial"><b>(cm)</b></button>:
                                             </label>
                                             <div class="controls">
                                                 <s:textfield name="irr.thicknessSheetIrr"/>
@@ -128,7 +128,7 @@
                                 <div class="span5">
                                     <div class="control-group">
                                         <label for="formCropIrr_irr_durationIrr" class="control-label">
-                                            <s:property value="getText('text.durationirr.irrigation')" />:
+                                            <s:property value="getText('text.durationirr.irrigation')" /> <button type="button" class="btn btn-initial"><b>(horas)</b></button>:
                                         </label>
                                         <div class="controls">
                                             <s:textfield name="irr.durationIrr"/>

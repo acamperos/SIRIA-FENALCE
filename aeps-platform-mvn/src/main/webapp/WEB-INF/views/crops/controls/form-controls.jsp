@@ -17,28 +17,30 @@
         <s:fielderror theme="bootstrap"/>
         <div id="divConForm">
             <s:form id="formCropCon" action="saveCon" cssClass="form-horizontal">
-                <fieldset>
-                    <legend><s:property value="getText('title.controlform.crop')" /></legend>  
-                    <div class="row">
-                        <div class="span5">
-                            <s:hidden name="idCrop"/>
-                            <s:hidden name="typeCrop"/>
-                            <s:hidden name="actExe"/>
-                            <%--<s:hidden name="lanSel"/>--%>
-                            <s:hidden name="con.idCon"/>
-                            <div class="control-group">
-                                <label for="formCropCon_con_dateCon" class="control-label req">
-                                    <s:property value="getText('text.controldate.crop')" />:
-                                </label>
-                                <div class="date controls">
-                                    <s:date name="con.dateCon" format="MM/dd/yyyy" var="dateTransformCont"/>
-                                    <s:textfield name="con.dateCon" value="%{#dateTransformCont}" readonly="true"/>
-                                    <span class="prefix sec">&nbsp;[mm/dd/yyyy]</span>
-                                    <span class="add-on"><i class="icon-calendar"></i></span>
-                                </div>                          
+            <fieldset>
+                <legend><s:property value="getText('title.controlform.crop')" /></legend>  
+                <div class="row">
+                    <div class="span5">
+                        <s:hidden name="idCrop"/>
+                        <s:hidden name="typeCrop"/>
+                        <s:hidden name="actExe"/>                            
+                        <%--<s:hidden name="lanSel"/>--%>
+                        <s:hidden name="con.idCon"/>
+                        <div class="control-group">
+                            <label for="formCropCon_con_dateCon" class="control-label req">
+                                <s:property value="getText('text.controldate.crop')" />:
+                            </label>
+                            <div class="date controls">
+                                <s:date name="con.dateCon" format="MM/dd/yyyy" var="dateTransformCont"/>
+                                <s:textfield name="con.dateCon" value="%{#dateTransformCont}" readonly="true"/>
+                                <span class="prefix sec">&nbsp;[mm/dd/yyyy]</span>
+                                <span class="add-on"><i class="icon-calendar"></i></span>
                             </div>                          
-                        </div>
+                        </div>                          
                     </div>
+                </div>
+                <fieldset>         
+                    <legend><s:property value="getText('title.objective.control')" /></legend>
                     <button type="button" class="btn btn-initial btn-large" onclick="showFormAdditionalControl('../crop/showRowAdditionalControl?idCrop=<s:property value="idCrop" />', 'divProductsAdd', 'tableProduct', 'divConForm', 'divListConForm')"><i class="icon-plus"></i> <s:property value="getText('button.addhorizon.soil')" /></button>
 
                     <div class="control-group" id="divProductsAdd">
@@ -46,9 +48,9 @@
                             <s:include value="list-controls.jsp"></s:include>                          
                         </div> 
                     </div> 
+                </fieldset>
 
-
-                    </fieldset>
+            </fieldset>
               <% String classCostCon = "hide"; %>
                <s:set name="costCon" value="costCrop"/>
                <s:if test="%{#costCon==1}">
@@ -104,6 +106,7 @@
                                             </div> 
                                         </div> 
                           </div>       
+                        </fieldset>
                                                 <fieldset>
                                                             <legend><s:property value="getText('title.formcontrolcomment.control')" /></legend>                   
                                                             <div class="row">
@@ -121,12 +124,7 @@
                      <p class="warnField reqBef"><s:property value="getText('label.requirefields')" /></p>
                     <script>
                         $("#formCropCon_con_dateCon").datepicker({dateFormat: 'mm/dd/yy'});
-                        $("#formCropCon_con_dateCon").mask("99/99/9999", {placeholder: " "});
-                        $("#formCropCon_dosisConOrg").numeric({negative: false});
-                        $("#formCropCon_dosisConOrg").val(parsePointSeparated($("#formCropCon_dosisConOrg").val()));
-                        $("#formCropCon_dosisConChe").numeric({negative: false});
-                        $("#formCropCon_dosisConChe").val(parsePointSeparated($("#formCropCon_dosisConChe").val()));
-                        showTypeFertilizerControl('formCropCon_con_controlsTypes_idConTyp', 'divOrganicCon', 'divChemicalCon', 'divMechanicCon', 'divMechanizedCon', 'divManualCon');
+                        $("#formCropCon_con_dateCon").mask("99/99/9999", {placeholder: " "});                        
 
                         $("#formCropCon_con_costInputCon").maskMoney({prefix: ' $'});
                         $("#formCropCon_con_costAppCon").maskMoney({prefix: ' $'});
