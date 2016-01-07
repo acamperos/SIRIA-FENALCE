@@ -2224,12 +2224,14 @@ function buildTimeline(content, beginning) {
     }
 }
 
-function removeRowHorizon(rowId, tableId) 
+function removeRowHorizon(rowId, tbPrin, tableId) 
 {    
     $('#'+rowId).remove();
+    $('#rowNew').remove();
     var numRows = $('#'+tableId+' tr').length;
     if (numRows<1) {
-        $('#'+tableId).append('<tr value="0"></tr>');
+        $('#'+tableId).append("<tr id=\"rowNew\" value=\"0\"></tr>");
+        $('#'+tbPrin).hide();        
     }
     
 }
