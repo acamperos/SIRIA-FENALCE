@@ -24,7 +24,7 @@
 <td>
     <% if (usrDao.getPrivilegeUser(user.getIdUsr(), "crop/modify")) { %>
         <div class="btn-group">
-            <a class="btn btn-small" title="<s:property value="getText('link.yieldreport.report')" />" onclick="viewForm('getReportYield.action', 'idCrop', ${idCrop}, '<s:property value="getText('title.yieldreport.report')" />', 1050, 820);"><i class="icon-report"></i></a>
+            <a class="btn btn-small btn-default" title="<s:property value="getText('link.yieldreport.report')" />" onclick="viewForm('getReportYield.action', 'idCrop', ${idCrop}, '<s:property value="getText('title.yieldreport.report')" />', 1050, 820);"><i class="icon-report"></i></a>
         </div>
     <% } %>
 </td>

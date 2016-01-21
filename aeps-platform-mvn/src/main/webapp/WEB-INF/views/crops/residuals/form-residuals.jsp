@@ -20,36 +20,37 @@
                 <fieldset>
                     <legend><s:property value="getText('title.formresidual.residual')" /></legend>
                     <div class="row">
-                        <div class="span5">
+                        <div class="col-md-6">
                             <s:hidden name="idCrop"/>
                             <s:hidden name="typeCrop"/>
                             <s:hidden name="costCrop"/>
                             <%--<s:hidden name="lanSel"/>--%>
                             <s:hidden name="actExe"/>
                             <s:hidden name="resMan.idResMan"/>     
-                            <div class="control-group">
-                                <label for="formCropRes_resMan_dateResMan" class="control-label req">
+                            <div class="form-group">
+                                <label for="formCropRes_resMan_dateResMan" class="col-md-6 req">
                                     <s:property value="getText('text.dateresidual.residual')" />:
                                 </label>
-                                <div class="date controls">
+                                <div class="date col-md-6 controls">
                                     <s:date name="resMan.dateResMan" format="MM/dd/yyyy" var="dateTransformRes"/>
-                                    <s:textfield name="resMan.dateResMan" value="%{#dateTransformRes}" readonly="true"/>
+                                    <s:textfield name="resMan.dateResMan" cssClass="form-control" value="%{#dateTransformRes}" readonly="true"/>
                                     <span class="prefix sec">&nbsp;[mm/dd/yyyy]</span>
                                     <span class="add-on"><i class="icon-calendar"></i></span>
                                 </div>                          
                             </div>                          
                         </div>    
-                         <div class="span5" style="padding-left: 28px">
-                            <div class="control-group">
-                                <label for="formCropRes_resMan_residualsClasification_idResCla" class="control-label req">
+                         <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="formCropRes_resMan_residualsClasification_idResCla" class="col-md-6 req">
                                     <s:property value="getText('select.residualclasification.residual')" />:
                                 </label>
-                                <div class="controls">
+                                <div class="controls col-md-6">
                                     <s:select
                                         name="resMan.residualsClasification.idResCla"
                                         list="type_res_clas" 
                                         listKey="idResCla" 
-                                        listValue="nameResCla"            
+                                        listValue="nameResCla"     
+                                        cssClass="form-control"
                                         headerKey="-1" 
                                         headerValue="---"
                                         onchange="showOtherElement(this.value, 'divNewManageStub');"
@@ -58,39 +59,38 @@
                             </div>                          
                         </div>   
                     </div>
-              <% String classCostRes = "hide"; %>
+              <% String classCostRes = "hideInfo"; %>
                <s:set name="costRes" value="costCrop"/>
                <s:if test="%{#costRes==1}">
                    <% classCostRes = "";  %>
                </s:if>   
                <div class="row">
                    <div class="<%= classCostRes%>" >    
-                       <div class="span5">
-                           <div id="costresiduals" class="control-group">
-
-                               <label for="formCropRes_resMan_costResMan" class="control-label"  >
+                       <div class="col-md-6">
+                           <div id="costresiduals" class="form-group">
+                               <label for="formCropRes_resMan_costResMan" class="col-md-6">
                                    <s:property value="getText('text.cost.residual')"  />
                                    <button type="button" class="btn btn-initial"><b>(Ha.)</b></button> :
                                </label>
-                               <div class="controls">
-                                   <s:textfield name="resMan.costResMan" maxlength="14"/>
+                               <div class="controls col-md-6">
+                                   <s:textfield name="resMan.costResMan" cssClass="form-control" maxlength="14"/>
                                </div>
 
                            </div>        
                        </div>      
                    </div>                     
-                       <% String classNewRes="hide"; %>
+                       <% String classNewRes="hideInfo"; %>
                         <s:set name="idResidual" value="resMan.residualsClasification.idResCla"/>
                         <s:if test="%{#idResidual==1000000}">
                             <% classNewRes = "";%>
                         </s:if>  
-                        <div class="span4 <%= classNewRes %>" id="divNewManageStub" style="padding-left: 28px">
-                            <div class="control-group">
-                                <label for="formCropRes_resMan_otherResidualsManagementResMan" class="control-label req">
+                        <div class="col-md-6 <%= classNewRes %>" id="divNewManageStub">
+                            <div class="form-group">
+                                <label for="formCropRes_resMan_otherResidualsManagementResMan" class="col-md-6 req">
                                      <s:property value="getText('text.otherresidualmanage.residual')" />:
                                 </label>
-                                <div class="controls">
-                                    <s:textfield name="resMan.otherResidualsManagementResMan"/>
+                                <div class="controls col-md-6">
+                                    <s:textfield name="resMan.otherResidualsManagementResMan" cssClass="form-control"/>
                                 </div>
                             </div>
                         </div>
@@ -99,19 +99,18 @@
                 <fieldset>
                 <legend><s:property value="getText('title.formresidualcomment.residual')" /></legend>                   
                 <div class="row">
-                   <div class="span5">
-                        <div  class="control-group">
+                   <div class="col-md-6">
+                        <div  class="form-group">
 
-                                    <div class="controls">
-                                      
-                                        <s:textarea rows="5" cssClass="span6" name="resMan.commentResMan" ></s:textarea>
+                                    <div class="controls col-md-12">                                      
+                                        <s:textarea rows="5" cssClass="form-control" name="resMan.commentResMan" ></s:textarea>
                                     </div>
 
                         </div>        
                </div>                     
                </div>    
                 </fieldset>
-                    <p class="warnField reqBef"><s:property value="getText('label.requirefields')" /></p>
+                    <p class="warnField reqBef" style="width: 100%"><s:property value="getText('label.requirefields')" /></p>
                     <script>
                         $("#formCropRes_resMan_dateResMan").datepicker({dateFormat: 'mm/dd/yy'});
                         $("#formCropRes_resMan_dateResMan").mask("99/99/9999", {placeholder: " "});
@@ -120,9 +119,9 @@
                     <div id="divBtRes">
                         <% String actExe   = String.valueOf(request.getAttribute("actExe")); %>
                         <% if ((actExe.equals("create") && usrDao.getPrivilegeUser(user.getIdUsr(), "crop/create")) || (actExe.equals("modify") && usrDao.getPrivilegeUser(user.getIdUsr(), "crop/modify"))) { %>
-                            <sj:submit type="button" id="btResidual" cssClass="btn btn-initial btn-large" onclick="removeMaskRes(); addMessageProcess()" targets="divMessage" onCompleteTopics="completeRes" validate="true" validateFunction="validationForm"><i class="icon-save"></i>  <s:property value="getText('button.saveresidual.residual')" /></sj:submit>
+                            <sj:submit type="button" id="btResidual" cssClass="btn btn-initial btn-lg" onclick="removeMaskRes(); addMessageProcess()" targets="divMessage" onCompleteTopics="completeRes" validate="true" validateFunction="validationForm"><i class="icon-save"></i>  <s:property value="getText('button.saveresidual.residual')" /></sj:submit>
                         <% } %>
-                        <button class="btn btn_default btn-large" onclick="resetForm('formCropRes'); closeWindow();"><i class="icon-ban-circle"></i>  <s:property value="getText('button.cancel')" /></button>
+                        <button class="btn btn-default btn-lg" onclick="resetForm('formCropRes'); closeWindow();"><i class="icon-ban-circle"></i>  <s:property value="getText('button.cancel')" /></button>
                     </div>
                 </fieldset>
             </s:form>	
@@ -145,6 +144,6 @@
     };
             </script>
         </div>
-        <div class="row-fluid" id="divListResForm"></div>
+        <div class="row" id="divListResForm"></div>
     </body>
 </html>

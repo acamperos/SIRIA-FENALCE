@@ -4,11 +4,11 @@
 <s:if test="prodCon.size() > 0">
     <% table = ""; %>
 </s:if>
-<div class="w-box">    
+<div class="table-responsive w-box">    
     <%@page import="java.lang.*"%>
     <%@page import="java.util.List"%>
     <%@page import="java.util.ArrayList"%>                            
-    <table class="table table-bordered table-hover" id="tbControl" style="width: 80%; <%= table %>">
+    <table class="table table-condensed table-bordered table-hover" id="tbControl" style="width: 80%; <%= table %>">
         <thead>
             <tr>
                 <th colspan="1" rowspan="1" style="width:10%;padding-left:0;text-align: center;"><s:property value="getText('td.objectivetype.control')" /></th>

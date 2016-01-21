@@ -1,21 +1,11 @@
 package org.aepscolombia.platform.models.dao;
 
-import au.com.bytecode.opencsv.CSVWriter;
 import com.mongodb.BasicDBObject;
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
-import com.mongodb.MongoClient;
-import com.mongodb.WriteResult;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.net.UnknownHostException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,9 +15,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.aepscolombia.platform.controllers.ActionField;
 import org.aepscolombia.platform.models.entity.Entities;
 //import org.aepscolombia.plataforma.models.dao.IEventoDao;
 import org.hibernate.Transaction;
@@ -605,6 +592,7 @@ public class ProducersDao
                 int cellnum = 0;
                 for (Object obj : objArr)
                 {
+//                    obj.getClass();
                     Cell cell = row.createCell(cellnum++);
                     if (obj instanceof String) {
                         cell.setCellValue((String) obj);
@@ -618,6 +606,8 @@ public class ProducersDao
                         cell.setCellValue((Double) obj);
                     } else if (obj instanceof Integer) {
                         cell.setCellValue((Integer) obj);
+                    } else if (obj instanceof BigInteger) {   
+                        cell.setCellValue((String) obj.toString());
                     } 
                 }
             }

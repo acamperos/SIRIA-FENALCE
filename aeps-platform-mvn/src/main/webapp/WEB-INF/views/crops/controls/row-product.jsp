@@ -118,8 +118,8 @@
     </td>  
     <td style="vertical-align: bottom ! important; padding: 0 3em;">
         <div style="margin-bottom:1.2em">
-            <a class="btn btn-small btn-edit" title="<s:property value="getText('link.controledit.control')" />" onclick="showFormAdditionalControl('/crop/showRowAdditionalControl.action?idCrop=${idCrop}&action=temp&position=<%= numRows %>', 'divProductsAdd', 'tableProduct', 'divConForm', 'divListConForm');"><i class="icon-pencil"></i></a>
-            <a class="btn btn-small delete_rows_dt btn-delete" title="<s:property value="getText('link.remove.soil')" />" onclick="removeRowHorizon('RowAddit_<%= numRows %>', 'tbControl', 'tableProduct');"><i class="icon-trash"></i></a>
+            <a class="btn btn-small btn-default btn-edit" title="<s:property value="getText('link.controledit.control')" />" onclick="showFormAdditionalControl('/crop/showRowAdditionalControl.action?idCrop=${idCrop}&action=temp&position=<%= numRows %>', 'divProductsAdd', 'tableProduct', 'divConForm', 'divListConForm');"><i class="icon-pencil"></i></a>
+            <a class="btn btn-small btn-default delete_rows_dt btn-delete" title="<s:property value="getText('link.remove.soil')" />" onclick="removeRowProduct('RowAddit_<%= numRows %>', 'tbControl', 'tableProduct');"><i class="icon-trash"></i></a>
         </div>
     </td>
 </tr>

@@ -11,31 +11,28 @@
 <% Integer entTypeId = new EntitiesDao().getEntityTypeId(user.getIdUsr()); %>
 <% HashMap addCrop    = (HashMap) request.getAttribute("additionals");%>
 <% String valueCrop   = (String) addCrop.get("selected");%>
-<s:form id="formCropSearch" action="searchCrop.action?selected=%{selected}" cssClass="form-horizontal formClassLot" label="%{getText('title.searchcrop.crop')}">
+<s:form id="formCropSearch" action="searchCrop.action?selected=%{selected}" cssClass="formClassLot" label="%{getText('title.searchcrop.crop')}">
     <% if (entTypeId==3) { %>
         <div class="row">
-            <div class="span5">
-                <div class="control-group">
-                    <s:label for="formCropSearch_name_agronomist" cssClass="control-label" value="%{getText('select.agronolist.crop')}:"></s:label>
+            <div class="col-md-5">
+                <div class="form-group">
+                    <s:label for="formCropSearch_name_agronomist" value="%{getText('select.agronolist.crop')}:"></s:label>
                     <s:select        
                         multiple="multiple"
                         name="name_agronomist" 
                         list="list_agronomist" 
+                        style="width: 63%"
                         listKey="idEnt" 
                         listValue="%{nameEnt==null ? emailEnt : nameEnt}" 
                     />
                 </div> 
             </div> 
-            <div class="span0">
-                <div class="control-group">
-                    <sj:submit type="button" cssClass="btn btn-default" onclick="addMessageProcess()" theme="simple" targets="divConListCrop" onCompleteTopics="completeSearchCrop"><i class="icon-search"></i></sj:submit>
-                </div> 
-            </div> 
-            <% if (valueCrop.equals("crop")) {%>
-                <div class="span2">
+            <div>
+                <sj:submit type="button" cssClass="btn btn-default" onclick="addMessageProcess()" targets="divConListCrop" onCompleteTopics="completeSearchCrop"><i class="icon-search"></i></sj:submit>
+                <% if (valueCrop.equals("crop")) {%>
                     <s:submit type="button" cssClass="btn btn-default" onclick="addMessageProcess(); getReportXls('getReportCrop.action', 'selectAllname_agronomist', 'selectItemname_agronomist')"><i class="icon-file-text"></i> <s:property value="getText('button.dataexport.crop')" /></s:submit>
-                </div>  
-            <% } %>
+                <% } %>
+            </div>
         </div>
         <script>          
             
@@ -69,8 +66,8 @@
         </script>
     <% } %>
     <s:hidden name="searchFromCrop" value="1"/>    
-    <div class="control-group" id="searchBasicCrop">
-        <s:textfield cssClass="form-control" name="search_crop" placeholder="%{getText('text.searchcrop.crop')}" />
+    <div class="form-group" id="searchBasicCrop">
+        <s:textfield cssClass="form-control searchGen" name="search_crop" placeholder="%{getText('text.searchcrop.crop')}" />
         <sj:submit type="button" cssClass="btn btn-default" onclick="addMessageProcess()" targets="divConListCrop" onCompleteTopics="completeSearchCrop"><i class="icon-search"></i></sj:submit>
         <a onclick="showSearchAdvance('searchBasicCrop', 'searchAdvanceCrop', 'formCropSearch_searchFromCrop', 2)" class="radioSelect"><s:property value="getText('link.advancesearch.crop')" /> </a><i class="icon-chevron-down"></i>
         <s:set name="valSel" value="selected"/> 
@@ -85,21 +82,21 @@
             <% } %>
         <% } %>
     </div> 
-    <div id="searchAdvanceCrop" class="hide">
-        <div class="control-group">
+    <div id="searchAdvanceCrop" class="hideInfo">
+        <div class="form-group">
             <a onclick="showSearchAdvance('searchBasicCrop', 'searchAdvanceCrop', 'formCropSearch_searchFromCrop', 1); clearForm('formCropSearch');" class="radioSelect"><s:property value="getText('link.simplesearch.crop')" /> </a><i class="icon-chevron-up"></i>
         </div>
         <div class="row">
-            <div class="span5">
-                <div class="control-group">
+            <div class="col-md-3">
+                <div class="form-group">
                     <s:label for="formCropSearch_name_producer" cssClass="control-label" value="%{getText('text.searchnamepro.crop')}:"></s:label>
                     <div class="controls">
                         <s:textfield name="name_producer" />
                     </div>                          
                 </div>                          
             </div>                          
-            <div class="span4" style="padding-left: 28px">
-                <div class="control-group">
+            <div class="col-md-3">
+                <div class="form-group">
                     <s:label for="formCropSearch_idCrop" cssClass="control-label" value="%{getText('text.searchnumcrop.crop')}:"></s:label>
                     <div class="controls">
                         <s:textfield name="idCrop" />
@@ -108,8 +105,8 @@
             </div>
         </div>
         <div class="row">
-            <div class="span5">
-                <div class="control-group">
+            <div class="col-md-3">
+                <div class="form-group">
                     <s:label for="formCropSearch_type_doc" cssClass="control-label" value="%{getText('select.searchdocumenttype.crop')}:"></s:label>
                     <div class="controls">
                        <s:select
@@ -123,8 +120,8 @@
                     </div>                          
                 </div>                          
             </div>                          
-            <div class="span4" style="padding-left: 28px">
-                <div class="control-group">
+            <div class="col-md-3">
+                <div class="form-group">
                     <s:label for="formCropSearch_num_doc" cssClass="control-label" value="%{getText('text.searchdocumentnumber.crop')}:"></s:label>
                     <div class="controls">
                         <s:textfield name="num_doc" />
@@ -133,16 +130,16 @@
             </div>
         </div>
         <div class="row">
-            <div class="span5">
-                <div class="control-group">
+            <div class="col-md-3">
+                <div class="form-group">
                     <s:label for="formCropSearch_num_farm" cssClass="control-label" value="%{getText('text.searchnumfarm.crop')}:"></s:label>
                     <div class="controls">
                         <s:textfield name="num_farm" />
                     </div>                          
                 </div>                          
             </div>                          
-            <div class="span4" style="padding-left: 28px">
-                <div class="control-group">
+            <div class="col-md-3">
+                <div class="form-group">
                     <s:label for="formCropSearch_name_field" cssClass="control-label" value="%{getText('text.searchnamefarm.crop')}:"></s:label>
                     <div class="controls">
                         <s:textfield name="name_farm" />
@@ -151,16 +148,16 @@
             </div>
         </div>
         <div class="row">
-            <div class="span5">
-                <div class="control-group">
+            <div class="col-md-3">
+                <div class="form-group">
                     <s:label for="formCropSearch_num_field" cssClass="control-label" value="%{getText('text.searchnumfield.crop')}:"></s:label>
                     <div class="controls">
                         <s:textfield name="num_field" />
                     </div>                          
                 </div>                          
             </div>                          
-            <div class="span4" style="padding-left: 28px">
-                <div class="control-group">
+            <div class="col-md-3">
+                <div class="form-group">
                     <s:label for="formCropSearch_name_field" cssClass="control-label" value="%{getText('text.searchnamefield.crop')}:"></s:label>
                     <div class="controls">
                         <s:textfield name="name_field" />
@@ -169,8 +166,8 @@
             </div>
         </div>
         <div class="row">
-            <div class="span5">
-                <div class="control-group">
+            <div class="col-md-3">
+                <div class="form-group">
                     <s:label for="formCropSearch_date_sowing" cssClass="control-label" value="%{getText('text.searchdatesow.crop')}"></s:label>
                     <div class="date controls">
                         <s:textfield name="date_sowing" readonly="true"/>

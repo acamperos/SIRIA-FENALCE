@@ -18,13 +18,13 @@
     <% tableRes = "";%>
     <% labelRes = "display:none;";%> 
 </s:if>            
-<% String classCostResInfo = "hide"; %>
+<% String classCostResInfo = "hideInfo"; %>
                <s:set name="costRes" value="costCrop"/>
                <s:if test="%{#costRes==1}">
                    <% classCostResInfo = "";  %>
                </s:if>   
 <div class="msgWin" id="divMessListRes"></div>
-<div id="divRes" class="w-box">
+<div id="divRes" class="table-responsive w-box">
     <fieldset>
         <legend><s:property value="getText('title.residuallist.residual')" /></legend>
         <% if (usrResDao.getPrivilegeUser(userRes.getIdUsr(), "crop/create")) { %>
@@ -34,7 +34,7 @@
                 </button>
             <% } %>
         <% } %>
-        <table class="table table-bordered table-hover" style="<%= tableRes %>" id='tblRes'>
+        <table class="table table-bordered table-condensed table-hover" style="<%= tableRes %>" id='tblRes'>
             <thead>
                 <tr>
                     <th><s:property value="getText('td.residualdate.residual')" /></th>
@@ -54,13 +54,14 @@
                 </s:iterator>
             </tbody>
         </table>
+        <br />
         <label style="<%= labelRes%>"><s:property value="getText('label.nofounddata.residual')" /></label>
-        <div class="hide">
+        <div class="hideInfo">
             <div id="confirm_dialog_res" class="cbox_content">
                 <div class="sepH_c"><strong><s:property value="getText('label.deleteresidual.residual')" />?</strong></div>
                 <div>
                     <a href="#" class="btn btn-small btn-initial confirm_yes"><s:property value="getText('link.optyes')" /></a>
-                    <a href="#" class="btn btn-small confirm_no"><s:property value="getText('link.optno')" /></a>
+                    <a href="#" class="btn btn-default btn-small confirm_no"><s:property value="getText('link.optno')" /></a>
                 </div>
             </div>
         </div>

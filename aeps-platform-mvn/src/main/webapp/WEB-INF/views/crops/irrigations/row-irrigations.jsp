@@ -23,10 +23,10 @@
         <% if (entTypeIrrId!=3) { %>    
             <div class="btn-group">
                 <% if (usrIrrDao.getPrivilegeUser(userIrr.getIdUsr(), "crop/modify")) { %>
-                    <a class="btn btn-small btn-edit" title="<s:property value="getText('link.irrigationedit.irrigation')" />" onclick="viewForm('/crop/showIrr.action?action=modify&idCrop=${idCrop}', 'idIrr', ${idIrr}, '<s:property value="getText('title.irrigationedit.irrigation')" />', 1050, 550);"><i class="icon-pencil"></i></a>
+                    <a class="btn btn-small btn-default btn-edit" title="<s:property value="getText('link.irrigationedit.irrigation')" />" onclick="viewForm('/crop/showIrr.action?action=modify&idCrop=${idCrop}', 'idIrr', ${idIrr}, '<s:property value="getText('title.irrigationedit.irrigation')" />', 1050, 550);"><i class="icon-pencil"></i></a>
                 <% } %>
                 <% if (usrIrrDao.getPrivilegeUser(userIrr.getIdUsr(), "crop/delete")) { %>
-                    <a class="btn btn-small delete_rows_dt btn-delete" title="<s:property value="getText('link.deleteirrigation.irrigation')" />" onclick="showDialogDelete(this, 'confirm_dialog_irr', '/crop/deleteIrr.action?idIrr=${idIrr}', '/crop/searchIrr.action?idCrop=${idCrop}', 'divIrr', 'divListIrr'); $('.confirm_yes').click(function(){setTimeout(function() {showTimeline('/crop/viewInfoTime.action?idCrop=${idCrop}', 'divInfoTimeline', 'timeline')}, 2000);});"><i class="icon-trash"></i></a>
+                    <a class="btn btn-small btn-default delete_rows_dt btn-delete" title="<s:property value="getText('link.deleteirrigation.irrigation')" />" onclick="showDialogDelete(this, 'confirm_dialog_irr', '/crop/deleteIrr.action?idIrr=${idIrr}', '/crop/searchIrr.action?idCrop=${idCrop}', 'divIrr', 'divListIrr'); $('.confirm_yes').click(function(){setTimeout(function() {showTimeline('/crop/viewInfoTime.action?idCrop=${idCrop}', 'divInfoTimeline', 'timeline')}, 2000);});"><i class="icon-trash"></i></a>
                 <% } %>
             </div>
         <% } %>

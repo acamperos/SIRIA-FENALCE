@@ -13,16 +13,17 @@
     <td>
         <div id="divEnmiendasFer_<%= numRowsAmen%>" value="<%= numRowsAmen%>">
             <div class="row">
-                <div class="span5">
+                <div class="col-md-6">
                     <s:hidden name="%{#attr.formAmen}.idAmeFer"/>
-                    <div class="control-group">
-                        <label for="${formAmenId}__amendmentsFertilizers_idAmeFer" class="control-label req">
+                    <div class="form-group">
+                        <label for="${formAmenId}__amendmentsFertilizers_idAmeFer" class="col-md-6 req">
                             <s:property value="getText('select.amendfertilizer.fertilization')" />:
                         </label>
-                        <div class="controls">
+                        <div class="controls col-md-6">
                             <s:select
                                 name="%{#attr.formAmen}.amendmentsFertilizers.idAmeFer"
                                 value="%{#attr.amendmentsFertilizers.idAmeFer}"
+                                cssClass="form-control"
                                 list="type_prod_ame" 
                                 listKey="idAmeFer" 
                                 listValue="nameAmeFer"            
@@ -33,18 +34,19 @@
                         </div>                         
                     </div>                          
                 </div> 
-                <% String classCostAme = "hide"; %>
+                <% String classCostAme = "hideInfo"; %>
                 <s:set name="costAme" value="costCrop"/>
                 <s:if test="%{#costAme==1}">
                     <% classCostAme = "";%>
                 </s:if>
-                <div   class="span5 <%= classCostAme %>" style="padding-left: 28px">
-                    <div class="control-group">
+                <div   class="col-md-6 <%= classCostAme%>">
+                    <div class="form-group">
                         <s:label for="formRowChemical_fer" cssClass="control-label " value="%{getText('select.chemfertilizer.formapp')}:"></s:label>
                             <div class="controls">
                             <s:select
                                 id="%{#attr.formAmeId}__costFormAppAmeFer"
                                 name="%{#attr.formAmen}.costFormAppAmeFer"
+                                cssClass="form-control"
                                 value="%{#attr.costFormAppAmeFer}"             
                                 list="#{'0':'---','1':'Manual', '2':'Mecánica','3':'Aérea'}"         
                                 headerKey="-1" 
@@ -53,7 +55,7 @@
                     </div> 
                 </div>
             </div> 
-            <% String classNewProAme = "hide"; %>
+            <% String classNewProAme = "hideInfo"; %>
             <s:set name="idCheAme" value="%{#attr.amendmentsFertilizers.idAmeFer}"/>
             <s:if test="%{#idCheAme==1000000}">
                 <% classNewProAme = "";%>
@@ -62,13 +64,13 @@
                 <div class="row">
 
 
-                    <div class="span5">
-                        <div class="control-group">
-                            <label for="${formAmenId}__otherProductAmeFer" class="control-label req">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="${formAmenId}__otherProductAmeFer" class="col-md-6 req">
                                 <s:property value="getText('text.otherproductamend.fertilization')" />:
                             </label>
-                            <div class="controls">
-                                <s:textfield name="%{#attr.formAmen}.otherProductAmeFer" value="%{#attr.otherProductAmeFer}"/>
+                            <div class="controls col-md-6">
+                                <s:textfield cssClass="form-control" name="%{#attr.formAmen}.otherProductAmeFer" value="%{#attr.otherProductAmeFer}"/>
                             </div>
                         </div>
                     </div>
@@ -76,21 +78,21 @@
             </div>                                        
             <div class="row"> 
                 <div class="<%= classCostAme%>"> 
-                    <div class="span5">
-                        <div class="control-group">
-                            <label for="${formAmenId}__costAppAmeFer" class="control-label">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="${formAmenId}__costAppAmeFer" class="col-md-6">
                                 <s:property value="getText('text.costapp.fertilization')" />
                                 <button type="button" class="btn btn-initial"><b>(Ha.)</b></button> :
                             </label>
-                            <div class="controls">
-                                <s:textfield name="%{#attr.formAmen}.costAppAmeFer" id="%{#attr.formAmeId}__costAppAmeFer" value="%{#attr.costAppAmeFer}" maxlength="14"/>
+                            <div class="controls col-md-6">
+                                <s:textfield cssClass="form-control" name="%{#attr.formAmen}.costAppAmeFer" id="%{#attr.formAmeId}__costAppAmeFer" value="%{#attr.costAppAmeFer}" maxlength="14"/>
                             </div>                         
                         </div>                          
                     </div>
                 </div>        
-                <div class="span5" style="padding-left: 28px">
-                    <div class="control-group">
-                        <label for="${formAmenId}__amountProductUsedAmeFer" class="control-label req">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="${formAmenId}__amountProductUsedAmeFer" class="col-md-6 req">
                             <s:property value="getText('text.amountproductamend.fertilization')" /> 
                             <% if (coCodeAmend.equals("CO")) { %>
                             <button type="button" class="btn btn-initial"><b>(kg/ha)</b></button>:
@@ -98,8 +100,8 @@
                             <button type="button" class="btn btn-initial"><b>(q/mz)</b></button>:
                             <% }%>                    
                         </label>
-                        <div class="controls">
-                            <s:textfield name="%{#attr.formAmen}.amountProductUsedAmeFer" value="%{#attr.amountProductUsedAmeFer}" maxlength="14"/>
+                        <div class="controls col-md-6">
+                            <s:textfield cssClass="form-control" name="%{#attr.formAmen}.amountProductUsedAmeFer" value="%{#attr.amountProductUsedAmeFer}" maxlength="14"/>
                         </div>                         
                     </div>                          
                 </div>   
@@ -108,20 +110,20 @@
 
             <div class="row">
                 <div class="<%= classCostAme%>">  
-                    <div class="span5" >
-                        <div class="control-group">
-                            <label for="${formAmenId}__costProductAmeFer" class="control-label">
+                    <div class="col-md-6" >
+                        <div class="form-group">
+                            <label for="${formAmenId}__costProductAmeFer" class="col-md-6">
                                 <s:property value="getText('text.costproduct.fertilization')" />
                                 <button type="button" class="btn btn-initial"><b>(Ha.)</b></button> :
                             </label>
-                            <div class="controls">
-                                <s:textfield name="%{#attr.formAmen}.costProductAmeFer" id="%{#attr.formAmeId}__costProductAmeFer" value="%{#attr.costProductAmeFer}"/>
+                            <div class="controls col-md-6">
+                                <s:textfield name="%{#attr.formAmen}.costProductAmeFer" cssClass="form-control" id="%{#attr.formAmeId}__costProductAmeFer" value="%{#attr.costProductAmeFer}"/>
                             </div>                         
                         </div>                          
                     </div>
                 </div>           
-                <div class="span2" style="padding-left:10px">
-                    <a class="btn btn-small delete_rows_dt" title="<s:property value="getText('link.removeamendfert.fertilization')" />" style="margin-bottom:1.2em" onclick="$('#RowAdditAme_<%= numRowsAmen%>').remove();"><i class="icon-trash"></i></a>
+                <div class="col-md-1">
+                    <a class="btn btn-small btn-default delete_rows_dt" title="<s:property value="getText('link.removeamendfert.fertilization')" />" style="margin-bottom:1.2em" onclick="$('#RowAdditAme_<%= numRowsAmen%>').remove();"><i class="icon-trash"></i></a>
                 </div>
             </div>  
 

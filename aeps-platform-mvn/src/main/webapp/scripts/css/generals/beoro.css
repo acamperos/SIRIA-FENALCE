@@ -140,7 +140,7 @@ small { font-size: 11px }*/
     .user-box { text-align: right }
     /*.user-box-inner { display: inline-block; text-align: left; }*/
     .user-box-inner { text-align: left; }
-    .user-box .user-avatar { display: block; float: left; margin-right: 10px; max-width: 40px; position: relative; top: 1px; }
+    .user-box .user-avatar { display: block; float: left; margin-right: 10px; position: relative; top: 1px; }
     .user-box .user-info { padding: 0 20px 0 0; display: inline-block; }
     .user-box .user-info ul { margin: 0; line-height: 15px; }
     .user-box .user-info li { display: inline; font-size: 13px; }
@@ -200,9 +200,9 @@ small { font-size: 11px }*/
     .w-box-footer .f-text { margin: 0; padding: 0 12px; font-size: 12px; }
     .w-box-footer .f-center { padding: 0 10px; text-align: center; }
     .w-box-content.content-hide { display: none }
-    .w-box .table thead th, .w-box .table tfoot th, .w-box .table tbody th { background-color: #A4C300 !important }
+    .w-box .table .thead, .w-box .table thead th, .w-box .table tfoot th, .w-box .table tbody th { background-color: #A4C300 !important }
     /*.w-box .table thead th, .w-box .table tfoot th { background-color: #f0f3f5 !important }*/
-    .w-box .table .sorting_desc, .w-box .table .sorting_asc { background-color: #dce3e7 !important }
+    /*.w-box .table .sorting_desc, .w-box .table .sorting_asc { background-color: #dce3e7 !important }*/
     .w-box .table-vam td, .w-box .table-vam th { vertical-align: middle }
     .w-box-blue .w-box-header { background: #208bbd }
     .w-box-blue .table thead th, .w-box-blue .table tfoot th { background-color: #ebf2f6 !important }

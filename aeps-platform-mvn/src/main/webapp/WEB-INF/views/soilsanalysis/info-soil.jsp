@@ -32,22 +32,21 @@
 <% divHide = "divConListSoil"; %>    
 
 <div class="msgWin" id="messageWin"></div>
-<div id="divSoil" class="w-box">
+<div id="divSoil" class="table-responsive w-box">
     <% if (usrSoilDao.getPrivilegeUser(userSoil.getIdUsr(), "soil/create")) { %>
         <% if (entTypeSoilId!=3) { %>
-            <button type="button" class="btn btn-large btn-register btn-space" onclick="viewForm('/soilchemical/showSoilChemical.action?action=create', 'idSoil', '', '<s:property value="getText('title.createsoil.soilanalysis')" />', 1050, 700)">
+            <button type="button" class="btn btn-lg btn-register btn-space" onclick="viewForm('/soilchemical/showSoilChemical.action?action=create', 'idSoil', '', '<s:property value="getText('title.createsoil.soilanalysis')" />', 1050, 700)">
                 <i class="icon-plus"></i> <s:property value="getText('button.addsoil.soilanalysis')" />
             </button><br />
-            <div class="btn btn-group btn-space" onclick="clickSelAll('chkSelectAll', 'chkNumber', 'btnDelSoil');">
-                <input type="checkbox" class="chkSelectAll textFloat" />
-                <label class="textFloat" style="padding-left: 7px; margin-bottom: 0;"><s:property value="getText('label.selectall.soilanalysis')" /></label>
+            <div class="btn-group btn-space" onclick="clickSelAll('chkSelectAll', 'chkNumber', 'btnDelSoil');">
+                <button class="btn btn-default" type="button"><input type="checkbox" class="chkSelectAll textFloat" />&nbsp;<s:property value="getText('label.selectall.soilanalysis')" /></button>
             </div>
             <button type="button" id="btnDelSoil" disabled="disabled" class="btn btn-initial btn-space btnGetAll disabled" onclick="showDialogDeleteAll(this, 'chkNumber', 'confirm_dialog_soil', '/soilchemical/deleteAllSoilChemical.action', '/soilchemical/searchSoilChemical.action?page=<%=pageNow%>', 'divSoil', '<%=divHide%>');">
                 <i class="icon-trash"></i> <s:property value="getText('button.deletesel.soilanalysis')" />
             </button>            
         <% } %>
     <% } %>
-    <table class="table table-bordered table-hover" style="<%= table %>" id='tblSoil'>
+    <table class="table table-bordered table-hover table-condensed" style="<%= table %>" id='tblSoil'>
         <thead>
             <tr>
                 <% if (usrSoilDao.getPrivilegeUser(userSoil.getIdUsr(), "soil/modify") || (usrSoilDao.getPrivilegeUser(userSoil.getIdUsr(), "soil/delete"))) { %>                
@@ -82,18 +81,19 @@
             </s:iterator>
         </tbody>
     </table>
+    <br /> 
     <label style="<%= label%>"><s:property value="getText('label.nofounddata.soilanalysis')" /></label>
-    <div class="hide">
+    <div class="hideInfo">
         <div id="confirm_dialog_soil" class="cbox_content">
             <div class="sepH_c"><strong><s:property value="getText('label.deletesoil.soilanalysis')" />?</strong></div>
             <div>
                 <a href="#" class="btn btn-small btn-initial confirm_yes"><s:property value="getText('link.optyes')" /></a>
-                <a href="#" class="btn btn-small confirm_no"><s:property value="getText('link.optno')" /></a>
+                <a href="#" class="btn btn-small btn-default confirm_no"><s:property value="getText('link.optno')" /></a>
             </div>
         </div>
     </div>
 </div>
-<div style="text-align:center; <%= table %>">
+<div class="text-center" style="<%= table %>">
     <% String result = JavascriptHelper.pager_params_ajax(pageNow, countTotal, maxResults, "/soilchemical/searchSoilChemical.action?selected="+value, divHide, "", "", "formSoilSearch");%>    
     <%= result%>
 </div>

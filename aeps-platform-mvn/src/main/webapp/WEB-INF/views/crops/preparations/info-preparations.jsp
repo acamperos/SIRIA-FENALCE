@@ -19,14 +19,14 @@
     <% label = "display:none;";%> 
 </s:if>            
 
- <% String classCostPreInf = "hide"; %>
-               <s:set name="costPre" value="costCrop"/>
-               <s:if test="%{#costPre==1}">
-                   <% classCostPreInf = "";  %>
-               </s:if> 
+ <% String classCostPreInf = "hideInfo"; %>
+<s:set name="costPre" value="costCrop"/>
+<s:if test="%{#costPre==1}">
+    <% classCostPreInf = "";  %>
+</s:if> 
 
 <div class="msgWin" id="divMessListPrep"></div>
-<div id="divPrep" class="w-box">
+<div id="divPrep" class="table-responsive w-box">
     <fieldset>
         <legend><s:property value="getText('title.preparationlist.preparation')" /></legend>
         <% if (usrPrpDao.getPrivilegeUser(userPrp.getIdUsr(), "crop/create")) { %>
@@ -38,7 +38,7 @@
                 </s:if>
             <% } %>
         <% } %>
-        <table class="table table-bordered table-hover" style="<%= table %>" id='tblPrep'>
+        <table class="table table-bordered table-condensed table-hover" style="<%= table %>" id='tblPrep'>
             <thead>
                 <tr>
                     <th><s:property value="getText('td.datepreparation.preparation')" /></th>
@@ -60,13 +60,14 @@
                 </s:iterator>
             </tbody>
         </table>
-        <label style="<%= label%>"><s:property value="getText('label.nofounddata.preparation')" /></label>
-        <div class="hide">
+        <br />
+        <label style="<%= label %>"><s:property value="getText('label.nofounddata.preparation')" /></label>
+        <div class="hideInfo">
             <div id="confirm_dialog_prep" class="cbox_content">
                 <div class="sepH_c"><strong><s:property value="getText('label.deletepreparation.preparation')" />?</strong></div>
                 <div>
                     <a href="#" class="btn btn-small btn-initial confirm_yes"><s:property value="getText('link.optyes')" /></a>
-                    <a href="#" class="btn btn-small confirm_no"><s:property value="getText('link.optno')" /></a>
+                    <a href="#" class="btn btn-default btn-small confirm_no"><s:property value="getText('link.optno')" /></a>
                 </div>
             </div>
         </div>

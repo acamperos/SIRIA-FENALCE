@@ -21,7 +21,7 @@
 </s:if>            
 
 <div class="msgWin" id="divMessListIrr"></div>
-<div id="divIrr" class="w-box">
+<div id="divIrr" class="table-responsive w-box">
     <fieldset>
         <legend><s:property value="getText('title.irrigationlist.irrigation')" /></legend>
         <% if (usrIrrDao.getPrivilegeUser(userIrr.getIdUsr(), "crop/create")) { %>
@@ -31,7 +31,7 @@
                 </button>
             <% } %>
         <% } %>
-        <table class="table table-bordered table-hover" style="<%= tableIrr %>" id='tblIrr'>
+        <table class="table table-bordered table-condensed table-hover" style="<%= tableIrr %>" id='tblIrr'>
             <thead>
                 <% if (coCodeIrr.equals("CO")) { %>
                     <tr>
@@ -62,13 +62,14 @@
                 </s:iterator>
             </tbody>
         </table>
+        <br />
         <label style="<%= labelIrr %>"><s:property value="getText('label.nofounddata.irrigation')" /></label>
-        <div class="hide">
+        <div class="hideInfo">
             <div id="confirm_dialog_irr" class="cbox_content">
                 <div class="sepH_c"><strong><s:property value="getText('label.deleteirrigation.irrigation')" />?</strong></div>
                 <div>
                     <a href="#" class="btn btn-small btn-initial confirm_yes"><s:property value="getText('link.optyes')" /></a>
-                    <a href="#" class="btn btn-small confirm_no"><s:property value="getText('link.optno')" /></a>
+                    <a href="#" class="btn btn-default btn-small confirm_no"><s:property value="getText('link.optno')" /></a>
                 </div>
             </div>
         </div>

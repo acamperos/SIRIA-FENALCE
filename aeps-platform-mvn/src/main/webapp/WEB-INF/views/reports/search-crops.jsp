@@ -11,8 +11,8 @@
 <s:actionerror theme="bootstrap"/>
 <s:actionmessage theme="bootstrap"/>
 <s:fielderror theme="bootstrap"/>
-<s:form id="formCropSearch" action="getReportPro.action" cssClass="form-horizontal">
-    <div class="control-group">
+<s:form id="formCropSearch" action="getReportPro.action">
+    <div class="form-group">
         <s:label for="formCropSearch_typeReport" cssClass="control-label" value="%{getText('select.searchreporttype.report')}:"></s:label>
         <div class="controls">
             <s:select
@@ -24,8 +24,8 @@
                 />
         </div>   
     </div>
-    <div id="divRepYear" class="hide">
-        <div class="control-group">
+    <div id="divRepYear" class="hideInfo">
+        <div class="form-group">
             <s:label for="formCropSearch_selYear" cssClass="control-label" value="%{getText('select.searchrankyear.report')}:"></s:label>
             <div class="controls">
                 <s:select
@@ -36,25 +36,21 @@
                     />
             </div>   
         </div>
-        <div class="row hide" id="divRange">
-            <div class="span4">
-                <div class="control-group">
+        <div class="row hideInfo" id="divRange">
+            <div class="col-sm-2 col-md-2">
+                <div class="form-group">
                     <s:label for="formCropSearch_year_begin" cssClass="control-label" value="%{getText('text.searchyear.report')}:"></s:label>
                     <div class="controls">
                         <s:textfield name="year_begin" cssStyle="width: 66px;"/>
-                        <span class="help-block" style="margin-top: 5px;">min: 2000; max: 2016</span>
+                        <!--<span class="help-block" style="margin-top: 5px;">min: 2000; max: 2016</span>-->
                     </div>                         
                 </div>                          
             </div>              
-            <div id="divRangeMore" class="hide">
-                <div class="span0" style="margin-left: 0px;">
-                    <s:label cssClass="control-label" value="y" cssStyle="width: 15px; text-align: left;"></s:label>
-                </div>
-                <div>
-                    <div class="control-group">
-                        <div class="controls">
-                            <s:textfield name="year_end" cssStyle="width: 66px;" />
-                        </div>
+            <div id="divRangeMore" class="hideInfo col-sm-10 col-md-10">
+                <s:label cssClass="control-label" value="y"></s:label>                
+                <div class="form-group">
+                    <div class="controls">
+                        <s:textfield name="year_end" cssStyle="width: 66px;" />
                     </div>
                 </div>
             </div>            
@@ -62,7 +58,7 @@
         <% if (entTypeId==5) { %>
             <div class="row">
                 <div class="span5">
-                    <div class="control-group">
+                    <div class="form-group">
                         <s:label for="formCropSearch_name_producer" cssClass="control-label" value="%{getText('text.searchproducer.report')}:"></s:label>
                         <div class="controls">
                             <s:textfield name="name_producer" />
@@ -72,7 +68,7 @@
             </div>
             <div class="row">
                 <div class="span5">
-                    <div class="control-group">
+                    <div class="form-group">
                         <s:label for="formCropSearch_type_doc" cssClass="control-label" value="%{getText('select.searchdoctype.report')}:"></s:label>
                         <div class="controls">
                            <s:select
@@ -87,7 +83,7 @@
                     </div>                          
                 </div>                 
                 <div class="span4" style="padding-left: 28px">
-                    <div class="control-group">
+                    <div class="form-group">
                         <s:label for="formCropSearch_num_doc" cssClass="control-label" value="%{getText('text.searchdocnum.report')}:"></s:label>
                         <div class="controls">
                             <s:textfield name="num_doc" />
@@ -116,10 +112,10 @@
             }
         </script>
     </div>
-    <div id="divRepDep" class="hide">
+    <div id="divRepDep" class="hideInfo">
         <div class="row">
             <div class="span5">
-                <div class="control-group">
+                <div class="form-group">
                     <s:label for="formCropSearch_depSel" cssClass="control-label" value="%{getText('select.searchdepartment.report')}:"></s:label>
                     <s:select
                         name="depSel" 
@@ -135,7 +131,7 @@
         <% if (entTypeId==1) { %>
             <div class="row">
                 <div class="span5">
-                    <div class="control-group">
+                    <div class="form-group">
                         <s:label for="formCropSearch_nameProDep" cssClass="control-label" value="%{getText('text.searchproducer.report')}:"></s:label>
                         <div class="controls">
                             <s:textfield name="nameProDep" />
@@ -145,7 +141,7 @@
             </div>
             <div class="row">
                 <div class="span5">
-                    <div class="control-group">
+                    <div class="form-group">
                         <s:label for="formCropSearch_typeDocDep" cssClass="control-label" value="%{getText('select.searchdoctype.report')}:"></s:label>
                         <div class="controls">
                            <s:select
@@ -160,7 +156,7 @@
                     </div>                          
                 </div>                 
                 <div class="span4" style="padding-left: 28px">
-                    <div class="control-group">
+                    <div class="form-group">
                         <s:label for="formCropSearch_numDocDep" cssClass="control-label" value="%{getText('text.searchdocnum.report')}:"></s:label>
                         <div class="controls">
                             <s:textfield name="numDocDep" />

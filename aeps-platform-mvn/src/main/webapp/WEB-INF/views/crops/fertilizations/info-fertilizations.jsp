@@ -20,7 +20,7 @@
 </s:if>            
 
 <div class="msgWin" id="divFer"></div>   
-<div id="divFerGen" class="w-box">
+<div id="divFerGen" class="table-responsive w-box">
     <fieldset>
         <legend><s:property value="getText('title.fertilizationlist.fertilization')" /></legend>        
         <% if (usrFerDao.getPrivilegeUser(userFer.getIdUsr(), "crop/create")) { %>
@@ -30,7 +30,7 @@
                 </button>
             <% } %>
         <% } %>
-        <table class="table table-bordered table-hover" style="<%= tableFerGen %>" id='tblFerGen'>
+        <table class="table table-bordered table-condensed table-hover" style="<%= tableFerGen %>" id='tblFerGen'>
             <thead>
                 <tr>
                     <th><s:property value="getText('td.appdate.fertilization')" /></th>
@@ -67,13 +67,14 @@
                 </s:iterator>
             </tbody>
         </table>
+        <br />
         <label style="<%= labelFerGen %>"><s:property value="getText('label.nofounddata.fertilization')" /></label>
-        <div class="hide">
+        <div class="hideInfo">
             <div id="confirm_dialog_fergen" class="cbox_content">
                 <div class="sepH_c"><strong><s:property value="getText('label.deletefertilization.fertilization')" />?</strong></div>
                 <div>
                     <a href="#" class="btn btn-small btn-initial confirm_yes"><s:property value="getText('link.optyes')" /></a>
-                    <a href="#" class="btn btn-small confirm_no"><s:property value="getText('link.optno')" /></a>
+                    <a href="#" class="btn btn-default btn-small confirm_no"><s:property value="getText('link.optno')" /></a>
                 </div>
             </div>
         </div>

@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="icon" type="image/ico" href="img/favicon.ico">
+        <link rel="icon" type="image/ico" href="img/logoAEPS.ico">
     </head>
     <body>     
         <%@ include file="../generals/googleAnalytics.jsp" %>
@@ -18,15 +18,15 @@
         <div class="container">
             <div class="panel">
                 <div class="panel-body">
-                    <s:form id="formCrop" action="viewCropcheck.action" cssClass="form-horizontal">
+                    <s:form id="formCrop" action="viewCropcheck.action">
                         <fieldset>         
-                            <div class="control-group">
+                            <div class="form-group">
                                 <s:label for="formCrop_nameCrop" cssClass="control-label req" value="%{getText('text.selectcrop.report')}:"></s:label>
                                 <div class="controls">
                                     <s:hidden name="idCrop"/>
                                     <s:hidden name="actExe" value="cropcheck"/>
                                     <s:textfield name="nameCrop" readonly="true" onclick="viewForm('/crop/viewCrop.action?selected=cropcheck', 'idCrop', '', '%{getText('title.selectcrop.report')}', 1050, 550)" />
-                                    <a class="btn" onclick="viewForm('/crop/viewCrop.action?selected=cropcheck', 'idCrop', '', '<s:property value="getText('title.selectcrop.report')" />', 1050, 550)"><i class="icon-search"></i></a>
+                                    <a class="btn btn-default" onclick="viewForm('/crop/viewCrop.action?selected=cropcheck', 'idCrop', '', '<s:property value="getText('title.selectcrop.report')" />', 1050, 550)"><i class="icon-search"></i></a>
                                 </div>  
                             </div>    
                         </fieldset>  

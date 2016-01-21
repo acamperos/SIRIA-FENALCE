@@ -30,7 +30,7 @@
 <% divHide = "divConListRasta"; %>    
 
 <div class="msgWin" id="messageWin"></div>
-<div id="divRasta" class="w-box">
+<div id="divRasta" class="table-responsive w-box">
     <table class="table table-bordered table-hover" style="<%= table %>" id='tblRasta'>
         <thead>
             <tr>
@@ -62,7 +62,7 @@
     </table>
     <label style="<%= label%>"><s:property value="getText('label.nofounddata.reportsoil')" /></label>
 </div>
-<div style="text-align:center; <%= table %>">
+<div class="text-center" style="<%= table %>">
     <% String result = JavascriptHelper.pager_params_ajax(pageNow, countTotal, maxResults, "/searchSoilRep.action?selected="+value, divHide, "", "", "formRastaSearch");%>    
     <%= result%>
 </div>

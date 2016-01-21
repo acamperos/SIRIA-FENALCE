@@ -9,27 +9,26 @@
 <% Integer entTypeId = new EntitiesDao().getEntityTypeId(user.getIdUsr()); %>
 <% HashMap addFarm    = (HashMap) request.getAttribute("additionals");%>
 <% String valueFarm   = (String) (addFarm.get("selected"));%>
-<s:form id="formFarmSearch" theme="bootstrap" action="searchFarm.action?selected=%{selected}" cssClass="form-horizontal formClassProperty" label="%{getText('title.searchfarm.farm')}">
+<s:form id="formFarmSearch" action="searchFarm.action?selected=%{selected}" cssClass="formClassProperty" label="%{getText('title.searchfarm.farm')}">
     <% if (entTypeId==3) { %>
-        <div class="row-fluid">
-            <div class="span5">
+        <div class="row">
+            <div class="col-md-5 form-group">
                 <s:select        
                     label="%{getText('select.agronolist.farm')}:"
                     multiple="multiple"
                     name="name_agronomist" 
-                    list="list_agronomist" 
+                    list="list_agronomist"
                     listKey="idEnt" 
+                    style="width: 100%"
                     listValue="%{nameEnt==null ? emailEnt : nameEnt}" 
                 />
             </div> 
-            <div class="span1" style="padding-left: 28px">
-                <sj:submit type="button" cssClass="btn btn-default" onclick="addMessageProcess()" theme="simple" targets="divConListFarms" onCompleteTopics="completeFarm"><i class="icon-search"></i></sj:submit>
-            </div> 
-            <% if (valueFarm.equals("property")) {%>
-                <div class="span2">
+            <div>
+                <sj:submit type="button" cssClass="btn btn-default" onclick="addMessageProcess()" targets="divConListFarms" onCompleteTopics="completeFarm"><i class="icon-search"></i></sj:submit>
+                <% if (valueFarm.equals("property")) {%>
                     <s:submit type="button" cssClass="btn btn-default" onclick="addMessageProcess(); getReportXls('/getReportFarm.action', 'selectAllname_agronomist', 'selectItemname_agronomist')"><i class="icon-file-text"></i> <s:property value="getText('button.dataexport.farm')" /></s:submit>
-                </div>
-            <% } %>
+                <% } %>
+            </div> 
         </div>
         <script>
             var lanVal = $('#lanSel').val();
@@ -62,9 +61,9 @@
         </script>
     <% } %>
     <s:hidden name="searchFromFarm" value="1"/>    
-    <div class="control-group" id="searchBasicFarm">
-        <s:textfield cssClass="form-control" name="search_farm" placeholder="%{getText('text.searchfarm.farm')}" theme="simple" />
-        <sj:submit type="button" cssClass="btn btn-default" onclick="addMessageProcess()" theme="simple" targets="divConListFarms" onCompleteTopics="completeFarm"><i class="icon-search"></i></sj:submit>
+    <div class="form-group" id="searchBasicFarm">
+        <s:textfield name="search_farm" placeholder="%{getText('text.searchfarm.farm')}" />
+        <sj:submit type="button" cssClass="btn btn-default" onclick="addMessageProcess()" targets="divConListFarms" onCompleteTopics="completeFarm"><i class="icon-search"></i></sj:submit>
         <a onclick="showSearchAdvance('searchBasicFarm', 'searchAdvanceFarm', 'formFarmSearch_searchFromFarm', 2)" class="radioSelect"><s:property value="getText('link.advancesearch.farm')" /> </a><i class="icon-chevron-down"></i>
         <s:set name="valSel" value="selected"/> 
         <s:if test="%{#valSel.equals('property')}">
@@ -76,78 +75,97 @@
             <% } %>
         <% } %>
     </div>   
-    <div id="searchAdvanceFarm" class="hide">
-        <div class="control-group">
+    <div id="searchAdvanceFarm" class="hideInfo">
+        <div class="form-group">
             <a onclick="showSearchAdvance('searchBasicFarm', 'searchAdvanceFarm', 'formFarmSearch_searchFromFarm', 1); clearForm('formFarmSearch');" class="radioSelect"><s:property value="getText('link.simplesearch.farm')" /> </a><i class="icon-chevron-up"></i>
         </div>
-        <div class="row-fluid">
-            <div class="span5">
-                <s:textfield
-                    label="%{getText('text.searchproducer.farm')}:"
-                    name="name_producer"
-                    class="input-xlarge uneditable-input"          
-                    />
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <s:label for="formFarmSearch_name_producer" cssClass="control-label" value="%{getText('text.searchproducer.farm')}:"></s:label>
+                    <div class="controls">
+                        <s:textfield name="name_producer" />
+                    </div>                          
+                </div>
             </div>
-            <div class="span4" style="padding-left: 28px">
-                <s:textfield
-                    label="%{getText('text.searchnamefarm.farm')}:"
-                    name="name_property"        
-                    />
+            <div class="col-md-3">
+                <div class="form-group">
+                    <s:label for="formFarmSearch_name_property" cssClass="control-label" value="%{getText('text.searchnamefarm.farm')}:"></s:label>
+                    <div class="controls">
+                        <s:textfield name="name_property" />
+                    </div>                          
+                </div>
             </div>
         </div>
-        <div class="row-fluid">
-            <div class="span5">
-                <s:textfield
-                    label="%{getText('text.searchlatitude.farm')}:"
-                    name="latitude_property"  
-                    value=""
-                    />
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <s:label for="formFarmSearch_latitude_property" cssClass="control-label" value="%{getText('text.searchlatitude.farm')}:"></s:label>
+                    <div class="controls">
+                        <s:textfield name="latitude_property" />
+                    </div>                          
+                </div>
             </div>
-            <div class="span4" style="padding-left: 28px">
-                <s:textfield
-                    label="%{getText('text.searchlongitude.farm')}:"
-                    name="length_property"   
-                    value=""
-                    />
+            <div class="col-md-3">
+                <div class="form-group">
+                    <s:label for="formFarmSearch_length_property" cssClass="control-label" value="%{getText('text.searchlongitude.farm')}:"></s:label>
+                    <div class="controls">
+                        <s:textfield name="length_property" />
+                    </div>                          
+                </div>
             </div>  
         </div>  
-        <div class="row-fluid">
-            <div class="span5">
-                <s:textfield
-                    label="%{getText('text.searchaltitude.farm')}:"
-                    name="altitude_property"        
-                    value=""
-                    />
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <s:label for="formFarmSearch_altitude_property" cssClass="control-label" value="%{getText('text.searchaltitude.farm')}:"></s:label>
+                    <div class="controls">
+                        <s:textfield name="altitude_property" />
+                    </div>                          
+                </div>
             </div>             
-            <div class="span4" style="padding-left: 28px">
-                <s:select
-                    label="%{getText('select.searchdep.farm')}"
-                    name="depFar" 
-                    list="department_property" 
-                    listKey="idDep" 
-                    listValue="nameDep"          
-                    headerKey=" " 
-                    headerValue="---"
-                    onchange="chargeValues('/comboMunicipalities.action', 'depId', this.value, 'formFarmSearch_cityFar', 'formFarmSearch')"
-                    />
+            <div class="col-md-3">
+                <div class="form-group">
+                    <s:label for="formFarmSearch_depFar" cssClass="control-label" value="%{getText('select.searchdep.farm')}:"></s:label>
+                    <div class="controls">
+                        <s:select
+                            name="depFar" 
+                            list="department_property" 
+                            listKey="idDep" 
+                            listValue="nameDep"  
+                            cssClass="selectData"
+                            headerKey=" " 
+                            headerValue="---"
+                            onchange="chargeValues('/comboMunicipalities.action', 'depId', this.value, 'formFarmSearch_cityFar', 'formFarmSearch')"
+                        />
+                    </div>                          
+                </div>
             </div>
         </div>
-        <div class="row-fluid">
-            <div class="span5">
-                <s:select
-                    label="%{getText('select.searchmun.farm')}"
-                    list="city_property" 
-                    listKey="idMun" 
-                    listValue="nameMun" 
-                    headerKey=" " 
-                    headerValue="---"
-                    name="cityFar" />
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <s:label for="formFarmSearch_cityFar" cssClass="control-label" value="%{getText('select.searchmun.farm')}:"></s:label>
+                    <div class="controls">
+                        <s:select
+                            list="city_property" 
+                            listKey="idMun" 
+                            listValue="nameMun" 
+                            cssClass="selectData"
+                            headerKey=" " 
+                            headerValue="---"
+                            name="cityFar" 
+                        />
+                    </div>                          
+                </div>
             </div>
-            <div class="span4" style="padding-left: 28px">
-                <s:textfield
-                    label="%{getText('text.searchcom.farm')}:"
-                    name="lane_property"                
-                    />
+            <div class="col-md-3">
+                <div class="form-group">
+                    <s:label for="formFarmSearch_lane_property" cssClass="control-label" value="%{getText('text.searchcom.farm')}:"></s:label>
+                    <div class="controls">
+                        <s:textfield name="lane_property" />
+                    </div>                          
+                </div>
             </div>          
         </div>          
         <div> 

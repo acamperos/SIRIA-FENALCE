@@ -49,10 +49,10 @@
         <td>
             <div class="btn-group">
                 <% if (usrCropDao.getPrivilegeUser(userCrop.getIdUsr(), "crop/modify")) { %>
-                    <a href="/crop/dataCrop.action?idCrop=${idCrop}&page=<%=pageNow%>" class="btn btn-small" title="<s:property value="getText('link.viewprodevent.crop')" />"><s:property value="getText('button.editprodevent.crop')" /> <i class="icon-eye-open"></i></a>
+                    <a href="/crop/dataCrop.action?idCrop=${idCrop}&page=<%=pageNow%>" class="btn btn-small btn-default" title="<s:property value="getText('link.viewprodevent.crop')" />"><s:property value="getText('button.editprodevent.crop')" /> <i class="icon-eye-open"></i></a>
                 <% } %>
                 <% if (usrCropDao.getPrivilegeUser(userCrop.getIdUsr(), "crop/delete")) { %>
-                    <a class="btn btn-small delete_rows_dt btn-delete" title="<s:property value="getText('link.deleteprodevent.crop')" />" onclick="showDialogDelete(this, 'confirm_dialog_crop', '/crop/deleteCrop.action?idCrop=<s:property value="idCrop" />', '/crop/searchCrop.action?page=<%=pageNow%>', 'divCrops', '<%=divHide%>'); ga('send', 'event', 'Crops', 'click', 'Delete');"><i class="icon-trash"></i></a>
+                    <a class="btn btn-small delete_rows_dt btn-default btn-delete" title="<s:property value="getText('link.deleteprodevent.crop')" />" onclick="showDialogDelete(this, 'confirm_dialog_crop', '/crop/deleteCrop.action?idCrop=<s:property value="idCrop" />', '/crop/searchCrop.action?page=<%=pageNow%>', 'divCrops', '<%=divHide%>'); ga('send', 'event', 'Crops', 'click', 'Delete');"><i class="icon-trash"></i></a>
                 <% } %>
             </div>
         </td>

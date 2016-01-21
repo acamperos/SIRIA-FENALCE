@@ -7,11 +7,12 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <link rel="icon" type="image/ico" href="favicon.ico">
+        <link rel="icon" type="image/ico" href="img/logoAEPS.ico">
         <title>AEPS</title>
         <meta name="description" content="">
-        <meta name="viewport" content="width=device-width"> 
-        <sj:head jqueryui="false"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"> 
+        <meta http-equiv="Cache-control: max-age=86400" content="public">
+        <sj:head jqueryui="true" loadAtOnce="true"/>
         <sb:head includeScripts="true" includeScriptsValidation="true"/>        
         <link rel="stylesheet" href="scripts/css/colorbox/colorbox.css"/>
         <link rel="stylesheet" href="scripts/css/generals/login.css">
@@ -20,58 +21,60 @@
     </head>
     <body>
         <%@ include file="../generals/googleAnalytics.jsp" %>
-        <div id="divMessage" style="display:none;"></div>        
-        <div id="login-wrapper" class="clearfix">            
-            <div class="main-col">
-                <a href="initial.action" class="logo_img span3"><img src="img/logoAEPS.png"/></a>
+        <div id="divMessage" style="display:none;"></div>
+        <div id="login-wrapper" class="container col-md-3">  
+            <div class="panel-heading">
+                <a href="initial.action" class="img-responsive"><img src="img/logoAEPS.png"/></a>
+            </div>
+            <div class="panel-body">
                 <s:actionerror theme="bootstrap"/>
                 <s:actionmessage theme="bootstrap"/>
-                <s:fielderror theme="bootstrap"/>      
+                <s:fielderror theme="bootstrap"/>                      
                 <div class="panel" id="divRegisterUser">
-                    <h3 class="heading_main"><s:property value="getText('title.contact.login')" /></h3>
+                    <h3 class=""><s:property value="getText('title.contact.login')" /></h3>
                     <s:form id="formLogin" action="signin.action">
                         <s:hidden name="actExe" value="login"/>
                         <s:hidden name="lanSel"/>
                         <div class="row">
-                            <div class="span6 control-group">
+                            <div class="col-md-12 form-group">
                                 <label class="control-label" for="formLogin_username">
                                     <s:property value="getText('text.user.login')" />
-                                    <i class="icon-info-sign s2b_tooltip pop-over" data-content="<s:property value="getText('desc.user.login')" />." data-title="<s:property value="getText('help.user.login')" />" data-placement="right" data-trigger="hover"></i>
+                                    <i class="icon-info-sign pop-over" data-content="<s:property value="getText('desc.user.login')" />." data-toggle="popover" title="<s:property value="getText('help.user.login')" />" data-placement="right" data-trigger="hover"></i>
                                 </label>
                                 <div class="controls">
                                     <s:textfield id="formLogin_username" name="username"/>
                                 </div>                         
                             </div>
-                            <div class="span6 control-group">
+                            <div class="col-md-12 form-group">
                                 <label class="control-label" for="formLogin_password"><s:property value="getText('text.password.login')" /></label>
                                 <div class="controls">
                                     <s:password id="formLogin_password" name="password"/>
                                 </div>
                             </div>
-                            <div class="login_links span6">
+                            <div class="login_links col-md-12">
                                 <a href="javascript:void(0)" id="remPass">
                                     <span><s:property value="getText('link.forgetpass.login')" /></span>
                                 </a>
                             </div>
-                            <div class="login_links span6">
+                            <div class="login_links col-md-12">
                                 <a href="javascript:void(0)" id="newUser">
                                     <span><s:property value="getText('link.signup.login')" /></span>
                                 </a>
                             </div>
-                            <div class="login_links span6">
+                            <div class="login_links col-md-12">
                                 <a href="javascript:void(0)" id="verUser">
                                     <span><s:property value="getText('button.verifyuser.login')" /></span>
                                 </a>
                             </div>
-                            <div class="login_links span6">
+                            <div class="login_links col-md-12">
                                 <a href="javascript:void(0)" id="changePass">
                                     <span><s:property value="getText('link.changepasscel.login')" /></span>
                                 </a>
                             </div>                         
                         </div>                 
                     </s:form>
-                    <div class="submit_sect">
-                        <sj:submit type="button" formIds="formLogin" cssClass="btn btn-initial btn-large" onclick="addMessageProcessLogin('formLogin_lanSel'); ga('send', 'event', 'Register', 'click', 'SingIn');" onCompleteTopics="completeLogin" validate="true" validateFunction="validationForm"><s:property value="%{getText('button.signin.login')}"/></sj:submit>
+                    <div class="">
+                        <sj:submit type="button" formIds="formLogin" cssClass="btn btn-initial btn-lg" onclick="addMessageProcessLogin('formLogin_lanSel'); ga('send', 'event', 'Register', 'click', 'SingIn');" onCompleteTopics="completeLogin" validate="true" validateFunction="validationForm"><s:property value="%{getText('button.signin.login')}"/></sj:submit>
                     </div>
                     <script>
                         $.subscribe('completeLogin', function(event,data) {
@@ -82,28 +85,28 @@
                     </script>
                 </div>
                 <div class="panel" style="display:none;" id="divRestoreUser">
-                    <h3 class="heading_main"><s:property value="getText('title.cantenter.login')" /> ?</h3>
+                    <h3 class=""><s:property value="getText('title.cantenter.login')" /> ?</h3>
                     <s:form id="formValidate" action="restorePassword.action">
                         <s:hidden name="actExe" value="restuser"/>
                         <s:hidden name="lanSel"/>
                         <div class="row">
-                            <div class="span6 control-group">
+                            <div class="col-md-12 form-group">
                                 <label class="control-label" for="formValidate_infoUser"><s:property value="getText('text.emailcontact.login')" /></label>
                                 <div class="controls">
                                     <s:textfield id="formValidate_infoUser" name="infoUser" />
                                 </div>
                             </div>
-                            <div class="login_links span6">
+                            <div class="login_links col-md-12">
                                 <a href="javascript:void(0)" id="accessSystem">
                                     <span><s:property value="getText('link.systementry.login')" /></span>
                                 </a>
                             </div>
-                            <div class="submit_sect">
-                                <sj:submit type="button" id="btRestore" cssClass="btn btn-initial btn-large" onclick="addMessageProcessLogin('formValidate_lanSel'); ga('send', 'event', 'Register', 'click', 'Remember');" targets="divMessage" onCompleteTopics="completeRestore" validate="true" validateFunction="validationForm"><s:property value="getText('button.restore.login')" /></sj:submit>
+                            <div class="col-md-12">
+                                <sj:submit type="button" id="btRestore" cssClass="btn btn-initial btn-lg" onclick="addMessageProcessLogin('formValidate_lanSel'); ga('send', 'event', 'Register', 'click', 'Remember');" targets="divMessage" onCompleteTopics="completeRestore" validate="true" validateFunction="validationForm"><s:property value="getText('button.restore.login')" /></sj:submit>
                             </div>
                         </div>
                     </s:form>
-                    <div class="hide">
+                    <div class="hideInfo">
                         <div id="confirm_dialog" class="cbox_content">
                             <div class="sepH_c">
                                 <p><s:text name="%{getText('area.restoreinfo.login')}" />.</p>
@@ -121,27 +124,27 @@
                     </script>
                 </div>
                 <div class="panel" style="display:none;" id="divNewUser">
-                    <h3 class="heading_main"><s:property value="getText('title.newuser.login')" /></h3>
+                    <h3 class=""><s:property value="getText('title.newuser.login')" /></h3>
                     <s:form id="formNewUser" action="saveUser.action">
                         <s:hidden name="actExe" value="newuser"/>
                         <s:hidden name="lanSel"/>
-                        <div class="form-group control-group">
+                        <div class="form-group">
                             <label class="control-label req" for="formNewUser_typeUser">
                                 <s:property value="getText('text.typeuser.login')" />:
-                                <i class="icon-info-sign itooltip s2b_tooltip pop-over" data-content="<s:property value="getText('desc.typeuser.login')" />." data-title="<s:property value="getText('help.typeuser.login')" />" data-placement="right" data-trigger="hover"></i>
+                                <i class="icon-info-sign pop-over" data-content="<s:property value="getText('desc.typeuser.login')" />." title="<s:property value="getText('help.typeuser.login')" />" data-placement="right" data-trigger="hover"></i>
                             </label>
                             <div class="controls">
                                 <s:select
                                     name="typeUser"
-                                    list="#{'2':'Productor', '1':'Agronomo/Asistente', '3':'Gremio/Empresa'}"           
+                                    list="#{'2':'Productor', '1':'Agronomo/Asistente', '3':'Gremio/Empresa'}"
                                     headerKey="-1" 
                                     headerValue="---" 
                                     onchange="showOtherElementUser(this.value, 'divWorkType', 'divDataAssociation');"
                                 />
                             </div>   
                         </div>
-                        <div class="hide" id="divWorkType">
-                            <div class="form-group control-group">
+                        <div class="hideInfo" id="divWorkType">
+                            <div class="form-group">
                                 <label for="formNewUser_workType" class="control-label req"><s:property value="getText('select.howwork.login')" />:</label>
                                 <div class="controls">
                                     <s:select
@@ -153,8 +156,8 @@
                                     />
                                 </div>
                             </div>
-                            <div class="hide" id="divAssociationAdd">
-                                <div class="form-group control-group">
+                            <div class="hideInfo" id="divAssociationAdd">
+                                <div class="form-group">
                                     <label class="control-label req" for="formNewUser_idAssoExt"><s:property value="getText('select.wherework.login')" />:</label>
                                     <div class="controls">
                                         <s:select
@@ -169,47 +172,51 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group control-group hide" id="divDataAssociation">                     
-                            <div class="form-group control-group">
+                        <div class="form-group hideInfo" id="divDataAssociation">                     
+                            <div class="form-group">
                                 <label class="control-label req" for="formNewUser_emailRep"><s:property value="getText('text.emailagent.login')" />:</label>
                                 <div class="controls">
-                                    <s:textfield type="email" name="emailRep" placeholder="%{getText('desc.emailagent.login')}"/>
+                                    <s:textfield class="form-control" type="email" name="emailRep" placeholder="%{getText('desc.emailagent.login')}"/>
                                 </div>
                             </div>
-                            <div class="form-group control-group">
+                            <div class="form-group">
                                 <label class="control-label req" for="formNewUser_pageLink"><s:property value="getText('text.pagelink.login')" />:</label>
                                 <div class="controls">
                                     <s:textfield class="form-control" name="pageLink"/>
                                 </div>
                             </div>
-                            <div class="form-group control-group">
+                            <div class="form-group">
                                 <label class="control-label req" for="formNewUser_direction"><s:property value="getText('text.direction.login')" />:</label>
                                 <div class="controls">
                                     <s:textfield class="form-control" name="direction"/>
                                 </div>
                             </div>
-                            <div class="form-group control-group">
+                            <div class="form-group">
                                 <label class="control-label req" for="formNewUser_nameAsso"><s:property value="getText('text.nameasso.login')" />:</label>
                                 <div class="controls">
                                     <s:textfield class="form-control" name="nameAsso"/>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group control-group">
+                        <div class="form-group">
                             <label class="control-label" for="formNewUser_emailUser"><s:property value="getText('text.emailuser.login')" />:</label>
                             <div class="controls">
                                 <s:textfield type="email" class="form-control" id="formNewUser_emailUser" name="emailUser" placeholder="%{getText('desc.emailuser.login')}"/>
                             </div>
                         </div>
-                        <div class="form-group control-group">
-                            <label class="control-label" for="formNewUser_celphoneUser"><s:property value="getText('text.celphoneuser.login')" />:</label>
-                            <div class="controls">
-                                <s:textfield class="form-control" id="formNewUser_celphoneUser" name="celphoneUser"/>                                   
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <label class="control-label" for="formNewUser_celphoneUser"><s:property value="getText('text.celphoneuser.login')" />:</label>
+                                    <div class="controls">
+                                        <s:textfield class="form-control" id="formNewUser_celphoneUser" name="celphoneUser"/>                                   
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group control-group">
-                            <div class="row-fluid">
-                                <div class="span5" style="width: 48%;">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-5">
                                     <label class="control-label password req" for="formNewUser_passwordUser"><s:property value="getText('text.passworduser.login')" />:</label>
                                     <label for="formNewUser_passwordUser">(<s:property value="getText('label.passworduser.login')" />)</label>
                                     <div class="controls">
@@ -268,23 +275,27 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group control-group">
-                            <label class="control-label req" for="formNewUser_passwordRepUser"><s:property value="getText('text.reppassworduser.login')" />:</label>
-                            <label for="formNewUser_passwordRepUser">(<s:property value="getText('label.reppassworduser.login')" />)</label>
-                            <div class="controls">
-                                <s:password class="form-control" id="formNewUser_passwordRepUser" name="passwordRepUser"/>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <label class="control-label req" for="formNewUser_passwordRepUser"><s:property value="getText('text.reppassworduser.login')" />:</label>
+                                    <label for="formNewUser_passwordRepUser">(<s:property value="getText('label.reppassworduser.login')" />)</label>
+                                    <div class="controls">
+                                        <s:password class="form-control" id="formNewUser_passwordRepUser" name="passwordRepUser"/>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="row">                            
-                            <div class="login_links span6">
+                            <div class="login_links col-md-12">
                                 <a href="javascript:void(0)" id="accessSystemUser">
                                     <span><s:property value="getText('link.systemingress.login')" /></span>
                                 </a>
                             </div>
-                            <div class="span4">
-                                <p class="warnField reqBef"><s:property value="getText('label.requirefields')" /></p>
+                            <div class="col-md-12">
+                                <p class="warnField reqBef" style="width: 100%"><s:property value="getText('label.requirefields')" /></p>
                             </div>
-                            <div class="span4">
+                            <div class="col-md-12">
                                 <s:hidden name="intoVal" value="in"/>
                                 <%@ page import="net.tanesha.recaptcha.ReCaptcha" %>
                                 <%@ page import="net.tanesha.recaptcha.ReCaptchaFactory" %>
@@ -294,8 +305,8 @@
                                     out.print(captchaScript);
                                 %>
                             </div>                            
-                            <div class="span4">
-                                <sj:submit cssClass="btn btn-initial btn-large" onclick="addMessageProcessLogin('formNewUser_lanSel'); ga('send', 'event', 'Register', 'click', 'SignUp');" targets="divMessage" onCompleteTopics="completeUser" value="%{getText('button.createuser.login')}" validate="true" validateFunction="validationForm"/>
+                            <div class="col-md-12">
+                                <sj:submit cssClass="btn btn-initial btn-lg" onclick="addMessageProcessLogin('formNewUser_lanSel'); ga('send', 'event', 'Register', 'click', 'SignUp');" targets="divMessage" onCompleteTopics="completeUser" value="%{getText('button.createuser.login')}" validate="true" validateFunction="validationForm"/>
                             </div>
                         </div>                            
                     </s:form>
@@ -314,7 +325,7 @@
                         <s:hidden name="lanSel"/>
                         <s:hidden name="actExe" value="verifyuser"/>
                         <div class="row">
-                            <div class="span6 control-group">
+                            <div class="col-md-12 form-group">
                                 <label class="control-label req" for="formVerify_nameUser">
                                     <s:property value="getText('text.verifycel.login')" />
                                 </label>
@@ -324,7 +335,7 @@
                             </div>                                            
                         </div>    
                         <div class="row">
-                            <div class="span6 control-group">
+                            <div class="col-md-12 form-group">
                                 <label class="control-label req" for="formVerify_codVal">
                                     <s:property value="getText('text.codvalidation.login')" />
                                 </label>
@@ -334,15 +345,15 @@
                             </div>                                            
                         </div> 
                         <div class="row">    
-                            <div class="login_links span6">
+                            <div class="login_links col-md-12">
                                 <a href="javascript:void(0)" id="accessSystemUserVer">
                                     <span><s:property value="getText('link.systemingress.login')" /></span>
                                 </a>
                             </div>
                         </div> 
                     </s:form>
-                    <div class="submit_sect">
-                        <sj:submit type="button" formIds="formVerify" cssClass="btn btn-initial btn-large" onclick="addMessageProcessLogin('formVerify_lanSel'); ga('send', 'event', 'Register', 'click', 'VerifyUser');" targets="divMessage" onCompleteTopics="completeVerify" validate="true" validateFunction="validationForm"><s:property value="%{getText('button.verifyuser.login')}"/></sj:submit>
+                    <div class="">
+                        <sj:submit type="button" formIds="formVerify" cssClass="btn btn-initial btn-lg" onclick="addMessageProcessLogin('formVerify_lanSel'); ga('send', 'event', 'Register', 'click', 'VerifyUser');" targets="divMessage" onCompleteTopics="completeVerify" validate="true" validateFunction="validationForm"><s:property value="%{getText('button.verifyuser.login')}"/></sj:submit>
                     </div>
                     <script>
                         $.subscribe('completeVerify', function(event,data) {                            
@@ -366,7 +377,7 @@
                         <s:hidden name="actExe" value="changePassUser"/>
                         <s:hidden name="lanSel"/>
                         <div class="row">
-                            <div class="span6 control-group">
+                            <div class="col-md-6 form-group">
                                 <label class="control-label req" for="formChangePass_nameUser">
                                     <s:property value="getText('text.verifycel.login')" />
                                 </label>
@@ -376,7 +387,7 @@
                             </div>                                            
                         </div>    
                         <div class="row">
-                            <div class="span6 control-group">
+                            <div class="col-md-6 form-group">
                                 <label class="control-label req" for="formChangePass_codVal">
                                     <s:property value="getText('text.codvalidation.login')" />
                                 </label>
@@ -386,15 +397,15 @@
                             </div>                                            
                         </div> 
                         <div class="row">    
-                            <div class="login_links span6">
+                            <div class="login_links col-md-6">
                                 <a href="javascript:void(0)" id="accessSystemChangePass">
                                     <span><s:property value="getText('link.systemingress.login')" /></span>
                                 </a>
                             </div>
                         </div> 
                     </s:form>
-                    <div class="submit_sect">
-                        <sj:submit type="button" formIds="formChangePass" cssClass="btn btn-initial btn-large" onclick="addMessageProcessLogin('formChangePass_lanSel'); ga('send', 'event', 'Register', 'click', 'ChangePass');" targets="divMessage" onCompleteTopics="completeChangePass" validate="true" validateFunction="validationForm"><s:property value="%{getText('button.verifychangepass.login')}"/></sj:submit>
+                    <div class="">
+                        <sj:submit type="button" formIds="formChangePass" cssClass="btn btn-initial btn-lg" onclick="addMessageProcessLogin('formChangePass_lanSel'); ga('send', 'event', 'Register', 'click', 'ChangePass');" targets="divMessage" onCompleteTopics="completeChangePass" validate="true" validateFunction="validationForm"><s:property value="%{getText('button.verifychangepass.login')}"/></sj:submit>
                     </div>
                     <script>
                         $.subscribe('completeChangePass', function(event,data) {                            

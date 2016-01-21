@@ -31,10 +31,10 @@
         <td>
             <div class="btn-group">
                 <% if (usrSoilDao.getPrivilegeUser(userSoil.getIdUsr(), "soil/modify")) { %>
-                    <a class="btn btn-small btn-edit" title="<s:property value="getText('link.soiledit.soilanalysis')" />" onclick="viewForm('/soilchemical/showSoilChemical.action?action=modify&page=<%=pageNow%>', 'idSoil', <s:property value = "id_soil" />, '<s:property value="getText('title.soiledit.soilanalysis')" />', 1050, 550)"><i class="icon-pencil"></i></a>
+                    <a class="btn btn-small btn-default btn-edit" title="<s:property value="getText('link.soiledit.soilanalysis')" />" onclick="viewForm('/soilchemical/showSoilChemical.action?action=modify&page=<%=pageNow%>', 'idSoil', <s:property value = "id_soil" />, '<s:property value="getText('title.soiledit.soilanalysis')" />', 1050, 550)"><i class="icon-pencil"></i></a>
                 <% } %>
                 <% if (usrSoilDao.getPrivilegeUser(userSoil.getIdUsr(), "soil/delete")) { %>
-                    <a class="btn btn-small delete_rows_dt btn-delete" title="<s:property value="getText('link.soildel.soilanalysis')" />" onclick="showDialogDelete(this, 'confirm_dialog_soil', '/soilchemical/deleteSoilChemical.action?idSoil=<s:property value = "id_soil" />', '/soilchemical/searchSoilChemical.action?page=<%=pageNow%>', 'divSoil', '<%=divHide%>'); ga('send', 'event', 'SoilsChemical', 'click', 'Delete');"><i class="icon-trash"></i></a>
+                    <a class="btn btn-small btn-default delete_rows_dt btn-delete" title="<s:property value="getText('link.soildel.soilanalysis')" />" onclick="showDialogDelete(this, 'confirm_dialog_soil', '/soilchemical/deleteSoilChemical.action?idSoil=<s:property value = "id_soil" />', '/soilchemical/searchSoilChemical.action?page=<%=pageNow%>', 'divSoil', '<%=divHide%>'); ga('send', 'event', 'SoilsChemical', 'click', 'Delete');"><i class="icon-trash"></i></a>
                 <% } %>
             </div>
         </td>

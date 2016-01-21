@@ -10,21 +10,21 @@
         <s:hidden name="location"/>
         <s:hidden name="coCode"/>
         <div class="row">
-            <div class="span12" style="height:100%; width:100%;">
-                <div id="map_canvas" style="width:98%; height:90%; position: absolute;"></div>
+            <div class="col-md-12">
+                <div id="map_canvas" style="width:98%; height:550px; position: absolute;"></div>
             </div>
         </div>
         <div class="row">
-            <div class="span12">
+            <div class="col-md-12">
                 <div style="margin-left: 40%; position: absolute;"> 
-                    <button class="btn btn-large bt_cancel_field" onclick="toggleAndClean('divFarmsForm', 'divListFarmsForm'); $('.ui-dialog-titlebar-close').show();"><i class="icon-arrow-left"></i>  <s:property value="getText('button.backarrow.farm')" /></button>
-                    <button class="btn btn-large bt_cancel_field" onclick="selValPos('formFarm_latitude_property', 'latitude_property', 'formFarm_length_property', 'length_property'); generateDegrees('formFarm_latitude_property', 'formFarm_latitude_degrees_property', 'formFarm_latitude_minutes_property', 'formFarm_latitude_seconds_property');
+                    <button class="btn btn-lg btn-default bt_cancel_field" onclick="toggleAndClean('divFarmsForm', 'divListFarmsForm'); $('.ui-dialog-titlebar-close').show();"><i class="icon-arrow-left"></i>  <s:property value="getText('button.backarrow.farm')" /></button>
+                    <button class="btn btn-lg btn-default bt_cancel_field" onclick="selValPos('formFarm_latitude_property', 'latitude_property', 'formFarm_length_property', 'length_property'); generateDegrees('formFarm_latitude_property', 'formFarm_latitude_degrees_property', 'formFarm_latitude_minutes_property', 'formFarm_latitude_seconds_property');
                     generateDegrees('formFarm_length_property', 'formFarm_length_degrees_property', 'formFarm_length_minutes_property', 'formFarm_length_seconds_property'); $('.ui-dialog-titlebar-close').show(); toggleAndClean('divFarmsForm', 'divListFarmsForm');"><i class="icon-check"></i>  <s:property value="getText('button.pointsel.farm')" /></button>
                 </div>
             </div>
-            <div class="span12">
+            <div class="col-md-12">
                 <div style="margin-left:75%; margin-top:100px; position: absolute;"> 
-                    <div class="alert mapAdv">
+                    <div class="alert alert-warning mapAdv">
                         <h4><s:property value="getText('title.information.farm')" />:</h4>
                         <p><s:property value="getText('area.information.farm')" />.</p>
                     </div>
@@ -106,7 +106,7 @@
             return marker;
       }
       
-      var jsonString = '{"type": "FeatureCollection", "features": [{"type": "Feature","geometry": {"type": "Point","coordinates": [-38.3613558,-8.8044875]},"properties": { "info": "<div style=\'line-height:1.35;overflow:hidden;white-space:nowrap;\'> Feature id = vale<br/>Feature Value = Zone 1 <button onclick=\'closeWindow();\' class=\'btn btn-large bt_cancel_farm\'><i class=\'icon-ban-circle\'></i>  Cancelar</button></div>", "Ordem": "193", "Eixo": "Leste", "Meta": "1L", "Municipio": "Petrolândia", "Estado": "PE", "Nome da Comunidade": "Agrovila 4"}}, {"type": "Feature","geometry": {"type": "Point","coordinates": [-38.3445892,-8.7940031]},"properties": {"Ordem": "194","Eixo": "Leste","Meta": "1L", "Municipio": "Petrolândia / Floresta", "Estado": "PE", "Nome da Comunidade": "Agrovila 5"}}]}';
+      var jsonString = '{"type": "FeatureCollection", "features": [{"type": "Feature","geometry": {"type": "Point","coordinates": [-38.3613558,-8.8044875]},"properties": { "info": "<div style=\'line-height:1.35;overflow:hidden;white-space:nowrap;\'> Feature id = vale<br/>Feature Value = Zone 1 <button onclick=\'closeWindow();\' class=\'btn btn-lg bt_cancel_farm\'><i class=\'icon-ban-circle\'></i>  Cancelar</button></div>", "Ordem": "193", "Eixo": "Leste", "Meta": "1L", "Municipio": "Petrolândia", "Estado": "PE", "Nome da Comunidade": "Agrovila 4"}}, {"type": "Feature","geometry": {"type": "Point","coordinates": [-38.3445892,-8.7940031]},"properties": {"Ordem": "194","Eixo": "Leste","Meta": "1L", "Municipio": "Petrolândia / Floresta", "Estado": "PE", "Nome da Comunidade": "Agrovila 5"}}]}';
       var geojson = $.parseJSON(jsonString);
       
       var myOptions = {
@@ -164,7 +164,7 @@
                   '</fieldset>'+
               '</div>'+       
           '</div>'+
-          '<button type="button" class="btn btn-initial" onclick="viewForm(\'/showFarm.action?action=modify&page=1\', \'idFar\', 520, \'Editar Finca\', 1050, 550)">'+
+          '<button type="button" class="btn btn-default btn-initial" onclick="viewForm(\'/showFarm.action?action=modify&page=1\', \'idFar\', 520, \'Editar Finca\', 1050, 550)">'+
               '<i class="icon-pencil"></i> Editar Finca'+
           '</button>';
             infowindow.setContent(info);
@@ -179,6 +179,8 @@
       var marker = createMarker(latLng,"");
       marker.setMap(map);
       infowindow.setContent('<b>'+locateFarm+'</b><br>'+latLng);
-      google.maps.event.addDomListener(mapInfo, 'load', initialize);
+      google.maps.event.addDomListener(mapInfo, 'load', initialize);      
+//        var myMap = document.getElementById('map_canvas');
+//        google.maps.event.trigger(myMap, 'resize');
     </script> 
 </html>

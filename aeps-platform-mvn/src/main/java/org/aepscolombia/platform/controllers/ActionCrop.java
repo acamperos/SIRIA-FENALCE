@@ -1468,7 +1468,7 @@ public class ActionCrop extends BaseAction {
                 pro.setIdProEve(null);
             } else {
                 pro = cropDao.objectById(idCrop);
-                areaCropSel = pro.getQuantAreaProEve();
+                areaCropSel = (pro.getQuantAreaProEve()!=null) ? pro.getQuantAreaProEve() : 0.0;
             }                        
             Fields lot = lotDao.objectById(this.getIdField()); 
 //            double areaOld = lot.getAreaFie();

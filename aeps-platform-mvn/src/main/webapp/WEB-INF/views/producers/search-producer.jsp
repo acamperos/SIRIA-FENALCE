@@ -9,30 +9,29 @@
 <% Integer entTypeId = new EntitiesDao().getEntityTypeId(user.getIdUsr()); %>
 <% HashMap addPro    = (HashMap) request.getAttribute("additionals");%>
 <% String valuePro   = (String) (addPro.get("selected"));%>
-<s:form id="formProducerSearch" action="searchProducer.action?selected=%{selected}" theme="bootstrap" cssClass="form-horizontal formClassProducer" label="%{getText('title.searchproducer.producer')}">
+<s:form id="formProducerSearch" action="searchProducer.action?selected=%{selected}" cssClass="formClassProducer" label="%{getText('title.searchproducer.producer')}">
     <s:hidden name="searchFromProducer" value="1"/>
     <% if (entTypeId==3) { %>
-        <div class="row-fluid">
-            <div class="span5">
+        <div class="row">
+            <div class="col-md-5 form-group">
                 <s:select        
                     label="%{getText('select.agronolist.producer')}:"
                     multiple="multiple"
                     name="name_agronomist" 
                     list="list_agronomist" 
                     listKey="idEnt" 
+                    style="width: 100%"
                     listValue="%{nameEnt==null ? emailEnt : nameEnt}" 
                 />
             </div> 
-            <div class="span1" style="padding-left: 28px">
-                <sj:submit type="button" cssClass="btn btn-default" onclick="addMessageProcess()" theme="simple" targets="divConListProducers" onCompleteTopics="completeProducer"><i class="icon-search"></i></sj:submit>
-            </div>
-            <% if (valuePro.equals("producer")) {%>
-                <div class="span2">
+            <div>
+                <sj:submit type="button" cssClass="btn btn-default" onclick="addMessageProcess()" targets="divConListProducers" onCompleteTopics="completeProducer"><i class="icon-search"></i></sj:submit>
+                <% if (valuePro.equals("producer")) {%>
                     <s:submit type="button" cssClass="btn btn-default" onclick="addMessageProcess(); getReportXls('getReportProducer.action', 'selectAllname_agronomist', 'selectItemname_agronomist')"><i class="icon-file-text"></i> <s:property value="getText('button.dataexport.producer')" /></s:submit>
-                    <%--<s:url id="fileDownload" action="getReportProducer.action" includeParams="all" ></s:url>--%>
-                    <%--<s:a type="button" href="%{fileDownload}" onclick="getReportCsv('getReportProducer.action', 'formProducerSearch', 'divMessage')" cssClass="btn btn-default"><i class="icon-file-text"></i> Exportar Datos</s:a>--%>
-                </div>
-            <% } %>
+                        <%--<s:url id="fileDownload" action="getReportProducer.action" includeParams="all" ></s:url>--%>
+                        <%--<s:a type="button" href="%{fileDownload}" onclick="getReportCsv('getReportProducer.action', 'formProducerSearch', 'divMessage')" cssClass="btn btn-default"><i class="icon-file-text"></i> Exportar Datos</s:a>--%>
+                <% } %>
+            </div>
         </div>        
         <script>
             var lanVal = $('#lanSel').val();
@@ -64,9 +63,9 @@
             $("#formProducerSearch_name_agronomist").multipleSelect('checkAll');
         </script>
     <% } %>
-    <div class="control-group" id="searchBasicProducer">
-        <s:textfield cssClass="form-control" name="search_producer" placeholder="%{getText('text.searchproducer.producer')}" theme="simple" />
-        <sj:submit type="button" cssClass="btn btn-default" onclick="addMessageProcess()" theme="simple" targets="divConListProducers" onCompleteTopics="completeProducer"><i class="icon-search"></i></sj:submit>
+    <div class="form-group" id="searchBasicProducer">
+        <s:textfield name="search_producer" placeholder="%{getText('text.searchproducer.producer')}" theme="simple" />
+        <sj:submit type="button" cssClass="btn btn-default" onclick="addMessageProcess()" targets="divConListProducers" onCompleteTopics="completeProducer"><i class="icon-search"></i></sj:submit>
         <a onclick="showSearchAdvance('searchBasicProducer', 'searchAdvanceProducer', 'formProducerSearch_searchFromProducer', 2)" class="radioSelect"><s:property value="getText('link.advancesearch.producer')" /> </a><i class="icon-chevron-down"></i>
         <s:set name="valSel" value="selected"/> 
         <s:if test="%{#valSel.equals('producer')}">
@@ -78,99 +77,125 @@
             <% } %>
         <% } %>
     </div>   
-    <div id="searchAdvanceProducer" class="hide">
-        <div class="control-group">
+    <div id="searchAdvanceProducer" class="hideInfo">
+        <div class="form-group">
             <a onclick="showSearchAdvance('searchBasicProducer', 'searchAdvanceProducer', 'formProducerSearch_searchFromProducer', 1); clearForm('formProducerSearch');" class="radioSelect"><s:property value="getText('link.simplesearch.producer')" /> </a><i class="icon-chevron-up"></i>
         </div>
-        <div class="row-fluid">
-            <div class="span5">
-                <s:select            
-                    label="%{getText('select.searchdocumenttype.producer')}:"
-                    name="typeIdent" 
-                    list="type_ident_producer" 
-                    listKey="acronymDocTyp" 
-                    listValue="nameDocTyp" 
-                    headerKey="-1" 
-                    headerValue="---"
-                    onchange="selConf(this.value, 'formProducerSearch_num_ident_producer', '%{#attr.country_code}');
-                              showOtherTypeDocument(this.value, 'divSearchInfoCompany', 'divSearchInfoPerson');"
-                    />
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <s:label for="formProducerSearch_typeIdent" cssClass="control-label" value="%{getText('select.searchdocumenttype.producer')}:"></s:label>
+                    <div class="controls">
+                        <s:select            
+                            name="typeIdent" 
+                            list="type_ident_producer" 
+                            listKey="acronymDocTyp" 
+                            listValue="nameDocTyp" 
+                            headerKey="-1" 
+                            headerValue="---"
+                            onchange="selConf(this.value, 'formProducerSearch_num_ident_producer', '%{#attr.country_code}');
+                                      showOtherTypeDocument(this.value, 'divSearchInfoCompany', 'divSearchInfoPerson');"
+                        />
+                    </div>                          
+                </div>                
             </div>
-            <div class="span3" style="padding-left: 28px">
-                <s:textfield
-                    label="%{getText('text.searchdocumentnumber.producer')}:"
-                    name="num_ident_producer"         
-                    />
+            <div class="col-md-3">
+                <div class="form-group">
+                    <s:label for="formProducerSearch_num_ident_producer" cssClass="control-label" value="%{getText('text.searchdocumentnumber.producer')}:"></s:label>
+                    <div class="controls">
+                        <s:textfield name="num_ident_producer" />
+                    </div>                          
+                </div>
             </div>  
         </div>  
-        <div class="hide" id="divSearchInfoCompany">
-            <div class="row-fluid">
-                <div class="span5">
-                    <s:textfield
-                        label="%{getText('text.searchcompanyname.producer')}"
-                        name="nameCompany"
-                        />
+        <div class="hideInfo" id="divSearchInfoCompany">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <s:label for="formProducerSearch_nameCompany" cssClass="control-label" value="%{getText('text.searchcompanyname.producer')}:"></s:label>
+                        <div class="controls">
+                            <s:textfield name="nameCompany" />
+                        </div>                          
+                    </div>
                 </div>  
-                <div class="span3" style="padding-left: 28px">
-                   <s:textfield
-                        label="%{getText('text.searchnamerep.producer')}:"
-                        name="firstNameRep"
-                        />
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <s:label for="formProducerSearch_firstNameRep" cssClass="control-label" value="%{getText('text.searchnamerep.producer')}:"></s:label>
+                            <div class="controls">
+                            <s:textfield name="firstNameRep" />
+                        </div>                          
+                    </div> 
                 </div>
             </div> 
         </div>   
-        <div class="hide" id="divSearchInfoPerson">
-            <div class="row-fluid">
-                <div class="span5">
-                    <s:textfield
-                        label="%{getText('text.searchnamepro.producer')}:"
-                        name="names_producer_1"
-                        />
+        <div class="hideInfo" id="divSearchInfoPerson">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <s:label for="formProducerSearch_names_producer_1" cssClass="control-label" value="%{getText('text.searchnamepro.producer')}:"></s:label>
+                        <div class="controls">
+                            <s:textfield name="names_producer_1" />
+                        </div>                          
+                    </div>
                 </div>  
-                <div class="span3" style="padding-left: 28px">
-                   <s:textfield
-                        label="%{getText('text.searchlastnamepro.producer')}:"
-                        name="last_names_producer_1"
-                        />
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <s:label for="formProducerSearch_last_names_producer_1" cssClass="control-label" value="%{getText('text.searchlastnamepro.producer')}:"></s:label>
+                        <div class="controls">
+                            <s:textfield name="last_names_producer_1" />
+                        </div>                          
+                    </div>
                 </div>
             </div> 
         </div> 
-        <div class="row-fluid">
-            <div class="span5">
-                <s:select
-                    label="%{getText('text.searchdep.producer')}"
-                    name="depPro" 
-                    list="department_producer" 
-                    listKey="idDep" 
-                    listValue="nameDep"          
-                    headerKey=" " 
-                    headerValue="---"
-                    onchange="chargeValues('/comboMunicipalities.action', 'depId', this.value, 'formProducerSearch_cityPro', 'formProducerSearch')"
-                    />
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <s:label for="formProducerSearch_depPro" cssClass="control-label" value="%{getText('text.searchdep.producer')}:"></s:label>
+                    <div class="controls">
+                        <s:select
+                            name="depPro" 
+                            list="department_producer" 
+                            listKey="idDep" 
+                            listValue="nameDep"          
+                            headerKey=" " 
+                            headerValue="---"
+                            onchange="chargeValues('/comboMunicipalities.action', 'depId', this.value, 'formProducerSearch_cityPro', 'formProducerSearch')"
+                        />
+                    </div>                          
+                </div>                
             </div>
-            <div class="span4" style="padding-left: 28px">
-                <s:select
-                    label="%{getText('text.searchmun.producer')}"
-                    list="city_producer" 
-                    listKey="idMun" 
-                    listValue="nameMun" 
-                    headerKey=" " 
-                    headerValue="---"
-                    name="cityPro" />
+            <div class="col-md-3">
+                <div class="form-group">
+                    <s:label for="formProducerSearch_cityPro" cssClass="control-label" value="%{getText('text.searchmun.producer')}:"></s:label>
+                    <div class="controls">
+                        <s:select
+                            list="city_producer" 
+                            listKey="idMun" 
+                            listValue="nameMun" 
+                            headerKey=" " 
+                            headerValue="---"
+                            name="cityPro" />
+                    </div>                          
+                </div>
             </div>      
         </div>   
-        <div class="row-fluid">
-            <div class="span5">
-                <s:textfield
-                    label="%{getText('text.searchdir.producer')}:"
-                    name="direction_producer"
-                    />
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <s:label for="formProducerSearch_direction_producer" cssClass="control-label" value="%{getText('text.searchdir.producer')}:"></s:label>
+                    <div class="controls">
+                        <s:textfield name="direction_producer" />
+                    </div>                          
+                </div>
             </div>  
-            <div class="span3" style="padding-left: 28px">
-               <s:textfield
-                    label="%{getText('text.searchemail.producer')}:"
-                    name="email_producer"
-                    />
+            <div class="col-md-3">
+                <div class="form-group">
+                    <s:label for="formProducerSearch_email_producer" cssClass="control-label" value="%{getText('text.searchemail.producer')}:"></s:label>
+                    <div class="controls">
+                        <s:textfield name="email_producer" />
+                    </div>                          
+                </div>
             </div>
         </div> 
         <div>   

@@ -11,10 +11,10 @@
 <% Integer entTypeId = new EntitiesDao().getEntityTypeId(user.getIdUsr()); %>
 <% HashMap addField    = (HashMap) request.getAttribute("additionals");%>
 <% String valueField   = (String) addField.get("selected");%>
-<s:form id="formFieldSearch" theme="bootstrap" action="searchField.action?selected=%{selected}" cssClass="form-horizontal formClassLot" label="%{getText('title.searchfield.field')}">
+<s:form id="formFieldSearch" action="searchField.action?selected=%{selected}" cssClass="formClassLot" label="%{getText('title.searchfield.field')}">
     <% if (entTypeId==3) { %>
-        <div class="row-fluid">
-            <div class="span5">
+        <div class="row">
+            <div class="col-md-5 form-group">
                 <s:select        
                     label="%{getText('select.agronomistlist.field')}:"
                     multiple="multiple"
@@ -24,14 +24,12 @@
                     listValue="%{nameEnt==null ? emailEnt : nameEnt}" 
                 />
             </div> 
-            <div class="span1" style="padding-left: 28px">
-                <sj:submit type="button" cssClass="btn btn-default" onclick="addMessageProcess()" theme="simple" targets="divConListFields" onCompleteTopics="completeField"><i class="icon-search"></i></sj:submit>
-            </div> 
-            <% if (valueField.equals("lot")) {%>
-                <div class="span2">
+            <div>
+                <sj:submit type="button" cssClass="btn btn-default" onclick="addMessageProcess()" targets="divConListFields" onCompleteTopics="completeField"><i class="icon-search"></i></sj:submit>
+                <% if (valueField.equals("lot")) {%>
                     <s:submit type="button" cssClass="btn btn-default" onclick="addMessageProcess(); getReportXls('/getReportField.action', 'selectAllname_agronomist', 'selectItemname_agronomist')"><i class="icon-file-text"></i> <s:property value="getText('button.exportdata.field')" /></s:submit>
-                </div>
-            <% } %>
+                <% } %>
+            </div> 
         </div>
         <script>
             var lanVal = $('#lanSel').val();
@@ -65,9 +63,9 @@
         </script>
     <% } %>    
     <s:hidden name="searchFromField" value="1"/>    
-    <div class="control-group" id="searchBasicField">
-        <s:textfield cssClass="form-control" name="search_field" placeholder="%{getText('text.searchfield.field')}" theme="simple" />
-        <sj:submit type="button" cssClass="btn btn-default" onclick="addMessageProcess()" theme="simple" targets="divConListFields" onCompleteTopics="completeField"><i class="icon-search"></i></sj:submit>
+    <div class="form-group" id="searchBasicField">
+        <s:textfield name="search_field" placeholder="%{getText('text.searchfield.field')}" theme="simple" />
+        <sj:submit type="button" cssClass="btn btn-default" onclick="addMessageProcess()" targets="divConListFields" onCompleteTopics="completeField"><i class="icon-search"></i></sj:submit>
         <a onclick="showSearchAdvance('searchBasicField', 'searchAdvanceField', 'formFieldSearch_searchFromField', 2)" class="radioSelect"><s:property value="getText('link.advancesearch.field')" /> </a><i class="icon-chevron-down"></i>
         <s:set name="valSel" value="selected"/> 
         <s:if test="%{#valSel.equals('lot')}">
@@ -79,68 +77,87 @@
             <% } %>
         <% } %>
     </div>   
-    <div id="searchAdvanceField" class="hide">
-        <div class="control-group">
+    <div id="searchAdvanceField" class="hideInfo">
+        <div class="form-group">
             <a onclick="showSearchAdvance('searchBasicField', 'searchAdvanceField', 'formFieldSearch_searchFromField', 1); clearForm('formFieldSearch');" class="radioSelect"><s:property value="getText('link.simplesearch.field')" /> </a><i class="icon-chevron-up"></i>
         </div>
-        <div class="row-fluid">
-            <div class="span5">
-                <s:textfield
-                    label="%{getText('text.searchproducer.field')}:"
-                    name="name_producer_lot"
-                    />
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <s:label for="formFieldSearch_name_producer_lot" cssClass="control-label" value="%{getText('text.searchproducer.field')}:"></s:label>
+                    <div class="controls">
+                        <s:textfield name="name_producer_lot" />
+                    </div>                          
+                </div>
             </div>                          
-            <div class="span4" style="padding-left: 28px">
-                <s:textfield
-                    label="%{getText('text.searchnamefarm.field')}:"
-                    name="name_property_lot"   
-                    />
+            <div class="col-md-3">
+                <div class="form-group">
+                    <s:label for="formFieldSearch_name_property_lot" cssClass="control-label" value="%{getText('text.searchnamefarm.field')}:"></s:label>
+                    <div class="controls">
+                        <s:textfield name="name_property_lot" />
+                    </div>                          
+                </div>
             </div>
         </div>
-        <div class="row-fluid">
-            <div class="span5">
-                <s:select
-                    label="%{getText('select.searchtypefield.field')}:"
-                    name="typeLot"
-                    list="type_property_lot" 
-                    listKey="idFieTyp" 
-                    listValue="nameFieTyp"              
-                    headerKey="-1" 
-                    headerValue="---" />
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <s:label for="formFieldSearch_typeLot" cssClass="control-label" value="%{getText('select.searchtypefield.field')}:"></s:label>
+                    <div class="controls">
+                        <s:select
+                            name="typeLot"
+                            list="type_property_lot" 
+                            listKey="idFieTyp" 
+                            listValue="nameFieTyp"              
+                            headerKey="-1" 
+                            headerValue="---"
+                        />
+                    </div>                          
+                </div>
             </div>
-            <div class="span4" style="padding-left: 28px">
-                <s:textfield
-                    label="%{getText('text.searchnamefield.field')}:"
-                    name="name_lot"                    
-                    />
+            <div class="col-md-3">
+                <div class="form-group">
+                    <s:label for="formFieldSearch_name_lot" cssClass="control-label" value="%{getText('text.searchnamefield.field')}:"></s:label>
+                    <div class="controls">
+                        <s:textfield name="name_lot" />
+                    </div>                          
+                </div>
             </div>    
         </div>    
-        <div class="row-fluid">
-            <div class="span5">
-                <s:textfield
-                    label="%{getText('text.searchlatitude.field')}:"
-                    name="latitude_lot"           
-                    />
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <s:label for="formFieldSearch_latitude_lot" cssClass="control-label" value="%{getText('text.searchlatitude.field')}:"></s:label>
+                    <div class="controls">
+                        <s:textfield name="latitude_lot" />
+                    </div>                          
+                </div>
             </div>
-            <div class="span4" style="padding-left: 28px">
-                <s:textfield
-                    label="%{getText('text.searchlongitude.field')}:"
-                    name="length_lot"      
-                    />
+            <div class="col-md-3">
+                <div class="form-group">
+                    <s:label for="formFieldSearch_length_lot" cssClass="control-label" value="%{getText('text.searchlongitude.field')}:"></s:label>
+                    <div class="controls">
+                        <s:textfield name="length_lot" />
+                    </div>                          
+                </div>
             </div>  
         </div>  
-        <div class="row-fluid">
-            <div class="span5">
-                <s:textfield
-                    label="%{getText('text.searchaltitude.field')}:"
-                    name="altitude_lot"              
-                    />
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <s:label for="formFieldSearch_altitude_lot" cssClass="control-label" value="%{getText('text.searchaltitude.field')}:"></s:label>
+                    <div class="controls">
+                        <s:textfield name="altitude_lot" />
+                    </div>                          
+                </div>
             </div>
-            <div class="span4" style="padding-left: 28px">
-                <s:textfield
-                    label="%{getText('text.searcharea.field')}:"
-                    name="area_lot"                    
-                    />
+            <div class="col-md-3">
+                <div class="form-group">
+                    <s:label for="formFieldSearch_area_lot" cssClass="control-label" value="%{getText('text.searcharea.field')}:"></s:label>
+                    <div class="controls">
+                        <s:textfield name="area_lot" />
+                    </div>                          
+                </div>
             </div>         
         </div>         
         <div> 

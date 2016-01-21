@@ -1,8 +1,8 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <% int pageSel = (request.getParameter("page") != null) ? Integer.parseInt(String.valueOf(request.getParameter("page"))) : 1;%>
 <div class="container">
-    <div class="row-fluid">
-        <div class="span12">
+    <div class="row">
+        <div class="col-md-12">
             <s:hidden name="coCode"/>
             <s:hidden name="points"/>
             <div class="tabbable tabbable-bordered">
@@ -11,8 +11,8 @@
                     <li><a href="#tb3_b" id="aMap" data-toggle="tab"><i class="icon-star color-star"></i> <s:property value="getText('tab.mapinfo.field')" /></a></li>
                 </ul>
                 <div class="tab-content">
-                    <div class="tab-pane" id="tb3_b" style="height: 462px">
-                        <div id="map_general" style="width:58%; height:60%; position: absolute;"></div>
+                    <div class="tab-pane" id="tb3_b" style="height: 700px">
+                        <div id="map_general" style="width:85%; height:92%; position: absolute;"></div>
                         <script>                
                             var lanVal = $('#lanSel').val();
                             var str   = lanVal;
@@ -159,14 +159,14 @@
                         </script> 
                     </div>
                     <div class="tab-pane active" id="tb3_a">
-                        <div class="container" id="divSearchFields">
+                        <div id="divSearchFields">
                             <div class="panel">
                                 <div class="panel-body">
                                     <%@ include file="search-field.jsp" %>
                                 </div>     
                             </div>     
                         </div>     
-                        <div class="container" id="divConListFields">
+                        <div id="divConListFields">
                             <%@ include file="info-field.jsp" %>            
                         </div>
                     </div>

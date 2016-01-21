@@ -10,32 +10,35 @@
         <link rel="icon" type="image/ico" href="img/logoAEPS.ico">
         <title>AEPS</title>
         <meta name="description" content="">
-        <meta name="viewport" content="width=device-width"> 							
-        <link rel="stylesheet" href="scripts/css/generals/beoro.min.css">        
+        <meta name="viewport" content="width=device-width, initial-scale=1"> 	
+        <meta http-equiv="Cache-control: max-age=86400" content="public">
+        <link rel="stylesheet" href="scripts/css/generals/beoro.min.css">           
         <sj:head jqueryui="true" loadAtOnce="true"/>
         <sb:head includeScripts="true" includeScriptsValidation="true"/>        
-        <link rel="stylesheet" href="scripts/css/generals/main.css">
+        <link rel="stylesheet" href="scripts/css/generals/main.min.css">
         <link rel="stylesheet" href="scripts/css/font-awesome/css/font-awesome.min.css">   
         <link href='http://fonts.googleapis.com/css?family=Istok+Web:500,700' rel='stylesheet' type='text/css'>
     </head>
     <body>
-        <div id="divMessage"></div>
-        <div id="dialog-form"></div>
-        <div class="header">
-            <%@ include file="WEB-INF/views/generals/header.jsp" %>
-        </div>
-        <div class="body" id="divBodyLayout">
-            <%--<%@ include file="WEB-INF/views/generals/home.jsp" %>--%>
-        </div>
-        <div class="footer">
-            <%@ include file="WEB-INF/views/generals/footer.jsp" %>            
-        </div>
+        <!--<div class="container">-->
+            <s:hidden name="lanSel"/>
+            <div id="divMessage"></div>
+            <div id="dialog-form"></div>
+            <div class="header container-fluid">
+                <%@ include file="WEB-INF/views/generals/header.jsp" %>
+            </div>
+            <div class="body container-fluid" id="divBodyLayout">
+                <%--<%@ include file="WEB-INF/views/generals/home.jsp" %>--%>
+            </div>
+            <div class="footer container-fluid">
+                <%@ include file="WEB-INF/views/generals/footer.jsp" %>            
+            </div>
+        <!--</div>-->
         <script type="text/javascript" src="scripts/js/jquery/jquery.maskedinput.js"></script>
         <script type="text/javascript" src="scripts/js/jquery/jquery.maskMoney.js"></script>
         <script type="text/javascript" src="scripts/js/jquery/jquery.numeric.js"></script>
         <script type="text/javascript" src="scripts/js/jquery/jquery.blockUI.js"></script>        
-        <script type="text/javascript" src="scripts/js/generals/functions.js"></script>	 
-        <script type="text/javascript" src="scripts/js/generals/responsiveslides.js"></script>        
+        <script type="text/javascript" src="scripts/js/generals/functions.min.js"></script>	   
         <script>            
             var actionName = '<%= session.getAttribute("action") %>';
             function doAction() {

@@ -2,7 +2,7 @@
 <%@ taglib prefix="sj" uri="/struts-jquery-tags" %>
 <%@ taglib prefix="sb" uri="/struts-bootstrap-tags" %>
 <div class="panel">
-    <div class="panel-body w-box">             
+    <div class="panel-body table-responsive w-box">       
         <fieldset>
             <legend>
                 <h3>
@@ -15,7 +15,7 @@
                     </s:else>
                 </h3>    
             </legend>
-            <table class="table table-bordered">
+            <table class="table table-bordered table-condensed">
                 <tbody>
                     <s:if test="%{typeEnt!=2}">
                         <tr>

@@ -39,16 +39,15 @@
 %>
 
 <div class="msgWin" id="messageWin"></div>
-<div id="divCrops" class="w-box">    
+<div id="divCrops" class="table-responsive w-box">    
     <% if (usrCropDao.getPrivilegeUser(userCrop.getIdUsr(), "crop/create")) { %>
         <% if (entTypeCropId!=3) { %>
             <% if (value.equals("crop")) {  %>
-                <button type="button" class="btn btn-large btn-register btn-space" onclick="viewForm('/crop/showCrop.action?action=create', 'idCrop', '', '<s:property value="getText('title.addcrop.crop')" />', 1050, 700)">
+                <button type="button" class="btn btn-lg btn-register btn-space" onclick="viewForm('/crop/showCrop.action?action=create', 'idCrop', '', '<s:property value="getText('title.addcrop.crop')" />', 1050, 700)">
                     <i class="icon-plus"></i> <s:property value="getText('button.addcrop.crop')" />
                 </button><br />
-                <div class="btn btn-group btn-space" onclick="clickSelAll('chkSelectAll', 'chkNumber', 'btnDelCrop');">
-                    <input type="checkbox" class="chkSelectAll textFloat" />
-                    <label class="textFloat" style="padding-left: 7px; margin-bottom: 0;"><s:property value="getText('label.selectall.crop')" /></label>
+                <div class="btn-group btn-space" onclick="clickSelAll('chkSelectAll', 'chkNumber', 'btnDelCrop');">
+                    <button class="btn btn-default" type="button"><input type="checkbox" class="chkSelectAll textFloat" />&nbsp;<s:property value="getText('label.selectall.crop')" /></button>
                 </div>
                 <button type="button" id="btnDelCrop" disabled="disabled" class="btn btn-initial btn-space btnGetAll disabled" onclick="showDialogDeleteAll(this, 'chkNumber', 'confirm_dialog_crop', '/crop/deleteAllCrop.action', '/crop/searchCrop.action?page=<%=pageNow%>', 'divCrops', '<%=divHide%>');">
                     <i class="icon-trash"></i> <s:property value="getText('button.deletesel.crop')" />
@@ -56,7 +55,7 @@
             <% } %>
         <% } %>
     <% } %>
-    <table class="table table-bordered table-hover" style="<%= table %>" id='tblCrops'>
+    <table class="table table-bordered table-hover table-condensed" style="<%= table %>" id='tblCrops'>
         <thead>
             <tr>
                 <% if (usrCropDao.getPrivilegeUser(userCrop.getIdUsr(), "crop/modify") || (usrCropDao.getPrivilegeUser(userCrop.getIdUsr(), "crop/delete"))) { %>
@@ -104,12 +103,12 @@
         </tbody>
     </table>
     <label style="<%= label%>"><s:property value="getText('label.nofounddata.crop')" /></label>
-    <div class="hide">
+    <div class="hideInfo">
         <div id="confirm_dialog_crop" class="cbox_content">
             <div class="sepH_c"><s:text name="%{getText('area.deletecrop.crop')}" /></div>
             <div>
                 <a href="#" class="btn btn-small btn-initial confirm_yes"><s:property value="getText('link.optyes')" /></a>
-                <a href="#" class="btn btn-small confirm_no"><s:property value="getText('link.optno')" /></a>
+                <a href="#" class="btn btn-default btn-small confirm_no"><s:property value="getText('link.optno')" /></a>
             </div>
         </div>
     </div>
@@ -119,7 +118,7 @@
         <button class="btn btn_per" onclick="toggleAndClean('<%=divShow%>', '<%=divHide%>')"><i class="icon-arrow-left"></i> <s:property value="getText('button.backoption')" /></button>
     <% }%>
 </div>
-<div style="text-align:center; <%= table %>">
+<div class="text-center" style="<%= table %>">
     <% String result = JavascriptHelper.pager_params_ajax(pageNow, countTotal, maxResults, "/crop/searchCrop.action?selected="+value, "divConListCrop", "", "", "formCropSearch");%>    
     <%= result%>
 </div>

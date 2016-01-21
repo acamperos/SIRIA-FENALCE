@@ -461,7 +461,7 @@ public class ActionProducer extends BaseAction {
          * 2) modify: Al momento de modificar un registro
          * 3) delete: Al momento de borrar un registro
          */
-        if ((actExe.equals("create") || actExe.equals("modify")) && (linkProducer.equals("0") || linkProducer==null)) {
+        if ((actExe.equals("create") || actExe.equals("modify")) && (linkProducer==null || linkProducer.equals("0"))) {
             //        ArrayList[] errors = new ArrayList[10];
             //        if ($option=="modify") {
             // $fields = array("id", "code", "types_barcode", "handle_type");
@@ -910,7 +910,7 @@ public class ActionProducer extends BaseAction {
 //            System.out.println("idEnt->"+idEnt);
             int digVer   = (dig_ver_producer.equals("")) ? -1 : Integer.parseInt(dig_ver_producer);
             Entities ent = null;
-            if (linkProducer.equals("1")) {
+            if (linkProducer!=null && linkProducer.equals("1")) {
                 ent = entDao.findById(idOldEntity);
                 
                 Entities entCopy = ent;
@@ -969,6 +969,7 @@ public class ActionProducer extends BaseAction {
                 if (celphone_producer != null && celphone_producer > 0) {
                     ent.setCellphoneEnt(celphone_producer);
                 }
+//                throw new HibernateException("vayaaaa");
                 ent.setStatus(true);                
                 ent.setCreatedBy(idUserMobile);
                 session.saveOrUpdate(ent);

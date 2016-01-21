@@ -29,7 +29,7 @@
 <% divHide = "divConListCrop"; %>    
 
 <div class="msgWin" id="messageWin"></div>
-<div id="divCrops" class="w-box">    
+<div id="divCrops" class="table-responsive w-box">    
     <table class="table table-bordered table-hover" style="<%= table %>" id='tblCrops'>
         <thead>
             <tr>
@@ -64,7 +64,7 @@
     </table>
     <label style="<%= label%>"><s:property value="getText('label.nofounddata.reportcrop')" /></label>
 </div>
-<div style="text-align:center; <%= table %>">
+<div class="text-center" style="<%= table %>">
     <% String result = JavascriptHelper.pager_params_ajax(pageNow, countTotal, maxResults, "/searchCropRep.action?selected="+value, divHide, "", "", "formCropSearch");%>    
     <%= result%>
 </div>

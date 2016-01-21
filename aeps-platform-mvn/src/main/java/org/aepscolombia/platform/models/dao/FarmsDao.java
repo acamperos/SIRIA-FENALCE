@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.net.UnknownHostException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -674,6 +675,8 @@ public class FarmsDao
                         cell.setCellValue((Double) obj);
                     } else if (obj instanceof Integer) {
                         cell.setCellValue((Integer) obj);
+                    } else if (obj instanceof BigInteger) {   
+                        cell.setCellValue((String) obj.toString());
                     } 
                 }
             }

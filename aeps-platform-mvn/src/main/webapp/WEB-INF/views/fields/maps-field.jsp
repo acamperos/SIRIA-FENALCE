@@ -8,19 +8,19 @@
         <s:hidden name="length_lot"/>
         <s:hidden name="coCode"/>
         <div class="row">
-            <div class="span12">
-                <div id="map_canvas" style="width:98%; height:90%; position: absolute;"></div>
+            <div class="col-md-12">
+                <div id="map_canvas" style="width:98%; height:550px; position: absolute;"></div>
             </div>
         </div>
         <div class="row">
-            <div class="span12">
+            <div class="col-md-12">
                 <div style="margin-left: 40%; position: absolute;"> 
-                    <button class="btn btn-large bt_cancel_field" onclick="toggleAndClean('divFieldsForm', 'divListFieldsForm'); $('.ui-dialog-titlebar-close').show();"><i class="icon-arrow-left"></i>  <s:property value="getText('button.backarrow.field')" /></button>
-                    <button class="btn btn-large bt_cancel_field" onclick="selValPos('formField_latitude_lot', 'latitude_lot', 'formField_length_lot', 'length_lot'); generateDegrees('formField_latitude_lot', 'formField_latitude_degrees_lot', 'formField_latitude_minutes_lot', 'formField_latitude_seconds_lot');
+                    <button class="btn btn-lg btn-default bt_cancel_field" onclick="toggleAndClean('divFieldsForm', 'divListFieldsForm'); $('.ui-dialog-titlebar-close').show();"><i class="icon-arrow-left"></i>  <s:property value="getText('button.backarrow.field')" /></button>
+                    <button class="btn btn-lg btn-default bt_cancel_field" onclick="selValPos('formField_latitude_lot', 'latitude_lot', 'formField_length_lot', 'length_lot'); generateDegrees('formField_latitude_lot', 'formField_latitude_degrees_lot', 'formField_latitude_minutes_lot', 'formField_latitude_seconds_lot');
                     generateDegrees('formField_length_lot', 'formField_length_degrees_lot', 'formField_length_minutes_lot', 'formField_length_seconds_lot'); $('.ui-dialog-titlebar-close').show(); toggleAndClean('divFieldsForm', 'divListFieldsForm');"><i class="icon-check"></i>  <s:property value="getText('button.pointsel.field')" /></button>
                 </div>
             </div>
-            <div class="span12">
+            <div class="col-md-12">
                 <div style="margin-left:75%; margin-top:100px; position: absolute;"> 
                     <div class="alert mapAdv">
                         <h4><s:property value="getText('title.information.field')" />:</h4>

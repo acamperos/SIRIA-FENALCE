@@ -6,29 +6,29 @@
 <s:actionerror theme="bootstrap"/>
 <s:actionmessage theme="bootstrap"/>
 <s:fielderror theme="bootstrap"/>
-<s:form id="formRastaSearch" action="searchSoilRep.action?selected=%{selected}" cssClass="form-horizontal formClassSoil" label="Busqueda del rasta">
+<s:form id="formRastaSearch" action="searchSoilRep.action?selected=%{selected}" cssClass="formClassSoil" label="Busqueda del rasta">
     <s:hidden name="searchFromSoil" value="1"/>    
-    <div class="control-group" id="searchBasicSoil">
-        <s:textfield cssClass="form-control" name="search_soil" placeholder="%{getText('text.searchsoil.report')}" />
+    <div class="form-group" id="searchBasicSoil">
+        <s:textfield name="search_soil" placeholder="%{getText('text.searchsoil.report')}" />
         <sj:submit type="button" cssClass="btn btn-default" onclick="addMessageProcess()" targets="divConListRasta" onCompleteTopics="completeSearchSoil"><i class="icon-search"></i></sj:submit>
         <a onclick="showSearchAdvance('searchBasicSoil', 'searchAdvanceSoil', 'formRastaSearch_searchFromSoil', 2)" class="radioSelect"><s:property value="getText('link.advancesearch.report')" /> </a><i class="icon-chevron-down"></i>
         <s:a cssClass="btn btn-initial" href="/listSoilRep.action" role="button" targets="divBodyLayout"><i class="icon-rotate-left"></i> <s:property value="getText('link.returnlist.report')" /></s:a>
     </div> 
-    <div id="searchAdvanceSoil" class="hide">
-        <div class="control-group">
+    <div id="searchAdvanceSoil" class="hideInfo">
+        <div class="form-group">
             <a onclick="showSearchAdvance('searchBasicSoil', 'searchAdvanceSoil', 'formRastaSearch_searchFromSoil', 1)" class="radioSelect"><s:property value="getText('link.simplesearch.report')" /> </a><i class="icon-chevron-up"></i>
         </div>
-        <div class="row-fluid">
-            <div class="span5">
-                <div class="control-group">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
                     <s:label for="formRastaSearch_num_rasta" cssClass="control-label" value="%{getText('text.searchrastanum.report')}:"></s:label>
                     <div class="controls">
                         <s:textfield name="num_rasta" />
                     </div>                          
                 </div>                          
             </div>                          
-            <div class="span4" style="padding-left: 28px">
-                <div class="control-group">
+            <div class="col-md-8">
+                <div class="form-group">
                     <s:label for="formRastaSearch_date" cssClass="control-label" value="%{getText('text.daterasta.report')}:"></s:label>
                     <div class="date controls">
                         <s:textfield name="date" readonly="true" />
@@ -38,17 +38,17 @@
                 </div>
             </div>
         </div>
-        <div class="row-fluid">
-            <div class="span5">
-                <div class="control-group">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
                     <s:label for="formRastaSearch_pendant" cssClass="control-label" value="%{getText('text.searchpendant.report')}:"></s:label>
                     <div class="controls">
                         <s:textfield name="pendant" />
                     </div>                          
                 </div>                          
             </div>                          
-            <div class="span4" style="padding-left: 28px">
-                <div class="control-group">
+            <div class="col-md-8">
+                <div class="form-group">
                     <s:label for="formRastaSearch_altitude" cssClass="control-label" value="%{getText('text.searchaltitude.report')}:"></s:label>
                     <div class="controls">
                         <s:textfield name="altitude" />
@@ -56,17 +56,17 @@
                 </div>
             </div>
         </div>
-        <div class="row-fluid">
-            <div class="span5">
-                <div class="control-group">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
                     <s:label for="formRastaSearch_latitude" cssClass="control-label" value="%{getText('text.searchlatitude.report')}:"></s:label>
                     <div class="controls">
                         <s:textfield name="latitude" />
                     </div>
                 </div>
             </div>
-            <div class="span4" style="padding-left: 28px">
-                <div class="control-group">
+            <div class="col-md-8">
+                <div class="form-group">
                     <s:label for="formRastaSearch_length" cssClass="control-label" value="%{getText('text.searchlongitude.report')}:"></s:label>
                     <div class="controls">
                         <s:textfield name="length" />
@@ -74,9 +74,9 @@
                 </div>  
             </div>  
         </div>
-        <div class="row-fluid">           
-            <div class="span5">
-                <div class="control-group">
+        <div class="row">           
+            <div class="col-md-3">
+                <div class="form-group">
                     <s:label for="formRastaSearch_ground" cssClass="control-label" value="%{getText('select.searchground.report')}:"></s:label>
                     <div class="controls">
                         <s:select
@@ -87,8 +87,8 @@
                     </div>
                 </div>
             </div>
-            <div class="span4" style="padding-left: 28px">
-                <div class="control-group">
+            <div class="col-md-8">
+                <div class="form-group">
                     <s:label for="formRastaSearch_position" cssClass="control-label" value="%{getText('select.searchposition.report')}:"></s:label>
                     <div class="controls">
                         <s:select

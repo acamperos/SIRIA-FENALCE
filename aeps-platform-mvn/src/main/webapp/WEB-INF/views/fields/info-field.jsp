@@ -46,16 +46,15 @@
 %>    
 
 <div class="msgWin" id="messageWin"></div>
-<div id="divFields" class="w-box">
+<div id="divFields" class="table-responsive w-box">
     <% if (usrFieDao.getPrivilegeUser(userFie.getIdUsr(), "field/create")) { %>   
         <% if (entTypeFieId!=3) { %>
             <% if (value.equals("lot")) {%>
-                <button type="button" class="btn btn-large btn-register btn-space" onclick="viewForm('/showField.action?action=create&viewInfo=${viewInfo}', 'idField', '', '<s:property value="getText('title.createfield.field')" />', 1050, 550)">
+                <button type="button" class="btn btn-lg btn-register btn-space" onclick="viewForm('/showField.action?action=create&viewInfo=${viewInfo}', 'idField', '', '<s:property value="getText('title.createfield.field')" />', 1050, 550)">
                     <i class="icon-plus"></i> <s:property value="getText('button.addfarm.field')" />
                 </button><br />
-                <div class="btn btn-group btn-space" onclick="clickSelAll('chkSelectAll', 'chkNumber', 'btnDelFie');">
-                    <input type="checkbox" class="chkSelectAll textFloat" />
-                    <label class="textFloat" style="padding-left: 7px; margin-bottom: 0;"><s:property value="getText('label.selectall.field')" /></label>
+                <div class="btn-group btn-space" onclick="clickSelAll('chkSelectAll', 'chkNumber', 'btnDelFie');">
+                    <button class="btn btn-default" type="button"><input type="checkbox" class="chkSelectAll textFloat" />&nbsp;<s:property value="getText('label.selectall.field')" /></button>
                 </div>
                 <button type="button" id="btnDelFie" disabled="disabled" class="btn btn-initial btn-space btnGetAll disabled" onclick="showDialogDeleteAll(this, 'chkNumber', 'confirm_dialog_lot', '/deleteAllField.action', '/viewField.action?page=<%=pageNow%>', 'divFields', '<%=divHide%>');">
                     <i class="icon-trash"></i> <s:property value="getText('button.deletesel.field')" />
@@ -63,7 +62,7 @@
             <% } %>
         <% } %>
     <% } %>
-    <table class="table table-bordered table-hover" style="<%= table %>" id='tblFields'>
+    <table class="table table-bordered table-hover table-condensed" style="<%= table %>" id='tblFields'>
         <thead>
             <tr>
                 <% if (usrFieDao.getPrivilegeUser(userFie.getIdUsr(), "field/modify") || (usrFieDao.getPrivilegeUser(userFie.getIdUsr(), "field/delete"))) { %>                
@@ -113,13 +112,14 @@
             </s:iterator>
         </tbody>
     </table>
+    <br />
     <label style="<%= label%>"><s:property value="getText('label.nofounddata.field')" /></label>
-    <div class="hide">
+    <div class="hideInfo">
         <div id="confirm_dialog_lot" class="cbox_content">
             <div class="sepH_c"><s:text name="%{getText('area.deletefarm.field')}" /></div>
             <div>
                 <a href="#" class="btn btn-small btn-initial confirm_yes"><s:property value="getText('link.optyes')" /></a>
-                <a href="#" class="btn btn-small confirm_no"><s:property value="getText('link.optno')" /></a>
+                <a href="#" class="btn btn-default btn-small confirm_no"><s:property value="getText('link.optno')" /></a>
             </div>
         </div>
     </div>
@@ -129,7 +129,7 @@
         <button class="btn btn_per" onclick="toggleAndClean('<%=divShow%>', '<%=divHide%>')"><i class="icon-arrow-left"></i> <s:property value="getText('button.backoption')" /></button>
     <% }%>
 </div>
-<div style="text-align:center; <%= table %>">
+<div class="text-center" style="<%= table %>">
     <% String result = JavascriptHelper.pager_params_ajax(pageNow, countTotal, maxResults, "/searchField.action?selected="+value+"&valId="+valId+"&valName="+valName, "divConListFields", "", "", "formFieldSearch");%>    
     <%= result%>
 </div>

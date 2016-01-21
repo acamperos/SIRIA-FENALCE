@@ -17,8 +17,8 @@
             <div id="divMessProfile"></div>
             <div class="tabbable tabbable-bordered">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#tab1" data-toggle="tab"><s:property value="getText('link.profileform.profile')" /></a></li>
-                    <li><a href="#tab2" data-toggle="tab"><s:property value="getText('link.profilesettings.profile')" /></a></li>
+                    <li class="active"><a href="#tab1" role="tab" data-toggle="tab"><s:property value="getText('link.profileform.profile')" /></a></li>
+                    <li><a href="#tab2" role="tab" data-toggle="tab"><s:property value="getText('link.profilesettings.profile')" /></a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="tab1">

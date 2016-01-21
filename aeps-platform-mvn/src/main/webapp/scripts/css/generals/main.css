@@ -8,10 +8,14 @@
 
 /*Clase del titulo principal del sistema*/
 .titlePrin {
-    position: absolute; 
-    font-size: 35px; 
-    color: #68AF23; 
-    padding-top: 55px; 
+    /*position: absolute;*/ 
+    color: #68af23;
+    font-size: 31px;
+    padding-top: 15px;
+}
+
+.titleSec {
+    color: #68af23;
 }
 
 .icon-report {
@@ -282,6 +286,7 @@ input, button, select, textarea, p, a, h1, h2, h3, h4, h5, h6 {
 
 .btn-space {
     margin-bottom: 10px;
+    padding-bottom: 6px;
 }
 
 form {
@@ -328,37 +333,36 @@ form {
 }
 
 .thumbnail {
-    border: 1px solid #DDDDDD;
-    border-radius: 10px;
+/*    border: 1px solid #DDDDDD;
+    border-radius: 10px;*/
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);
     display: block;
-    line-height: 20px;
-    padding: 0;
+/*    line-height: 20px;
+    padding: 0;*/
     transition: all 0.2s ease-in-out 0s;
 }
 
-.thumbnail.custom-thumb {
-    display: inline-block;
-    margin-bottom: 30px;
-}
 
-.thumbnail.custom-thumb .caption {
-    /*max-width: 70%;*/
-    /*float: left;*/
-    padding-left: 52%;
-}
+@media (min-width: 450px){
+    .thumbnail.custom-thumb .caption {
+        /*max-width: 70%;*/
+        /*float: left;*/
+        padding-left: 52%;
+    }
 
-.thumbnail .caption {
-    padding: 9px;
-    color: #333333;
-}
-
-.thumbnail.custom-thumb img {
-    width: 50%;
-    border-radius: 10px;
-    /*height: auto;*/
-    height: 200px;
-    float: left;
+    .thumbnail .caption {
+    /*    padding: 9px;
+        color: #333333;*/
+        height: 200px;
+    }
+    
+    .thumbnail.custom-thumb img {
+        width: 50%;
+        /*border-radius: 10px;*/
+        /*height: auto;*/
+        height: 200px;
+        float: left;
+    }
 }
 
 .img-responsive {
@@ -449,9 +453,6 @@ form {
     box-shadow: 0 2px 5px #A5A5A5;
 }
 
-.carousel-caption {
-    position: relative;
-}
 
 .carousel, .carousel .item {
     min-height: 450px;
@@ -510,18 +511,22 @@ form {
 }
 
 #menu {padding-top:15px}
-#menu li {float:left;}
-#menu li a{display:block;font-size:20px;line-height:1.2em;color:#000;text-transform:uppercase;text-decoration:none;text-align:center;letter-spacing:-1px;height:79px;font-style:normal;font-weight:700}
+/*#menu li {float:left;}*/
+#menu li a{display:block;font-size:15px;line-height:0.8em;color:#000;text-transform:uppercase;text-decoration:none;text-align:center;/*letter-spacing:-1px;height:79px;font-style:normal;font-weight:700*/}
 #menu li a span{font-size:13px;line-height:1.2em;color:#000;display:block;letter-spacing:-1px;margin-top:-3px;font-weight:normal}
 #menu li a:hover, #menu .active a{box-shadow: 1px 0px 9px #C2BFBF; color:#87398A}
 #menu li a:hover span, #menu .active a span{color:#fff}
-#menu #nav1 a{background:url(../../../img/gettingInfo.png) center no-repeat; background-color: #FFFFFF;height: 195px;width: 150px;}
-#menu #nav2 a{background:url(../../../img/report-icon.png) center no-repeat; background-color: #FFFFFF;height: 195px;width: 150px;}
-#menu #nav3 a{background:url(../../../img/report-problem.png) center 70% no-repeat; background-color: #FFFFFF;height: 195px;width: 150px;}
-#menu #nav4 a{background:url(../../../img/cajadeherramientas.jpg) center 70% no-repeat; background-color: #FFFFFF;height: 195px;width: 150px;}
-#menu .separate {padding-right: 20px;}
+#menu #nav1 a{background:url(../../../img/gettingInfo.png) center no-repeat; background-color: #FFFFFF;height: 13em;}
+#menu #nav2 a{background:url(../../../img/report-icon.png) center no-repeat; background-color: #FFFFFF;height: 13em;}
+#menu #nav3 a{background:url(../../../img/report-problem.png) center 70% no-repeat; background-color: #FFFFFF;height: 13em;}
+#menu #nav4 a{background:url(../../../img/cajadeherramientas.jpg) center 70% no-repeat; background-color: #FFFFFF;height: 13em;}
+/*#menu .separate {padding-right: 20px;}*/
 
-.formIngress {float:right; padding-left: 20px;}
+.btn {
+    white-space: normal;
+}
+
+.formIngress {float:right; padding-left: 1%;}
 
 .btn:focus {outline: none; outline-offset: -2px;}
 
@@ -546,6 +551,8 @@ body {
     left: 0;
     padding: 15px;
     right: 0;
+    position: relative;
+    text-align: left;
 }
 
 /* Footer
@@ -778,7 +785,7 @@ body {
 }
 
 #clients .client .img {
-    height: 50px;
+    height: 9em;
     cursor: pointer;
     -webkit-transition: box-shadow .1s linear;
     -moz-transition: box-shadow .1s linear;
@@ -853,48 +860,49 @@ body {
 }
 
 .img-rasta {
-    background: url("../../../img/rasta.png") 41% no-repeat;
+    background: url("../../../img/rasta.png") left 100% no-repeat;
     background-size: 100%;
-    height: 300px;
+    height: 20em;
 } 
 
 .sprite {
     background-image: url('../../../img/mixed.png');
+    background-repeat: no-repeat;
 }
 
 .sprite-fields {
     width: 230px;
-    height: 200px;
+    height: 200px !important;
     background-position: 0 0;
 }
 
 .sprite-farms {
     width: 230px;
-    height: 200px;
+    height: 200px !important;
     background-position: 0 -200px;
 }
 
 .sprite-climate {
     width: 230px;
-    height: 200px;
+    height: 200px !important;
     background-position: 0 -400px;
 }
 
 .sprite-crops {
     width: 230px;
-    height: 200px;
+    height: 200px !important;
     background-position: 0 -600px;
 }
 
 .sprite-soils {
     width: 230px;
-    height: 200px;
+    height: 200px !important;
     background-position: 0 -800px;
 }
 
 .sprite-producers {
     width: 230px;
-    height: 200px;
+    height: 200px !important;
     background-position: 0 -1000px;
 }
 
@@ -911,14 +919,14 @@ body {
 
 .slide-platform {
     width:  940px;
-    height: 321px;
-    background-position: 0 0;    
+    height: 400px !important;
+    background-position: -5px -5px;    
 }
 
 .slide-usuario-prueba {
     width:  940px;
-    height: 321px;
-    background-position: -1880px 0;
+    height: 400px !important;
+    background-position: -955px -5px;
 }
 
 .slide-phone {
@@ -938,4 +946,127 @@ img {
 input[disabled], select[disabled], textarea[disabled], input[readonly], select[readonly], textarea[readonly] {
     background-color: #eee;
     cursor: pointer;
+}
+
+.classGrades {
+    width: 25%;
+    margin-left: 2%;
+}
+
+.btCheckAll {
+    padding-left: 0.5em; 
+    margin-bottom: 0;
+}
+
+.tblOptionGen {
+    max-width: 100%;
+}
+
+.pagerTable {
+    text-align:center;
+}
+
+@media (min-width: 992px){
+    .information{
+/*            width: 33%;
+            float: right;
+            background-color: #6ee;*/
+        display: block;
+    }
+}
+
+@media (max-width: 991px){
+    .information{
+/*            width: 33%;
+            float: right;
+            background-color: #6ee;*/
+        display: none;
+    }
+}
+
+.carousel-control.left {
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) 100%);
+    background-repeat: repeat-x;
+}
+
+.carousel-control.right {
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) 100%);
+    background-repeat: repeat-x;
+    left: auto;
+    right: 0;
+}
+
+.hideInfo {
+    display: none;
+}
+
+.help-inline {
+    color: #b94a48;
+}
+
+@-moz-document url-prefix() {
+    fieldset {
+        display: table-cell;
+    }
+}
+
+.table .compressTd {
+    white-space: normal;
+    max-width: 1em;
+    overflow: hidden;
+    display: table-cell;
+    text-overflow: ellipsis;
+}
+
+/*@media (min-width: 800px){
+    .table .compressTd {
+        white-space: nowrap;
+        max-width: 9em;
+        overflow: hidden;
+        display: table-cell;
+        text-overflow: ellipsis;
+    }
+}*/
+
+.selectData {
+    width: 91%;
+}
+
+.searchGen {
+    display: inline;
+    width: 80%;
+}
+
+.space-group {
+    padding-bottom: 2px;    
+}
+
+.pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover {
+    background-color: #87398a;
+    border-color: #87398a;
+}
+
+.extendHorizon {
+    width: 60px;
+}
+
+.accordion-heading .accordion-toggle {
+    display: block;
+    padding: 8px 15px;
+}
+
+.accordion-toggle {
+    cursor: pointer;
+}
+
+#radioSel input {
+    float:left;
+}
+
+#radioSel label {
+    padding-left: 20px;
+}
+
+.changesRadio {
+    margin-bottom: 16px !important;    
 }

@@ -14,23 +14,23 @@ function showApplicationProduct(idAppTyp, idSel, divShowApp, divShowOther, divSh
     if (valAppTyp==1) {
         $("#"+divShowApp).show();
         $("#"+divFormApp1).show();
-        $("#"+divShowOther).hide().removeClass("hide");
-        $("#"+divFormApp2).hide().removeClass("hide");
+        $("#"+divShowOther).hide().removeClass("hideInfo");
+        $("#"+divFormApp2).hide().removeClass("hideInfo");
         $("#"+divShowPer).show();
     } else if (valAppTyp==2) {
         
-        $("#"+divShowApp).hide().removeClass("hide");
-         $("#"+divFormApp1).hide().removeClass("hide");
+        $("#"+divShowApp).hide().removeClass("hideInfo");
+         $("#"+divFormApp1).hide().removeClass("hideInfo");
         $("#"+divShowOther).show();
         $("#"+divFormApp2).show();
-        $("#"+divShowPer).hide().removeClass("hide");
+        $("#"+divShowPer).hide().removeClass("hideInfo");
         $('#'+idSel).val(1000000);
     } else {
-        $("#"+divShowApp).hide().removeClass("hide");
-        $("#"+divFormApp1).hide().removeClass("hide");
-        $("#"+divShowOther).hide().removeClass("hide");
-         $("#"+divFormApp2).hide().removeClass("hide");
-        $("#"+divShowPer).hide().removeClass("hide");
+        $("#"+divShowApp).hide().removeClass("hideInfo");
+        $("#"+divFormApp1).hide().removeClass("hideInfo");
+        $("#"+divShowOther).hide().removeClass("hideInfo");
+         $("#"+divFormApp2).hide().removeClass("hideInfo");
+        $("#"+divShowPer).hide().removeClass("hideInfo");
     }
 }
 
@@ -50,20 +50,20 @@ function showOtherElementChemical(idSel, idAppTyp, divShow) {
 function showProductUse(valSel, divShow) {
     if (valSel=='true') {
         $("#" + divShow).show();
-        $("#" + divShow).removeClass("hide");
+        $("#" + divShow).removeClass("hideInfo");
     } else {
         $("#" + divShow).hide();
-        $("#" + divShow).addClass("hide");
+        $("#" + divShow).addClass("hideInfo");
     }
 }
 
 function showSelectionRasta(valSel, divShow) {
     if (valSel=='true') {
         $("#" + divShow).show();
-        $("#" + divShow).removeClass("hide");
+        $("#" + divShow).removeClass("hideInfo");
     } else {
         $("#" + divShow).hide();
-        $("#" + divShow).addClass("hide");
+        $("#" + divShow).addClass("hideInfo");
     }
 }
 
@@ -279,16 +279,16 @@ function showRentedquestionIrrigations(valSendId, divShowA, divShowB) {
     var valSend = $( "input[name='"+valSendId+"']:checked").val();
     
     if (valSend!=null) {
-        $('#' + divShowA).addClass("hide");
-        $('#' + divShowB).addClass("hide");
+        $('#' + divShowA).addClass("hideInfo");
+        $('#' + divShowB).addClass("hideInfo");
         
         if (valSend=='false'){
-            $('#' + divShowA).removeClass("hide");
+            $('#' + divShowA).removeClass("hideInfo");
         } else if (valSend=='true'){
-            $('#' + divShowB).removeClass("hide");
+            $('#' + divShowB).removeClass("hideInfo");
         } 
-    }else {$('#' + divShowA).addClass("hide");
-        $('#' + divShowB).addClass("hide");}
+    }else {$('#' + divShowA).addClass("hideInfo");
+        $('#' + divShowB).addClass("hideInfo");}
 }
 
 //function de costo de almacenamiento en cosecha
@@ -297,15 +297,15 @@ function showStorageHar(valSendId, divShowA) {
     var valSend = $( "input[name='"+valSendId+"']:checked").val();
     
     if (valSend!=null) {
-        $('#' + divShowA).addClass("hide");
+        $('#' + divShowA).addClass("hideInfo");
        
         
         if (valSend=='false'){
-           $('#' + divShowA).addClass("hide");
+           $('#' + divShowA).addClass("hideInfo");
         } else if (valSend=='true'){
-            $('#' + divShowA).removeClass("hide");
+            $('#' + divShowA).removeClass("hideInfo");
         } 
-    }else {$('#' + divShowA).addClass("hide");
+    }else {$('#' + divShowA).addClass("hideInfo");
       }
 }
 
@@ -315,20 +315,20 @@ function showReSowing(valSendId, divShowA,divShowB) {
     var valSend = $( "input[name='"+valSendId+"']:checked").val();
     
     if (valSend!=null) {
-        $('#' + divShowA).addClass("hide");
-       $('#' + divShowB).addClass("hide");
+        $('#' + divShowA).addClass("hideInfo");
+       $('#' + divShowB).addClass("hideInfo");
        
         if (valSend=='false'){
-            $('#' + divShowA).removeClass("hide");
-            $('#' + divShowB).removeClass("hide");
-             $('#' + divShowA).addClass("hide");
+            $('#' + divShowA).removeClass("hideInfo");
+            $('#' + divShowB).removeClass("hideInfo");
+             $('#' + divShowA).addClass("hideInfo");
             
         } else if (valSend=='true'){
-            $('#' + divShowB).removeClass("hide");
-            $('#' + divShowA).removeClass("hide");
+            $('#' + divShowB).removeClass("hideInfo");
+            $('#' + divShowA).removeClass("hideInfo");
         } 
-    }else {$('#' + divShowA).addClass("hide");
-        $('#' + divShowB).addClass("hide");}
+    }else {$('#' + divShowA).addClass("hideInfo");
+        $('#' + divShowB).addClass("hideInfo");}
 }
 
 
@@ -338,16 +338,16 @@ function showTypeReSowing(valSendId, divShowA, divShowB) {
     var valSend = $( "input[name='"+valSendId+"']:checked").val();
     
     if (valSend!=null) {
-        $('#' + divShowA).addClass("hide");
-        $('#' + divShowB).addClass("hide");
+        $('#' + divShowA).addClass("hideInfo");
+        $('#' + divShowB).addClass("hideInfo");
         
         if (valSend=='false'){
-            $('#' + divShowA).removeClass("hide");
+            $('#' + divShowA).removeClass("hideInfo");
         } else if (valSend=='true'){
-            $('#' + divShowB).removeClass("hide");
+            $('#' + divShowB).removeClass("hideInfo");
         } 
-    }else {$('#' + divShowA).addClass("hide");
-        $('#' + divShowB).addClass("hide");}
+    }else {$('#' + divShowA).addClass("hideInfo");
+        $('#' + divShowB).addClass("hideInfo");}
 }
 
 function showElementRate(valSel, divShow) {
@@ -384,9 +384,12 @@ function showWindow(title, width, height, htmlInfo) {
     $("#dialog-form").dialog({
         autoOpen: true,
         title: title,
-        height: height,
-        width: width,
+        width: 'auto',
+        maxWidth: 600,
+        height: 'auto',
         modal: true,
+        responsive: true,
+        resizable: true,
         closeOnEscape: false,
         close: function() {}
 //        open: function(event, ui) { $(".ui-dialog-titlebar-close", ui.dialog | ui).hide(); },
@@ -481,7 +484,7 @@ var requestSent = false;
 function deleteItem(url, urlAction, divTable, divShow)
 {
     $('#'+divTable).find("div.alert-success").remove();
-    $('#'+divTable).find("div.error").removeClass("error");
+    $('#'+divTable).find("div.has-error").removeClass("has-error");
     $('#'+divTable).find("span.s2_help_inline").remove();
     $('#'+divTable).find("div.s2_validation_errors").remove();
     //url = "/aeps"+url;
@@ -559,7 +562,7 @@ function showMessError(idLoc, info)
     if(valEn!=-1) {
         titleMess = "Error Message";
     }
-    var errorDiv = $("<div class='alert alert-error s2_validation_errors messageAlerts'>");
+    var errorDiv = $("<div class='alert alert-danger s2_validation_errors messageAlerts'>");
     errorDiv.append('<button type="button" class="close" data-dismiss="alert">&times;</button>');
     errorDiv.append('<i class=\"icon-remove-sign\"></i> <strong>'+titleMess+'</strong>');
     errorDiv.append('<hr class=\"message-inner-separator\"></div>');
@@ -696,6 +699,8 @@ function showDialogDelete(divDialog, hRef, url, urlAction, divTable, divShow) {
         initialHeight: '0',
         initialWidth: '0',
         href: "#"+hRef,
+        maxWidth:'95%',
+        maxHeight:'95%',
         inline: true,        
         opacity: '0.3',        
         onComplete: function(){
@@ -716,7 +721,8 @@ function showDialogDelete(divDialog, hRef, url, urlAction, divTable, divShow) {
             });
         }
 
-    });       
+    });      
+//    jQuery.colorbox.resize({width:'90%', height:'90%'});
 }
 
 
@@ -755,11 +761,11 @@ function chargeValuesControls(url, valName, valSendId, valNameCon, valSenIdCon, 
 }
 
 function hideInformationControls(divPes, divWee, divDis, divChe, divOrg) {
-  $('#'+divPes).removeClass('hide').addClass('hide');
-  $('#'+divWee).removeClass('hide').addClass('hide');
-  $('#'+divDis).removeClass('hide').addClass('hide');
-  $('#'+divChe).removeClass('hide').addClass('hide');
-  $('#'+divOrg).removeClass('hide').addClass('hide');
+  $('#'+divPes).removeClass('hideInfo').addClass('hideInfo');
+  $('#'+divWee).removeClass('hideInfo').addClass('hideInfo');
+  $('#'+divDis).removeClass('hideInfo').addClass('hideInfo');
+  $('#'+divChe).removeClass('hideInfo').addClass('hideInfo');
+  $('#'+divOrg).removeClass('hideInfo').addClass('hideInfo');
 }
 
 //function changeOptionsHarvest(valSendId, divYield, divHumidity, divNumberSacks, lblNumberId, lblNumTextA, lblNumTextB, lblWeightId, lblWeightTextA, lblWeightTextB)
@@ -767,31 +773,31 @@ function changeOptionsHarvest(valSendId, divYield, divHumidity, divNumberSacks, 
 {
     var valSend = $('#' + valSendId).val();
     if (valSend==1 || valSend==2 || valSend==5 || valSend==6 || valSend==7){
-        $('#' + divYield).removeClass("hide");
-        $('#' + divHumidity).removeClass("hide");
-        $('#' + divNumberSacks).addClass("hide");
+        $('#' + divYield).removeClass("hideInfo");
+        $('#' + divHumidity).removeClass("hideInfo");
+        $('#' + divNumberSacks).addClass("hideInfo");
     } else if (valSend==3){
-        $('#' + divYield).addClass("hide");
-        $('#' + divHumidity).addClass("hide");
-        $('#' + divNumberSacks).removeClass("hide");
+        $('#' + divYield).addClass("hideInfo");
+        $('#' + divHumidity).addClass("hideInfo");
+        $('#' + divNumberSacks).removeClass("hideInfo");
         
-        $('#'+lblNumberId).removeClass("hide"); 
-        $('#'+lblNumberBagId).addClass("hide");        
-        $('#'+lblWeightId).removeClass("hide"); 
-        $('#'+lblWeightBagId).addClass("hide");
+        $('#'+lblNumberId).removeClass("hideInfo"); 
+        $('#'+lblNumberBagId).addClass("hideInfo");        
+        $('#'+lblWeightId).removeClass("hideInfo"); 
+        $('#'+lblWeightBagId).addClass("hideInfo");
     } else if (valSend==4){
-        $('#' + divYield).removeClass("hide");
-        $('#' + divHumidity).addClass("hide");
-        $('#' + divNumberSacks).removeClass("hide");
+        $('#' + divYield).removeClass("hideInfo");
+        $('#' + divHumidity).addClass("hideInfo");
+        $('#' + divNumberSacks).removeClass("hideInfo");
         
-        $('#'+lblNumberId).addClass("hide"); 
-        $('#'+lblNumberBagId).removeClass("hide");        
-        $('#'+lblWeightId).addClass("hide"); 
-        $('#'+lblWeightBagId).removeClass("hide");    
+        $('#'+lblNumberId).addClass("hideInfo"); 
+        $('#'+lblNumberBagId).removeClass("hideInfo");        
+        $('#'+lblWeightId).addClass("hideInfo"); 
+        $('#'+lblWeightBagId).removeClass("hideInfo");    
     } else {
-        $('#' + divYield).addClass("hide");
-        $('#' + divHumidity).addClass("hide");
-        $('#' + divNumberSacks).addClass("hide");
+        $('#' + divYield).addClass("hideInfo");
+        $('#' + divHumidity).addClass("hideInfo");
+        $('#' + divNumberSacks).addClass("hideInfo");
     }
 }
 
@@ -799,15 +805,15 @@ function chargeValuesObjective(valSendId, divPest, divWee, divDis)
 {
     var valSend = $( "input[name='"+valSendId+"']:checked").val();
     if (valSend!=null) {
-        $('#' + divPest).addClass("hide");
-        $('#' + divWee).addClass("hide");
-        $('#' + divDis).addClass("hide");
+        $('#' + divPest).addClass("hideInfo");
+        $('#' + divWee).addClass("hideInfo");
+        $('#' + divDis).addClass("hideInfo");
         if (valSend==1){
-            $('#' + divPest).removeClass("hide");
+            $('#' + divPest).removeClass("hideInfo");
         } else if (valSend==2){
-            $('#' + divWee).removeClass("hide");
+            $('#' + divWee).removeClass("hideInfo");
         } else if (valSend==3){
-            $('#' + divDis).removeClass("hide");
+            $('#' + divDis).removeClass("hideInfo");
         }
 //        var data;
 //        data = '&' + valName + '=' + valSend;
@@ -824,18 +830,18 @@ function chargeValuesObjective(valSendId, divPest, divWee, divDis)
 //                    $('#' + message).html(json.info);
 //                    $('#' + message).focus();
 //                } else if (json.state == 'success') {
-//                    $('#' + divPest).addClass("hide");
-//                    $('#' + divWee).addClass("hide");
-//                    $('#' + divDis).addClass("hide");
+//                    $('#' + divPest).addClass("hideInfo");
+//                    $('#' + divWee).addClass("hideInfo");
+//                    $('#' + divDis).addClass("hideInfo");
 //                    if (valSend==1){
 //                        $('#' + valFillPest).html(json.info);
-//                        $('#' + divPest).removeClass("hide");
+//                        $('#' + divPest).removeClass("hideInfo");
 //                    } else if (valSend==2){
 //                        $('#' + valFillWee).html(json.info);
-//                        $('#' + divWee).removeClass("hide");
+//                        $('#' + divWee).removeClass("hideInfo");
 //                    } else if (valSend==3){
 //                        $('#' + valFillDis).html(json.info);
-//                        $('#' + divDis).removeClass("hide");
+//                        $('#' + divDis).removeClass("hideInfo");
 //                    }               
 //                }
 //
@@ -908,11 +914,11 @@ function changeValues(optSel, divOne, divSecond)
 {
 
     if (optSel == 1) {
-        $("#" + divOne).removeClass("hide");
-        $("#" + divSecond).addClass("hide");
+        $("#" + divOne).removeClass("hideInfo");
+        $("#" + divSecond).addClass("hideInfo");
     } else if (optSel == 2) {
-        $("#" + divOne).addClass("hide");
-        $("#" + divSecond).removeClass("hide");
+        $("#" + divOne).addClass("hideInfo");
+        $("#" + divSecond).removeClass("hideInfo");
     }
 
 }
@@ -932,7 +938,7 @@ function completeForm(dialogId, formId, information)
     
 
 //    if (errors.info && errors.errors.length > 0) {
-//        var errorDiv = $("<div class='alert alert-error s2_validation_errors'></div>");
+//        var errorDiv = $("<div class='alert alert-danger s2_validation_errors'></div>");
 //        form.prepend(errorDiv);
 //        $.each(errors.errors, function(index, value) {
 //            errorDiv.append('<p>' + value + '</p>\n');
@@ -940,7 +946,7 @@ function completeForm(dialogId, formId, information)
 //    }
     Recaptcha.reload();
     $.unblockUI();
-    $('#'+formId).find("div.error").removeClass("error");
+    $('#'+formId).find("div.has-error").removeClass("has-error");
     $('#'+formId).find("span.s2_help_inline").remove();
     var json = jQuery.parseJSON(information);
     if (dialogId!='') {
@@ -975,7 +981,7 @@ function completeForm(dialogId, formId, information)
 function completeFormChange(dialogId, formId, information) 
 {
     $.unblockUI();
-    $('#'+formId).find("div.error").removeClass("error");
+    $('#'+formId).find("div.has-error").removeClass("has-error");
     $('#'+formId).find("span.s2_help_inline").remove();
     var json = jQuery.parseJSON(information);
     if (dialogId!='') {
@@ -997,9 +1003,9 @@ function completeFormChange(dialogId, formId, information)
 function completeFormGetting(dialogId, formId, divId, information) 
 {
     $('#'+divId).find("div.alert-success").remove();
-    $('#'+divId).find("div.alert-error").remove();
+    $('#'+divId).find("div.alert-danger").remove();
     $.unblockUI();
-    $('#'+formId).find("div.error").removeClass("error");
+    $('#'+formId).find("div.has-error").removeClass("has-error");
     $('#'+formId).find("span.s2_help_inline").remove();
     var json = jQuery.parseJSON(information);
 //    if (dialogId!='') {
@@ -1023,9 +1029,9 @@ function completeFormGetting(dialogId, formId, divId, information)
 function completeFormCrop(dialogId, formId, divId, information) 
 {
     $('#'+divId).find("div.alert-success").remove();
-    $('#'+divId).find("div.alert-error").remove();
+    $('#'+divId).find("div.alert-danger").remove();
     $.unblockUI();
-    $('#'+formId).find("div.error").removeClass("error");
+    $('#'+formId).find("div.has-error").removeClass("has-error");
     $('#'+formId).find("span.s2_help_inline").remove();
     var json = jQuery.parseJSON(information);
 //    if (dialogId!='') {
@@ -1084,12 +1090,15 @@ function addMessageProcessLogin(lanSel)
             border: 'none', 
             padding: '15px', 
             backgroundColor: '#000', 
+            width: 'auto',
+            left: 'calc(50% - 97px)',
+            top: 'calc(50% - 97px)',
             '-webkit-border-radius': '10px', 
             '-moz-border-radius': '10px', 
-            opacity: .5, 
+//            opacity: .5, 
             color: '#fff' 
         },
-        message: '<div class="view-process"><div><h3><i style="font-size:30px" class="icon-spinner icon-spin"></i><br>'+titleMess+'....</h3></div></div>' 
+        message: '<div class="view-process"><div><h3><i class="icon-spinner icon-spin"></i><br>'+titleMess+'....</h3></div></div>' 
     }); 
 }
 
@@ -1129,10 +1138,13 @@ function addMessageProcess()
             'border-bottom-left-radius': '10px',
             border: 'none', 
             padding: '15px', 
+            width: 'auto',
+            left: 'calc(50% - 97px)',
+            top: 'calc(50% - 97px)',
             backgroundColor: '#000', 
             '-webkit-border-radius': '10px', 
             '-moz-border-radius': '10px', 
-            opacity: .5, 
+//            opacity: .5, 
             color: '#fff' 
         },
         message: '<div class="view-process"><div><h3><i style="font-size:30px" class="icon-spinner icon-spin"></i><br>'+titleMess+'....</h3></div></div>' 
@@ -1142,10 +1154,10 @@ function addMessageProcess()
 function validationForm(form, errors) 
 {
 //    bootstrapValidation(form, errors);
-    form.find("div.error").removeClass("error");
+    form.find("div.has-error").removeClass("has-error");
 //    form.find("div.info").removeClass("error");
     form.find("div.alert-success").remove();
-    form.find("div.alert-error").remove();
+    form.find("div.alert-danger").remove();
     form.find("span.s2_help_inline").remove();
     form.find("div.s2_validation_errors").remove();    
     $.unblockUI();
@@ -1166,7 +1178,7 @@ function validationForm(form, errors)
     }
     if (errors.errors && errors.errors.length > 0) { 
 //        Recaptcha.reload();//Recarga y genera un nuevo captcha a causa del error cometido
-        var errorDiv = $("<div class='alert alert-error s2_validation_errors messageAlerts' name='messageUsers'>");
+        var errorDiv = $("<div class='alert alert-danger s2_validation_errors messageAlerts' name='messageUsers'>");
         errorDiv.append('<button type="button" class="close" data-dismiss="alert">&times;</button>');
         errorDiv.append('<i class=\"icon-remove-sign\"></i> <strong>'+titleMess+'</strong>');
         errorDiv.append('<hr class=\"message-inner-separator\"></div>');
@@ -1189,8 +1201,8 @@ function validationForm(form, errors)
             var element = form.find(":input[name=\"" + index + "\"]"), controlGroup, controls;
             if (element && element.length > 0) {
                 element  = $(element[0]);
-                controlGroup = element.closest("div.control-group");
-                controlGroup.addClass('error');
+                controlGroup = element.closest("div.form-group");
+                controlGroup.addClass('has-error');
                 controls = controlGroup.find("div.controls");
                 if (controls) {
                     if (value[0]!="") {
@@ -1202,14 +1214,14 @@ function validationForm(form, errors)
     }
 //    form.find("div.alert-success").remove();
 //    if (errors.info && errors.errors.length > 0) {
-//        var errorDiv = $("<div class='alert alert-error s2_validation_errors'></div>");
+//        var errorDiv = $("<div class='alert alert-danger s2_validation_errors'></div>");
 //        form.prepend(errorDiv);
 //        $.each(errors.errors, function(index, value) {
 //            errorDiv.append('<p>' + value + '</p>\n');
 //        });
 //    }
 //    if (errors.state == 'failure') {
-//        var errorDiv = $("<div class='alert alert-error s2_validation_errors'></div>");
+//        var errorDiv = $("<div class='alert alert-danger s2_validation_errors'></div>");
 //        form.prepend(errorDiv);
 //        $.each(errors.info, function(index, value) {
 //            errorDiv.append('<p>' + value + '</p>\n');
@@ -1280,9 +1292,9 @@ function sendFormRasta(url, formId, divTable, message)
 {
     //url = "/aeps"+url;
     $('#' + message).html('');
-    // $('#'+formId).toggleClass('error');
+    // $('#'+formId).toggleClass('has-error');
 
-    $('div').removeClass("error");
+    $('div').removeClass("has-error");
     var data = $('#' + formId).serializeArray();
     $.ajax({
         type: "POST",
@@ -1298,7 +1310,7 @@ function sendFormRasta(url, formId, divTable, message)
 
                 for (var i = 0, lenFails = fieldsFail.length; i < lenFails; i++) {
                     // $(fieldsFail[i]).up("div").addClassName('error');
-                    $('#' + fieldsFail[i]).closest("div").addClass('control-group error');
+                    $('#' + fieldsFail[i]).closest("div").addClass('form-group error');
                     // $('#'+fieldsFail[i]).offsetParent().toggleClass('control-group error');
                     // alert($(fieldsFail[i]).closest("div"));
                 }
@@ -1320,9 +1332,9 @@ function sendFormProtection(url, formId, divHide, message)
 {
     //url = "/aeps"+url;
     $('#' + message).html('');
-    // $('#'+formId).toggleClass('error');
+    // $('#'+formId).toggleClass('has-error');
 
-    $('div').removeClass("error");
+    $('div').removeClass("has-error");
     var data = $('#' + formId).serializeArray();
     $.ajax({
         type: "POST",
@@ -1338,7 +1350,7 @@ function sendFormProtection(url, formId, divHide, message)
 
                 for (var i = 0, lenFails = fieldsFail.length; i < lenFails; i++) {
                     // $(fieldsFail[i]).up("div").addClassName('error');
-                    $('#' + fieldsFail[i]).closest("div").addClass('control-group error');
+                    $('#' + fieldsFail[i]).closest("div").addClass('form-group error');
                     // $('#'+fieldsFail[i]).offsetParent().toggleClass('control-group error');
                     // alert($(fieldsFail[i]).closest("div"));
                 }
@@ -1369,9 +1381,9 @@ function sendFormCrop(url, formId, divHide, message)
 {
     //url = "/aeps"+url;
     $('#' + message).html('');
-    // $('#'+formId).toggleClass('error');
+    // $('#'+formId).toggleClass('has-error');
 
-    $('div').removeClass("error");
+    $('div').removeClass("has-error");
     var data = $('#' + formId).serializeArray();
     $.ajax({
         type: "POST",
@@ -1388,7 +1400,7 @@ function sendFormCrop(url, formId, divHide, message)
 
                 for (var i = 0, lenFails = fieldsFail.length; i < lenFails; i++) {
                     // $(fieldsFail[i]).up("div").addClassName('error');
-                    $('#' + fieldsFail[i]).closest("div").addClass('control-group error');
+                    $('#' + fieldsFail[i]).closest("div").addClass('form-group error');
                     // $('#'+fieldsFail[i]).offsetParent().toggleClass('control-group error');
                     // alert($(fieldsFail[i]).closest("div"));
                 }
@@ -1410,9 +1422,9 @@ function sendFormHarvest(url, formId, divShow, divHide, message)
 {
     //url = "/aeps"+url;
     $('#' + message).html('');
-    // $('#'+formId).toggleClass('error');
+    // $('#'+formId).toggleClass('has-error');
 
-    $('div').removeClass("error");
+    $('div').removeClass("has-error");
     var data = $('#' + formId).serializeArray();
     $.ajax({
         type: "POST",
@@ -1428,7 +1440,7 @@ function sendFormHarvest(url, formId, divShow, divHide, message)
 
                 for (var i = 0, lenFails = fieldsFail.length; i < lenFails; i++) {
                     // $(fieldsFail[i]).up("div").addClassName('error');
-                    $('#' + fieldsFail[i]).closest("div").addClass('control-group error');
+                    $('#' + fieldsFail[i]).closest("div").addClass('form-group error');
                     // $('#'+fieldsFail[i]).offsetParent().toggleClass('control-group error');
                     // alert($(fieldsFail[i]).closest("div"));
                 }
@@ -1483,7 +1495,7 @@ function showSearchAdvance(divSearchBasic, divSearchAdvance, valAsig, valSel)
     
 }
 
-function showRowAdditionalItem(url, divUpdate)
+function showRowAdditionalItem(url, tablePrin, divUpdate)
 {
     //url = "/aeps"+url;
     var rows  = $('#'+divUpdate).children("tr");
@@ -1499,6 +1511,7 @@ function showRowAdditionalItem(url, divUpdate)
             // responseContent = transport.responseText;
             // responseContent = information;
 //            $('#'+divUpdate).insert({'bottom': information});
+            $('#'+tablePrin).show();
             $('#'+divUpdate).append(information);
         }
     });
@@ -1712,6 +1725,8 @@ function showDialogReport(divDialog, hRef, urlAction, nameData, valData, title, 
     $(divDialog).colorbox({
         initialHeight: '0',
         initialWidth: '0',
+        maxWidth:'95%',
+        maxHeight:'95%',
         href: "#"+hRef,
         inline: true,        
         opacity: '0.3',        
@@ -1733,11 +1748,11 @@ function showDialogReport(divDialog, hRef, urlAction, nameData, valData, title, 
 function changeReport(valSelId, divRepA, divRepB) {
     var valSel = $("#" + valSelId).val();
     if (valSel==1) {
-        $("#"+divRepA).removeClass("hide");
-        $("#"+divRepB).addClass("hide");
+        $("#"+divRepA).removeClass("hideInfo");
+        $("#"+divRepB).addClass("hideInfo");
     } else if (valSel==2) {
-        $("#"+divRepA).addClass("hide");
-        $("#"+divRepB).removeClass("hide");
+        $("#"+divRepA).addClass("hideInfo");
+        $("#"+divRepB).removeClass("hideInfo");
     }
     
 }
@@ -1745,11 +1760,11 @@ function changeReport(valSelId, divRepA, divRepB) {
 function changeRepYear(valSelId, divRepA, divRepB) {
     var valSel = $("#" + valSelId).val();         
     if (valSel==1) {
-        $("#"+divRepA).removeClass("hide");
-        $("#"+divRepB).addClass("hide");
+        $("#"+divRepA).removeClass("hideInfo");
+        $("#"+divRepB).addClass("hideInfo");
     } else if (valSel==2) {
-        $("#"+divRepA).removeClass("hide");
-        $("#"+divRepB).removeClass("hide");
+        $("#"+divRepA).removeClass("hideInfo");
+        $("#"+divRepB).removeClass("hideInfo");
     } 
     
 }
@@ -1782,8 +1797,8 @@ function viewPositionRasta(url, formId, valNameLat, valLatId, valNameLon, valLon
                     var element = form.find(":input[name=\"" + index + "\"]"), controlGroup, controls;
                     if (element && element.length > 0) {
                         element  = $(element[0]);
-                        controlGroup = element.closest("div.control-group");
-                        controlGroup.addClass('error');
+                        controlGroup = element.closest("div.form-group");
+                        controlGroup.addClass('has-error');
                         controls = controlGroup.find("div.controls");
                         controls.find("span.s2_help_inline").remove();
                         if (controls) {
@@ -1794,7 +1809,7 @@ function viewPositionRasta(url, formId, valNameLat, valLatId, valNameLon, valLon
                     }
                 });
             } else {
-                $("#"+formId).find("div.error").removeClass("error");
+                $("#"+formId).find("div.has-error").removeClass("has-error");
                 $("#"+formId).find("span.s2_help_inline").remove();
                 $("#"+divHide).hide();
                 $("#"+divShow).show();
@@ -1827,8 +1842,8 @@ function viewPosition(url, formId, valNameLat, valLatId, valNameLon, valLonId, d
                     var element = form.find(":input[name=\"" + index + "\"]"), controlGroup, controls;
                     if (element && element.length > 0) {
                         element  = $(element[0]);
-                        controlGroup = element.closest("div.control-group");
-                        controlGroup.addClass('error');
+                        controlGroup = element.closest("div.form-group");
+                        controlGroup.addClass('has-error');
                         controls = controlGroup.find("div.controls");
                         controls.find("span.s2_help_inline").remove();
                         if (controls) {
@@ -1842,7 +1857,7 @@ function viewPosition(url, formId, valNameLat, valLatId, valNameLon, valLonId, d
 //                showMessError(divHide, json.info);
 //                $("#"+divHide).append(setTimerToMessage(8));
             } else {
-                $("#"+formId).find("div.error").removeClass("error");
+                $("#"+formId).find("div.has-error").removeClass("has-error");
                 $("#"+formId).find("span.s2_help_inline").remove();
                 $("#"+divHide).hide();
                 $("#"+divShow).show();
@@ -1864,6 +1879,8 @@ function showDialogWarning(hRef)
     $.colorbox({
         initialHeight: '0',
         initialWidth: '0',
+        maxWidth:'95%',
+        maxHeight:'95%',
         href: "#"+hRef,
         inline: true,        
         opacity: '0.3',        
@@ -1882,10 +1899,10 @@ function optSel(idCheck, div)
 //   var valSel = $("#"+idCheck).val();
    if (valSel=='true') {
        $("#"+div).show();
-       $("#"+div).removeClass("hide");       
+       $("#"+div).removeClass("hideInfo");       
    } else {
        $("#"+div).hide();
-       $("#"+div).addClass("hide");       
+       $("#"+div).addClass("hideInfo");       
    }
     
 }
@@ -2080,6 +2097,8 @@ function showDialogDeleteAll(divDialog, classNum, hRef, url, urlAction, divTable
     $(divDialog).colorbox({
         initialHeight: '0',
         initialWidth: '0',
+        maxWidth:'95%',
+        maxHeight:'95%',
         href: "#"+hRef,
         inline: true,        
         opacity: '0.3',     
@@ -2224,7 +2243,7 @@ function buildTimeline(content, beginning) {
     }
 }
 
-function removeRowHorizon(rowId, tbPrin, tableId) 
+function removeRowProduct(rowId, tbPrin, tableId) 
 {    
     $('#'+rowId).remove();
     $('#rowNew').remove();
@@ -2232,6 +2251,19 @@ function removeRowHorizon(rowId, tbPrin, tableId)
     if (numRows<1) {
         $('#'+tableId).append("<tr id=\"rowNew\" value=\"0\"></tr>");
         $('#'+tbPrin).hide();        
+    }
+    
+}
+
+function removeRowHorizon(rowId, tbPrin, tableId) 
+{    
+    $('#'+rowId).remove();
+    var numRows = $('#'+tableId+' tr').length;
+    if (numRows<1) {
+        $('#'+tableId).append('<tr value="0"></tr>');
+        $('#'+tbPrin).hide();      
+    } else if (numRows==1){
+        $('#'+tbPrin).hide();     
     }
     
 }
@@ -2289,14 +2321,14 @@ function changePage(url, valName, valSend, valFill, formId, message)
 function showSelectionIrrigation(valSel, divShowA, divShowB) {
     if (valSel==1) {
         $("#" + divShowA).show();
-        $("#" + divShowA).removeClass("hide");
+        $("#" + divShowA).removeClass("hideInfo");
         $("#" + divShowB).hide();
-        $("#" + divShowB).addClass("hide");
+        $("#" + divShowB).addClass("hideInfo");
     } else if (valSel==2) {
         $("#" + divShowB).show();
-        $("#" + divShowB).removeClass("hide");
+        $("#" + divShowB).removeClass("hideInfo");
         $("#" + divShowA).hide();
-        $("#" + divShowA).addClass("hide");
+        $("#" + divShowA).addClass("hideInfo");
     }
 }
 

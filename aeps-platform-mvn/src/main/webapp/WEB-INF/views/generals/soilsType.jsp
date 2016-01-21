@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="icon" type="image/ico" href="img/favicon.ico">
+        <link rel="icon" type="image/ico" href="img/logoAEPS.ico">
     </head>
     <body>
         <%@ include file="googleAnalytics.jsp" %>
@@ -27,28 +27,33 @@
         <div class="container">			       
             <div class="row"> 
                 <% if (usrDao.getPrivilegeUser(user.getIdUsr(), "soil/view")) { %>
-                    <div class="span6 thumbnail custom-thumb">
-                        <s:a href="%{contextPath}/soil/listSoil.action" role="button" targets="divBodyLayout"><img class="sprite sprite-soils" /></s:a>
-                        <div class="caption">
-                            <h3><s:property value="getText('title.soilrasta.soilstype')" /><span class="badge badge-success"><s:property value="numRas" /></span></h3>
-                            <p><s:property value="getText('area.soilinfo.soilstype')" /></p>
-                            <p>
-                                <s:a cssClass="btn btn-initial" href="%{contextPath}/soil/listSoil.action" role="button" targets="divBodyLayout"><s:property value="getText('link.soilgo.soilstype')" /> <i class="icon-double-angle-right"></i></s:a>
-                            </p>
+                    <div class="col-md-6">
+                        <div class="thumbnail custom-thumb">
+                            <s:a href="%{contextPath}/soil/listSoil.action" role="button" targets="divBodyLayout"><img class="sprite sprite-soils" /></s:a>
+                            <div class="caption">
+                                <h3><s:property value="getText('title.soilrasta.soilstype')" /><span class="badge badge-success"><s:property value="numRas" /></span></h3>
+                                <p><s:property value="getText('area.soilinfo.soilstype')" /></p>
+                                <p>
+                                    <s:a cssClass="btn btn-initial" href="%{contextPath}/soil/listSoil.action" role="button" targets="divBodyLayout"><s:property value="getText('link.soilgo.soilstype')" /> <i class="icon-double-angle-right"></i></s:a>
+                                </p>
+                            </div>
                         </div>
                     </div>
-                    <div class="span6 thumbnail custom-thumb" style="margin-left: 10px">
+                    <div class="col-md-6">
+                        <div class="thumbnail custom-thumb">                
                 <% } else { %>
-                    <div class="span6 thumbnail custom-thumb">
+                    <div class="col-md-6">
+                        <div class="thumbnail custom-thumb">                
                 <% } %>
                 <% if (usrDao.getPrivilegeUser(user.getIdUsr(), "soil/view")) { %>
-                        <s:a href="%{contextPath}/soilchemical/listSoilChemical.action" role="button" targets="divBodyLayout"><img class="sprite sprite-soils" /></s:a>
-                        <div class="caption">
-                            <h3><s:property value="getText('title.soilchemical.soilstype')" /><span class="badge badge-success"><s:property value="numSoils" /></span></h3>
-                            <p><s:property value="getText('area.soilchemicalinfo.soilstype')" /></p>
-                            <p>
-                                <s:a cssClass="btn btn-initial" href="%{contextPath}/soilchemical/listSoilChemical.action" role="button" targets="divBodyLayout"><s:property value="getText('link.soilchemicalgo.soilstype')" /> <i class="icon-double-angle-right"></i></s:a>
-                            </p>
+                            <s:a href="%{contextPath}/soilchemical/listSoilChemical.action" role="button" targets="divBodyLayout"><img class="sprite sprite-soils" /></s:a>
+                            <div class="caption">
+                                <h3><s:property value="getText('title.soilchemical.soilstype')" /><span class="badge badge-success"><s:property value="numSoils" /></span></h3>
+                                <p><s:property value="getText('area.soilchemicalinfo.soilstype')" /></p>
+                                <p>
+                                    <s:a cssClass="btn btn-initial" href="%{contextPath}/soilchemical/listSoilChemical.action" role="button" targets="divBodyLayout"><s:property value="getText('link.soilchemicalgo.soilstype')" /> <i class="icon-double-angle-right"></i></s:a>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 <% } %>                

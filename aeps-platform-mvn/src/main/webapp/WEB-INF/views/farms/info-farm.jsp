@@ -38,16 +38,15 @@
     }            
 %>    
 <div class="msgWin" id="messageWin"></div>
-<div id="divFarms" class="w-box">
+<div id="divFarms" class="table-responsive w-box">
     <% if (usrFarDao.getPrivilegeUser(userFar.getIdUsr(), "farm/create")) { %>
         <% if (entTypeFarId!=3) { %>    
             <% if (value.equals("property")) {%>
-                <button type="button" class="btn btn-large btn-register btn-space" onclick="viewForm('/showFarm.action?action=create&viewInfo=${viewInfo}', 'idFar', '', '<s:property value="getText('title.createfarm.farm')" />', 1050, 550)">
+                <button type="button" class="btn btn-lg btn-register btn-space" onclick="viewForm('/showFarm.action?action=create&viewInfo=${viewInfo}', 'idFar', '', '<s:property value="getText('title.createfarm.farm')" />', 1050, 550)">
                     <i class="icon-plus"></i> <s:property value="getText('button.addfarm.farm')" />
                 </button><br />
-                <div class="btn btn-group btn-space" onclick="clickSelAll('chkSelectAll', 'chkNumber', 'btnDelFar');">
-                    <input type="checkbox" class="chkSelectAll textFloat" />
-                    <label class="textFloat" style="padding-left: 7px; margin-bottom: 0;"><s:property value="getText('label.selectall.farm')" /></label>
+                <div class="btn-group btn-space" onclick="clickSelAll('chkSelectAll', 'chkNumber', 'btnDelFar');">
+                    <button class="btn btn-default" type="button"><input type="checkbox" class="chkSelectAll textFloat" />&nbsp;<s:property value="getText('label.selectall.farm')" /></button>
                 </div>
                 <button type="button" id="btnDelFar" disabled="disabled" class="btn btn-initial btn-space btnGetAll disabled" onclick="showDialogDeleteAll(this, 'chkNumber', 'confirm_dialog_property', '/deleteAllFarm.action', '/viewFarm.action?page=<%=pageNow%>', 'divFarms', '<%=divHide%>');">
                     <i class="icon-trash"></i> <s:property value="getText('button.deletesel.farm')" />
@@ -55,7 +54,7 @@
             <% } %>
         <% } %>
     <% } %>
-    <table class="table table-bordered table-hover" style="<%= table%> max-width: 100%" id='tblFarms'>
+    <table class="table table-bordered table-hover table-condensed tblOptionGen" style="<%= table%>" id='tblFarms'>
         <thead>
             <tr>
                 <% if (usrFarDao.getPrivilegeUser(userFar.getIdUsr(), "farm/modify") || (usrFarDao.getPrivilegeUser(userFar.getIdUsr(), "farm/delete"))) { %>
@@ -73,7 +72,7 @@
                 <% } %>
                 <th><s:property value="getText('td.namefarm.farm')" /></th>
                 <th><s:property value="getText('td.lane.farm')" /></th>
-                <th><s:property value="getText('td.direction.farm')" /></th>
+                <!--<th><%--<s:property value="getText('td.direction.farm')" />--%></th>-->
                 <th><s:property value="getText('td.department.farm')" /></th>
                 <th><s:property value="getText('td.municipality.farm')" /></th>
                 <th><s:property value="getText('td.latitude.farm')" /></th>
@@ -105,13 +104,14 @@
             </s:iterator>
         </tbody>
     </table>
+    <br />
     <label style="<%= label%>"><s:property value="getText('label.nofounddata.farm')" /></label>
-    <div class="hide">
+    <div class="hideInfo">
         <div id="confirm_dialog_property" class="cbox_content">
             <div class="sepH_c"><s:text name="%{getText('area.deletefarm.farm')}" /></div>
             <div>
                 <a href="#" class="btn btn-small btn-initial confirm_yes"><s:property value="getText('link.optyes')" /></a>
-                <a href="#" class="btn btn-small confirm_no"><s:property value="getText('link.optno')" /></a>
+                <a href="#" class="btn btn-default btn-small confirm_no"><s:property value="getText('link.optno')" /></a>
             </div>
         </div>
     </div>
@@ -121,7 +121,7 @@
         <button class="btn btn_per" onclick="toggleAndClean('<%=divShow%>', '<%=divHide%>')"><i class="icon-arrow-left"></i> <s:property value="getText('button.backoption')" /></button>
     <% }%>
 </div>
-<div style="text-align:center; <%= table %>">
+<div class="text-center" style="<%= table %>">
     <% String result = JavascriptHelper.pager_params_ajax(pageNow, countTotal, maxResults, "/searchFarm.action?selected="+value, "divConListFarms", "", "", "formFarmSearch");%>    
     <%= result%>
 </div>

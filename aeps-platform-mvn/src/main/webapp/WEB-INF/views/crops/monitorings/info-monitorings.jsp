@@ -20,7 +20,7 @@
 </s:if>            
 
 <div class="msgWin" id="divMessListMon"></div>
-<div id="divMon" class="w-box">
+<div id="divMon" class="table-responsive w-box">
     <fieldset>
         <legend><s:property value="getText('title.monitoringlist.monitoring')" /></legend>
         <% if (usrMonDao.getPrivilegeUser(userMon.getIdUsr(), "crop/create")) { %>
@@ -30,7 +30,7 @@
                 </button>
             <% } %>
         <% } %>
-        <table class="table table-bordered table-hover" style="<%= tableMon %>" id='tblMon'>
+        <table class="table table-bordered table-condensed table-hover" style="<%= tableMon %>" id='tblMon'>
             <thead>
                 <tr>             
                     <th><s:property value="getText('td.datemonitoring.monitoring')" /></th>
@@ -50,13 +50,14 @@
                 </s:iterator>
             </tbody>
         </table>
+        <br />
         <label style="<%= labelMon %>"><s:property value="getText('label.nofounddata.monitoring')" /></label>
-        <div class="hide">
+        <div class="hideInfo">
             <div id="confirm_dialog_mon" class="cbox_content">
                 <div class="sepH_c"><strong><s:property value="getText('label.deletemonitoring.monitoring')" />?</strong></div>
                 <div>
                     <a href="#" class="btn btn-small btn-initial confirm_yes"><s:property value="getText('link.optyes')" /></a>
-                    <a href="#" class="btn btn-small confirm_no"><s:property value="getText('link.optno')" /></a>
+                    <a href="#" class="btn btn-default btn-small confirm_no"><s:property value="getText('link.optno')" /></a>
                 </div>
             </div>
         </div>

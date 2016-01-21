@@ -16,7 +16,7 @@
 <% if (usrDao.getPrivilegeUser(user.getIdUsr(), "soil/modify") || (usrDao.getPrivilegeUser(user.getIdUsr(), "soil/delete"))) { %>
     <td>
         <div class="btn-group">
-            <a class="btn btn-small" title="<s:property value="getText('link.soilreport.report')" />" onclick="viewForm('/soil/generateInf.action', 'idRasta', ${id_ras}, '<s:property value="getText('title.soilreport.report')" />', 1050, 820);"><i class="icon-report"></i></a>
+            <a class="btn btn-small btn-default" title="<s:property value="getText('link.soilreport.report')" />" onclick="viewForm('/soil/generateInf.action', 'idRasta', ${id_ras}, '<s:property value="getText('title.soilreport.report')" />', 1050, 820);"><i class="icon-report"></i></a>
         </div>
     </td>
 <% } %>

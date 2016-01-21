@@ -24,7 +24,6 @@
 <td><s:property value="position" /></td>
 <td><s:property value="num_layer" /></td>
 <td><s:property value="ph" /></td>
-<td><s:property value="carbonates" /></td>
 <s:date name="dateLog" format="MM/dd/yyyy" var="dateLog"/>
 <td><s:property value="%{#dateLog}" /></td>
 <% if (usrSoilDao.getPrivilegeUser(userSoil.getIdUsr(), "soil/modify") || (usrSoilDao.getPrivilegeUser(userSoil.getIdUsr(), "soil/delete"))) { %>
@@ -32,10 +31,10 @@
         <td>
             <div class="btn-group">
                 <% if (usrSoilDao.getPrivilegeUser(userSoil.getIdUsr(), "soil/modify")) { %>
-                    <a class="btn btn-small btn-edit" title="<s:property value="getText('link.rastaedit.soil')" />" onclick="viewForm('/soil/showSoil.action?action=modify&page=<%=pageNow%>', 'idRasta', <s:property value ="id_ras" />, '<s:property value="getText('title.rastaedit.soil')" />', 1050, 550)"><i class="icon-pencil"></i></a>
+                    <a class="btn btn-small btn-default btn-edit" title="<s:property value="getText('link.rastaedit.soil')" />" onclick="viewForm('/soil/showSoil.action?action=modify&page=<%=pageNow%>', 'idRasta', <s:property value ="id_ras" />, '<s:property value="getText('title.rastaedit.soil')" />', 1050, 550)"><i class="icon-pencil"></i></a>
                 <% } %>
                 <% if (usrSoilDao.getPrivilegeUser(userSoil.getIdUsr(), "soil/delete")) { %>
-                    <a class="btn btn-small delete_rows_dt btn-delete" title="<s:property value="getText('link.rastadel.soil')" />" onclick="showDialogDelete(this, 'confirm_dialog_lot', '/soil/deleteSoil.action?idRasta=<s:property value ="id_ras" />', '/soil/searchSoil.action?page=<%=pageNow%>', 'divRasta', '<%=divHide%>'); ga('send', 'event', 'Soils', 'click', 'Delete');"><i class="icon-trash"></i></a>
+                    <a class="btn btn-small btn-default delete_rows_dt btn-delete" title="<s:property value="getText('link.rastadel.soil')" />" onclick="showDialogDelete(this, 'confirm_dialog_lot', '/soil/deleteSoil.action?idRasta=<s:property value ="id_ras" />', '/soil/searchSoil.action?page=<%=pageNow%>', 'divRasta', '<%=divHide%>'); ga('send', 'event', 'Soils', 'click', 'Delete');"><i class="icon-trash"></i></a>
                 <% } %>
             </div>
         </td>

@@ -15,24 +15,24 @@
         <s:actionerror theme="bootstrap"/>
         <s:actionmessage theme="bootstrap"/>
         <s:fielderror theme="bootstrap"/>
-        <div class="row-fluid" id="divDesForm">
+        <div class="row" id="divDesForm">
             <s:form id="formCropDes" action="saveDescrip" cssClass="form-horizontal">
                 <fieldset>
                     <legend><s:property value="getText('title.observationsurvey.crop')" /></legend>
                     <div class="row">
-                        <div class="span5">
+                        <div class="col-md-6">
                             <s:hidden name="idCrop"/>
                             <s:hidden name="typeCrop"/>
                             <%--<s:hidden name="lanSel"/>--%>
                             <s:hidden name="actExe"/>
                             <s:hidden name="desPro.idDesPro"/>                          
-                            <div class="control-group">
-                                <label for="formCropDes_desPro_dateDesPro" class="control-label req">
+                            <div class="form-group">
+                                <label for="formCropDes_desPro_dateDesPro" class="col-md-6 req">
                                     <s:property value="getText('text.dateobs.crop')" />:
                                 </label>
-                                <div class="date controls">
+                                <div class="date col-md-6 controls">
                                     <s:date name="desPro.dateDesPro" format="MM/dd/yyyy" var="dateTransformDesPro"/>
-                                    <s:textfield name="desPro.dateDesPro" value="%{#dateTransformDesPro}" readonly="true"/>
+                                    <s:textfield name="desPro.dateDesPro" cssClass="form-control" value="%{#dateTransformDesPro}" readonly="true"/>
                                     <span class="prefix sec">&nbsp;[mm/dd/yyyy]</span>
                                     <span class="add-on"><i class="icon-calendar"></i></span>
                                 </div>                          
@@ -40,18 +40,18 @@
                         </div>       
                     </div>
                     <div class="row">
-                        <div class="span5">
-                            <div class="control-group">
-                                <label for="formCropDes_desPro_obsDesPro" class="control-label req">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="formCropDes_desPro_obsDesPro" class="col-md-6 req">
                                     <s:property value="getText('text.descobs.crop')" />: 
                                 </label>
-                                <div class="controls">
-                                    <s:textarea rows="5" name="desPro.obsDesPro"></s:textarea>
+                                <div class="controls col-md-12">
+                                    <s:textarea rows="5" cssClass="form-control" name="desPro.obsDesPro"></s:textarea>
                                 </div> 
                             </div>                          
                         </div>     
                     </div>
-                    <p class="warnField reqBef"><s:property value="getText('label.requirefields')" /></p>
+                    <p class="warnField reqBef" style="width: 100%"><s:property value="getText('label.requirefields')" /></p>
                     <script>
                         $("#formCropDes_desPro_dateDesPro").datepicker({dateFormat: 'mm/dd/yy'});
                         $("#formCropDes_desPro_dateDesPro").mask("99/99/9999", {placeholder: " "});
@@ -59,9 +59,9 @@
                     <div id="divBtDes">
                         <% String actExe   = String.valueOf(request.getAttribute("actExe")); %>
                         <% if ((actExe.equals("create") && usrDao.getPrivilegeUser(user.getIdUsr(), "crop/create")) || (actExe.equals("modify") && usrDao.getPrivilegeUser(user.getIdUsr(), "crop/modify"))) { %>
-                            <sj:submit type="button" cssClass="btn btn-initial btn-large" onclick="addMessageProcess()" targets="divMessage" onCompleteTopics="completeDes" validate="true" validateFunction="validationForm"><i class="icon-save"></i>  <s:property value="getText('button.saveobs.crop')" /></sj:submit>
+                            <sj:submit type="button" cssClass="btn btn-initial btn-lg" onclick="addMessageProcess()" targets="divMessage" onCompleteTopics="completeDes" validate="true" validateFunction="validationForm"><i class="icon-save"></i>  <s:property value="getText('button.saveobs.crop')" /></sj:submit>
                         <% } %>
-                        <button class="btn btn_default btn-large" onclick="resetForm('formCropDes'); closeWindow();"><i class="icon-ban-circle"></i>  <s:property value="getText('button.cancel')" /></button>
+                        <button class="btn btn-default btn-lg" onclick="resetForm('formCropDes'); closeWindow();"><i class="icon-ban-circle"></i>  <s:property value="getText('button.cancel')" /></button>
                     </div>
                 </fieldset>
             </s:form>
@@ -78,6 +78,6 @@
                 });
             </script>
         </div>
-        <div class="row-fluid" id="divListDesForm"></div>
+        <div class="row" id="divListDesForm"></div>
     </body>
 </html>

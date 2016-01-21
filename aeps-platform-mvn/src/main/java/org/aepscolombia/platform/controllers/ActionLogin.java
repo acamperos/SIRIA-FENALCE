@@ -26,6 +26,7 @@ import org.aepscolombia.platform.models.entity.Entities;
 import org.aepscolombia.platform.models.entity.Producers;
 import org.aepscolombia.platform.models.entity.EntitiesTypes;
 import org.aepscolombia.platform.models.entity.ExtensionAgents;
+import org.aepscolombia.platform.models.entity.IdiomCountry;
 import org.aepscolombia.platform.models.entity.UserEntity;
 import org.aepscolombia.platform.models.entity.Users;
 import org.aepscolombia.platform.models.entity.WorkTypeExtAgent;
@@ -254,12 +255,12 @@ public class ActionLogin extends BaseAction {
         this.lanSel = lanSel;
     }
     
-    private String coCode;
+    private String coCode="";
     
     @Override
     public void prepare() throws Exception {
         this.setAssociation_list(new AssociationDao().findAll());
-//        if(coCode.equals("")) coCode   = (String) this.getSession().get(APConstants.COUNTRY_CODE);
+        if(coCode.equals("")) coCode = (String) ActionContext.getContext().get(APConstants.COUNTRY_CODE);
 //        if(lanTemp.equals("")) lanTemp = (String) this.getSession().get(APConstants.SESSION_LANG);
         String lanSave = (String) ActionContext.getContext().getLocale().getLanguage();
 //            lanSel = lanSave.replace(coCode.toLowerCase(), "");
@@ -1048,6 +1049,7 @@ public class ActionLogin extends BaseAction {
                 user.setCodValidationUsr(codValidation);
             }            
             user.setLastInUsr(null);
+            if(coCode!=null) user.setCountryUsr(new IdiomCountry(coCode));
             user.setStatus(2);//Estado inhabilitado hasta confirmar
 //            user.setCreatedBy(sfUser.getId().intValue());
             session.saveOrUpdate(user);

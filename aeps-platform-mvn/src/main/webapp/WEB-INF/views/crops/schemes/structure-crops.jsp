@@ -4,55 +4,55 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="icon" type="image/ico" href="img/favicon.ico">
+        <link rel="icon" type="image/ico" href="img/logoAEPS.ico">
         <style type="text/css">
             .vis-item.sowing {
-              background-color: white;
-              border-color: black;
+                background-color: white;
+                border-color: black;
             }
             .vis-item.emergency {
-              background-color: greenyellow;
-              border-color: greenyellow;
+                background-color: greenyellow;
+                border-color: greenyellow;
             }
             .vis-item.flowering {
-              background-color: salmon;
-              border-color: salmon;
+                background-color: salmon;
+                border-color: salmon;
             }
             .vis-item.preparations {
-              background-color: chocolate;
-              border-color: chocolate;
+                background-color: chocolate;
+                border-color: chocolate;
             }
             .vis-item.residuals {
-              background-color: orange;
-              border-color: orange;
+                background-color: orange;
+                border-color: orange;
             }
             .vis-item.irrigations {
-              background-color: dodgerblue;
-              border-color: dodgerblue;
+                background-color: dodgerblue;
+                border-color: dodgerblue;
             }
             .vis-item.fertilizations {
-              background-color: red;
-              border-color: red;
+                background-color: red;
+                border-color: red;
             }
             .vis-item.monitorings {
-              background-color: lightgray;
-              border-color: lightgray;
+                background-color: lightgray;
+                border-color: lightgray;
             }
             .vis-item.controls {
-              background-color: dimgrey;
-              border-color: dimgrey;
+                background-color: dimgrey;
+                border-color: dimgrey;
             }
             .vis-item.maize {
-              background-color: white;
-              border-color: black;
+                background-color: white;
+                border-color: black;
             }
             .vis-item.beans {
-              background-color: white;
-              border-color: black;
+                background-color: white;
+                border-color: black;
             }
             .vis-item.rice {
-              background-color: white;
-              border-color: black;
+                background-color: white;
+                border-color: black;
             }
         </style>
     </head>
@@ -70,17 +70,17 @@
         <%@page import="org.aepscolombia.platform.models.entity.Users"%>
         <%@page import="org.aepscolombia.platform.models.dao.UsersDao"%>
         <%@page import="org.aepscolombia.platform.util.APConstants"%>
-        <% Users user  = (Users) session.getAttribute(APConstants.SESSION_USER); %>
-        <% UsersDao usrDao   = new UsersDao(); %>
+        <% Users user = (Users) session.getAttribute(APConstants.SESSION_USER); %>
+        <% UsersDao usrDao = new UsersDao(); %>
         <% Integer entTypeId = new EntitiesDao().getEntityTypeId(user.getIdUsr()); %>
         <% //String coCode     = user.getCountryUsr().getAcronymIdCo(); %>
         <% String coCode     = (String) session.getAttribute(APConstants.COUNTRY_CODE); %>
         <% Boolean costCrop =  Boolean.valueOf(String.valueOf(request.getAttribute("costCrop")));  %>
-        
+
         <div class="container" id="divDataInfoCrop">
             <%@ include file="../generals/data-crops.jsp" %>                 
         </div>       
-        <div class="container hide" id="divInfoTimeline" style="margin-top: 15px">
+        <div class="container hideInfo" id="divInfoTimeline" style="margin-top: 15px">
             <div class="panel">
                 <div class="panel-body">  
                     <fieldset>
@@ -92,36 +92,37 @@
             </div>            
         </div>
         <% int typeCrop = (request.getAttribute("typeCrop") != null) ? Integer.parseInt(String.valueOf(request.getAttribute("typeCrop"))) : 1;%>                    
-        <div class="container panel" id="divDataExtendCrop" style="margin-top: 20px"> 
-            <div class="accordion" id="accordion2" style="margin-bottom: 0">
-                <div class="accordion-group">
-                    <div class="accordion-heading">
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne">
-                            <h4><s:property value="getText('link.establishment.crop')" /> <i class="colOne icon-chevron-down"></i></h4> 
-                        </a>
-                    </div>
-                    <div id="collapseOne" class="accordion-body collapse">
-                        <div class="accordion-inner">
-                            <%@ include file="view-establishment-crop.jsp" %>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-group">
-                    <div class="accordion-heading">
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion8" href="#collapseEight">
-                            <h4><s:property value="getText('title.formphysiology.monitoring')" /> <i class="colEight icon-chevron-down"></i></h4> 
-                        </a>
-                    </div>
-                    <div id="collapseEight" class="accordion-body collapse">
-                        <div class="accordion-inner">
-                            <%@ include file="view-physiological.jsp" %>
-                        </div>
-                    </div>
-                </div>        
-                <% if (coCode.equals("NI")) { %>
+        <div class="container" id="divDataExtendCrop"> 
+            <div class="panel"> 
+                <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
                     <div class="accordion-group">
                         <div class="accordion-heading">
-                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" href="#collapseThree">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                <h4><s:property value="getText('link.establishment.crop')" /> <i class="colOne icon-chevron-down"></i></h4> 
+                            </a>
+                        </div>
+                        <div id="collapseOne" class="accordion-body collapse">
+                            <div class="accordion-inner">
+                                <%@ include file="view-establishment-crop.jsp" %>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseEight">
+                                <h4><s:property value="getText('title.formphysiology.monitoring')" /> <i class="colEight icon-chevron-down"></i></h4> 
+                            </a>
+                        </div>
+                        <div id="collapseEight" class="accordion-body collapse">
+                            <div class="accordion-inner">
+                                <%@ include file="view-physiological.jsp" %>
+                            </div>
+                        </div>
+                    </div>        
+                    <% if (coCode.equals("NI")) { %>
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
                                 <h4><s:property value="getText('link.fertilizationMan.crop')" /> <i class="colThree icon-chevron-down"></i></h4>
                             </a>
                         </div>
@@ -131,10 +132,10 @@
                             </div>
                         </div>
                     </div>  
-                <% } else if (coCode.equals("CO")) { %>
+                    <% } else if (coCode.equals("CO")) { %>
                     <div class="accordion-group">
                         <div class="accordion-heading">
-                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion6" href="#collapseSix">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseSix">
                                 <h4><s:property value="getText('link.irrigation.crop')" /> <i class="colSix icon-chevron-down"></i></h4>
                             </a>
                         </div>
@@ -144,23 +145,23 @@
                             </div>
                         </div>
                     </div>
-                <% } %>
-                <div class="accordion-group">
-                    <div class="accordion-heading">
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
-                            <h4><s:property value="getText('link.nutrition.crop')" /> <i class="colTwo icon-chevron-down"></i></h4>
-                        </a>
-                    </div>
-                    <div id="collapseTwo" class="accordion-body collapse">
-                        <div class="accordion-inner">
-                            <%@ include file="view-nutrition.jsp" %>
-                        </div>
-                    </div>
-                </div>
-                <% if (coCode.equals("NI")) { %>
+                    <% } %>
                     <div class="accordion-group">
                         <div class="accordion-heading">
-                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion6" href="#collapseSix">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                <h4><s:property value="getText('link.nutrition.crop')" /> <i class="colTwo icon-chevron-down"></i></h4>
+                            </a>
+                        </div>
+                        <div id="collapseTwo" class="accordion-body collapse">
+                            <div class="accordion-inner">
+                                <%@ include file="view-nutrition.jsp" %>
+                            </div>
+                        </div>
+                    </div>
+                    <% if (coCode.equals("NI")) { %>
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseSix">
                                 <h4><s:property value="getText('link.irrigation.crop')" /> <i class="colSix icon-chevron-down"></i></h4>
                             </a>
                         </div>
@@ -170,10 +171,10 @@
                             </div>
                         </div>
                     </div>
-                <% } else if (coCode.equals("CO")) { %>
+                    <% } else if (coCode.equals("CO")) { %>
                     <div class="accordion-group">
                         <div class="accordion-heading">
-                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" href="#collapseThree">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
                                 <h4><s:property value="getText('link.fertilizationMan.crop')" /> <i class="colThree icon-chevron-down"></i></h4>
                             </a>
                         </div>
@@ -183,133 +184,133 @@
                             </div>
                         </div>
                     </div>
-                <% } %>                  
-                <div class="accordion-group">
-                    <div class="accordion-heading">
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion4" href="#collapseFour">
-                            <h4><s:property value="getText('link.monitoring.crop')" /> <i class="colFour icon-chevron-down"></i></h4>
-                        </a>
-                    </div>
-                    <div id="collapseFour" class="accordion-body collapse">
-                        <div class="accordion-inner">
-                            <%@ include file="view-monitorings.jsp" %>
+                    <% } %>                  
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+                                <h4><s:property value="getText('link.monitoring.crop')" /> <i class="colFour icon-chevron-down"></i></h4>
+                            </a>
+                        </div>
+                        <div id="collapseFour" class="accordion-body collapse">
+                            <div class="accordion-inner">
+                                <%@ include file="view-monitorings.jsp" %>
+                            </div>
                         </div>
                     </div>
-                </div>
-                
-                <div class="accordion-group">
-                    <div class="accordion-heading">
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion5" href="#collapseFive">
-                            <h4><s:property value="getText('link.harvest.crop')" /> <i class="colFive icon-chevron-down"></i></h4>
-                        </a>
-                    </div>
-                    <div id="collapseFive" class="accordion-body collapse">                        
-                        <div class="accordion-inner">
-                            <%@ include file="view-harvest.jsp" %>                            
+
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
+                                <h4><s:property value="getText('link.harvest.crop')" /> <i class="colFive icon-chevron-down"></i></h4>
+                            </a>
+                        </div>
+                        <div id="collapseFive" class="accordion-body collapse">                        
+                            <div class="accordion-inner">
+                                <%@ include file="view-harvest.jsp" %>                            
+                            </div>
+                        </div>
+                    </div>    
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven">
+                                <h4><s:property value="getText('link.observations.crop')" /><i class="colSeven icon-chevron-down"></i></h4> 
+                            </a>
+                        </div>
+                        <div id="collapseSeven" class="accordion-body collapse">
+                            <div class="accordion-inner">
+                                <%@ include file="view-descriptions.jsp" %>
+                            </div>
                         </div>
                     </div>
-                </div>    
-              <div class="accordion-group">
-                    <div class="accordion-heading">
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion7" href="#collapseSeven">
-                            <h4><s:property value="getText('link.observations.crop')" /><i class="colSeven icon-chevron-down"></i></h4> 
-                        </a>
-                    </div>
-                    <div id="collapseSeven" class="accordion-body collapse">
-                        <div class="accordion-inner">
-                            <%@ include file="view-descriptions.jsp" %>
-                        </div>
-                    </div>
-                </div>              
-            
-              <% if (costCrop) { %>
-             <div class="accordion-group">
-                    <div class="accordion-heading">
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion9" href="#collapseNine">
-                            <h4><s:property value="getText('link.costindirect.crop')" /><i class="colNine icon-chevron-down"></i></h4>
-                        </a>
-                    </div>
-                    <div id="collapseNine" class="accordion-body collapse">                        
-                        <div class="accordion-inner">
-                                 <%@ include file="view-cost-indirect.jsp" %>           
-                        </div>
-                    </div>
-                </div>   
-                 <% } %>       
-                    
-                        
+                    <% if (costCrop) { %>
+                        <div class="accordion-group">
+                            <div class="accordion-heading">
+                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseNine">
+                                    <h4><s:property value="getText('link.costindirect.crop')" /><i class="colNine icon-chevron-down"></i></h4>
+                                </a>
+                            </div>
+                            <div id="collapseNine" class="accordion-body collapse">                        
+                                <div class="accordion-inner">
+                                    <%@ include file="view-cost-indirect.jsp" %>           
+                                </div>
+                            </div>
+                        </div>   
+                    <% } %>       
+
+
+                </div>               
             </div>               
         </div>   
         <script>
-            $('#collapseOne').on('shown', function () {
-               $(".colOne").removeClass("icon-chevron-down").addClass("icon-chevron-up");
+            $('#collapseOne').on('shown.bs.collapse', function() {
+                $(".colOne").removeClass("icon-chevron-down").addClass("icon-chevron-up");
             });
 
-            $('#collapseOne').on('hidden', function () {
+            $('#collapseOne').on('hidden.bs.collapse', function() {
                 $(".colOne").removeClass("icon-chevron-up").addClass("icon-chevron-down");
             });
 
-            $('#collapseTwo').on('shown', function () {
-               $(".colTwo").removeClass("icon-chevron-down").addClass("icon-chevron-up");
+            $('#collapseTwo').on('shown.bs.collapse', function() {
+                $(".colTwo").removeClass("icon-chevron-down").addClass("icon-chevron-up");
             });
 
-            $('#collapseTwo').on('hidden', function () {
+            $('#collapseTwo').on('hidden.bs.collapse', function() {
                 $(".colTwo").removeClass("icon-chevron-up").addClass("icon-chevron-down");
             });
 
-            $('#collapseThree').on('shown', function () {
-               $(".colThree").removeClass("icon-chevron-down").addClass("icon-chevron-up");
+            $('#collapseThree').on('shown.bs.collapse', function() {
+                $(".colThree").removeClass("icon-chevron-down").addClass("icon-chevron-up");
             });
 
-            $('#collapseThree').on('hidden', function () {
+            $('#collapseThree').on('hidden.bs.collapse', function() {
                 $(".colThree").removeClass("icon-chevron-up").addClass("icon-chevron-down");
             });
 
-            $('#collapseFour').on('shown', function () {
-               $(".colFour").removeClass("icon-chevron-down").addClass("icon-chevron-up");
+            $('#collapseFour').on('shown.bs.collapse', function() {
+                $(".colFour").removeClass("icon-chevron-down").addClass("icon-chevron-up");
             });
 
-            $('#collapseFour').on('hidden', function () {
+            $('#collapseFour').on('hidden.bs.collapse', function() {
                 $(".colFour").removeClass("icon-chevron-up").addClass("icon-chevron-down");
             });
 
-            $('#collapseFive').on('shown', function () {
-               $(".colFive").removeClass("icon-chevron-down").addClass("icon-chevron-up");
+            $('#collapseFive').on('shown.bs.collapse', function() {
+                $(".colFive").removeClass("icon-chevron-down").addClass("icon-chevron-up");
             });
 
-            $('#collapseFive').on('hidden', function () {
+            $('#collapseFive').on('hidden.bs.collapse', function() {
                 $(".colFive").removeClass("icon-chevron-up").addClass("icon-chevron-down");
             });
-            
-            $('#collapseSix').on('shown', function () {
-               $(".colSix").removeClass("icon-chevron-down").addClass("icon-chevron-up");
+
+            $('#collapseSix').on('shown.bs.collapse', function() {
+                $(".colSix").removeClass("icon-chevron-down").addClass("icon-chevron-up");
             });
 
-            $('#collapseSix').on('hidden', function () {
+            $('#collapseSix').on('hidden.bs.collapse', function() {
                 $(".colSix").removeClass("icon-chevron-up").addClass("icon-chevron-down");
             });
-            
-            $('#collapseSeven').on('shown', function () {
-               $(".colSeven").removeClass("icon-chevron-down").addClass("icon-chevron-up");
-            });
-            
-            $('#collapseSeven').on('hidden', function () {
-                $(".colSeven").removeClass("icon-chevron-up").addClass("icon-chevron-down");
-            });
-            
-             $('#collapseEight').on('shown', function () {
-               $(".colEight").removeClass("icon-chevron-down").addClass("icon-chevron-up");
+
+            $('#collapseSeven').on('shown.bs.collapse', function() {
+                $(".colSeven").removeClass("icon-chevron-down").addClass("icon-chevron-up");
             });
 
-            $('#collapseEight').on('hidden', function () {
+            $('#collapseSeven').on('hidden.bs.collapse', function() {
+                $(".colSeven").removeClass("icon-chevron-up").addClass("icon-chevron-down");
+            });
+
+            $('#collapseEight').on('shown.bs.collapse', function() {
+                $(".colEight").removeClass("icon-chevron-down").addClass("icon-chevron-up");
+            });
+
+            $('#collapseEight').on('hidden.bs.collapse', function() {
                 $(".colEight").removeClass("icon-chevron-up").addClass("icon-chevron-down");
             });
 
-            $('#collapseNine').on('shown', function () {
-               $(".colNine").removeClass("icon-chevron-down").addClass("icon-chevron-up");
+            $('#collapseNine').on('shown.bs.collapse', function() {
+                $(".colNine").removeClass("icon-chevron-down").addClass("icon-chevron-up");
             });
 
-            $('#collapseNine').on('hidden', function () {
+            $('#collapseNine').on('hidden.bs.collapse', function() {
                 $(".colNine").removeClass("icon-chevron-up").addClass("icon-chevron-down");
             });
 

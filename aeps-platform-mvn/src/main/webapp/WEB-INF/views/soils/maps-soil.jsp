@@ -8,21 +8,21 @@
         <s:hidden name="rasta.longitudRas"/>
         <s:hidden name="coCode"/>
         <div class="row">
-            <div class="span12">
-                <div id="map_canvas" style="width:98%; height:90%; position: absolute;"></div>
+            <div class="col-md-12">
+                <div id="map_canvas" style="width:98%; height:550px; position: absolute;"></div>
             </div>
         </div>
         <div class="row">
-            <div class="span12">
+            <div class="col-md-12">
                 <div style="margin-left: 40%; position: absolute;"> 
-                    <button class="btn btn-large bt_cancel_field" onclick="toggleAndClean('divRastaForm', 'divListRastaForm'); $('.ui-dialog-titlebar-close').show();"><i class="icon-arrow-left"></i>  <s:property value="getText('button.backarrow.soil')" /></button>
-                    <button class="btn btn-large bt_cancel_field" onclick="selValPos('formRasta_rasta_latitudRas', 'rasta_latitudRas', 'formRasta_rasta_longitudRas', 'rasta_longitudRas'); generateDegrees('formRasta_rasta_latitudRas', 'formRasta_rasta_latitude_degrees', 'formRasta_rasta_latitude_minutes', 'formRasta_rasta_latitude_seconds');
+                    <button class="btn btn-lg bt_cancel_field" onclick="toggleAndClean('divRastaForm', 'divListRastaForm'); $('.ui-dialog-titlebar-close').show();"><i class="icon-arrow-left"></i>  <s:property value="getText('button.backarrow.soil')" /></button>
+                    <button class="btn btn-lg bt_cancel_field" onclick="selValPos('formRasta_rasta_latitudRas', 'rasta_latitudRas', 'formRasta_rasta_longitudRas', 'rasta_longitudRas'); generateDegrees('formRasta_rasta_latitudRas', 'formRasta_rasta_latitude_degrees', 'formRasta_rasta_latitude_minutes', 'formRasta_rasta_latitude_seconds');
                     generateDegrees('formRasta_rasta_longitudRas', 'formRasta_rasta_length_degrees', 'formRasta_rasta_length_minutes', 'formRasta_rasta_length_seconds'); $('.ui-dialog-titlebar-close').show(); toggleAndClean('divRastaForm', 'divListRastaForm');"><i class="icon-check"></i>  <s:property value="getText('button.pointsel.soil')" /></button>
                 </div>
             </div>
-            <div class="span12">
+            <div class="col-md-12">
                 <div style="margin-left:75%; margin-top:100px; position: absolute;"> 
-                    <div class="alert mapAdv">
+                    <div class="alert alert-warning mapAdv">
                         <h4><s:property value="getText('title.infomap.soil')" />:</h4>
                         <p><s:property value="getText('area.infomap.soil')" />.</p>
                     </div>

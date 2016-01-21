@@ -17,16 +17,16 @@
         <div class="container">
             <nav>
                 <ul id="menu" class="nav">
-                    <li id="nav1" class="separate"><s:a href="getting" cssClass="btn" targets="divBodyLayout"><s:property value="getText('link.recollect.general')" /></s:a></li>
-                    <li id="nav2" class="separate"><s:a href="reports" cssClass="btn" targets="divBodyLayout"><s:property value="getText('link.reports.general')" /></s:a></li>
-                    <li id="nav4" class="separate"><s:a href="viewIndicators" cssClass="btn" targets="divBodyLayout"><s:property value="getText('link.applications.general')" /></s:a></li>
-                    <li id="nav3"><s:a href="viewIssue" cssClass="btn" targets="divBodyLayout"><s:property value="getText('link.sendissue.general')" /></s:a></li>
+                    <li id="nav1" class="col-sm-6 col-md-2 space-group"><s:a href="getting" cssClass="btn" targets="divBodyLayout"><s:property value="getText('link.recollect.general')" /></s:a></li>
+                    <li id="nav2" class="col-sm-6 col-md-2 space-group"><s:a href="reports" cssClass="btn" targets="divBodyLayout"><s:property value="getText('link.reports.general')" /></s:a></li>
+                    <li id="nav4" class="col-sm-6 col-md-2 space-group"><s:a href="viewIndicators" cssClass="btn" targets="divBodyLayout"><s:property value="getText('link.applications.general')" /></s:a></li>
+                    <li id="nav3" class="col-sm-6 col-md-2 space-group"><s:a href="viewIssue" cssClass="btn" targets="divBodyLayout"><s:property value="getText('link.sendissue.general')" /></s:a></li>
                 </ul>
             </nav>
         </div>
         <div class="container">
             <div class="row">
-                <div class="span12">
+                <div class="col-md-12">
                     <h3><s:property value="getText('title.summary.general')" /></h3>
                 </div>
             </div>

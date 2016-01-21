@@ -304,7 +304,8 @@ public class ControlsDao
         sql += " from controls m";    
         sql += " inner join production_events ep on m.id_production_event_con=ep.id_pro_eve"; 
         sql += " inner join sowing s on s.id_production_event_sow=ep.id_pro_eve"; 
-        sql += " where m.status=1 and ep.status=1 and m.target_type_con=2";
+        sql += " inner join products_controls ps on ps.id_control_pro_con=m.id_con"; 
+        sql += " where m.status=1 and ep.status=1 and ps.target_type_pro_con=2";
         if (args.containsKey("idEvent")) {
             sql += " and m.id_production_event_con="+args.get("idEvent");
         }
@@ -344,8 +345,9 @@ public class ControlsDao
         sql += "select DATEDIFF(m.date_con,s.flowering_date_phy_mon) as time, m.id_con";    
         sql += " from controls m";    
         sql += " inner join production_events ep on m.id_production_event_con=ep.id_pro_eve"; 
-        sql += " inner join physiological_monitoring s on s.id_production_event_phy_mon=ep.id_pro_eve"; 
-        sql += " where m.status=1 and ep.status=1 and m.target_type_con=3";
+        sql += " inner join physiological_monitoring s on s.id_production_event_phy_mon=ep.id_pro_eve";
+        sql += " inner join products_controls ps on ps.id_control_pro_con=m.id_con"; 
+        sql += " where m.status=1 and ep.status=1 and ps.target_type_pro_con=3";
         if (args.containsKey("idEvent")) {
             sql += " and m.id_production_event_con="+args.get("idEvent");
         }
@@ -490,7 +492,7 @@ public class ControlsDao
         String result = "[";
         
         String sql = "";      
-        sql += "select DATE_FORMAT(c.date_con,'%Y-%m-%d') as dateCon, c.target_type_con, c.id_pest_con, c.id_weed_con,";
+        sql += "select DATE_FORMAT(c.date_con,'%Y-%m-%d') as dateCon, c.id_pest_con, c.id_weed_con,";
         sql += " c.id_disease_con, c.control_type_con";
         sql += " from controls c"; 
         sql += " where c.status=1";
@@ -548,7 +550,7 @@ public class ControlsDao
         String result = "[";
         
         String sql = "";      
-        sql += "select DATE_FORMAT(c.date_con,'%Y-%m-%d') as dateCon, c.target_type_con, c.id_pest_con, c.id_weed_con,";
+        sql += "select DATE_FORMAT(c.date_con,'%Y-%m-%d') as dateCon, c.id_pest_con, c.id_weed_con,";
         sql += " c.id_disease_con, c.control_type_con";
         sql += " from controls c"; 
         sql += " where c.status=1";

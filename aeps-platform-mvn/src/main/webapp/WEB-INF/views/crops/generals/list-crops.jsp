@@ -4,8 +4,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="icon" type="image/ico" href="img/favicon.ico">
-        <!--<script src="/scripts/js/generals/googleAnalytics.js"></script>-->
+        <link rel="icon" type="image/ico" href="img/logoAEPS.ico">
     </head>
     <body>
         <%@ include file="../../generals/googleAnalytics.jsp" %>    

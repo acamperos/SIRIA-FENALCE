@@ -15,375 +15,360 @@
         <s:actionerror theme="bootstrap"/>
         <s:actionmessage theme="bootstrap"/>
         <s:fielderror theme="bootstrap"/>
-        <div class="row-fluid" id="divSoilForm">
-            <s:form id="formSoil" action="saveSoilChemical" cssClass="form-horizontal">
-                <fieldset>         
-                    <legend><s:property value="getText('title.generateanalysis.soilanalysis')" /></legend>
-                    <s:hidden name="soil.idSoAna"/>    
-                    <div class="control-group">
-                        <label for="formSoil_nameCrop" class="control-label req">
-                            <s:property value="getText('text.selectcrop.soilanalysis')" />:
-                            <i class="icon-info-sign s2b_tooltip pop-over" data-content="<s:property value="getText('desc.selectcrop.soilanalysis')" />." data-title="<s:property value="getText('help.selectcrop.soilanalysis')" />" data-placement="right" data-trigger="hover"></i>
-                        </label>
-                        <div class="controls">
-                            <s:hidden name="idCrop"/>
-                            <s:textfield
-                                name="nameCrop"         
-                                readonly="true"
-                                onclick="listInfo('/crop/viewCrop.action?selected=soil', 'formSoil_nameCrop', 'formSoil_idCrop', 'divListSoilForm', 'divSoilForm')"
-                            />
-                            <a class="btn" onclick="listInfo('/crop/viewCrop.action?selected=soil', 'formSoil_nameCrop', 'formSoil_idCrop', 'divListSoilForm', 'divSoilForm')"><i class="icon-search"></i></a>
+        <div id="divSoilForm">
+            <div>	
+                <s:form id="formSoil" action="saveSoilChemical" cssClass="form-horizontal">
+                    <fieldset>         
+                        <legend><s:property value="getText('title.generateanalysis.soilanalysis')" /></legend>
+                        <s:hidden name="soil.idSoAna"/>    
+                        <div class="form-group">
+                            <label for="formSoil_nameCrop" class="col-md-3 req">
+                                <s:property value="getText('text.selectcrop.soilanalysis')" />:
+                                <i class="icon-info-sign s2b_tooltip pop-over" data-content="<s:property value="getText('desc.selectcrop.soilanalysis')" />." data-title="<s:property value="getText('help.selectcrop.soilanalysis')" />" data-placement="right" data-trigger="hover"></i>
+                            </label>
+                            <div class="controls col-md-6 input-group">
+                                <s:hidden name="idCrop"/>
+                                <s:textfield
+                                    name="nameCrop"         
+                                    readonly="true"
+                                    cssClass="form-control"
+                                    onclick="listInfo('/crop/viewCrop.action?selected=soil', 'formSoil_nameCrop', 'formSoil_idCrop', 'divListSoilForm', 'divSoilForm')"
+                                />
+                                <a class="btn btn-default input-group-addon" onclick="listInfo('/crop/viewCrop.action?selected=soil', 'formSoil_nameCrop', 'formSoil_idCrop', 'divListSoilForm', 'divSoilForm')"><i class="icon-search"></i></a>
+                            </div>  
                         </div>  
-                    </div>  
-                    <div class="control-group">
-                        <s:label for="formSoil_soil_dateSamplingSoAna" cssClass="control-label req" value="%{getText('text.datesoil.soilanalysis')}:"></s:label>
-                        <div class="date controls">
-                            <s:date name="soil.dateSamplingSoAna" format="MM/dd/yyyy" var="dateTransform"/>
-                            <s:textfield cssClass="form-control" name="soil.dateSamplingSoAna" value="%{#dateTransform}" readonly="true"/>
-                            <span class="prefix sec">&nbsp;[mm/dd/yyyy]</span>
-                            <span class="add-on"><i class="icon-calendar"></i></span>
+                        <div class="form-group">
+                            <s:label for="formSoil_soil_dateSamplingSoAna" cssClass="col-md-3 req" value="%{getText('text.datesoil.soilanalysis')}:"></s:label>
+                            <div class="date controls col-md-6">
+                                <s:date name="soil.dateSamplingSoAna" format="MM/dd/yyyy" var="dateTransform"/>
+                                <s:textfield cssClass="form-control" name="soil.dateSamplingSoAna" value="%{#dateTransform}" readonly="true"/>
+                                <span class="prefix sec">&nbsp;[mm/dd/yyyy]</span>
+                                <span class="add-on"><i class="icon-calendar"></i></span>
+                            </div>
+                        </div>    
+                        <div class="form-group">
+                            <label for="formSoil_soil_sampleNumberSoAna" class="col-md-3 req">
+                                <s:property value="getText('text.samplenumber.soilanalysis')" />:
+                            </label>
+                            <div class="controls col-md-6">
+                                <s:textfield cssClass="form-control" id="formSoil_soil_sampleNumberSoAna" name="soil.sampleNumberSoAna" tooltip="%{getText('desc.samplenumber.soilanalysis')}"/>
+                            </div>
                         </div>
+                        <fieldset>
+                            <%--<s:number name="prep.depthPrep" type="integer" var="depthPreparation" />--%>
+                            <legend><s:property value="getText('title.properties.soilanalysis')" /></legend> 
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="formSoil_soil_sandSoAna" class="col-md-3">
+                                            <s:property value="getText('text.sandsoil.soilanalysis')" />:
+                                        </label>
+                                        <div class="controls col-md-6">
+                                            <s:textfield cssClass="form-control" id="formSoil_soil_sandSoAna" name="soil.sandSoAna" onkeyup="getTexture('formSoil_typeTexture', 'formSoil_soil_sandSoAna', 'formSoil_soil_lemonSoAna', 'formSoil_soil_claySoAna')" /> %
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="formSoil_soil_lemonSoAna" class="col-md-3">
+                                            <s:property value="getText('text.lemonsoil.soilanalysis')" />:
+                                        </label>
+                                        <div class="controls col-md-6">
+                                            <s:textfield cssClass="form-control" id="formSoil_soil_lemonSoAna" name="soil.lemonSoAna" onkeyup="getTexture('formSoil_typeTexture', 'formSoil_soil_sandSoAna', 'formSoil_soil_lemonSoAna', 'formSoil_soil_claySoAna')" /> %
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="formSoil_soil_claySoAna" class="col-md-3">
+                                            <s:property value="getText('text.claysoil.soilanalysis')" />:
+                                        </label>
+                                        <div class="controls col-md-6">
+                                            <s:textfield cssClass="form-control" id="formSoil_soil_claySoAna" name="soil.claySoAna" onkeyup="getTexture('formSoil_typeTexture', 'formSoil_soil_sandSoAna', 'formSoil_soil_lemonSoAna', 'formSoil_soil_claySoAna')" /> %
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="formSoil_typeTexture" class="col-md-3">
+                                            <s:property value="getText('select.texturesoil.soilanalysis')" />:
+                                        </label>
+                                        <div class="controls col-md-6">
+                                            <s:select
+                                                name="typeTexture"
+                                                listKey="idTex" 
+                                                listValue="nameTex" 
+                                                cssClass="form-control"
+                                                list="type_textures"           
+                                                headerKey="-1" 
+                                                headerValue="---" 
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="formSoil_soil_organicMaterialSoAna" class="col-md-3">
+                                            <s:property value="getText('text.mosoil.soilanalysis')" />:
+                                        </label>
+                                        <div class="controls col-md-6">
+                                            <s:textfield cssClass="form-control" id="formSoil_soil_organicMaterialSoAna" name="soil.organicMaterialSoAna" /> %
+                                        </div>
+                                    </div>  
+                                    <div class="form-group">
+                                        <label for="formSoil_soil_dapaSoAna" class="col-md-3">
+                                            <s:property value="getText('text.dapasoil.soilanalysis')" />:
+                                        </label>
+                                        <div class="controls col-md-6">
+                                            <s:textfield cssClass="form-control" id="formSoil_soil_dapaSoAna" name="soil.dapaSoAna" /> gr/cc
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="formSoil_soil_phSoAna" class="col-md-3">
+                                            <s:property value="getText('text.phsoil.soilanalysis')" />:
+                                        </label>
+                                        <div class="controls col-md-6">
+                                            <s:textfield cssClass="form-control" id="formSoil_soil_phSoAna" name="soil.phSoAna" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="formSoil_soil_elecConductivitySoAna" class="col-md-3">
+                                            <s:property value="getText('text.eleconductsoil.soilanalysis')" />:
+                                        </label>
+                                        <div class="controls col-md-6">
+                                            <s:textfield cssClass="form-control" id="formSoil_soil_elecConductivitySoAna" name="soil.elecConductivitySoAna" /> us/cm
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="formSoil_soil_cationInterchangeabilitySoAna" class="col-md-3">
+                                            <s:property value="getText('text.cationinterchangesoil.soilanalysis')" />:
+                                        </label>
+                                        <div class="controls col-md-6">
+                                            <s:textfield cssClass="form-control" id="formSoil_soil_cationInterchangeabilitySoAna" name="soil.cationInterchangeabilitySoAna" /> cmol/kg
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="formSoil_soil_coSoAna" class="col-md-3">
+                                            <s:property value="getText('text.cosoil.soilanalysis')" />:
+                                        </label>
+                                        <div class="controls col-md-6">
+                                            <s:textfield cssClass="form-control" id="formSoil_soil_coSoAna" name="soil.coSoAna" /> %
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend><s:property value="getText('title.elements.soilanalysis')" /></legend> 
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h5 class="text-center"><s:property value="getText('title.major.soilanalysis')" /></h5>
+                                    <hr />
+                                    <div class="form-group">
+                                        <label for="formSoil_soil_nitrogenSoAna" class="col-md-3">
+                                            <s:property value="getText('text.nitrogensoil.soilanalysis')" />:
+                                        </label>
+                                        <div class="controls col-md-6">
+                                            <s:textfield cssClass="form-control" id="formSoil_soil_nitrogenSoAna" name="soil.nitrogenSoAna" /> %
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="formSoil_soil_phosphorusSoAna" class="col-md-3">
+                                            <s:property value="getText('text.phosphorusoil.soilanalysis')" />:
+                                        </label>
+                                        <div class="controls col-md-6">
+                                            <s:textfield cssClass="form-control" id="formSoil_soil_phosphorusSoAna" name="soil.phosphorusSoAna" /> 
+                                            <s:select
+                                                cssStyle="width: auto;"
+                                                name="soil.phosphorusUnitSoAna"
+                                                cssClass="form-control"
+                                                list="#{'1':'cmol/kg', '2':'mg/L'}"           
+                                                headerKey="1"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="formSoil_soil_potassiumSoAna" class="col-md-3">
+                                            <s:property value="getText('text.potassiumsoil.soilanalysis')" />:
+                                        </label>
+                                        <div class="controls col-md-6">
+                                            <s:textfield cssClass="form-control" id="formSoil_soil_potassiumSoAna" name="soil.potassiumSoAna" /> 
+                                            <s:select
+                                                cssStyle="width: auto;"
+                                                name="soil.potassiumUnitSoAna"
+                                                cssClass="form-control"
+                                                list="#{'1':'cmol/kg', '2':'meq/100g'}"           
+                                                headerKey="1"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="formSoil_soil_calciumSoAna" class="col-md-3">
+                                            <s:property value="getText('text.calciumsoil.soilanalysis')" />:
+                                        </label>
+                                        <div class="controls col-md-6">
+                                            <s:textfield cssClass="form-control" id="formSoil_soil_calciumSoAna" name="soil.calciumSoAna" /> 
+                                            <s:select
+                                                cssStyle="width: auto;"
+                                                name="soil.calciumUnitSoAna"
+                                                cssClass="form-control"
+                                                list="#{'1':'cmol/kg', '2':'meq/100g'}"           
+                                                headerKey="1"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="formSoil_soil_magnesiumSoAna" class="col-md-3">
+                                            <s:property value="getText('text.magnesiumsoil.soilanalysis')" />:
+                                        </label>
+                                        <div class="controls col-md-6">
+                                            <s:textfield cssClass="form-control" id="formSoil_soil_magnesiumSoAna" name="soil.magnesiumSoAna" /> 
+                                            <s:select
+                                                cssStyle="width: auto;"
+                                                name="soil.magnesiumUnitSoAna"
+                                                cssClass="form-control"
+                                                list="#{'1':'cmol/kg', '2':'meq/100g'}"           
+                                                headerKey="1"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="formSoil_soil_sulfurSoAna" class="col-md-3">
+                                            <s:property value="getText('text.sulfursoil.soilanalysis')" />:
+                                        </label>
+                                        <div class="controls col-md-6">
+                                            <s:textfield cssClass="form-control" id="formSoil_soil_sulfurSoAna" name="soil.sulfurSoAna" /> 
+                                            <s:select
+                                                cssStyle="width: auto;"
+                                                name="soil.sulfurUnitSoAna"
+                                                cssClass="form-control"
+                                                list="#{'1':'mg/kg', '2':'mg/L'}"           
+                                                headerKey="1"
+                                            />  
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5 class="text-center"><s:property value="getText('title.minor.soilanalysis')" /></h5>
+                                    <hr />
+                                    <div class="form-group">
+                                        <label for="formSoil_soil_boronSoAna" class="col-md-3">
+                                            <s:property value="getText('text.boronsoil.soilanalysis')" />:
+                                        </label>
+                                        <div class="controls col-md-6">
+                                            <s:textfield cssClass="form-control" id="formSoil_soil_boronSoAna" name="soil.boronSoAna" /> 
+                                            <s:select
+                                                cssStyle="width: auto;"
+                                                name="soil.boronUnitSoAna"
+                                                cssClass="form-control"
+                                                list="#{'1':'mg/kg', '2':'mg/L'}"           
+                                                headerKey="1"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="formSoil_soil_zincSoAna" class="col-md-3">
+                                            <s:property value="getText('text.zincsoil.soilanalysis')" />:
+                                        </label>
+                                        <div class="controls col-md-6">
+                                            <s:textfield cssClass="form-control" id="formSoil_soil_zincSoAna" name="soil.zincSoAna" /> 
+                                            <s:select
+                                                cssStyle="width: auto;"
+                                                name="soil.zincUnitSoAna"
+                                                cssClass="form-control"
+                                                list="#{'1':'mg/kg', '2':'mg/L'}"           
+                                                headerKey="1"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="formSoil_soil_ironSoAna" class="col-md-3">
+                                            <s:property value="getText('text.ironsoil.soilanalysis')" />:
+                                        </label>
+                                        <div class="controls col-md-6">
+                                            <s:textfield cssClass="form-control" id="formSoil_soil_ironSoAna" name="soil.ironSoAna" /> 
+                                            <s:select
+                                                cssStyle="width: auto;"
+                                                name="soil.ironUnitSoAna"
+                                                cssClass="form-control"
+                                                list="#{'1':'mg/kg', '2':'mg/L'}"           
+                                                headerKey="1"
+                                            />                                    
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="formSoil_soil_sodiumSoAna" class="col-md-3">
+                                            <s:property value="getText('text.sodiumsoil.soilanalysis')" />:
+                                        </label>
+                                        <div class="controls col-md-6">
+                                            <s:textfield cssClass="form-control" id="formSoil_soil_sodiumSoAna" name="soil.sodiumSoAna" /> cmol/kg
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="formSoil_soil_manganeseSoAna" class="col-md-3">
+                                            <s:property value="getText('text.manganesesoil.soilanalysis')" />:
+                                        </label>
+                                        <div class="controls col-md-6">
+                                            <s:textfield cssClass="form-control" id="formSoil_soil_manganeseSoAna" name="soil.manganeseSoAna" /> 
+                                            <s:select
+                                                cssStyle="width: auto;"
+                                                name="soil.manganeseUnitSoAna"
+                                                cssClass="form-control"
+                                                list="#{'1':'mg/kg', '2':'mg/L'}"           
+                                                headerKey="1"
+                                            />  
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="formSoil_soil_copperSoAna" class="col-md-3">
+                                            <s:property value="getText('text.coppersoil.soilanalysis')" />:
+                                        </label>
+                                        <div class="controls col-md-6">
+                                            <s:textfield cssClass="form-control" id="formSoil_soil_copperSoAna" name="soil.copperSoAna" /> 
+                                            <s:select
+                                                cssStyle="width: auto;"
+                                                name="soil.copperUnitSoAna"
+                                                cssClass="form-control"
+                                                list="#{'1':'mg/kg', '2':'mg/L'}"           
+                                                headerKey="1"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="formSoil_soil_siliconSoAna" class="col-md-3">
+                                            <s:property value="getText('text.siliconsoil.soilanalysis')" />:
+                                        </label>
+                                        <div class="controls col-md-6">
+                                            <s:textfield cssClass="form-control" id="formSoil_soil_siliconSoAna" name="soil.siliconSoAna" /> meg/100gr
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="formSoil_soil_exchangeableAcidityHSoAna" class="col-md-3">
+                                            <s:property value="getText('text.exchangeablehsoil.soilanalysis')" />:
+                                        </label>
+                                        <div class="controls col-md-6">
+                                            <s:textfield cssClass="form-control" id="formSoil_soil_exchangeableAcidityHSoAna" name="soil.exchangeableAcidityHSoAna" /> cmol/kg
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="formSoil_soil_exchangeableAcidityThreeSoAna" class="col-md-3">
+                                            <s:property value="getText('text.exchangeablethreesoil.soilanalysis')" />:
+                                        </label>
+                                        <div class="controls col-md-6">
+                                            <s:textfield cssClass="form-control" id="formSoil_soil_exchangeableAcidityThreeSoAna" name="soil.exchangeableAcidityThreeSoAna" /> cmol/kg
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </fieldset>
+                    <p class="warnField reqBef" style="width: 100%"><s:property value="getText('label.requirefields')" /></p>
+                    <div> 
+                        <s:hidden name="page"/>
+                        <s:hidden name="actExe"/>    
+                        <s:hidden name="rowNew"/>    
+                        <% String actExe   = String.valueOf(request.getAttribute("actExe")); %>
+                        <% if ((actExe.equals("create") && usrDao.getPrivilegeUser(user.getIdUsr(), "soil/create")) || (actExe.equals("modify") && usrDao.getPrivilegeUser(user.getIdUsr(), "soil/modify"))) { %>                
+                            <sj:submit id="btnSoil" type="button" cssClass="btn btn-initial btn-lg" onclick="searchDecimalNumber('formSoil'); addMessageProcess()" targets="divMessage" onCompleteTopics="completeSoil" validate="true" validateFunction="validationForm"><i class="icon-save"></i>  <s:property value="getText('button.savesoil.soilanalysis')" /></sj:submit>
+                        <% } %>
+                        <button class="btn btn-lg btn-default bt_cancel_producer" onclick="resetForm('formSoil'); closeWindow();"><i class="icon-ban-circle"></i>  <s:property value="getText('button.cancel')" /></button>
                     </div>    
-                    <div class="control-group">
-                        <label for="formSoil_soil_sampleNumberSoAna" class="control-label req">
-                            <s:property value="getText('text.samplenumber.soilanalysis')" />:
-                        </label>
-                        <div class="controls">
-                            <s:textfield cssClass="form-control" id="formSoil_soil_sampleNumberSoAna" name="soil.sampleNumberSoAna" tooltip="%{getText('desc.samplenumber.soilanalysis')}"/>
-                        </div>
-                    </div>
-                    <fieldset>
-                        <%--<s:number name="prep.depthPrep" type="integer" var="depthPreparation" />--%>
-                        <legend><s:property value="getText('title.properties.soilanalysis')" /></legend> 
-                        <div class="row">
-                            <div class="span6 control-group">
-                                <label for="formSoil_soil_sandSoAna" class="control-label">
-                                    <s:property value="getText('text.sandsoil.soilanalysis')" />:
-                                </label>
-                                <div class="controls">
-                                    <s:textfield cssClass="form-control" id="formSoil_soil_sandSoAna" name="soil.sandSoAna" onkeyup="getTexture('formSoil_typeTexture', 'formSoil_soil_sandSoAna', 'formSoil_soil_lemonSoAna', 'formSoil_soil_claySoAna')" /> %
-                                </div>
-                            </div>
-                            <div class="span6 control-group" style="margin: 0px">
-                                <label for="formSoil_soil_organicMaterialSoAna" class="control-label">
-                                    <s:property value="getText('text.mosoil.soilanalysis')" />:
-                                </label>
-                                <div class="controls">
-                                    <s:textfield cssClass="form-control" id="formSoil_soil_organicMaterialSoAna" name="soil.organicMaterialSoAna" /> %
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="span6 control-group">
-                                <label for="formSoil_soil_lemonSoAna" class="control-label">
-                                    <s:property value="getText('text.lemonsoil.soilanalysis')" />:
-                                </label>
-                                <div class="controls">
-                                    <s:textfield cssClass="form-control" id="formSoil_soil_lemonSoAna" name="soil.lemonSoAna" onkeyup="getTexture('formSoil_typeTexture', 'formSoil_soil_sandSoAna', 'formSoil_soil_lemonSoAna', 'formSoil_soil_claySoAna')" /> %
-                                </div>
-                            </div>
-                            <div class="span6 control-group" style="margin: 0px">
-                                <label for="formSoil_soil_dapaSoAna" class="control-label">
-                                    <s:property value="getText('text.dapasoil.soilanalysis')" />:
-                                </label>
-                                <div class="controls">
-                                    <s:textfield cssClass="form-control" id="formSoil_soil_dapaSoAna" name="soil.dapaSoAna" /> gr/cc
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="span6 control-group">
-                                <label for="formSoil_soil_claySoAna" class="control-label">
-                                    <s:property value="getText('text.claysoil.soilanalysis')" />:
-                                </label>
-                                <div class="controls">
-                                    <s:textfield cssClass="form-control" id="formSoil_soil_claySoAna" name="soil.claySoAna" onkeyup="getTexture('formSoil_typeTexture', 'formSoil_soil_sandSoAna', 'formSoil_soil_lemonSoAna', 'formSoil_soil_claySoAna')" /> %
-                                </div>
-                            </div>
-                            <div class="span6 control-group" style="margin: 0px">
-                                <label for="formSoil_soil_phSoAna" class="control-label">
-                                    <s:property value="getText('text.phsoil.soilanalysis')" />:
-                                </label>
-                                <div class="controls">
-                                    <s:textfield cssClass="form-control" id="formSoil_soil_phSoAna" name="soil.phSoAna" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="span6 control-group">
-                                <label for="formSoil_typeTexture" class="control-label">
-                                    <s:property value="getText('select.texturesoil.soilanalysis')" />:
-                                </label>
-                                <div class="controls">
-                                    <s:select
-                                        name="typeTexture"
-                                        listKey="idTex" 
-                                        listValue="nameTex" 
-                                        list="type_textures"           
-                                        headerKey="-1" 
-                                        headerValue="---" 
-                                    />
-                                </div>
-                            </div>
-                            <div class="span6 control-group" style="margin: 0px">
-                                <label for="formSoil_soil_elecConductivitySoAna" class="control-label">
-                                    <s:property value="getText('text.eleconductsoil.soilanalysis')" />:
-                                </label>
-                                <div class="controls">
-                                    <s:textfield cssClass="form-control" id="formSoil_soil_elecConductivitySoAna" name="soil.elecConductivitySoAna" /> us/cm
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="span6 control-group"></div>
-                            <div class="span6 control-group" style="margin: 0px">
-                                <label for="formSoil_soil_cationInterchangeabilitySoAna" class="control-label">
-                                    <s:property value="getText('text.cationinterchangesoil.soilanalysis')" />:
-                                </label>
-                                <div class="controls">
-                                    <s:textfield cssClass="form-control" id="formSoil_soil_cationInterchangeabilitySoAna" name="soil.cationInterchangeabilitySoAna" /> cmol/kg
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="span6 control-group"></div>
-                            <div class="span6 control-group" style="margin: 0px">
-                                <label for="formSoil_soil_coSoAna" class="control-label">
-                                    <s:property value="getText('text.cosoil.soilanalysis')" />:
-                                </label>
-                                <div class="controls">
-                                    <s:textfield cssClass="form-control" id="formSoil_soil_coSoAna" name="soil.coSoAna" /> %
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
-                    <fieldset>
-                        <legend><s:property value="getText('title.elements.soilanalysis')" /></legend> 
-                        <div class="row-fluid">
-                            <div class="span6">
-                                <h5 style="text-align: center;"><s:property value="getText('title.major.soilanalysis')" /></h5>
-                                <hr style="margin-top: 0px;">
-                            </div>
-                            <div class="span6">
-                                <h5 style="text-align: center;"><s:property value="getText('title.minor.soilanalysis')" /></h5>
-                                <hr style="margin-top: 0px;">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="span6 control-group">
-                                <label for="formSoil_soil_nitrogenSoAna" class="control-label">
-                                    <s:property value="getText('text.nitrogensoil.soilanalysis')" />:
-                                </label>
-                                <div class="controls">
-                                    <s:textfield cssClass="form-control" id="formSoil_soil_nitrogenSoAna" name="soil.nitrogenSoAna" /> %
-                                </div>
-                            </div>
-                            <div class="span6 control-group" style="margin: 0px">
-                                <label for="formSoil_soil_boronSoAna" class="control-label">
-                                    <s:property value="getText('text.boronsoil.soilanalysis')" />:
-                                </label>
-                                <div class="controls">
-                                    <s:textfield cssClass="form-control" id="formSoil_soil_boronSoAna" name="soil.boronSoAna" /> 
-                                    <s:select
-                                        cssStyle="width: 92px;"
-                                        name="soil.boronUnitSoAna"
-                                        list="#{'1':'mg/kg', '2':'mg/L'}"           
-                                        headerKey="1"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="span6 control-group">
-                                <label for="formSoil_soil_phosphorusSoAna" class="control-label">
-                                    <s:property value="getText('text.phosphorusoil.soilanalysis')" />:
-                                </label>
-                                <div class="controls">
-                                    <s:textfield cssClass="form-control" id="formSoil_soil_phosphorusSoAna" name="soil.phosphorusSoAna" /> 
-                                    <s:select
-                                        cssStyle="width: 92px;"
-                                        name="soil.phosphorusUnitSoAna"
-                                        list="#{'1':'cmol/kg', '2':'mg/L'}"           
-                                        headerKey="1"
-                                    />
-                                </div>
-                            </div>
-                            <div class="span6 control-group" style="margin: 0px">
-                                <label for="formSoil_soil_zincSoAna" class="control-label">
-                                    <s:property value="getText('text.zincsoil.soilanalysis')" />:
-                                </label>
-                                <div class="controls">
-                                    <s:textfield cssClass="form-control" id="formSoil_soil_zincSoAna" name="soil.zincSoAna" /> 
-                                    <s:select
-                                        cssStyle="width: 92px;"
-                                        name="soil.zincUnitSoAna"
-                                        list="#{'1':'mg/kg', '2':'mg/L'}"           
-                                        headerKey="1"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="span6 control-group">
-                                <label for="formSoil_soil_potassiumSoAna" class="control-label">
-                                    <s:property value="getText('text.potassiumsoil.soilanalysis')" />:
-                                </label>
-                                <div class="controls">
-                                    <s:textfield cssClass="form-control" id="formSoil_soil_potassiumSoAna" name="soil.potassiumSoAna" /> 
-                                    <s:select
-                                        cssStyle="width: 92px;"
-                                        name="soil.potassiumUnitSoAna"
-                                        list="#{'1':'cmol/kg', '2':'meq/100g'}"           
-                                        headerKey="1"
-                                    />
-                                </div>
-                            </div>
-                            <div class="span6 control-group" style="margin: 0px">
-                                <label for="formSoil_soil_ironSoAna" class="control-label">
-                                    <s:property value="getText('text.ironsoil.soilanalysis')" />:
-                                </label>
-                                <div class="controls">
-                                    <s:textfield cssClass="form-control" id="formSoil_soil_ironSoAna" name="soil.ironSoAna" /> 
-                                    <s:select
-                                        cssStyle="width: 92px;"
-                                        name="soil.ironUnitSoAna"
-                                        list="#{'1':'mg/kg', '2':'mg/L'}"           
-                                        headerKey="1"
-                                    />                                    
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="span6 control-group">
-                                <label for="formSoil_soil_calciumSoAna" class="control-label">
-                                    <s:property value="getText('text.calciumsoil.soilanalysis')" />:
-                                </label>
-                                <div class="controls">
-                                    <s:textfield cssClass="form-control" id="formSoil_soil_calciumSoAna" name="soil.calciumSoAna" /> 
-                                    <s:select
-                                        cssStyle="width: 92px;"
-                                        name="soil.calciumUnitSoAna"
-                                        list="#{'1':'cmol/kg', '2':'meq/100g'}"           
-                                        headerKey="1"
-                                    />
-                                </div>
-                            </div>
-                            <div class="span6 control-group" style="margin: 0px">
-                                <label for="formSoil_soil_sodiumSoAna" class="control-label">
-                                    <s:property value="getText('text.sodiumsoil.soilanalysis')" />:
-                                </label>
-                                <div class="controls">
-                                    <s:textfield cssClass="form-control" id="formSoil_soil_sodiumSoAna" name="soil.sodiumSoAna" /> cmol/kg
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="span6 control-group">
-                                <label for="formSoil_soil_magnesiumSoAna" class="control-label">
-                                    <s:property value="getText('text.magnesiumsoil.soilanalysis')" />:
-                                </label>
-                                <div class="controls">
-                                    <s:textfield cssClass="form-control" id="formSoil_soil_magnesiumSoAna" name="soil.magnesiumSoAna" /> 
-                                    <s:select
-                                        cssStyle="width: 92px;"
-                                        name="soil.magnesiumUnitSoAna"
-                                        list="#{'1':'cmol/kg', '2':'meq/100g'}"           
-                                        headerKey="1"
-                                    />
-                                </div>
-                            </div>
-                            <div class="span6 control-group" style="margin: 0px">
-                                <label for="formSoil_soil_manganeseSoAna" class="control-label">
-                                    <s:property value="getText('text.manganesesoil.soilanalysis')" />:
-                                </label>
-                                <div class="controls">
-                                    <s:textfield cssClass="form-control" id="formSoil_soil_manganeseSoAna" name="soil.manganeseSoAna" /> 
-                                    <s:select
-                                        cssStyle="width: 92px;"
-                                        name="soil.manganeseUnitSoAna"
-                                        list="#{'1':'mg/kg', '2':'mg/L'}"           
-                                        headerKey="1"
-                                    />  
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="span6 control-group">
-                                <label for="formSoil_soil_sulfurSoAna" class="control-label">
-                                    <s:property value="getText('text.sulfursoil.soilanalysis')" />:
-                                </label>
-                                <div class="controls">
-                                    <s:textfield cssClass="form-control" id="formSoil_soil_sulfurSoAna" name="soil.sulfurSoAna" /> 
-                                    <s:select
-                                        cssStyle="width: 92px;"
-                                        name="soil.sulfurUnitSoAna"
-                                        list="#{'1':'mg/kg', '2':'mg/L'}"           
-                                        headerKey="1"
-                                    />  
-                                </div>
-                            </div>
-                            <div class="span6 control-group" style="margin: 0px">
-                                <label for="formSoil_soil_copperSoAna" class="control-label">
-                                    <s:property value="getText('text.coppersoil.soilanalysis')" />:
-                                </label>
-                                <div class="controls">
-                                    <s:textfield cssClass="form-control" id="formSoil_soil_copperSoAna" name="soil.copperSoAna" /> 
-                                    <s:select
-                                        cssStyle="width: 92px;"
-                                        name="soil.copperUnitSoAna"
-                                        list="#{'1':'mg/kg', '2':'mg/L'}"           
-                                        headerKey="1"
-                                    />
-                                </div>
-                            </div>
-                        </div>                           
-                        <div class="row">
-                            <div class="span6 control-group"></div>
-                            <div class="span6 control-group" style="margin: 0px">
-                                <label for="formSoil_soil_siliconSoAna" class="control-label">
-                                    <s:property value="getText('text.siliconsoil.soilanalysis')" />:
-                                </label>
-                                <div class="controls">
-                                    <s:textfield cssClass="form-control" id="formSoil_soil_siliconSoAna" name="soil.siliconSoAna" /> meg/100gr
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="span6 control-group"></div>
-                            <div class="span6 control-group" style="margin: 0px">
-                                <label for="formSoil_soil_exchangeableAcidityHSoAna" class="control-label">
-                                    <s:property value="getText('text.exchangeablehsoil.soilanalysis')" />:
-                                </label>
-                                <div class="controls">
-                                    <s:textfield cssClass="form-control" id="formSoil_soil_exchangeableAcidityHSoAna" name="soil.exchangeableAcidityHSoAna" /> cmol/kg
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="span6 control-group"></div>
-                            <div class="span6 control-group" style="margin: 0px">
-                                <label for="formSoil_soil_exchangeableAcidityThreeSoAna" class="control-label">
-                                    <s:property value="getText('text.exchangeablethreesoil.soilanalysis')" />:
-                                </label>
-                                <div class="controls">
-                                    <s:textfield cssClass="form-control" id="formSoil_soil_exchangeableAcidityThreeSoAna" name="soil.exchangeableAcidityThreeSoAna" /> cmol/kg
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
-                </fieldset>
-                <p class="warnField reqBef"><s:property value="getText('label.requirefields')" /></p>
-                <div> 
-                    <s:hidden name="page"/>
-                    <s:hidden name="actExe"/>    
-                    <s:hidden name="rowNew"/>    
-                    <% String actExe   = String.valueOf(request.getAttribute("actExe")); %>
-                    <% if ((actExe.equals("create") && usrDao.getPrivilegeUser(user.getIdUsr(), "soil/create")) || (actExe.equals("modify") && usrDao.getPrivilegeUser(user.getIdUsr(), "soil/modify"))) { %>                
-                        <sj:submit id="btnSoil" type="button" cssClass="btn btn-initial btn-large" onclick="searchDecimalNumber('formSoil'); addMessageProcess()" targets="divMessage" onCompleteTopics="completeSoil" validate="true" validateFunction="validationForm"><i class="icon-save"></i>  <s:property value="getText('button.savesoil.soilanalysis')" /></sj:submit>
-                    <% } %>
-                    <button class="btn btn-large bt_cancel_producer" onclick="resetForm('formSoil'); closeWindow();"><i class="icon-ban-circle"></i>  <s:property value="getText('button.cancel')" /></button>
-                </div>    
-            </s:form>        
+                </s:form> 
+            </div>
             <script>
                 var page = $("#formSoil_page").val();
 
@@ -533,6 +518,6 @@
                 }
             </script>
         </div>
-        <div class="row-fluid" id="divListSoilForm"></div>
+        <div class="row" id="divListSoilForm"></div>
     </body>
 </html>

@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="icon" type="image/ico" href="img/favicon.ico">
+        <link rel="icon" type="image/ico" href="img/logoAEPS.ico">
     </head>
     <body>     
         <%@ include file="googleAnalytics.jsp" %>
@@ -20,7 +20,11 @@
             </ul>
         </div>
         <div class="container">
-            <iframe src="http://www.open-aeps.org:3838/App-ClimateIndicators/" style="width: 935px; height: 800px;"></iframe>
+            <div class="row">
+                <div class="col-md-12">
+                    <iframe src="http://www.open-aeps.org:3838/App-ClimateIndicators/" class="col-xs-12 col-sm-12 col-md-12" style="height: 600px;"></iframe>
+                </div>
+            </div>
         </div>
     </body>
 </html>    

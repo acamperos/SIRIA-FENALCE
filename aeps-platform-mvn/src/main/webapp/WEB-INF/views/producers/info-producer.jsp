@@ -42,16 +42,15 @@
         divHide = "divConListProducers";
     }            
 %>            
-<div id="divProducers" class="w-box">
+<div id="divProducers" class="table-responsive w-box">
     <% if (usrProDao.getPrivilegeUser(userPro.getIdUsr(), "producer/create")) { %>
         <% if (entTypeProId!=3) { %>    
             <% if (value.equals("producer")) {%>
-                <button type="button" class="btn btn-large btn-register btn-space" onclick="viewForm('/showProducer.action?action=create&viewInfo=${viewInfo}', 'idPro', '', '<s:property value="getText('title.createproducer.producer')" />', 1050, 550)">
+                <button type="button" class="btn btn-lg btn-register btn-space" onclick="viewForm('/showProducer.action?action=create&viewInfo=${viewInfo}', 'idPro', '', '<s:property value="getText('title.createproducer.producer')" />', 1050, 550)">
                     <i class="icon-plus"></i> <s:property value="getText('button.addproducer.producer')" />
                 </button><br />
-                <div class="btn btn-group btn-space" onclick="clickSelAll('chkSelectAll', 'chkNumber', 'btnDelPro');">
-                    <input type="checkbox" class="chkSelectAll textFloat" />
-                    <label class="textFloat" style="padding-left: 7px; margin-bottom: 0;"><s:property value="getText('label.selectall.producer')" /></label>
+                <div class="btn-group btn-space" onclick="clickSelAll('chkSelectAll', 'chkNumber', 'btnDelPro');">
+                    <button class="btn btn-default" type="button"><input type="checkbox" class="chkSelectAll textFloat" />&nbsp;<s:property value="getText('label.selectall.producer')" /></button>
                 </div>
                 <button type="button" id="btnDelPro" disabled="disabled" class="btn btn-initial btn-space btnGetAll disabled" onclick="showDialogDeleteAll(this, 'chkNumber', 'confirm_dialog_producer', '/deleteAllProducer.action', '/searchProducer.action?page=<%=pageNow%>', 'divProducers', '<%=divHide%>');">
                     <i class="icon-trash"></i> <s:property value="getText('button.deletesel.producer')" />
@@ -59,7 +58,7 @@
             <% }%>
         <% }%>
     <% } %>
-    <table class="table table-bordered table-hover" style="<%= table%>" id='tblProducers'>
+    <table class="table table-bordered table-condensed table-hover" style="<%= table%>" id='tblProducers'>
         <thead>
             <tr class="success">
                 <% if (usrProDao.getPrivilegeUser(userPro.getIdUsr(), "producer/modify") || (usrProDao.getPrivilegeUser(userPro.getIdUsr(), "producer/delete"))) { %>                
@@ -105,16 +104,17 @@
                 </tr>
             </s:iterator>
         </tbody>
-    </table>    
+    </table> 
+    <br />
     <label style="<%= label%>"><s:property value="getText('label.nofounddata.producer')" /></label>
-    <div class="hide">
+    <div class="hideInfo">
         <div id="confirm_dialog_producer" class="cbox_content">
             <div class="sepH_c"><s:text name="%{getText('area.deleteproducer.producer')}" /></div>
             <div>
                 <%--<sj:a cssClass="btn btn-small btn-primary confirm_yes" href="deleteProducer.action?idPro=<s:property value ='id_producer' />" role="button" targets="divBodyLayout">Si</sj:a>--%>
                 <%--<sj:a href="home.action" onclick="activeOption('ulOptionsMenu')" targets="divBodyLayout">Inicio</sj:a>--%>
                 <a href="#" class="btn btn-small btn-initial confirm_yes"><s:property value="getText('link.optyes')" /></a>
-                <a href="#" class="btn btn-small confirm_no"><s:property value="getText('link.optno')" /></a>
+                <a href="#" class="btn btn-default btn-small confirm_no"><s:property value="getText('link.optno')" /></a>
             </div>
         </div>
     </div>
@@ -124,7 +124,7 @@
         <button class="btn btn_per" onclick="toggleAndClean('<%=divShow%>', '<%=divHide%>')"><i class="icon-arrow-left"></i> <s:property value="getText('button.backoption')" /></button>
     <% }%>
 </div>
-<div style="text-align:center; <%= table %>">
+<div class="text-center" style="<%= table %>">
     <% String result = JavascriptHelper.pager_params_ajax(pageNow, countTotal, maxResults, "/searchProducer.action?selected="+value, "divConListProducers", "", "", "formProducerSearch");%>    
     <%= result%>
 </div>

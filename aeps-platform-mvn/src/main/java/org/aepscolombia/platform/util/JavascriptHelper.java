@@ -41,7 +41,7 @@ public class JavascriptHelper {
         
         String script = "changePage('/buscarPersonas.action', 'page', '', 'divTabPersons', 'divMessage');";
         String navigation = "";
-        navigation += "<div class=\"pagination pagination-centered\"><ul>";
+        navigation += "<div><nav><ul class=\"pagination pagination-centered\">";
         String links = "";
         // Primera y pagina previa
         if (page != 1) {
@@ -86,7 +86,7 @@ public class JavascriptHelper {
         } else {
             navigation += "<li class=\"disabled\"><span>&raquo;</span></li>";
         }
-        navigation += "</ul></div>";
+        navigation += "</ul></nav></div>";
         int numPage = page;
         int init = maxResults * (numPage - 1) + 1;
         int end  = maxResults * numPage;

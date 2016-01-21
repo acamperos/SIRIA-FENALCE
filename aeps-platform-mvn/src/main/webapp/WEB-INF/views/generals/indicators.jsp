@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="icon" type="image/ico" href="img/favicon.ico">
+        <link rel="icon" type="image/ico" href="img/logoAEPS.ico">
     </head>
     <body>
         <%@ include file="../generals/googleAnalytics.jsp" %>
@@ -23,21 +23,23 @@
                 <li><span><s:property value="getText('label.statisticalindicators')" /></span></li>
             </ul>
         </div>
-        <div class="container">		
-            <div class="row">             
-                <% if (usrDao.getPrivilegeUser(user.getIdUsr(), "crop/view")) { %>
-                    <div class="span6 thumbnail custom-thumb">
-                        <s:a href="%{contextPath}/viewClimate.action" role="button" targets="divBodyLayout"><img class="img-responsive hidden-xs" src="img/generacion_indicadores.jpg" alt=""></s:a>
-                        <div class="caption">
-                            <h3><s:property value="getText('title.climateindicators.indicators')" /></h3>
-                            <p><s:property value="getText('label.climateindicators.indicators')" /></p>                        
-                            <p>
-                                <s:a cssClass="btn btn-initial" href="%{contextPath}/viewClimate.action" role="button" targets="divBodyLayout"><s:property value="getText('link.climateindicators.indicators')" /> <i class="icon-double-angle-right"></i></s:a>
-                            </p>
+        <div class="container">	          
+            <% if (usrDao.getPrivilegeUser(user.getIdUsr(), "crop/view")) { %>
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="thumbnail custom-thumb">
+                            <s:a href="%{contextPath}/viewClimate.action" role="button" targets="divBodyLayout"><img src="img/generacion_indicadores.jpg" alt=""></s:a>
+                            <div class="caption">
+                                <h3><s:property value="getText('title.climateindicators.indicators')" /></h3>
+                                <p><s:property value="getText('label.climateindicators.indicators')" /></p>                        
+                                <p>
+                                    <s:a cssClass="btn btn-initial" href="%{contextPath}/viewClimate.action" role="button" targets="divBodyLayout"><s:property value="getText('link.climateindicators.indicators')" /> <i class="icon-double-angle-right"></i></s:a>
+                                </p>
+                            </div>
                         </div>
-                    </div> 
-                 <% } %> 
-            </div>  
+                    </div>
+                </div> 
+             <% } %> 
         </div>
     </body>
 </html>

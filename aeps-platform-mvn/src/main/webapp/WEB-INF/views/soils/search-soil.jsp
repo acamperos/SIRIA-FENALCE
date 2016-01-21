@@ -8,27 +8,24 @@
 <%@page import="org.aepscolombia.platform.util.APConstants"%>
 <% Users user  = (Users) session.getAttribute(APConstants.SESSION_USER); %>
 <% Integer entTypeId = new EntitiesDao().getEntityTypeId(user.getIdUsr()); %>
-<s:form id="formRastaSearch" action="searchSoil.action?selected=%{selected}" cssClass="form-horizontal formClassSoil" label="%{getText('title.searchsoil.soil')}">
+<s:form id="formRastaSearch" action="searchSoil.action?selected=%{selected}" cssClass="formClassSoil" label="%{getText('title.searchsoil.soil')}">
     <% if (entTypeId==3) { %>
         <div class="row">
-            <div class="span5">
-                <div class="control-group">
-                    <s:label for="formRastaSearch_name_agronomist" cssClass="control-label" value="%{getText('select.agronolist.soil')}:"></s:label>
+            <div class="col-md-5">
+                <div class="form-group">
+                    <s:label for="formRastaSearch_name_agronomist" value="%{getText('select.agronolist.soil')}:"></s:label>
                     <s:select        
                         multiple="multiple"
                         name="name_agronomist" 
                         list="list_agronomist" 
+                        style="width: 63%"
                         listKey="idEnt" 
                         listValue="%{nameEnt==null ? emailEnt : nameEnt}" 
                     />
                 </div> 
             </div> 
-            <div class="span0">
-                <div class="control-group">
-                    <sj:submit type="button" cssClass="btn btn-default" onclick="addMessageProcess()" theme="simple" targets="divConListRasta" onCompleteTopics="completeSearchSoil"><i class="icon-search"></i></sj:submit>
-                </div> 
-            </div> 
-            <div class="span2">
+            <div>
+                <sj:submit type="button" cssClass="btn btn-default" onclick="addMessageProcess()" targets="divConListRasta" onCompleteTopics="completeSearchSoil"><i class="icon-search"></i></sj:submit>
                 <s:submit type="button" cssClass="btn btn-default" onclick="addMessageProcess(); getReportXls('/soil/getReportSoil.action', 'selectAllname_agronomist', 'selectItemname_agronomist')"><i class="icon-file-text"></i> <s:property value="getText('button.dataexport.soil')" /></s:submit>
             </div>   
         </div>
@@ -63,8 +60,8 @@
         </script>
     <% } %>
     <s:hidden name="searchFromSoil" value="1"/>    
-    <div class="control-group" id="searchBasicSoil">
-        <s:textfield cssClass="form-control" name="search_soil" placeholder="%{getText('text.searchsoil.soil')}" />
+    <div class="form-group" id="searchBasicSoil">
+        <s:textfield cssClass="form-control searchGen" name="search_soil" placeholder="%{getText('text.searchsoil.soil')}" />
         <sj:submit type="button" cssClass="btn btn-default" onclick="addMessageProcess()" targets="divConListRasta" onCompleteTopics="completeSearchSoil"><i class="icon-search"></i></sj:submit>
         <a onclick="showSearchAdvance('searchBasicSoil', 'searchAdvanceSoil', 'formRastaSearch_searchFromSoil', 2)" class="radioSelect"><s:property value="getText('link.advancesearch.soil')" /> </a><i class="icon-chevron-down"></i>
         <s:a cssClass="btn btn-initial" href="listSoil.action" role="button" targets="divBodyLayout"><i class="icon-rotate-left"></i> <s:property value="getText('link.returnlist.soil')" /></s:a>
@@ -72,21 +69,21 @@
             <s:submit type="button" cssClass="btn btn-default" onclick="addMessageProcess(); getReportXls('/soil/getReportSoil.action', 'selectAllname_agronomist', 'selectItemname_agronomist')"><i class="icon-file-text"></i> <s:property value="getText('button.dataexport.soil')" /></s:submit>
         <% } %>
     </div> 
-    <div id="searchAdvanceSoil" class="hide">
-        <div class="control-group">
+    <div id="searchAdvanceSoil" class="hideInfo">
+        <div class="form-group">
             <a onclick="showSearchAdvance('searchBasicSoil', 'searchAdvanceSoil', 'formRastaSearch_searchFromSoil', 1); clearForm('formRastaSearch');" class="radioSelect"><s:property value="getText('link.simplesearch.soil')" /> </a><i class="icon-chevron-up"></i>
         </div>
-        <div class="row-fluid">
-            <div class="span5">
-                <div class="control-group">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
                     <s:label for="formRastaSearch_num_rasta" cssClass="control-label" value="%{getText('text.searchnumrasta.soil')}:"></s:label>
                     <div class="controls">
                         <s:textfield name="num_rasta" />
                     </div>                          
                 </div>                          
             </div>                          
-            <div class="span4" style="padding-left: 28px">
-                <div class="control-group">
+            <div class="col-md-3">
+                <div class="form-group">
                     <s:label for="formRastaSearch_date" cssClass="control-label" value="%{getText('text.searchdaterasta.soil')}:"></s:label>
                     <div class="date controls">
                         <s:textfield name="date" readonly="true" />
@@ -96,17 +93,17 @@
                 </div>
             </div>
         </div>
-        <div class="row-fluid">
-            <div class="span5">
-                <div class="control-group">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
                     <s:label for="formRastaSearch_pendant" cssClass="control-label" value="%{getText('text.searchpendant.soil')}:"></s:label>
                     <div class="controls">
                         <s:textfield name="pendant" />
                     </div>                          
                 </div>                          
             </div>                          
-            <div class="span4" style="padding-left: 28px">
-                <div class="control-group">
+            <div class="col-md-3">
+                <div class="form-group">
                     <s:label for="formRastaSearch_altitude" cssClass="control-label" value="%{getText('text.searchaltitude.soil')}:"></s:label>
                     <div class="controls">
                         <s:textfield name="altitude" />
@@ -114,17 +111,17 @@
                 </div>
             </div>
         </div>
-        <div class="row-fluid">
-            <div class="span5">
-                <div class="control-group">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
                     <s:label for="formRastaSearch_latitude" cssClass="control-label" value="%{getText('text.searchlatitude.soil')}:"></s:label>
                     <div class="controls">
                         <s:textfield name="latitude" />
                     </div>
                 </div>
             </div>
-            <div class="span4" style="padding-left: 28px">
-                <div class="control-group">
+            <div class="col-md-3">
+                <div class="form-group">
                     <s:label for="formRastaSearch_length" cssClass="control-label" value="%{getText('text.searchlongitude.soil')}:"></s:label>
                     <div class="controls">
                         <s:textfield name="length" />
@@ -132,9 +129,9 @@
                 </div>  
             </div>  
         </div>
-        <div class="row-fluid">           
-            <div class="span5">
-                <div class="control-group">
+        <div class="row">           
+            <div class="col-md-3">
+                <div class="form-group">
                     <s:label for="formRastaSearch_ground" cssClass="control-label" value="%{getText('select.searchground.soil')}:"></s:label>
                     <div class="controls">
                         <s:select
@@ -145,8 +142,8 @@
                     </div>
                 </div>
             </div>
-            <div class="span4" style="padding-left: 28px">
-                <div class="control-group">
+            <div class="col-md-3">
+                <div class="form-group">
                     <s:label for="formRastaSearch_position" cssClass="control-label" value="%{getText('select.searchposition.soil')}:"></s:label>
                     <div class="controls">
                         <s:select
@@ -158,17 +155,17 @@
                 </div>    
             </div>    
         </div>    
-        <div class="row-fluid">
-            <div class="span5">
-                <div class="control-group">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
                     <s:label for="formRastaSearch_ph" cssClass="control-label" value="%{getText('text.searchph.soil')}:"></s:label>
                     <div class="controls">
                         <s:textfield name="ph" />
                     </div>
                 </div>
             </div>
-            <div class="span4" style="padding-left: 28px">
-                <div class="control-group">
+            <div class="col-md-3">
+                <div class="form-group">
                     <s:label for="formRastaSearch_carbonates" cssClass="control-label" value="%{getText('select.searchcarbonates.soil')}:"></s:label>
                     <div class="controls">
                         <s:select

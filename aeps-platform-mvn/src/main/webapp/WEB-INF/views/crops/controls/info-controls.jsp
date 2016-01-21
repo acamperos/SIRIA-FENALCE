@@ -20,7 +20,7 @@
 </s:if>            
 
 <div class="msgWin" id="divMessListCon"></div>
-<div id="divPro" class="w-box">
+<div id="divPro" class="table-responsive w-box">
     <fieldset>
         <legend><s:property value="getText('title.controllist.control')" /></legend>
         <% if (usrProDao.getPrivilegeUser(userPro.getIdUsr(), "crop/create")) { %>
@@ -30,7 +30,7 @@
                 </button>
             <% } %>
         <% } %>
-        <table class="table table-bordered table-hover" style="<%= tableCon %>" id='tblCon'>
+        <table class="table table-bordered table-condensed table-hover" style="<%= tableCon %>" id='tblCon'>
             <thead>
                 <tr>
                     <th><s:property value="getText('td.datecontrol.control')" /></th>
@@ -63,13 +63,14 @@
                 <!--</tr>-->
             </tbody>
         </table>
+        <br />
         <label style="<%= labelCon %>"><s:property value="getText('label.nofounddata.control')" /></label>
-        <div class="hide">
+        <div class="hideInfo">
             <div id="confirm_dialog_con" class="cbox_content">
                 <div class="sepH_c"><strong><s:property value="getText('label.deletecontrol.control')" />?</strong></div>
                 <div>
                     <a href="#" class="btn btn-small btn-initial confirm_yes"><s:property value="getText('link.optyes')" /></a>
-                    <a href="#" class="btn btn-small confirm_no"><s:property value="getText('link.optno')" /></a>
+                    <a href="#" class="btn btn-default btn-small confirm_no"><s:property value="getText('link.optno')" /></a>
                 </div>
             </div>
         </div>
