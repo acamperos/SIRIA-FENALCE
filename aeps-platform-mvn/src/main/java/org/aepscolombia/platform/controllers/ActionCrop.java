@@ -1037,7 +1037,7 @@ public class ActionCrop extends BaseAction {
             if (coCode.equals("NI")) {
                 if (sowing!=null && sowing.getSeedsNumberSow()!=null) {
                     Double seedNum = sowing.getSeedsNumberSow()*0.01522;
-                    sowing.setSeedsNumberSow(seedNum.intValue());
+                    sowing.setSeedsNumberSow(seedNum);
                 }
                 
                 if (event!=null && event.getExpectedProductionProEve()!=null) {

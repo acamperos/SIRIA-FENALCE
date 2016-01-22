@@ -34,7 +34,7 @@ public class Sowing  implements java.io.Serializable {
      private GenotypesSowing genotypesSowing;
      private SeedsOrigins seedsOrigins;
      private Date dateSow;
-     private Integer seedsNumberSow;
+     private Double seedsNumberSow;
      private boolean treatedSeedsSow;
      private String reasonTreatmentSow;
      private Double seedTreatmentDosisSow;
@@ -58,7 +58,7 @@ public class Sowing  implements java.io.Serializable {
         this.dateSow = dateSow;
         this.treatedSeedsSow = treatedSeedsSow;
     }
-    public Sowing(Genotypes genotypes, DoseUnits doseUnits, TreatmentTypes treatmentTypes, ChemicalsSowing chemicalsSowing, ProductionEvents productionEvents, SowingTypes sowingTypes, GenotypesSowing genotypesSowing, SeedsOrigins seedsOrigins, Date dateSow, Integer seedsNumberSow, boolean treatedSeedsSow, String reasonTreatmentSow, Double seedTreatmentDosisSow, Double furrowsDistanceSow, Double sitesDistanceSow, String freeSeedOriginSow, String otherGenotypeSow, String otherChemicalUsedSow, BigDecimal costSow ,BigDecimal costSeedSow,String commentSow, Boolean status, Integer createdBy) {
+    public Sowing(Genotypes genotypes, DoseUnits doseUnits, TreatmentTypes treatmentTypes, ChemicalsSowing chemicalsSowing, ProductionEvents productionEvents, SowingTypes sowingTypes, GenotypesSowing genotypesSowing, SeedsOrigins seedsOrigins, Date dateSow, Double seedsNumberSow, boolean treatedSeedsSow, String reasonTreatmentSow, Double seedTreatmentDosisSow, Double furrowsDistanceSow, Double sitesDistanceSow, String freeSeedOriginSow, String otherGenotypeSow, String otherChemicalUsedSow, BigDecimal costSow ,BigDecimal costSeedSow,String commentSow, Boolean status, Integer createdBy) {
        this.genotypes = genotypes;
        this.doseUnits = doseUnits;
        this.treatmentTypes = treatmentTypes;
@@ -177,11 +177,11 @@ public class Sowing  implements java.io.Serializable {
     }
     
     @Column(name="seeds_number_sow")
-    public Integer getSeedsNumberSow() {
+    public Double getSeedsNumberSow() {
         return this.seedsNumberSow;
     }
     
-    public void setSeedsNumberSow(Integer seedsNumberSow) {
+    public void setSeedsNumberSow(Double seedsNumberSow) {
         this.seedsNumberSow = seedsNumberSow;
     }
     

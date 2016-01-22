@@ -373,7 +373,7 @@ public class ActionSowing extends BaseAction {
             if (coCode.equals("NI")) {
                 Double seedNum = sowing.getSeedsNumberSow()*65.71;
                 Double expPro  = event.getExpectedProductionProEve()*65.71;
-                sowing.setSeedsNumberSow(seedNum.intValue());            
+                sowing.setSeedsNumberSow(seedNum);            
                 eventInfo.setExpectedProductionProEve(expPro);
             } 
             session.saveOrUpdate(eventInfo);

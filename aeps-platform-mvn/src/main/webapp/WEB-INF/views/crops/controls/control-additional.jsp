@@ -9,12 +9,12 @@
     <s:hidden name="position"/>
     <s:hidden name="prod.idProCon"/>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-9">
             <div class="form-group">
-                <label for="formProCon_prod_targetsTypes_idTarTyp" class="col-md-6 req">
+                <label for="formProCon_prod_targetsTypes_idTarTyp" class="col-md-4 req">
                     <s:property value="getText('radio.targettype.control')" />:
                 </label>
-                <div class="controls col-md-6 radioSelect">
+                <div class="controls col-md-8 radioSelect">
                     <s:radio
                         name="prod.targetsTypes.idTarTyp"
                         list="type_tar_typ" 
