@@ -37,8 +37,24 @@
 </div>
 <footer id="footer">
     <div class="container">
-        <s:text name="%{getText('area.madeinformation.footer')}"/>.
+        
+        <table>
+            <tr>
+                <td>
+                    <s:text name="%{getText('area.madeinformation.footer')}"/>.
+                </td>
+               <td>
+                     <% org.aepscolombia.platform.util.Version v = new org.aepscolombia.platform.util.Version(true); %>
+                    <span class="col-md-9 col-md-offset-9">Versi&oacute;n:<%=v.getVersion()%></span>
+                </td>
+            </tr>
+            
+                   
+        </table>
+        
+        
         <hr>
+        
         <div class="row credits">
             <div class="copyright"> <s:property value="getText('label.rights.footer')" />.</div>
         </div>
