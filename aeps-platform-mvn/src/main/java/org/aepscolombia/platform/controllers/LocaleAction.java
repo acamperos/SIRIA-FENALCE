@@ -73,6 +73,9 @@ public class LocaleAction extends BaseAction
             lang = "esco";
         } else if (countryCode!=null && countryCode.equals("NI")) {
             lang = "esni";
+        } else if (countryCode!=null && (!countryCode.equals("CO") && !countryCode.equals("NI"))) {
+            lang = "esco";
+            countryCode = "CO";
         }
         
         Users user = (Users) this.getSession().get(APConstants.SESSION_USER);

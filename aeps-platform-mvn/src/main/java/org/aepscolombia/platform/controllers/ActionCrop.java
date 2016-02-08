@@ -663,6 +663,26 @@ public class ActionCrop extends BaseAction {
         this.checkSowing = checkSowing;
     } 
     
+    private String date_ini;
+    
+    public String getDate_ini() {
+        return date_ini;
+    }
+
+    public void setDate_ini(String date_ini) {
+        this.date_ini = date_ini;
+    }
+    
+    private String date_end;
+    
+    public String getDate_end() {
+        return date_end;
+    }
+
+    public void setDate_end(String date_end) {
+        this.date_end = date_end;
+    }
+    
     
     //Atributos generales de clase
     /**
@@ -1312,6 +1332,8 @@ public class ActionCrop extends BaseAction {
         findParams.put("idEntUser", idEntSystem);
         findParams.put("search_crop", search_crop);
         findParams.put("date_sowing", date_sowing);
+        findParams.put("date_ini", date_ini);
+        findParams.put("date_end", date_end);
         findParams.put("date_harvest", date_harvest);
         findParams.put("name_producer", name_producer);
         findParams.put("idCrop", idCrop);

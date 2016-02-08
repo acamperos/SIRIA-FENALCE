@@ -3,10 +3,11 @@
 <td><s:property value="%{infoFert.get('ferTyp')}" /></td>
 <td><s:property value="%{infoFert.get('amountUsed')}" /></td>
 <s:set name="useFerTyp" value="%{infoFert.get('idFerApp')}"/>
-<s:if test="%{#useFerTyp!=1000000}">
+<s:set name="appTyp" value="%{infoFert.get('appTyp')}"/>
+<s:if test="%{#useFerTyp!=1000000 && #appTyp!=2}">
     <td><s:property value="%{infoFert.get('nameFerTyp')}" /></td>
 </s:if> 
-<s:elseif test="%{#useFerTyp==1000000}">
+<s:elseif test="%{#useFerTyp==1000000 || #appTyp==2}">
     <td><s:property value="%{infoFert.get('otherProduct')}" /></td>
 </s:elseif>                        
 <td rowspan="${contFert}">

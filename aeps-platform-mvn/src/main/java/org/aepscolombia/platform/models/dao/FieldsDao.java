@@ -256,6 +256,16 @@ public class FieldsDao
             }
         }
         
+        if (args.containsKey("date_ini") && args.containsKey("date_end")) {
+            String valIni = String.valueOf(args.get("date_ini"));            
+            String valEnd = String.valueOf(args.get("date_end"));            
+            if((!valIni.equals(" ") && !valIni.equals("") && !valIni.equals("null")) && (!valEnd.equals(" ") && !valEnd.equals("") && !valEnd.equals("null"))) {
+                String dateIni = new SimpleDateFormat("yyyy-MM-dd").format(new Date(valIni));
+                String dateEnd = new SimpleDateFormat("yyyy-MM-dd").format(new Date(valEnd));
+                sql += " and le.date_log_ent >= '"+dateIni+"' and le.date_log_ent <= '"+dateEnd+"'";
+            }
+        }
+        
         if (args.containsKey("name_producer_lot")) {
             String valIdent = String.valueOf(args.get("name_producer_lot"));
             if(!valIdent.equals(" ") && !valIdent.equals("") && !valIdent.equals("null")) sql += " and e.name_ent like '%"+args.get("name_producer_lot")+"%'";

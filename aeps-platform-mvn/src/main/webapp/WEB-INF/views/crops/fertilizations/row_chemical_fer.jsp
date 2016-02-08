@@ -154,7 +154,7 @@
             <s:if test="%{#idAppTyp==1}">
                 <% classEdafico = "";%>
             </s:if>
-            <div class="row <%= classEdafico%>" id="divPerEda<%= (numRowsChe - 1)%>">
+            <div class="<%= classEdafico%>" id="divPerEda<%= (numRowsChe - 1)%>">
                 <table class="tableComposition" style="width:50%">
                     <thead>
                         <tr>
@@ -168,9 +168,9 @@
                             </s:if>    
                             <s:if test="%{#estatus.index>=0 && #estatus.index<=4}">                                                        
                                 <td>
-                                    <div class="col-md-2">
+                                    <div class="col-md-7">
                                         <div class="form-group">
-                                            <div class="input-prepend controls" style="margin-left:0">
+                                            <div class="controls" style="margin-left:0">
                                                 <span class="add-on"><s:property value="nameCheEle" /></span>
                                                 <s:textfield name="%{#attr.formChe}.additionalsElem[%{#estatus.index}].valueCheEle" value="%{#attr.valueCheEle}" cssClass="input-degrees form-control"/>
                                                 <s:hidden name="%{#attr.formChe}.additionalsElem[%{#estatus.index}].idCheEle" value="%{#attr.idCheEle}"/>
@@ -187,9 +187,9 @@
                             </s:if>    
                             <s:if test="%{#estatus.index>=5 && #estatus.index<=#estatus.count}">                                                        
                                 <td>
-                                    <div class="col-md-2">
+                                    <div class="col-md-7">
                                         <div class="form-group">
-                                            <div class="input-prepend controls" style="margin-left:0">
+                                            <div class="controls" style="margin-left:0">
                                                 <span class="add-on"><s:property value="nameCheEle" /></span>
                                                 <s:textfield id="%{#attr.formCheId}__additionalsElem_%{#estatus.index}__valueCheEle" name="%{#attr.formChe}.additionalsElem[%{#estatus.index}].valueCheEle" value="%{#attr.valueCheEle}" cssClass="input-degrees form-control"/>
                                                 <s:hidden id="%{#attr.formCheId}__additionalsElem_%{#estatus.index}__idCheEle" name="%{#attr.formChe}.additionalsElem[%{#estatus.index}].idCheEle" value="%{#attr.idCheEle}"/>
@@ -252,25 +252,25 @@
                     </label>
                     <div class="controls col-md-6">
                         <% if (coCodeChe.equals("CO")) { %>
-                        <s:select
-                            id="%{#attr.formCheId}__unitCheFer"
-                            name="%{#attr.formChe}.unitCheFer"
-                            value="%{#attr.unitCheFer}"
-                            cssClass="form-control"
-                            list="#{'1':'kg/ha', '11':'lt/ha'}"           
-                            headerKey="-1" 
-                            headerValue="---"
-                            />
+                            <s:select
+                                id="%{#attr.formCheId}__unitCheFer"
+                                name="%{#attr.formChe}.unitCheFer"
+                                value="%{#attr.unitCheFer}"
+                                cssClass="form-control"
+                                list="#{'1':'kg/ha', '11':'lt/ha'}"           
+                                headerKey="-1" 
+                                headerValue="---"
+                                />
                         <% } else if (coCodeChe.equals("NI")) { %>
-                        <s:select
-                            id="%{#attr.formCheId}__unitCheFer"
-                            name="%{#attr.formChe}.unitCheFer"
-                            value="%{#attr.unitCheFer}"
-                            cssClass="form-control"
-                            list="#{'12':'q/mz', '13':'kg/ha', '14':'lt/ha'}"           
-                            headerKey="-1" 
-                            headerValue="---"
-                            />
+                            <s:select
+                                id="%{#attr.formCheId}__unitCheFer"
+                                name="%{#attr.formChe}.unitCheFer"
+                                value="%{#attr.unitCheFer}"
+                                cssClass="form-control"
+                                list="#{'12':'q/mz', '13':'kg/ha', '14':'lt/ha'}"           
+                                headerKey="-1" 
+                                headerValue="---"
+                                />
                         <% }%>
                     </div>
                 </div>

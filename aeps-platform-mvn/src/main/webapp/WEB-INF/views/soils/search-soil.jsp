@@ -176,7 +176,29 @@
                     </div>  
                 </div>  
             </div>  
-        </div>      
+        </div>  
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <s:label for="formRastaSearch_date_ini" cssClass="control-label" value="%{getText('text.searchrank.crop')}"></s:label>
+                    <div class="date controls">
+                        <s:textfield name="date_ini" readonly="true"/>
+                        <br /><span class="prefix sec">[mm/dd/yyyy]</span>
+                        <span class="add-on"><i class="icon-calendar"></i></span>
+                    </div>                          
+                </div>                          
+            </div>  
+            <div class="col-md-10">
+                <div class="form-group">
+                    <label for="formRastaSearch_date_end" class="control-label">&nbsp;</label>
+                    <div class="date controls">
+                        <s:textfield name="date_end" readonly="true"/>
+                        <br /><span class="prefix sec">[mm/dd/yyyy]</span>
+                        <span class="add-on"><i class="icon-calendar"></i></span>
+                    </div>                          
+                </div>                          
+            </div> 
+        </div>
         <div> 
             <sj:submit type="button" cssClass="btn btn-default" onclick="addMessageProcess()" targets="divConListRasta" onCompleteTopics="completeSearchSoil"><s:property value="getText('button.searchsoil.soil')" /> <i class="icon-search"></i></sj:submit>
             <s:a cssClass="btn btn-initial" href="/soil/listSoil.action" role="button" targets="divBodyLayout"><i class="icon-rotate-left"></i> <s:property value="getText('link.returnlist.soil')" /></s:a>
@@ -194,6 +216,10 @@
     $("#formRastaSearch_length").numeric();    
     $("#formRastaSearch_altitude").numeric({decimal: false, negative: false});
     $("#formRastaSearch_ph").numeric();
+    $("#formRastaSearch_date_ini").datepicker({dateFormat: 'mm/dd/yy'});
+    $("#formRastaSearch_date_ini").mask("99/99/9999", {placeholder: ""});
+    $("#formRastaSearch_date_end").datepicker({dateFormat: 'mm/dd/yy'});
+    $("#formRastaSearch_date_end").mask("99/99/9999", {placeholder: ""});
     $.subscribe('completeSearchSoil', function(event, data) {
        $.unblockUI();
     });

@@ -260,9 +260,12 @@ public class ActionLogin extends BaseAction {
     @Override
     public void prepare() throws Exception {
         this.setAssociation_list(new AssociationDao().findAll());
-        if(coCode.equals("")) coCode = (String) ActionContext.getContext().get(APConstants.COUNTRY_CODE);
+        if(coCode==null && coCode.equals("")) coCode = (String) this.getSession().get(APConstants.COUNTRY_CODE);
 //        if(lanTemp.equals("")) lanTemp = (String) this.getSession().get(APConstants.SESSION_LANG);
         String lanSave = (String) ActionContext.getContext().getLocale().getLanguage();
+        coCode = lanSave.substring(lanSave.length()-2,lanSave.length()).toUpperCase();
+//        System.out.println("coCode=>"+coCode);
+//        ActionContext.getContext().put(APConstants.COUNTRY_CODE, coCode);
 //            lanSel = lanSave.replace(coCode.toLowerCase(), "");
         lanSel = lanSave;
     }

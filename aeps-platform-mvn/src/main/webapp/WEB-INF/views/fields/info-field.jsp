@@ -126,7 +126,7 @@
 </div>
 <div>
     <% if (!value.equals("lot") && !value.equals("cropcheck")) {%>
-        <button class="btn btn_per" onclick="toggleAndClean('<%=divShow%>', '<%=divHide%>')"><i class="icon-arrow-left"></i> <s:property value="getText('button.backoption')" /></button>
+        <button class="btn btn_per btn-default" onclick="toggleAndClean('<%=divShow%>', '<%=divHide%>')"><i class="icon-arrow-left"></i> <s:property value="getText('button.backoption')" /></button>
     <% }%>
 </div>
 <div class="text-center" style="<%= table %>">

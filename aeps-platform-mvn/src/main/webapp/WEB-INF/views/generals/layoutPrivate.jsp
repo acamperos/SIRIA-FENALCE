@@ -20,6 +20,7 @@
         <link rel="stylesheet" href="<%= request.getContextPath() %>/scripts/css/font-awesome/css/font-awesome.min.css">               
         <link href='http://fonts.googleapis.com/css?family=Istok+Web:500,700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="<%= request.getContextPath() %>/scripts/css/geoxml/gmap.css"/>
+        <link rel="stylesheet" href="<%= request.getContextPath() %>/scripts/css/generals/multiple-select.css"/> 
         <link href="<%= request.getContextPath() %>/scripts/css/generals/vis.min.css" rel="stylesheet" type="text/css" />
         <!--<script src="http://t4t5.github.io/sweetalert/dist/sweetalert.min.js"></script>-->
         <!--<link href="http://t4t5.github.io/sweetalert/dist/sweetalert.css" rel="stylesheet" type="text/css"/>-->
@@ -48,9 +49,10 @@
         <script type="text/javascript" src="<%= request.getContextPath() %>/scripts/js/jquery/pwdMeter/jquery.pwdMeter.js"></script>        
         <script type="text/javascript" src="http://maps.google.com/maps/api/js"></script>
         <script type="text/javascript" src="<%= request.getContextPath() %>/scripts/js/geoxml/geoxml3.js"></script>  
-        <!--<script type="text/javascript" src="/scripts/js/bootbox/bootbox.min.js"></script>-->
+        <script type="text/javascript" src="/scripts/js/bootbox/bootbox.min.js"></script>
         <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/src/markerclusterer.js"></script>
-        <script type="text/javascript" src="<%= request.getContextPath() %>/scripts/js/generals/functions.min.js"></script>
+        <script type="text/javascript" src="<%= request.getContextPath() %>/scripts/js/generals/jquery.multiple.select.js"></script>
+        <script type="text/javascript" src="<%= request.getContextPath() %>/scripts/js/generals/functions.js"></script>
         <script type="text/javascript" src="<%= request.getContextPath() %>/scripts/js/generals/vis.min.js"></script>
         <script>
             var actionName   = '<%= session.getAttribute("action") %>';

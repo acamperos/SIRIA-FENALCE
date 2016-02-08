@@ -11,7 +11,7 @@
 <td><s:property value="getText('td.latitude.report')" />: <s:property value="latitude" /><br /><s:property value="getText('td.longitude.report')" />: <s:property value="length" /><br /><s:property value="getText('td.altitude.report')" />: <s:property value="altitude" /></td>
 <td><s:property value="ground" /></td>
 <td><s:property value="position" /></td>
-<s:date name="dateLog" format="MM/dd/yyyy" var="dateLog"/>
+<s:date name="dateLog" format="dd/MM/yyyy" var="dateLog"/>
 <td><s:property value="%{#dateLog}" /></td>
 <% if (usrDao.getPrivilegeUser(user.getIdUsr(), "soil/modify") || (usrDao.getPrivilegeUser(user.getIdUsr(), "soil/delete"))) { %>
     <td>

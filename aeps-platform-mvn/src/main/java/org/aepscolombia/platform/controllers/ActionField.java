@@ -385,6 +385,26 @@ public class ActionField extends BaseAction {
         this.lanSel = lanSel;
     }
     
+    private String date_ini;
+    
+    public String getDate_ini() {
+        return date_ini;
+    }
+
+    public void setDate_ini(String date_ini) {
+        this.date_ini = date_ini;
+    }
+    
+    private String date_end;
+    
+    public String getDate_end() {
+        return date_end;
+    }
+
+    public void setDate_end(String date_end) {
+        this.date_end = date_end;
+    }
+    
     @Override
     public String execute() throws Exception {
 //        this.setType_ident_producer(new TiposDocumentosDao().findAll());
@@ -700,6 +720,8 @@ public class ActionField extends BaseAction {
         
         findParams.put("idEntUser", idEntSystem);
         findParams.put("search_field", search_field);
+        findParams.put("date_ini", date_ini);
+        findParams.put("date_end", date_end);
         findParams.put("name_producer_lot", name_producer_lot);
         findParams.put("name_property_lot", name_property_lot);
         findParams.put("typeLot", typeLot);

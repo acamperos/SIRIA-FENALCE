@@ -26,7 +26,7 @@
 <td class="compressTd"><s:property value="latitude_lot" /></td>
 <td class="compressTd"><s:property value="length_lot" /></td>
 <td><s:property value="altitude_lot" /></td>
-<s:date name="dateLog" format="MM/dd/yyyy" var="dateLog"/>
+<s:date name="dateLog" format="dd/MM/yyyy" var="dateLog"/>
 <td><s:property value="%{#dateLog}" /></td>
 <% if (usrFieDao.getPrivilegeUser(userFie.getIdUsr(), "field/modify") || (usrFieDao.getPrivilegeUser(userFie.getIdUsr(), "field/delete"))) { %>                
     <% if (value.equals("lot") || value == "lot") {%>

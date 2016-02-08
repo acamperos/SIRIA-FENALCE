@@ -352,6 +352,26 @@ public class ActionSoil extends BaseAction {
         this.lanSel = lanSel;
     }
     
+    private String date_ini;
+    
+    public String getDate_ini() {
+        return date_ini;
+    }
+
+    public void setDate_ini(String date_ini) {
+        this.date_ini = date_ini;
+    }
+    
+    private String date_end;
+    
+    public String getDate_end() {
+        return date_end;
+    }
+
+    public void setDate_end(String date_end) {
+        this.date_end = date_end;
+    }
+    
     @Override
     public String execute() throws Exception {
         return SUCCESS;
@@ -523,6 +543,8 @@ public class ActionSoil extends BaseAction {
                 
         findParams.put("idEntUser", idEntSystem);
         findParams.put("search_soil", search_soil);
+        findParams.put("date_ini", date_ini);
+        findParams.put("date_end", date_end);
         findParams.put("sample_number", sample_number);
         findParams.put("date_sampling", date_sampling);
         findParams.put("id_crop_type", id_crop_type);

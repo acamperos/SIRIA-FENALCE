@@ -38,42 +38,63 @@
                 </div>    --%>
                 <div>   
 
+                        <!--<div class="col-md-2">--> 
+                            <!--<div class="radio">-->
+                                <%--<s:radio list="#{'1':'Por encima', '2':'Lo esperado', '3':'Por debajo', '4':'Perdida del lote'}" cssClass="radio-inline" name="event.performanceProEve" />--%> 
+                                <div class="col-md-12">  
+                                    <label for="formCropComment_event_performanceProEve1">
+                                        <input id="formCropComment_event_performanceProEve1" type="radio" value="1" name="event.performanceProEve">
+                                        Por encima <i class="icon-smile icon-2x"></i>
+                                    </label>
+                                </div>
+                                <div class="col-md-12">  
+                                    <label for="formCropComment_event_performanceProEve2">
+                                        <input id="formCropComment_event_performanceProEve2" type="radio" value="2" name="event.performanceProEve">
+                                        Lo esperado <i class="icon-meh icon-2x"></i>
+                                    </label>
+                                </div>
+                                <div class="col-md-12">      
+                                    <label for="formCropComment_event_performanceProEve3">
+                                        <input id="formCropComment_event_performanceProEve3" type="radio" value="3" name="event.performanceProEve">
+                                        Por debajo <i class="icon-frown icon-2x"></i>
+                                    </label>
+                                </div>
+                                <div class="col-md-12">  
+                                    <label for="formCropComment_event_performanceProEve4">
+                                        <input id="formCropComment_event_performanceProEve4" type="radio" value="4" name="event.performanceProEve">
+                                        Perdida del lote <i class="icon-thumbs-down-alt icon-2x"></i>
+                                    </label>
+                                </div>
+                            <!--</div>-->             
+                        <!--</div>-->    
 
-                    <div class="col-md-2" id="radioSel"> 
-                        <!--<div class="radio">-->
-                            <s:radio  list="#{'1':'Por encima', '2':'Lo esperado', '3':'Por debajo', '4':'Perdida del lote'}" cssClass="radio changesRadio" name="event.performanceProEve" /> 
+<!--                        <div class="col-md-1">
+                            <div class="table-responsive">
+                                <table>
+                                    <tr> <td><i class="icon-smile icon-2x"></i></td>
+                                    </tr>
+                                    <tr><td><i class="icon-meh icon-2x"></i></td>
+                                    </tr>
+                                    <tr> <td><i class="icon-frown icon-2x"></i></td>
+                                    </tr>
+                                    <tr> <td><i class="icon-thumbs-down-alt icon-2x"></i></td>
 
-                        <!--</div>-->             
-                    </div>    
-
-                    <div class="col-md-1">
-                        <div class="table-responsive">
-                            <table>
-                                <tr> <td><i class="icon-smile icon-2x"></i></td>
-                                </tr>
-                                <tr><td><i class="icon-meh icon-2x"></i></td>
-                                </tr>
-                                <tr> <td><i class="icon-frown icon-2x"></i></td>
-                                </tr>
-                                <tr> <td><i class="icon-thumbs-down-alt icon-2x"></i></td>
-
-                                </tr>
-                            </table>
-                        </div>
-                    </div> 
-
-
-
-                    <div class="col-md-5">
-                        <div>                                           
-                            <label>
-                                <s:property value="getText('title.formdescriptionrendimiento.desc')" />:
-                            </label>
-                            <div class="controls">   
-                                <s:textarea rows="5" cssClass="form-control" name="event.commentPerformanceProEve"></s:textarea>
+                                    </tr>
+                                </table>
                             </div>
+                        </div> -->
+
+
+
+                    <div class="col-md-12">                          
+                        <label>
+                            <s:property value="getText('title.formdescriptionrendimiento.desc')" />:
+                        </label>
+                        <div class="controls">   
+                            <s:textarea rows="5" cssClass="form-control" name="event.commentPerformanceProEve"></s:textarea>
                         </div>
                     </div>
+                </div>
 
             </fieldset>
     </s:form>	

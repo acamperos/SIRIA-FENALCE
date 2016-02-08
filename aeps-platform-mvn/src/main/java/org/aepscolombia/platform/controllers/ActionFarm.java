@@ -429,6 +429,26 @@ public class ActionFarm extends BaseAction {
         this.lanSel = lanSel;
     }   
     
+    private String date_ini;
+    
+    public String getDate_ini() {
+        return date_ini;
+    }
+
+    public void setDate_ini(String date_ini) {
+        this.date_ini = date_ini;
+    }
+    
+    private String date_end;
+    
+    public String getDate_end() {
+        return date_end;
+    }
+
+    public void setDate_end(String date_end) {
+        this.date_end = date_end;
+    }
+    
     @Override
     public void prepare() throws Exception {
         user = (Users) ActionContext.getContext().getSession().get(APConstants.SESSION_USER);
@@ -808,6 +828,8 @@ public class ActionFarm extends BaseAction {
 //        System.out.println("this.getAltitude_property()->"+this.getAltitude_property());
         findParams.put("idEntUser", idEntSystem);
         findParams.put("search_farm", search_farm);
+        findParams.put("date_ini", date_ini);
+        findParams.put("date_end", date_end);
         findParams.put("name_producer", name_producer);
         findParams.put("name_property", name_property);
         findParams.put("depFar", depFar);

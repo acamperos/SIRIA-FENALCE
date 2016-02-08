@@ -38,7 +38,7 @@
         <script type="text/javascript" src="scripts/js/jquery/jquery.maskMoney.js"></script>
         <script type="text/javascript" src="scripts/js/jquery/jquery.numeric.js"></script>
         <script type="text/javascript" src="scripts/js/jquery/jquery.blockUI.js"></script>        
-        <script type="text/javascript" src="scripts/js/generals/functions.min.js"></script>	   
+        <script type="text/javascript" src="scripts/js/generals/functions.js"></script>	   
         <script>            
             var actionName = '<%= session.getAttribute("action") %>';
             function doAction() {

@@ -363,6 +363,14 @@ form {
         height: 200px;
         float: left;
     }
+    
+    .thumbnail .indicators {
+        height:250px;
+    }
+    
+    .thumbnail.custom-thumb .indicators {
+        padding-left:52%;
+    }
 }
 
 .img-responsive {

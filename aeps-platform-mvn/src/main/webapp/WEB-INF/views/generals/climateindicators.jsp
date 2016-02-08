@@ -15,7 +15,7 @@
             <ul id="breadcrumbs">
                 <s:set id="contextPath"  value="#request.get('javax.servlet.forward.context_path')" />
                 <li><s:a href="dashboard.action" targets="divBodyLayout"><i class="icon-home"></i><s:property value="getText('link.homeprivate')" /></s:a></li>
-                <li><s:a href="viewIndicators" targets="divBodyLayout"><i class="icon-home"></i><s:property value="getText('link.statisticalindicators')" /></s:a></li>
+                <li><s:a href="viewIndicators" targets="divBodyLayout"><s:property value="getText('link.statisticalindicators')" /></s:a></li>
                 <li><span><s:property value="getText('label.climateindicators')" /></span></li>
             </ul>
         </div>

@@ -385,7 +385,7 @@ function showWindow(title, width, height, htmlInfo) {
         autoOpen: true,
         title: title,
         width: 'auto',
-        maxWidth: 600,
+//        maxWidth: 600,
         height: 'auto',
         modal: true,
         responsive: true,

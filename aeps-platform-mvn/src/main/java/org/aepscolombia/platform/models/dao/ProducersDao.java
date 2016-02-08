@@ -222,6 +222,17 @@ public class ProducersDao
                 sql += " or (m.name_mun like '%"+valIdent+"%'))";
             }
         }
+        
+        if (args.containsKey("date_ini") && args.containsKey("date_end")) {
+            String valIni = String.valueOf(args.get("date_ini"));            
+            String valEnd = String.valueOf(args.get("date_end"));            
+            if((!valIni.equals(" ") && !valIni.equals("") && !valIni.equals("null")) && (!valEnd.equals(" ") && !valEnd.equals("") && !valEnd.equals("null"))) {
+                String dateIni = new SimpleDateFormat("yyyy-MM-dd").format(new Date(valIni));
+                String dateEnd = new SimpleDateFormat("yyyy-MM-dd").format(new Date(valEnd));
+                sql += " and le.date_log_ent >= '"+dateIni+"' and le.date_log_ent <= '"+dateEnd+"'";
+            }
+        }
+        
 //        args.get("countTotal");
         
         int valIni = Integer.parseInt(String.valueOf(args.get("pageNow")));
@@ -279,7 +290,7 @@ public class ProducersDao
         sql += " order by e.name_ent ASC";
 //        events.toArray();
 //        System.out.println("valIni->"+valIni);
-//        System.out.println("sql->"+sql);
+        System.out.println("sql->"+sql);
         try {
             tx = session.beginTransaction();
 //            Query query = session.createSQLQuery(sql);

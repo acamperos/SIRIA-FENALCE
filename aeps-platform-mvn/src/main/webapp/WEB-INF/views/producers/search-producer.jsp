@@ -198,6 +198,28 @@
                 </div>
             </div>
         </div> 
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <s:label for="formProducerSearch_date_ini" cssClass="control-label" value="%{getText('text.searchrank.crop')}"></s:label>
+                    <div class="date controls">
+                        <s:textfield name="date_ini" readonly="true"/>
+                        <br /><span class="prefix sec">[mm/dd/yyyy]</span>
+                        <span class="add-on"><i class="icon-calendar"></i></span>
+                    </div>                          
+                </div>                          
+            </div>  
+            <div class="col-md-10">
+                <div class="form-group">
+                    <label for="formProducerSearch_date_end" class="control-label">&nbsp;</label>
+                    <div class="date controls">
+                        <s:textfield name="date_end" readonly="true"/>
+                        <br /><span class="prefix sec">[mm/dd/yyyy]</span>
+                        <span class="add-on"><i class="icon-calendar"></i></span>
+                    </div>                          
+                </div>                          
+            </div> 
+        </div>
         <div>   
             <sj:submit type="button" cssClass="btn btn-default" onclick="addMessageProcess()" targets="divConListProducers" onCompleteTopics="completeProducer"><s:property value="getText('button.searchproducer.producer')" /> <i class="icon-search"></i></sj:submit>
             <s:if test="%{#valSel.equals('producer')}">
@@ -211,6 +233,10 @@
     $("#formProducerSearch_dig_ver_producer").mask("9",{placeholder:""});
     $("#formProducerSearch_telephone_producer").mask("9999999",{placeholder:""});
     $("#formProducerSearch_celphone_producer").mask("h999999999",{placeholder:""});
+    $("#formProducerSearch_date_ini").datepicker({dateFormat: 'mm/dd/yy'});
+    $("#formProducerSearch_date_ini").mask("99/99/9999", {placeholder: ""});
+    $("#formProducerSearch_date_end").datepicker({dateFormat: 'mm/dd/yy'});
+    $("#formProducerSearch_date_end").mask("99/99/9999", {placeholder: ""});
     $.subscribe('completeProducer', function(event, data) {
         $.unblockUI();
     });

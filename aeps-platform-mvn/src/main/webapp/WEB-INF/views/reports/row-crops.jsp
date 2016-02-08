@@ -19,7 +19,7 @@
 <s:date name="date_harvest" format="MM/dd/yyyy" var="dateTransHar"/>
 <td><s:property value="%{#dateTransHar}" /></td>
 <td><s:property value="name_genotype" /></td>
-<s:date name="dateLog" format="MM/dd/yyyy" var="dateLog"/>
+<s:date name="dateLog" format="dd/MM/yyyy" var="dateLog"/>
 <td><s:property value="%{#dateLog}" /></td>
 <td>
     <% if (usrDao.getPrivilegeUser(user.getIdUsr(), "crop/modify")) { %>

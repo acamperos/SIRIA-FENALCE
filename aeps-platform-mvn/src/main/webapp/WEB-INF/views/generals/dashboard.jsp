@@ -51,16 +51,21 @@
     <script>
         var valUser = <s:property value="dataUser" />;
         if (valUser == '0') {
-            bootbox.dialog("Este usuario no cuenta con un nombre diligenciado por favor ingresarlo",
-            {
-                "label" : "Ir",
-                "class" : "btn btn-initial",
-                "callback": function() {
-                    document.location = "/configuration.action";
-                }                                
-//                "Ir": function() {                    
-//                    document.location = "/configuration.action";
-//                }
+            bootbox.dialog({
+                message: "Este usuario no cuenta con un nombre diligenciado por favor ingresarlo",
+                title:   "Completar informacion del usuario",
+                buttons: {
+                    main: {
+                        label : "Ir",
+                        className : "btn btn-initial",
+                        callback : function() {
+                            document.location = "/configuration.action";
+                        }                                
+    //                "Ir": function() {                    
+    //                    document.location = "/configuration.action";
+    //                }
+                    }
+                }
             });
         }
     </script>

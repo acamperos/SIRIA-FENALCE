@@ -73,7 +73,7 @@
                         <label id="lblDateApp" class="textFloat">&nbsp; <s:property value="getText('label.thisapplication.crop')" /></label>
                     </div>            
                     <fieldset>
-                        <div class="col-md-3">
+                        <div>
                             <button type="button" class="btn btn-chemical btn-lg" onclick="showRowAdditionalFert('../crop/showRowAddFer?action=<%=actionOpt%>', '1', 'tableAditFertChem', 'tableAditFertOrg', 'tableAditFertAmen')"><i class="icon-plus"></i> <s:property value="getText('button.addchemfert.fertilization')" /></button>
                         </div>
                         <div>
@@ -96,7 +96,7 @@
                         </div>
                     </fieldset>
                     <fieldset>
-                        <div class="col-md-3">
+                        <div>
                             <button type="button" class="btn btn-organic btn-lg" onclick="showRowAdditionalFert('../crop/showRowAddFer?action=<%=actionOpt%>', '2', 'tableAditFertChem', 'tableAditFertOrg', 'tableAditFertAmen')"><i class="icon-plus"></i> <s:property value="getText('button.addorgfert.fertilization')" /></button>
                         </div>
                         <div>
@@ -119,7 +119,7 @@
                         </div>
                     </fieldset>
                     <fieldset>
-                        <div class="col-md-3">
+                        <div>
                             <button type="button" class="btn btn-amendment btn-lg" onclick="showRowAdditionalFert('../crop/showRowAddFer?action=<%=actionOpt%>', '3', 'tableAditFertChem', 'tableAditFertOrg', 'tableAditFertAmen')"><i class="icon-plus"></i> <s:property value="getText('button.addamendfert.fertilization')" /></button>
                         </div>
                         <div>

@@ -171,6 +171,13 @@
             <result name="page">/WEB-INF/views/generals/layoutPrivate.jsp</result>
             <result>/WEB-INF/views/generals/climateindicators.jsp</result>
         </action>
+        <action name="mulVariation" class="org.aepscolombia.platform.controllers.ActionIssues">
+            <interceptor-ref name="defaultStackAeps"/>
+            <interceptor-ref name="validateI18n"/>            
+            <interceptor-ref name="viewAction"/>            
+            <result name="page">/WEB-INF/views/generals/layoutPrivate.jsp</result>
+            <result>/WEB-INF/views/generals/multiplevariation.jsp</result>
+        </action>
         <action name="sendIssue" method="saveData" class="org.aepscolombia.platform.controllers.ActionIssues">
             <interceptor-ref name="fileUpload"/>
             <interceptor-ref name="validateI18n"/>

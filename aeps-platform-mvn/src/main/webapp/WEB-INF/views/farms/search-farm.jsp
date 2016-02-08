@@ -167,7 +167,29 @@
                     </div>                          
                 </div>
             </div>          
-        </div>          
+        </div>   
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <s:label for="formFarmSearch_date_ini" cssClass="control-label" value="%{getText('text.searchrank.crop')}"></s:label>
+                    <div class="date controls">
+                        <s:textfield name="date_ini" readonly="true"/>
+                        <br /><span class="prefix sec">[mm/dd/yyyy]</span>
+                        <span class="add-on"><i class="icon-calendar"></i></span>
+                    </div>                          
+                </div>                          
+            </div>  
+            <div class="col-md-10">
+                <div class="form-group">
+                    <label for="formFarmSearch_date_end" class="control-label">&nbsp;</label>
+                    <div class="date controls">
+                        <s:textfield name="date_end" readonly="true"/>
+                        <br /><span class="prefix sec">[mm/dd/yyyy]</span>
+                        <span class="add-on"><i class="icon-calendar"></i></span>
+                    </div>                          
+                </div>                          
+            </div> 
+        </div>
         <div> 
             <sj:submit type="button" cssClass="btn btn-default" onclick="addMessageProcess()" targets="divConListFarms" onCompleteTopics="completeFarm"><s:property value="getText('button.searchfarm.farm')" /> <i class="icon-search"></i></sj:submit>
             <s:if test="%{#valSel.equals('property')}">
@@ -189,6 +211,10 @@
     $("#formFarmSearch_latitude_degrees_property").numeric({decimal: false});
     $("#formFarmSearch_latitude_minutes_property").numeric({decimal: false});
     $("#formFarmSearch_latitude_seconds_property").numeric();
+    $("#formFarmSearch_date_ini").datepicker({dateFormat: 'mm/dd/yy'});
+    $("#formFarmSearch_date_ini").mask("99/99/9999", {placeholder: ""});
+    $("#formFarmSearch_date_end").datepicker({dateFormat: 'mm/dd/yy'});
+    $("#formFarmSearch_date_end").mask("99/99/9999", {placeholder: ""});
     $.subscribe('completeFarm', function(event, data) {
         $.unblockUI();
 //        completeFormGetting('dialog-form', 'formFarmSearch', 'divFarms', event.originalEvent.request.responseText);

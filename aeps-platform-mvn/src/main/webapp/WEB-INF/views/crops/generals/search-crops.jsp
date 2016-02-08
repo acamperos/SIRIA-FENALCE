@@ -171,11 +171,33 @@
                     <s:label for="formCropSearch_date_sowing" cssClass="control-label" value="%{getText('text.searchdatesow.crop')}"></s:label>
                     <div class="date controls">
                         <s:textfield name="date_sowing" readonly="true"/>
-                        <span class="prefix sec">&nbsp;[mm/dd/yyyy]</span>
+                        <br /><span class="prefix sec">[mm/dd/yyyy]</span>
                         <span class="add-on"><i class="icon-calendar"></i></span>
                     </div>                          
                 </div>                          
             </div>     
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <s:label for="formCropSearch_date_ini" cssClass="control-label" value="%{getText('text.searchrank.crop')}"></s:label>
+                    <div class="date controls">
+                        <s:textfield name="date_ini" readonly="true"/>
+                        <br /><span class="prefix sec">[mm/dd/yyyy]</span>
+                        <span class="add-on"><i class="icon-calendar"></i></span>
+                    </div>                          
+                </div>                          
+            </div>  
+            <div class="col-md-10">
+                <div class="form-group">
+                    <label for="formCropSearch_date_end" class="control-label">&nbsp;</label>
+                    <div class="date controls">
+                        <s:textfield name="date_end" readonly="true"/>
+                        <br /><span class="prefix sec">[mm/dd/yyyy]</span>
+                        <span class="add-on"><i class="icon-calendar"></i></span>
+                    </div>                          
+                </div>                          
+            </div> 
         </div>
         <div> 
             <sj:submit type="button" cssClass="btn btn-default" onclick="addMessageProcess()" targets="divConListCrop" onCompleteTopics="completeSearchCrop"><s:property value="getText('button.searchcrop.crop')" /> <i class="icon-search"></i></sj:submit>
@@ -190,6 +212,10 @@
     $.mask.definitions['f'] = "[-.0-9]";    
     $("#formCropSearch_date_sowing").datepicker({dateFormat: 'mm/dd/yy'});
     $("#formCropSearch_date_sowing").mask("99/99/9999", {placeholder: ""});
+    $("#formCropSearch_date_ini").datepicker({dateFormat: 'mm/dd/yy'});
+    $("#formCropSearch_date_ini").mask("99/99/9999", {placeholder: ""});
+    $("#formCropSearch_date_end").datepicker({dateFormat: 'mm/dd/yy'});
+    $("#formCropSearch_date_end").mask("99/99/9999", {placeholder: ""});
     $("#formCropSearch_idCrop").numeric({decimal: false, negative: false});
     $("#formCropSearch_num_farm").numeric({decimal: false, negative: false});
     $("#formCropSearch_num_field").numeric({decimal: false, negative: false});

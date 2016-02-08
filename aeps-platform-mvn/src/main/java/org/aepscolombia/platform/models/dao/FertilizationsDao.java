@@ -221,7 +221,7 @@ public class FertilizationsDao
                       
         sql += "select p.id_fer, p.date_fer, p.fertilization_type_fer, ";
         sql += " tp.name_fer_typ, p.amount_product_used_fer, chfer.id_che_fer, ";
-        sql += " chfer.application_type_che_fer, chfer.amount_product_used_che_fer, chfer.other_product_che_fer, chfer.unit_che_fer,p.comment_fer";
+        sql += " chfer.application_type_che_fer, chfer.amount_product_used_che_fer, chfer.other_product_che_fer, chfer.unit_che_fer, p.comment_fer, chfer.id_product_che_fer";
         sql += " from fertilizations p"; 
         sql += " inner join chemical_fertilizations chfer on p.id_fer=chfer.id_fertilization_che_fer";    
         sql += " inner join production_events ep on ep.id_pro_eve=p.id_production_event_fer";    
@@ -234,12 +234,12 @@ public class FertilizationsDao
 		sql += sqlAdd;
         
         try {
-				tx = session.beginTransaction();
-				Query query  = session.createSQLQuery(sql);
-	//            System.out.println("sql->"+query.list().size());
-				events = query.list(); 
-								
-				for (Object[] data : events) {
+            tx = session.beginTransaction();
+            Query query = session.createSQLQuery(sql);
+            //            System.out.println("sql->"+query.list().size());
+            events = query.list();
+
+            for (Object[] data : events) {
                     HashMap temp = new HashMap();
                     temp.put("idFer", data[0]);
                     temp.put("dateFer", data[1]);
@@ -253,7 +253,9 @@ public class FertilizationsDao
                             tempFoliar.put("idFerChe", "");
                             tempFoliar.put("nameFerTyp", "");
                             tempFoliar.put("ferTyp", "Quimica");
-                            tempFoliar.put("idFerTyp", null);             
+                            tempFoliar.put("idFerApp", data[11]);
+                            tempFoliar.put("appTyp", data[6]);
+//                            tempFoliar.put("idFerTyp", null);             
                             tempFoliar.put("otherProduct", data[8]); 
                             String doseInfo = String.valueOf(data[7]);
                             String unit     = String.valueOf(data[9]);
@@ -381,7 +383,8 @@ public class FertilizationsDao
                 temp.put("idFerChe", data[0]);
                 temp.put("nameFerTyp", data[1]);
                 temp.put("ferTyp", "Quimica");
-                temp.put("idFerTyp", data[2]);             
+//                temp.put("idFerTyp", data[2]);             
+                temp.put("idFerApp", data[2]);
                 temp.put("otherProduct", data[3]); 
                 String doseInfo = String.valueOf(data[6]);
                 String unit     = String.valueOf(data[7]);                
@@ -447,8 +450,8 @@ public class FertilizationsDao
         String sqlAdd = "";           
         
         sql += "select p.id_fer, p.date_fer, p.fertilization_type_fer, ";
-		sql += " tp.name_fer_typ, p.amount_product_used_fer,";
-		sql += " ferorg.id_org_fer, eq.name_org_fer, ferorg.id_product_org_fer, ferorg.other_product_org_fer, ferorg.amount_product_used_org_fer";
+        sql += " tp.name_fer_typ, p.amount_product_used_fer,";
+        sql += " ferorg.id_org_fer, eq.name_org_fer, ferorg.id_product_org_fer, ferorg.other_product_org_fer, ferorg.amount_product_used_org_fer";
         sql += " from fertilizations p"; 
         sql += " inner join organic_fertilizations ferorg on p.id_fer=ferorg.id_fertilization_org_fer";  
         sql += " left join organic_fertilizers eq on eq.id_org_fer=ferorg.id_product_org_fer and eq.status_org_fer=1";

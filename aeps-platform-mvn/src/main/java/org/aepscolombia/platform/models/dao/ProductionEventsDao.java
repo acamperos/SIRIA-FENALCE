@@ -226,6 +226,16 @@ public class ProductionEventsDao
             }
         }
         
+        if (args.containsKey("date_ini") && args.containsKey("date_end")) {
+            String valIni = String.valueOf(args.get("date_ini"));            
+            String valEnd = String.valueOf(args.get("date_end"));            
+            if((!valIni.equals(" ") && !valIni.equals("") && !valIni.equals("null")) && (!valEnd.equals(" ") && !valEnd.equals("") && !valEnd.equals("null"))) {
+                String dateIni = new SimpleDateFormat("yyyy-MM-dd").format(new Date(valIni));
+                String dateEnd = new SimpleDateFormat("yyyy-MM-dd").format(new Date(valEnd));
+                sql += " and le.date_log_ent >= '"+dateIni+"' and le.date_log_ent <= '"+dateEnd+"'";
+            }
+        }
+        
         if (args.containsKey("date_harvest")) {
             String valIdent = String.valueOf(args.get("date_harvest"));            
             if(!valIdent.equals(" ") && !valIdent.equals("") && !valIdent.equals("null")) {
@@ -732,9 +742,9 @@ public class ProductionEventsDao
         } else {
             String selAll  = String.valueOf(args.get("selAll"));
             if (selAll.equals("true")) {
-                sql += " and ass.status=1 and ass.id_entity_asc="+args.get("idEntUser");
+                sql += " and ass.id_entity_asc="+args.get("idEntUser");
             } else {
-                sql += " and ass.status=1 and le.id_entity_log_ent in ("+args.get("selItem")+")";
+                sql += " and le.id_entity_log_ent in ("+args.get("selItem")+")";
             }
         }
         sql += " and le.id_object_log_ent not in (";
@@ -751,9 +761,9 @@ public class ProductionEventsDao
         } else {
             String selAll  = String.valueOf(args.get("selAll"));
             if (selAll.equals("true")) {
-                sql += " and ass.status=1 and ass.id_entity_asc="+args.get("idEntUser");
+                sql += " and ass.id_entity_asc="+args.get("idEntUser");
             } else {
-                sql += " and ass.status=1 and le.id_entity_log_ent in ("+args.get("selItem")+")";
+                sql += " and le.id_entity_log_ent in ("+args.get("selItem")+")";
             }
         }
         sql += ")";
@@ -925,12 +935,12 @@ public class ProductionEventsDao
             }
 //            ByteArrayOutputStream boas = new ByteArrayOutputStream();
 //            workbook.write(boas);
-            getPreparations(args, workbook);
-            getControls(args, workbook);
-            getIrrigations(args, workbook);
-            getMonitorings(args, workbook);
-            getFertilizations(args, workbook);
-            getDescriptions(args, workbook);
+            getPreparations(session, args, workbook);
+            getControls(session, args, workbook);
+            getIrrigations(session, args, workbook);
+            getMonitorings(session, args, workbook);
+            getFertilizations(session, args, workbook);
+            getDescriptions(session, args, workbook);
             File myFile = new File(fileName);
             if (!myFile.exists()) myFile.createNewFile();
             FileOutputStream out = new FileOutputStream(myFile);
@@ -954,17 +964,17 @@ public class ProductionEventsDao
 //        return result;
     }
     
-    public void getPreparations(HashMap args, HSSFWorkbook workbook) 
+    public void getPreparations(Session session, HashMap args, HSSFWorkbook workbook) throws HibernateException
     {        
-        SessionFactory sessions = HibernateUtil.getSessionFactory();
-        Session session = sessions.openSession();
+//        SessionFactory sessions = HibernateUtil.getSessionFactory();
+//        Session session = sessions.openSession();
         List<Object[]> events = null;
         Transaction tx = null;    
 
         String sql = "";
         String entType = String.valueOf(args.get("entType"));
         
-        sql += "select e.name_ent as Usuario, ep.id_pro_eve as ID_EVENTO, ent.name_ent as PRODUCTOR, concat(ent.document_type_ent, ':', ent.document_number_ent) as PROD_CEDULA, pd.id_pro as ID_PROD, DATE_FORMAT(p.date_prep,'%Y-%m-%d') as FECHA_PREP, p.depth_prep as PROF_PREP";  
+        sql += "select e.name_ent as Usuario, ep.id_pro_eve as ID_EVENTO, ent.name_ent as PRODUCTOR, concat(ent.document_type_ent, ':', ent.document_number_ent) as PROD_CEDULA, pd.id_pro as ID_PROD, DATE_FORMAT(p.date_prep,'%Y-%m-%d') as FECHA_PREP, p.depth_prep as PROF_PREP, p.comment_prep as DESCRIP";  
         sql += " from preparations p"; 
         sql += " inner join production_events ep on ep.id_pro_eve=p.id_production_event_prep"; 
 
@@ -992,9 +1002,9 @@ public class ProductionEventsDao
         } else {
             String selAll  = String.valueOf(args.get("selAll"));
             if (selAll.equals("true")) {
-                sql += " and ass.status=1 and ass.id_entity_asc="+args.get("idEntUser");
+                sql += " and ass.id_entity_asc="+args.get("idEntUser");
             } else {
-                sql += " and ass.status=1 and le.id_entity_log_ent in ("+args.get("selItem")+")";
+                sql += " and le.id_entity_log_ent in ("+args.get("selItem")+")";
             }
         }
         sql += " and le.id_object_log_ent not in (";
@@ -1011,9 +1021,9 @@ public class ProductionEventsDao
         } else {
             String selAll  = String.valueOf(args.get("selAll"));
             if (selAll.equals("true")) {
-                sql += " and ass.status=1 and ass.id_entity_asc="+args.get("idEntUser");
+                sql += " and ass.id_entity_asc="+args.get("idEntUser");
             } else {
-                sql += " and ass.status=1 and le.id_entity_log_ent in ("+args.get("selItem")+")";
+                sql += " and le.id_entity_log_ent in ("+args.get("selItem")+")";
             }
         }
         sql += ")";
@@ -1021,8 +1031,8 @@ public class ProductionEventsDao
 
 //        System.out.println("sql=>"+sql);
 //        HSSFWorkbook workbook = null;
-        try {
-            tx = session.beginTransaction();
+        /*try {
+            tx = session.beginTransaction();*/
             
             Map<String, Object[]> dataSheet = new TreeMap<String, Object[]>();
             Query query  = session.createSQLQuery(sql);
@@ -1032,7 +1042,7 @@ public class ProductionEventsDao
             if (events.size()>0) {
                 sheet = workbook.createSheet("Preparaciones");
                 Object[] val = {
-                    "USUARIO","ID_EVENTO","PRODUCTOR","PROD_CEDULA","ID_PROD","FECHA_PREP","PROF_PREP"
+                    "USUARIO","ID_EVENTO","PRODUCTOR","PROD_CEDULA","ID_PROD","FECHA_PREP","PROF_PREP","DESC"
                 };
                 dataSheet.put("1", val);
             }
@@ -1047,7 +1057,8 @@ public class ProductionEventsDao
                     data[3],
                     data[4],
                     data[5],
-                    data[6]                    
+                    data[6],                    
+                    data[7]                    
                 };
                 dataSheet.put(""+cont, valTemp);
                 cont++;
@@ -1081,7 +1092,7 @@ public class ProductionEventsDao
                     } 
                 }
             }
-            tx.commit();
+            /*tx.commit();
         } catch (HibernateException e) {
             if (tx != null) {
                 tx.rollback();
@@ -1089,14 +1100,14 @@ public class ProductionEventsDao
             e.printStackTrace();
         } finally {
             session.close();
-        }
+        }*/
 //        return result;
     }
     
-    public void getIrrigations(HashMap args, HSSFWorkbook workbook) 
+    public void getIrrigations(Session session, HashMap args, HSSFWorkbook workbook) throws HibernateException
     {        
-        SessionFactory sessions = HibernateUtil.getSessionFactory();
-        Session session = sessions.openSession();
+        /*SessionFactory sessions = HibernateUtil.getSessionFactory();
+        Session session = sessions.openSession();*/
         List<Object[]> events = null;
         Transaction tx = null;    
 
@@ -1104,7 +1115,7 @@ public class ProductionEventsDao
         String entType = String.valueOf(args.get("entType"));
         
         sql += "select e.name_ent as Usuario, ep.id_pro_eve as ID_EVENTO, ent.name_ent as PRODUCTOR, concat(ent.document_type_ent, ':', ent.document_number_ent) as PROD_CEDULA, pd.id_pro as ID_PROD, "; 
-        sql += " IF(p.irrigation_type_irr in (1,2,3),'SI','NO') as APLICA_RIEGO, DATE_FORMAT(p.date_irr,'%Y-%m-%d') as date_irrGO, p.amount_irr as CANTIDAD_APORTADA, it.name_irr_typ as FORMA_APLICACION"; 
+        sql += " IF(p.irrigation_type_irr in (1,2,3),'SI','NO') as APLICA_RIEGO, DATE_FORMAT(p.date_irr,'%Y-%m-%d') as date_irrGO, p.amount_irr as CANTIDAD_APORTADA, it.name_irr_typ as FORMA_APLICACION, p.comment_irr as DESCRIP"; 
         sql += " from irrigation p "; 
         sql += " inner join production_events ep on ep.id_pro_eve=p.id_production_event_irr"; 
         sql += " left join irrigations_types it on it.id_irr_typ=p.irrigation_type_irr"; 
@@ -1132,9 +1143,9 @@ public class ProductionEventsDao
         } else {
             String selAll  = String.valueOf(args.get("selAll"));
             if (selAll.equals("true")) {
-                sql += " and ass.status=1 and ass.id_entity_asc="+args.get("idEntUser");
+                sql += " and ass.id_entity_asc="+args.get("idEntUser");
             } else {
-                sql += " and ass.status=1 and le.id_entity_log_ent in ("+args.get("selItem")+")";
+                sql += " and le.id_entity_log_ent in ("+args.get("selItem")+")";
             }
         }
         sql += " and le.id_object_log_ent not in (";
@@ -1151,9 +1162,9 @@ public class ProductionEventsDao
         } else {
             String selAll  = String.valueOf(args.get("selAll"));
             if (selAll.equals("true")) {
-                sql += " and ass.status=1 and ass.id_entity_asc="+args.get("idEntUser");
+                sql += " and ass.id_entity_asc="+args.get("idEntUser");
             } else {
-                sql += " and ass.status=1 and le.id_entity_log_ent in ("+args.get("selItem")+")";
+                sql += " and le.id_entity_log_ent in ("+args.get("selItem")+")";
             }
         }
         sql += ")";
@@ -1161,8 +1172,8 @@ public class ProductionEventsDao
 
 //        System.out.println("sql=>"+sql);
 //        HSSFWorkbook workbook = null;
-        try {
-            tx = session.beginTransaction();
+        /*try {
+            tx = session.beginTransaction();*/
                         
             Map<String, Object[]> dataSheet = new TreeMap<String, Object[]>();
             Query query  = session.createSQLQuery(sql);
@@ -1172,7 +1183,7 @@ public class ProductionEventsDao
             if (events.size()>0) {
                 sheet = workbook.createSheet("Riegos");
                 Object[] val = {
-                    "USUARIO","ID_EVENTO","PRODUCTOR","PROD_CEDULA","ID_PROD","APLICA_RIEGO","FECHA_RIEGO","CANTIDAD_APORTADA","FORMA_APLICACION"
+                    "USUARIO","ID_EVENTO","PRODUCTOR","PROD_CEDULA","ID_PROD","APLICA_RIEGO","FECHA_RIEGO","CANTIDAD_APORTADA","FORMA_APLICACION","DESC"
                 };
                 dataSheet.put("1", val);
             }
@@ -1189,7 +1200,8 @@ public class ProductionEventsDao
                     data[5],
                     data[6],                    
                     data[7],                   
-                    data[8]                    
+                    data[8],                    
+                    data[9]                    
                 };
                 dataSheet.put(""+cont, valTemp);
                 cont++;
@@ -1223,7 +1235,7 @@ public class ProductionEventsDao
                     } 
                 }
             }
-            tx.commit();
+            /*tx.commit();
         } catch (HibernateException e) {
             if (tx != null) {
                 tx.rollback();
@@ -1231,14 +1243,14 @@ public class ProductionEventsDao
             e.printStackTrace();
         } finally {
             session.close();
-        }
+        }*/
 //        return result;
     }
     
-    public void getControls(HashMap args, HSSFWorkbook workbook) 
+    public void getControls(Session session, HashMap args, HSSFWorkbook workbook) throws HibernateException
     {        
-        SessionFactory sessions = HibernateUtil.getSessionFactory();
-        Session session = sessions.openSession();
+        /*SessionFactory sessions = HibernateUtil.getSessionFactory();
+        Session session = sessions.openSession();*/
         List<Object[]> events = null;
         Transaction tx = null;    
 
@@ -1249,7 +1261,7 @@ public class ProductionEventsDao
         sql += " pd.id_pro as ID_PROD, DATE_FORMAT(p.date_con,'%Y-%m-%d') as FECHA_CONTROL, tob.name_tar_typ as TIPO_OBJETIVO, tc.name_con_type as TIPO_CONTROL,";
         sql += " IF (pc.chemical_product_used_pro_con, qc.name_che_con, IF(pc.other_chemical_product_pro_con!='', pc.other_chemical_product_pro_con, ";
         sql += " IF (pc.organic_product_used_pro_con, bc.name_org_con, IF(pc.other_organic_product_pro_con!='', pc.other_organic_product_pro_con, '')))) as MOLECULA_ACTIVA, ";
-        sql += " p.id_con, pc.dosis_pro_con";
+        sql += " p.id_con, pc.dosis_pro_con, p.comment_con";
         sql += " from products_controls pc ";
         sql += " inner join controls p on p.id_con=pc.id_control_pro_con"; 
         sql += " inner join production_events ep on ep.id_pro_eve=p.id_production_event_con"; 
@@ -1289,9 +1301,9 @@ public class ProductionEventsDao
         } else {
             String selAll  = String.valueOf(args.get("selAll"));
             if (selAll.equals("true")) {
-                sql += " and ass.status=1 and ass.id_entity_asc="+args.get("idEntUser");
+                sql += " and ass.id_entity_asc="+args.get("idEntUser");
             } else {
-                sql += " and ass.status=1 and le.id_entity_log_ent in ("+args.get("selItem")+")";
+                sql += " and le.id_entity_log_ent in ("+args.get("selItem")+")";
             }
         }
         sql += " and le.id_object_log_ent not in (";
@@ -1308,9 +1320,9 @@ public class ProductionEventsDao
         } else {
             String selAll  = String.valueOf(args.get("selAll"));
             if (selAll.equals("true")) {
-                sql += " and ass.status=1 and ass.id_entity_asc="+args.get("idEntUser");
+                sql += " and ass.id_entity_asc="+args.get("idEntUser");
             } else {
-                sql += " and ass.status=1 and le.id_entity_log_ent in ("+args.get("selItem")+")";
+                sql += " and le.id_entity_log_ent in ("+args.get("selItem")+")";
             }
         }
         sql += ")";
@@ -1318,8 +1330,8 @@ public class ProductionEventsDao
 
 //        System.out.println("sql=>"+sql);
 //        HSSFWorkbook workbook = null;
-        try {
-            tx = session.beginTransaction();
+        /*try {
+            tx = session.beginTransaction();*/
             
             Map<String, Object[]> dataSheet = new TreeMap<String, Object[]>();
             Query query  = session.createSQLQuery(sql);
@@ -1329,7 +1341,7 @@ public class ProductionEventsDao
             if (events.size()>0) {
                 sheet = workbook.createSheet("Controles");
                 Object[] val = {
-                    "USUARIO","ID_EVENTO","PRODUCTOR","PROD_CEDULA","ID_PROD","ID_ORG","FECHA_CONTROL","DOSIS","TIPO_OBJETIVO","TIPO_CONTROL","MOLECULA_ACTIVA"
+                    "USUARIO","ID_EVENTO","PRODUCTOR","PROD_CEDULA","ID_PROD","ID_ORG","FECHA_CONTROL","DOSIS","TIPO_OBJETIVO","TIPO_CONTROL","MOLECULA_ACTIVA","DESC"
                 };
                 dataSheet.put("1", val);
             }
@@ -1348,7 +1360,8 @@ public class ProductionEventsDao
                     data[10],
                     data[6],                    
                     data[7],                   
-                    data[8]                    
+                    data[8],                    
+                    data[11]                    
                 };
                 dataSheet.put(""+cont, valTemp);
                 cont++;
@@ -1382,7 +1395,7 @@ public class ProductionEventsDao
                     } 
                 }
             }
-            tx.commit();
+            /*tx.commit();
         } catch (HibernateException e) {
             if (tx != null) {
                 tx.rollback();
@@ -1390,14 +1403,14 @@ public class ProductionEventsDao
             e.printStackTrace();
         } finally {
             session.close();
-        }
+        }*/
 //        return result;
     }
     
-    public void getMonitorings(HashMap args, HSSFWorkbook workbook) 
+    public void getMonitorings(Session session, HashMap args, HSSFWorkbook workbook) throws HibernateException
     {        
-        SessionFactory sessions = HibernateUtil.getSessionFactory();
-        Session session = sessions.openSession();
+        /*SessionFactory sessions = HibernateUtil.getSessionFactory();
+        Session session = sessions.openSession();*/
         List<Object[]> events = null;
         Transaction tx = null;    
 
@@ -1406,8 +1419,8 @@ public class ProductionEventsDao
         
         sql += "select e.name_ent as Usuario, ep.id_pro_eve as ID_EVENTO, ent.name_ent as PRODUCTOR, concat(ent.document_type_ent, ':', ent.document_number_ent) as PROD_CEDULA, ";
         sql += " pd.id_pro as ID_PROD, DATE_FORMAT(m.date_mon,'%Y-%m-%d') as DATE_MONITOREO, IF(monitor_pests_mon, 'SI', 'NO') as TIPO_PLAGA, percentage_impact_pest_mon as INCIDENCIA_PLAGA,";
-        sql += " IF(monitor_diseases_mon, 'SI', 'NO') as TIPO_ENFERMEDAD, percentage_impact_disease_mon as INCIDENCIA_ENFERMEDAD, IF(monitor_weeds_mon, 'SI', 'NO') as TIPO_MALEZA, percentage_impact_weed_mon as INCIDENCIA_MALEZA";
-
+        sql += " IF(monitor_diseases_mon, 'SI', 'NO') as TIPO_ENFERMEDAD, percentage_impact_disease_mon as INCIDENCIA_ENFERMEDAD, IF(monitor_weeds_mon, 'SI', 'NO') as TIPO_MALEZA, percentage_impact_weed_mon as INCIDENCIA_MALEZA,";
+        sql += " m.comment_mon";
         sql += " from monitoring m ";
         sql += " inner join production_events ep on m.id_production_event_mon=ep.id_pro_eve";
 
@@ -1436,9 +1449,9 @@ public class ProductionEventsDao
         } else {
             String selAll  = String.valueOf(args.get("selAll"));
             if (selAll.equals("true")) {
-                sql += " and ass.status=1 and ass.id_entity_asc="+args.get("idEntUser");
+                sql += " and ass.id_entity_asc="+args.get("idEntUser");
             } else {
-                sql += " and ass.status=1 and le.id_entity_log_ent in ("+args.get("selItem")+")";
+                sql += " and le.id_entity_log_ent in ("+args.get("selItem")+")";
             }
         }
         sql += " and le.id_object_log_ent not in (";
@@ -1455,9 +1468,9 @@ public class ProductionEventsDao
         } else {
             String selAll  = String.valueOf(args.get("selAll"));
             if (selAll.equals("true")) {
-                sql += " and ass.status=1 and ass.id_entity_asc="+args.get("idEntUser");
+                sql += " and ass.id_entity_asc="+args.get("idEntUser");
             } else {
-                sql += " and ass.status=1 and le.id_entity_log_ent in ("+args.get("selItem")+")";
+                sql += " and le.id_entity_log_ent in ("+args.get("selItem")+")";
             }
         }
         sql += ")";
@@ -1465,8 +1478,8 @@ public class ProductionEventsDao
 
 //        System.out.println("sql=>"+sql);
 //        HSSFWorkbook workbook = null;
-        try {
-            tx = session.beginTransaction();
+        /*try {
+            tx = session.beginTransaction();*/
             
             Map<String, Object[]> dataSheet = new TreeMap<String, Object[]>();
             Query query  = session.createSQLQuery(sql);
@@ -1476,7 +1489,7 @@ public class ProductionEventsDao
             if (events.size()>0) {
                 sheet = workbook.createSheet("Monitoreos");
                 Object[] val = {
-                    "USUARIO","ID_EVENTO","PRODUCTOR","PROD_CEDULA","ID_PROD","FECHA_MONITOREO","TIPO_PLAGA","INCIDENCIA_PLAGA","TIPO_ENFERMEDAD","INCIDENCIA_ENFERMEDAD","TIPO_MALEZA","INCIDENCIA_MALEZA"
+                    "USUARIO","ID_EVENTO","PRODUCTOR","PROD_CEDULA","ID_PROD","FECHA_MONITOREO","TIPO_PLAGA","INCIDENCIA_PLAGA","TIPO_ENFERMEDAD","INCIDENCIA_ENFERMEDAD","TIPO_MALEZA","INCIDENCIA_MALEZA","DESC"
                 };
                 dataSheet.put("1", val);
             }
@@ -1496,7 +1509,8 @@ public class ProductionEventsDao
                     data[8],                    
                     data[9],                    
                     data[10],                    
-                    data[11]                   
+                    data[11],                   
+                    data[12]                   
                 };
                 dataSheet.put(""+cont, valTemp);
                 cont++;
@@ -1530,7 +1544,7 @@ public class ProductionEventsDao
                     } 
                 }
             }
-            tx.commit();
+            /*tx.commit();
         } catch (HibernateException e) {
             if (tx != null) {
                 tx.rollback();
@@ -1538,14 +1552,14 @@ public class ProductionEventsDao
             e.printStackTrace();
         } finally {
             session.close();
-        }
+        }*/
 //        return result;
     }
     
-    public void getFertilizations(HashMap args, HSSFWorkbook workbook) 
+    public void getFertilizations(Session session, HashMap args, HSSFWorkbook workbook) throws HibernateException
     {        
-        SessionFactory sessions = HibernateUtil.getSessionFactory();
-        Session session = sessions.openSession();
+        /*SessionFactory sessions = HibernateUtil.getSessionFactory();
+        Session session = sessions.openSession();*/
         List<Object[]> events = null;
         Transaction tx = null;    
 
@@ -1554,13 +1568,18 @@ public class ProductionEventsDao
         
         
         sql += "select temp.* from (select e.name_ent as Usuario, ep.id_pro_eve as ID_EVENTO, ent.name_ent as PRODUCTOR, concat(ent.document_type_ent, ':', ent.document_number_ent) as PROD_CEDULA,"; 
-        sql += " pd.id_pro as ID_PROD, DATE(p.date_fer) as date_ferTI, ";
+        sql += " pd.id_pro as ID_PROD, DATE_FORMAT(p.date_fer,'%Y-%m-%d') as date_ferTI, ";
         sql += " p.id_fer as ID_ASO,";
         sql += " 'Quimica', ";
         sql += " fq.amount_product_used_che_fer as CANTIDAD_PROD_FERTI, ";
         sql += " IF(fq.id_product_che_fer<>'',ferq.name_che_fer,fq.other_product_che_fer) as PROD_QUI, ";
         sql += " '' as PROD_ORG, ";
-        sql += " '' as PROD_ENM ";
+        sql += " '' as PROD_ENM, ";
+        sql += " viewComposition(ferq.id_che_fer, 1) as N,";
+        sql += " viewComposition(ferq.id_che_fer, 2) as P,";
+        sql += " viewComposition(ferq.id_che_fer, 3) as K, ";
+        sql += " ap.name_app_typ, ";
+        sql += " p.comment_fer ";
 
         sql += " from chemical_fertilizations fq";
 
@@ -1575,6 +1594,7 @@ public class ProductionEventsDao
         sql += " left join organic_fertilizers feor on feor.id_org_fer = forg.id_product_org_fer";
 
 
+        sql += " inner join application_types ap on fq.application_type_che_fer = ap.id_app_typ";
         sql += " inner join fields l on ep.id_field_pro_eve = l.id_fie";
         sql += " inner join farms f on l.id_farm_fie=f.id_far";
         sql += " inner join farms_producers fp on f.id_far = fp.id_farm_far_pro";
@@ -1600,9 +1620,9 @@ public class ProductionEventsDao
         } else {
             String selAll  = String.valueOf(args.get("selAll"));
             if (selAll.equals("true")) {
-                sql += " and ass.status=1 and ass.id_entity_asc="+args.get("idEntUser");
+                sql += " and ass.id_entity_asc="+args.get("idEntUser");
             } else {
-                sql += " and ass.status=1 and le.id_entity_log_ent in ("+args.get("selItem")+")";
+                sql += " and le.id_entity_log_ent in ("+args.get("selItem")+")";
             }
         }
         sql += " and le.id_object_log_ent not in (";
@@ -1619,22 +1639,27 @@ public class ProductionEventsDao
         } else {
             String selAll  = String.valueOf(args.get("selAll"));
             if (selAll.equals("true")) {
-                sql += " and ass.status=1 and ass.id_entity_asc="+args.get("idEntUser");
+                sql += " and ass.id_entity_asc="+args.get("idEntUser");
             } else {
-                sql += " and ass.status=1 and le.id_entity_log_ent in ("+args.get("selItem")+")";
+                sql += " and le.id_entity_log_ent in ("+args.get("selItem")+")";
             }
         }
         sql += ")";        
         
         sql += " UNION ALL";
         sql += " select e.name_ent as Usuario, ep.id_pro_eve as ID_EVENTO, ent.name_ent as PRODUCTOR, concat(ent.document_type_ent, ':', ent.document_number_ent) as PROD_CEDULA, ";
-        sql += " pd.id_pro as ID_PROD, DATE(p.date_fer) as date_ferTI, ";
+        sql += " pd.id_pro as ID_PROD, DATE_FORMAT(p.date_fer,'%Y-%m-%d') as date_ferTI, ";
         sql += " p.id_fer as ID_ASO,";
         sql += " 'Enmiendas', ";
         sql += " fen.amount_product_used_ame_fer as CANTIDAD_PROD_FERTI, ";
         sql += " '' as PROD_QUI, ";
         sql += " '' as PROD_ORG, ";
-        sql += " IF(fen.id_fertilization_ame_fer<>'',fenm.name_ame_fer,fen.other_product_ame_fer) as PROD_ENM ";
+        sql += " IF(fen.id_fertilization_ame_fer<>'',fenm.name_ame_fer,fen.other_product_ame_fer) as PROD_ENM, ";
+        sql += " viewComposition(0, 1) as N,";
+        sql += " viewComposition(0, 2) as P,";
+        sql += " viewComposition(0, 3) as K,";
+        sql += " 'NA', ";
+        sql += " p.comment_fer ";
 
         sql += " from amendments_fertilizations fen";
 
@@ -1667,9 +1692,9 @@ public class ProductionEventsDao
         } else {
             String selAll  = String.valueOf(args.get("selAll"));
             if (selAll.equals("true")) {
-                sql += " and ass.status=1 and ass.id_entity_asc="+args.get("idEntUser");
+                sql += " and ass.id_entity_asc="+args.get("idEntUser");
             } else {
-                sql += " and ass.status=1 and le.id_entity_log_ent in ("+args.get("selItem")+")";
+                sql += " and le.id_entity_log_ent in ("+args.get("selItem")+")";
             }
         }
         sql += " and le.id_object_log_ent not in (";
@@ -1686,22 +1711,27 @@ public class ProductionEventsDao
         } else {
             String selAll  = String.valueOf(args.get("selAll"));
             if (selAll.equals("true")) {
-                sql += " and ass.status=1 and ass.id_entity_asc="+args.get("idEntUser");
+                sql += " and ass.id_entity_asc="+args.get("idEntUser");
             } else {
-                sql += " and ass.status=1 and le.id_entity_log_ent in ("+args.get("selItem")+")";
+                sql += " and le.id_entity_log_ent in ("+args.get("selItem")+")";
             }
         }
         sql += ")";        
         
         sql += " UNION ALL";
         sql += " select e.name_ent as Usuario, ep.id_pro_eve as ID_EVENTO, ent.name_ent as PRODUCTOR, concat(ent.document_type_ent, ':', ent.document_number_ent) as PROD_CEDULA, ";
-        sql += " pd.id_pro as ID_PROD, DATE(p.date_fer) as date_ferTI, ";
+        sql += " pd.id_pro as ID_PROD, DATE_FORMAT(p.date_fer,'%Y-%m-%d') as date_ferTI, ";
         sql += " p.id_fer as ID_ASO,";
         sql += " 'Organica', ";
         sql += " forg.amount_product_used_org_fer as CANTIDAD_PROD_FERTI, ";
         sql += " '' as PROD_QUI, ";
         sql += " IF(forg.id_product_org_fer<>'',feor.name_org_fer,forg.other_product_org_fer) as PROD_ORG, ";
-        sql += " '' as PROD_ENM ";
+        sql += " '' as PROD_ENM, ";
+        sql += " viewComposition(0, 1) as N,";
+        sql += " viewComposition(0, 2) as P,";
+        sql += " viewComposition(0, 3) as K, ";
+        sql += " 'NA', ";
+        sql += " p.comment_fer ";
 
         sql += " from organic_fertilizations forg";
 
@@ -1734,9 +1764,9 @@ public class ProductionEventsDao
         } else {
             String selAll  = String.valueOf(args.get("selAll"));
             if (selAll.equals("true")) {
-                sql += " and ass.status=1 and ass.id_entity_asc="+args.get("idEntUser");
+                sql += " and ass.id_entity_asc="+args.get("idEntUser");
             } else {
-                sql += " and ass.status=1 and le.id_entity_log_ent in ("+args.get("selItem")+")";
+                sql += " and le.id_entity_log_ent in ("+args.get("selItem")+")";
             }
         }
         sql += " and le.id_object_log_ent not in (";
@@ -1753,9 +1783,9 @@ public class ProductionEventsDao
         } else {
             String selAll  = String.valueOf(args.get("selAll"));
             if (selAll.equals("true")) {
-                sql += " and ass.status=1 and ass.id_entity_asc="+args.get("idEntUser");
+                sql += " and ass.id_entity_asc="+args.get("idEntUser");
             } else {
-                sql += " and ass.status=1 and le.id_entity_log_ent in ("+args.get("selItem")+")";
+                sql += " and le.id_entity_log_ent in ("+args.get("selItem")+")";
             }
         }
         sql += ")) as temp";      
@@ -1763,9 +1793,9 @@ public class ProductionEventsDao
 
 //        System.out.println("sql=>"+sql);
 //        HSSFWorkbook workbook = null;
-        try {
+        /*try {
             tx = session.beginTransaction();
-            
+        */    
             Map<String, Object[]> dataSheet = new TreeMap<String, Object[]>();
             Query query  = session.createSQLQuery(sql);
             events = query.list();
@@ -1774,7 +1804,7 @@ public class ProductionEventsDao
             if (events.size()>0) {
                 sheet = workbook.createSheet("Fertilizaciones");
                 Object[] val = {
-                    "USUARIO","ID_EVENTO","PRODUCTOR","PROD_CEDULA","ID_PROD","FECHA_FERT","ID_FER","TIPO_FERTILIZACION","CANTIDAD_PROD_FERTI","PROD_QUI","PROD_ORG","PROD_ENM"
+                    "USUARIO","ID_EVENTO","PRODUCTOR","PROD_CEDULA","ID_PROD","FECHA_FERT","ID_FER","TIPO_FERTILIZACION","TIPO_APLICACION","CANTIDAD_PROD_FERTI","PROD_QUI","PROD_ORG","PROD_ENM","DESC","N","P","K"
                 };
                 dataSheet.put("1", val);
             }
@@ -1790,11 +1820,16 @@ public class ProductionEventsDao
                     data[4],
                     data[5],
                     data[6],                    
-                    data[7],                   
+                    data[7], 
+                    data[15],                    
                     data[8],                    
                     data[9],                    
                     data[10],                    
-                    data[11]                   
+                    data[11],                   
+                    data[16],                   
+                    data[12],                  
+                    data[13],                   
+                    data[14]                   
                 };
                 dataSheet.put(""+cont, valTemp);
                 cont++;
@@ -1828,7 +1863,7 @@ public class ProductionEventsDao
                     } 
                 }
             }
-            tx.commit();
+            /*tx.commit();
         } catch (HibernateException e) {
             if (tx != null) {
                 tx.rollback();
@@ -1836,14 +1871,14 @@ public class ProductionEventsDao
             e.printStackTrace();
         } finally {
             session.close();
-        }
+        }*/
 //        return result;
     }
     
-    public void getDescriptions(HashMap args, HSSFWorkbook workbook) 
+    public void getDescriptions(Session session, HashMap args, HSSFWorkbook workbook) throws HibernateException
     {        
-        SessionFactory sessions = HibernateUtil.getSessionFactory();
-        Session session = sessions.openSession();
+        /*SessionFactory sessions = HibernateUtil.getSessionFactory();
+        Session session = sessions.openSession();*/
         List<Object[]> events = null;
         Transaction tx = null;    
 
@@ -1876,9 +1911,9 @@ public class ProductionEventsDao
         } else {
             String selAll  = String.valueOf(args.get("selAll"));
             if (selAll.equals("true")) {
-                sql += " and ass.status=1 and ass.id_entity_asc="+args.get("idEntUser");
+                sql += " and ass.id_entity_asc="+args.get("idEntUser");
             } else {
-                sql += " and ass.status=1 and le.id_entity_log_ent in ("+args.get("selItem")+")";
+                sql += " and le.id_entity_log_ent in ("+args.get("selItem")+")";
             }
         }
         sql += " and le.id_object_log_ent not in (";
@@ -1895,9 +1930,9 @@ public class ProductionEventsDao
         } else {
             String selAll  = String.valueOf(args.get("selAll"));
             if (selAll.equals("true")) {
-                sql += " and ass.status=1 and ass.id_entity_asc="+args.get("idEntUser");
+                sql += " and ass.id_entity_asc="+args.get("idEntUser");
             } else {
-                sql += " and ass.status=1 and le.id_entity_log_ent in ("+args.get("selItem")+")";
+                sql += " and le.id_entity_log_ent in ("+args.get("selItem")+")";
             }
         }
         sql += ")";
@@ -1905,9 +1940,9 @@ public class ProductionEventsDao
 
 //        System.out.println("sql=>"+sql);
 //        HSSFWorkbook workbook = null;
-        try {
+        /*try {
             tx = session.beginTransaction();
-            
+        */    
             Map<String, Object[]> dataSheet = new TreeMap<String, Object[]>();
             Query query  = session.createSQLQuery(sql);
             events = query.list();
@@ -1965,7 +2000,7 @@ public class ProductionEventsDao
                     } 
                 }
             }
-            tx.commit();
+            /*tx.commit();
         } catch (HibernateException e) {
             if (tx != null) {
                 tx.rollback();
@@ -1973,7 +2008,7 @@ public class ProductionEventsDao
             e.printStackTrace();
         } finally {
             session.close();
-        }
+        }*/
 //        return result;
     }
     

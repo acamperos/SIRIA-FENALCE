@@ -159,7 +159,29 @@
                     </div>                          
                 </div>
             </div>         
-        </div>         
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <s:label for="formFieldSearch_date_ini" cssClass="control-label" value="%{getText('text.searchrank.crop')}"></s:label>
+                    <div class="date controls">
+                        <s:textfield name="date_ini" readonly="true"/>
+                        <br /><span class="prefix sec">[mm/dd/yyyy]</span>
+                        <span class="add-on"><i class="icon-calendar"></i></span>
+                    </div>                          
+                </div>                          
+            </div>  
+            <div class="col-md-10">
+                <div class="form-group">
+                    <label for="formFieldSearch_date_end" class="control-label">&nbsp;</label>
+                    <div class="date controls">
+                        <s:textfield name="date_end" readonly="true"/>
+                        <br /><span class="prefix sec">[mm/dd/yyyy]</span>
+                        <span class="add-on"><i class="icon-calendar"></i></span>
+                    </div>                          
+                </div>                          
+            </div> 
+        </div>
         <div> 
             <sj:submit type="button" cssClass="btn btn-default" onclick="addMessageProcess()" targets="divConListFields" onCompleteTopics="completeField"><s:property value="getText('button.searchfield.field')" /> <i class="icon-search"></i></sj:submit>
             <s:if test="%{#valSel.equals('lot')}">
@@ -181,6 +203,10 @@
     $("#formFieldSearch_latitude_degrees_lot").numeric({decimal: false});
     $("#formFieldSearch_latitude_minutes_lot").numeric({decimal: false});
     $("#formFieldSearch_latitude_seconds_lot").numeric();
+    $("#formFieldSearch_date_ini").datepicker({dateFormat: 'mm/dd/yy'});
+    $("#formFieldSearch_date_ini").mask("99/99/9999", {placeholder: ""});
+    $("#formFieldSearch_date_end").datepicker({dateFormat: 'mm/dd/yy'});
+    $("#formFieldSearch_date_end").mask("99/99/9999", {placeholder: ""});
     $.subscribe('completeField', function(event, data) {
        $.unblockUI();
     });

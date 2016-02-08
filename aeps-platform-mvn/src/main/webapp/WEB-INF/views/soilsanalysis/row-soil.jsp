@@ -24,7 +24,7 @@
 <td><s:property value="texture_type" /></td>
 <td><s:property value="ph" /></td>
 <td><s:property value="cation" /></td>
-<s:date name="dateLog" format="MM/dd/yyyy" var="dateLog"/>
+<s:date name="dateLog" format="dd/MM/yyyy" var="dateLog"/>
 <td><s:property value="%{#dateLog}" /></td>
 <% if (usrSoilDao.getPrivilegeUser(userSoil.getIdUsr(), "soil/modify") || (usrSoilDao.getPrivilegeUser(userSoil.getIdUsr(), "soil/delete"))) { %>
     <% if (value == "soil" || value.equals("soil")) {%>
