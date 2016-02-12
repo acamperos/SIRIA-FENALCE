@@ -77,7 +77,7 @@
                             <s:label for="formCrop_areaCrop" cssClass="col-md-3 req" value="%{getText('text.areacrop.crop')}:"></s:label>
                             <div class="controls col-md-6">
                                 <%--<s:textfield name="areaCrop" onkeyup="selectArea('formCrop_typeArea', 'formCrop_areaCrop', 'formCrop_availableArea')" />--%>
-                                <s:textfield name="areaCrop" cssClass="form-control" />
+                                <s:textfield name="areaCrop" type="number" cssClass="form-control" />
                                 <s:hidden name="areaField" />
                                 <s:hidden name="availableArea" />
                                 <s:hidden name="areaCropHec" />

@@ -79,7 +79,10 @@
                 <th><s:property value="getText('td.telephone.producer')" /></th>
                 <th><s:property value="getText('td.celphone.producer')" /></th>
                 <th><s:property value="getText('td.email.producer')" /></th>                                
-                <th><s:property value="getText('td.datecreated.producer')" /></th>                                
+                <th>
+                    <s:property value="getText('td.datecreated.producer')" />
+                    <span>[mm/dd/yyyy]</span>
+                </th>                                
                 <% if (usrProDao.getPrivilegeUser(userPro.getIdUsr(), "producer/modify") || (usrProDao.getPrivilegeUser(userPro.getIdUsr(), "producer/delete"))) { %>                
                     <% if (value.equals("producer") || value == "producer") {%>    
                         <th><s:property value="getText('td.action.producer')" /></th>

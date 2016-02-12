@@ -54,7 +54,7 @@
                                 <i class="icon-info-sign s2b_tooltip pop-over" data-content="<s:property value="getText('desc.latitudedecimal.farm')" />." data-title="<s:property value="getText('help.latitudeinfodecimals.farm')" />" data-placement="right" data-trigger="hover"></i>
                             </label>
                             <div class="controls col-md-6">
-                                <s:textfield cssClass="form-control" name="latitude_property" onkeyup="generateDegrees('formFarm_latitude_property', 'formFarm_latitude_degrees_property', 'formFarm_latitude_minutes_property', 'formFarm_latitude_seconds_property')"/>
+                                <s:textfield cssClass="form-control" type="number" id="formFarm_latitude_property" name="latitude_property" onkeyup="generateDegrees('formFarm_latitude_property', 'formFarm_latitude_degrees_property', 'formFarm_latitude_minutes_property', 'formFarm_latitude_seconds_property')"/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -85,7 +85,7 @@
                                 <i class="icon-info-sign s2b_tooltip pop-over" data-content="<s:property value="getText('desc.longitudedecimal.farm')" />." data-title="<s:property value="getText('help.longitudedecimal.farm')" />" data-placement="right" data-trigger="hover"></i>
                             </label>
                             <div class="controls col-md-6">
-                                <s:textfield cssClass="form-control" id="formFarm_length_property" name="length_property" onkeyup="generateDegrees('formFarm_length_property', 'formFarm_length_degrees_property', 'formFarm_length_minutes_property', 'formFarm_length_seconds_property')"/>
+                                <s:textfield cssClass="form-control" type="number" id="formFarm_length_property" name="length_property" onkeyup="generateDegrees('formFarm_length_property', 'formFarm_length_degrees_property', 'formFarm_length_minutes_property', 'formFarm_length_seconds_property')"/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -119,7 +119,7 @@
                                 <i class="icon-info-sign s2b_tooltip pop-over" data-content="<s:property value="getText('desc.altitudemeters.farm')" />." data-title="<s:property value="getText('help.altitudemeters.farm')" />" data-placement="right" data-trigger="hover"></i>
                             </label>
                             <div class="controls col-md-6">
-                                <s:textfield name="altitude_property" cssClass="form-control" />
+                                <s:textfield name="altitude_property" type="number" cssClass="form-control" />
                             </div>  
                         </div>                         
                         <div class="form-group">

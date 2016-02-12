@@ -2270,13 +2270,13 @@ function removeRowHorizon(rowId, tbPrin, tableId)
 
 function getCountry () {
     var deferred = $.Deferred();
-    $.getJSON("http://ip-api.com/json", function(result){
-        countryCode = result.countryCode;
-//        countryCode = "NI";
+//    $.getJSON("http://ip-api.com/json", function(result){
+//        countryCode = result.countryCode;
+        countryCode = "CO";
 //                    alert('Country: ' + result.country_name + '\n' + 'Code: ' + result.country_code);
         deferred.resolve();
 //                    doAction();
-    });
+//    });
     return deferred;
 }
 

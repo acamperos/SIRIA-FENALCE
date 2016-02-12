@@ -275,7 +275,7 @@
                     <s:property value="getText('text.dosechemicalcontrol.crop')" />:
                 </label>
                 <div class="controls col-md-6">
-                    <s:textfield name="prod.dosisProCon" cssClass="form-control"/>
+                    <s:textfield name="prod.dosisProCon" type="number" cssClass="form-control"/>
                 </div>                         
             </div>                          
         </div> 

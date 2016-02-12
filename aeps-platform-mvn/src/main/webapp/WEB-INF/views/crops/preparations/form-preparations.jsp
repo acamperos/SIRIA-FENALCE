@@ -67,7 +67,7 @@
                                 </label>
                                 <div class="controls col-md-6">
                                     <s:number name="prep.depthPrep" type="integer" var="depthPreparation" />
-                                    <s:textfield name="prep.depthPrep" cssClass="form-control" value="%{#depthPreparation}"/>
+                                    <s:textfield name="prep.depthPrep" type="number" cssClass="form-control" value="%{#depthPreparation}"/>
                                 </div> 
                             </div>                          
                         </div>     
@@ -77,7 +77,7 @@
                                     <s:property value="getText('text.passingnumber.preparation')" />:
                                 </label>
                                 <div class="controls col-md-6">
-                                    <s:textfield name="prep.passingsNumberPrep" cssClass="form-control"/>
+                                    <s:textfield name="prep.passingsNumberPrep" type="number" cssClass="form-control"/>
                                 </div>
                             </div>
                         </div>
@@ -110,7 +110,7 @@
                                         <button type="button" class="btn btn-initial"><b>(Ha.)</b></button> :
                                     </label>
                                     <div class="controls col-md-6">
-                                        <s:textfield name="prep.costPrep" cssClass="form-control" maxlength="14"/>
+                                        <s:textfield name="prep.costPrep" type="number" cssClass="form-control" maxlength="14"/>
                                     </div>
                                 </div>
                             </div>                        

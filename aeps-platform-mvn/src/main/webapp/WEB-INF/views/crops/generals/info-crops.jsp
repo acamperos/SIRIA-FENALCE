@@ -77,9 +77,15 @@
                 </s:if>
                 <th><s:property value="getText('td.whichcrop.crop')" /></th>
                 <th><s:property value="getText('td.namecrop.crop')" /></th>
-                <th><s:property value="getText('td.datesowing.crop')" /></th>
+                <th>
+                    <s:property value="getText('td.datesowing.crop')" />
+                    <span>[mm/dd/yyyy]</span>
+                </th>
                 <th><s:property value="getText('td.namegenotype.crop')" /></th>
-                <th><s:property value="getText('td.datecreated.crop')" /></th>
+                <th>
+                    <s:property value="getText('td.datecreated.crop')" />
+                    <span>[mm/dd/yyyy]</span>
+                </th>
                 <% if (usrCropDao.getPrivilegeUser(userCrop.getIdUsr(), "crop/modify") || (usrCropDao.getPrivilegeUser(userCrop.getIdUsr(), "crop/delete"))) { %>
                     <% if (value == "crop" || value.equals("crop")) {%>
                         <th><s:property value="getText('td.action.crop')" /></th>

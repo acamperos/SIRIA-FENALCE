@@ -23,7 +23,7 @@
                             <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                         </label>
                         <div class="controls col-md-6">
-                            <s:textfield name="costo.costVigilantPro" maxlength="14" cssClass="form-control" />
+                            <s:textfield name="costo.costVigilantPro" type="number" maxlength="14" cssClass="form-control" />
                         </div>                         
                     </div>                          
                 </div> 
@@ -35,7 +35,7 @@
                             <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                         </label>
                         <div class="controls col-md-6">
-                            <s:textfield name="costo.costRentPro" maxlength="14" cssClass="form-control" />
+                            <s:textfield name="costo.costRentPro" type="number" maxlength="14" cssClass="form-control" />
                         </div>  
                     </div>  
                 </div> 
@@ -49,7 +49,7 @@
                             <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                         </label>
                         <div class="controls col-md-6">
-                            <s:textfield name="costo.costTechnicalAssistancePro" maxlength="14" cssClass="form-control" />
+                            <s:textfield name="costo.costTechnicalAssistancePro" type="number" maxlength="14" cssClass="form-control" />
                         </div>                         
                     </div>                          
                 </div> 
@@ -60,7 +60,7 @@
                             <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                         </label>
                         <div class="controls col-md-5">
-                            <s:textfield name="costo.costImpuestoPro" maxlength="14" cssClass="form-control" />
+                            <s:textfield name="costo.costImpuestoPro" type="number" maxlength="14" cssClass="form-control" />
                         </div>                         
                     </div>        
 
@@ -78,7 +78,7 @@
                             <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                         </label>
                         <div class="controls col-md-6">
-                            <s:textfield name="costo.costAdministrationPro" maxlength="14" cssClass="form-control" />
+                            <s:textfield name="costo.costAdministrationPro" type="number" maxlength="14" cssClass="form-control" />
                         </div>                         
                     </div>  
                 </div>
@@ -90,7 +90,7 @@
                                 <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                             </label>
                             <div class="controls col-md-6">
-                                <s:textfield name="costo.costOthersPro" maxlength="14" cssClass="form-control" />
+                                <s:textfield name="costo.costOthersPro" type="number" maxlength="14" cssClass="form-control" />
                             </div>                         
                         </div>        
 
@@ -107,7 +107,7 @@
                                 <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                             </label>
                             <div class="controls col-md-6">
-                                <s:textfield name="costo.costInterestsPro" maxlength="14" cssClass="form-control" />
+                                <s:textfield name="costo.costInterestsPro" type="number" maxlength="14" cssClass="form-control" />
                             </div>                         
                         </div>                          
                     </div> 

@@ -78,7 +78,10 @@
                 <th><s:property value="getText('td.latitude.farm')" /></th>
                 <th><s:property value="getText('td.longitude.farm')" /></th>
                 <th><s:property value="getText('td.altitude.farm')" /></th>
-                <th><s:property value="getText('td.datecreated.farm')" /></th>                                
+                <th>
+                    <s:property value="getText('td.datecreated.farm')" />
+                    <span>[mm/dd/yyyy]</span>                
+                </th>                                
                 <% if (usrFarDao.getPrivilegeUser(userFar.getIdUsr(), "farm/modify") || (usrFarDao.getPrivilegeUser(userFar.getIdUsr(), "farm/delete"))) { %>
                     <% if (value.equals("property") || value == "property") { %>
                         <th><s:property value="getText('td.action.farm')" /></th>

@@ -102,7 +102,7 @@ public class Version {
 
 	public void printProductsLines() {
 		Calendar c = Calendar.getInstance();
-		log.info("2016 - "+c.get(Calendar.YEAR)+" Fenalce ");
+		log.info("2016 - "+c.get(Calendar.YEAR)+" CIAT - Fenalce ");
 		log.info(String.format(VFORMAT, "ProductName", "Version"));
 		log.info(VLINE);
 		if (products!=null) {
@@ -124,7 +124,7 @@ public class Version {
 			}
 		}
 		Calendar c = Calendar.getInstance();
-		sLine += " | ProductName(Version) | 2016 - "+c.get(Calendar.YEAR)+" Fenalce. ";
+		sLine += " | ProductName(Version) | 2016 - "+c.get(Calendar.YEAR)+" CIAT - Fenalce. ";
 		log.info(sLine);
 	}
 

@@ -55,7 +55,7 @@
                             <i class="icon-info-sign s2b_tooltip pop-over" data-content="<s:property value="getText('desc.latitudedecimal.soil')" />." data-title="<s:property value="getText('help.latitudedecimal.soil')" />" data-placement="right" data-trigger="hover"></i>
                         </label>
                         <div class="controls col-md-6">
-                            <s:textfield cssClass="form-control" name="rasta.latitudRas" onkeyup="generateDegrees('formRasta_rasta_latitudRas', 'formRasta_rasta_latitude_degrees', 'formRasta_rasta_latitude_minutes', 'formRasta_rasta_latitude_seconds')"/>
+                            <s:textfield cssClass="form-control" type="number" id="formRasta_rasta_latitudRas" name="rasta.latitudRas" onkeyup="generateDegrees('formRasta_rasta_latitudRas', 'formRasta_rasta_latitude_degrees', 'formRasta_rasta_latitude_minutes', 'formRasta_rasta_latitude_seconds')"/>
                         </div>
                     </div>
                     <div class="form-group">
@@ -86,7 +86,7 @@
                             <i class="icon-info-sign s2b_tooltip pop-over" data-content="<s:property value="getText('desc.longitudedecimal.soil')" />." data-title="<s:property value="getText('help.longitudedecimal.soil')" />" data-placement="right" data-trigger="hover"></i>
                         </label>
                         <div class="controls col-md-6">
-                            <s:textfield cssClass="form-control" id="formRasta_rasta_longitudRas" name="rasta.longitudRas" onkeyup="generateDegrees('formRasta_rasta_longitudRas', 'formRasta_rasta_length_degrees', 'formRasta_rasta_length_minutes', 'formRasta_rasta_length_seconds')"/>
+                            <s:textfield cssClass="form-control" type="number" id="formRasta_rasta_longitudRas" name="rasta.longitudRas" onkeyup="generateDegrees('formRasta_rasta_longitudRas', 'formRasta_rasta_length_degrees', 'formRasta_rasta_length_minutes', 'formRasta_rasta_length_seconds')"/>
                         </div>
                     </div>
                     <div class="form-group">
@@ -117,13 +117,13 @@
                     <div class="form-group">
                         <s:label for="formRasta_rasta_altitudRas" cssClass="col-md-3 req" value="%{getText('text.altitudemeters.soil')}:"></s:label>
                         <div class="controls col-md-6">
-                            <s:textfield cssClass="form-control" id="formRasta_rasta_altitudRas" name="rasta.altitudRas" tooltip="%{getText('desc.altitudemeters.soil')}"/>
+                            <s:textfield cssClass="form-control" type="number" id="formRasta_rasta_altitudRas" name="rasta.altitudRas" tooltip="%{getText('desc.altitudemeters.soil')}"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <s:label for="formRasta_rasta_pendienteTerrenoRas" cssClass="col-md-3 req" value="%{getText('text.pendant.soil')}(%):"></s:label>
                         <div class="controls col-md-6">
-                            <s:textfield cssClass="form-control" id="formRasta_rasta_pendienteTerrenoRas" name="rasta.pendienteTerrenoRas" tooltip="%{getText('desc.pendant.soil')}"/>
+                            <s:textfield cssClass="form-control" type="number" id="formRasta_rasta_pendienteTerrenoRas" name="rasta.pendienteTerrenoRas" tooltip="%{getText('desc.pendant.soil')}"/>
                         </div>
                     </div>
                     <div class="form-group">
@@ -192,7 +192,7 @@
                     <div class="form-group">
                         <s:label for="formRasta_rasta_phRas" cssClass="col-md-3 req" value="%{getText('text.amountph.soil')}:"></s:label>
                         <div class="controls col-md-6">
-                            <s:textfield cssClass="form-control" name="rasta.phRas" tooltip="%{getText('desc.amountph.soil')}"/>
+                            <s:textfield cssClass="form-control" type="number" name="rasta.phRas" tooltip="%{getText('desc.amountph.soil')}"/>
                         </div>
                     </div>
                     <div class="form-group">
@@ -215,7 +215,7 @@
                         <div class="form-group">
                             <s:label for="formRasta_rasta_profundidadCarbonatosRas" cssClass="col-md-3" value="%{getText('text.carbonatesdepth.soil')}:"></s:label>
                             <div class="controls col-md-6">
-                                <s:textfield cssClass="form-control" name="rasta.profundidadCarbonatosRas" tooltip="%{getText('desc.carbonatesdepth.soil')}"/>&nbsp;cm
+                                <s:textfield cssClass="form-control" type="number" name="rasta.profundidadCarbonatosRas" tooltip="%{getText('desc.carbonatesdepth.soil')}"/>&nbsp;cm
                             </div>
                         </div>
                     </div>
@@ -267,19 +267,19 @@
                         <div class="form-group">
                             <s:label for="formRasta_rasta_profundidadHorizontePedregosoRas" cssClass="col-md-3" value="%{getText('text.horizondepth.soil')}:"></s:label>
                             <div class="controls col-md-6">
-                                <s:textfield cssClass="form-control" name="rasta.profundidadHorizontePedregosoRas" tooltip="%{getText('desc.horizondepth.soil')}"/>&nbsp;cm
+                                <s:textfield cssClass="form-control" type="number" name="rasta.profundidadHorizontePedregosoRas" tooltip="%{getText('desc.horizondepth.soil')}"/>&nbsp;cm
                             </div>
                         </div>
                         <div class="form-group">
                             <s:label for="formRasta_rasta_espesorHorizontePedregosoRas" cssClass="col-md-3" value="%{getText('text.densityhorizon.soil')}:"></s:label>
                             <div class="controls col-md-6">
-                                <s:textfield cssClass="form-control" name="rasta.espesorHorizontePedregosoRas" tooltip="%{getText('desc.densityhorizon.soil')}"/>&nbsp;cm
+                                <s:textfield cssClass="form-control" type="number" name="rasta.espesorHorizontePedregosoRas" tooltip="%{getText('desc.densityhorizon.soil')}"/>&nbsp;cm
                             </div>
                         </div>
                         <div class="form-group">
                             <s:label for="formRasta_rasta_profundidadPrimerasPiedrasRas" cssClass="control-label" value="%{getText('text.depthrock.soil')}:"></s:label>
                             <div class="controls">
-                                <s:textfield cssClass="form-control" name="rasta.profundidadPrimerasPiedrasRas" tooltip="%{getText('desc.depthrock.soil')}"/>&nbsp;cm
+                                <s:textfield cssClass="form-control" type="number" name="rasta.profundidadPrimerasPiedrasRas" tooltip="%{getText('desc.depthrock.soil')}"/>&nbsp;cm
                             </div>
                         </div>
                     </div>
@@ -301,13 +301,13 @@
                         <div class="form-group">
                             <s:label for="formRasta_rasta_prufundidadCapasRas" cssClass="col-md-3" value="%{getText('text.depthlayerhardened.soil')}:"></s:label>
                                 <div class="controls col-md-6">
-                                <s:textfield cssClass="form-control" name="rasta.prufundidadCapasRas" tooltip="%{getText('desc.depthlayerhardened.soil')}"/>&nbsp;cm
+                                <s:textfield cssClass="form-control" type="number" name="rasta.prufundidadCapasRas" tooltip="%{getText('desc.depthlayerhardened.soil')}"/>&nbsp;cm
                             </div>
                         </div>
                         <div class="form-group">
                             <s:label for="formRasta_rasta_espesorCapaEndurecidaRas" cssClass="col-md-3" value="%{getText('text.densitylayerhardened.soil')}:"></s:label>
                                 <div class="controls col-md-6">
-                                <s:textfield cssClass="form-control" name="rasta.espesorCapaEndurecidaRas" tooltip="%{getText('desc.densitylayerhardened.soil')}"/>&nbsp;cm
+                                <s:textfield cssClass="form-control" type="number" name="rasta.espesorCapaEndurecidaRas" tooltip="%{getText('desc.densitylayerhardened.soil')}"/>&nbsp;cm
                             </div>
                         </div>
                     </div>
@@ -329,7 +329,7 @@
                         <div class="form-group">
                             <s:label for="formRasta_rasta_profundidadMoteadosRas" cssClass="col-md-3" value="%{getText('text.depthmottled.soil')}:"></s:label>
                             <div class="controls col-md-6">
-                                <s:textfield cssClass="form-control" name="rasta.profundidadMoteadosRas" tooltip="%{getText('desc.depthmottled.soil')}"/>&nbsp;cm
+                                <s:textfield cssClass="form-control" type="number" name="rasta.profundidadMoteadosRas" tooltip="%{getText('desc.depthmottled.soil')}"/>&nbsp;cm
                             </div>
                         </div>
                         <div class="form-group">
@@ -425,7 +425,7 @@
                         <div class="form-group">
                             <s:label for="formRasta_rasta_profundidadRaicesRas" cssClass="col-md-3" value="%{getText('text.depthlivingroots.soil')}:"></s:label>
                             <div class="controls col-md-6">
-                                <s:textfield cssClass="form-control" name="rasta.profundidadRaicesRas" tooltip="%{getText('desc.depthlivingroots.soil')}"/>&nbsp;cm
+                                <s:textfield cssClass="form-control" type="number" name="rasta.profundidadRaicesRas" tooltip="%{getText('desc.depthlivingroots.soil')}"/>&nbsp;cm
                             </div>
                         </div>
                     </div>

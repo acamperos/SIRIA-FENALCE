@@ -66,7 +66,10 @@
                 <th><s:property value="getText('td.position.soil')" /></th>
                 <th><s:property value="getText('td.numlayers.soil')" /></th>
                 <th><s:property value="getText('td.phvalue.soil')" /></th>
-                <th><s:property value="getText('td.datecreated.soil')" /></th>
+                <th>
+                    <s:property value="getText('td.datecreated.soil')" />
+                    <span>[mm/dd/yyyy]</span>
+                </th>
                 <% if (usrSoilDao.getPrivilegeUser(userSoil.getIdUsr(), "soil/modify") || (usrSoilDao.getPrivilegeUser(userSoil.getIdUsr(), "soil/delete"))) { %>                
                     <% if (value == "rasta" || value.equals("rasta")) {%>
                         <th><s:property value="getText('td.action.soil')" /></th>

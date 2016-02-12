@@ -99,7 +99,7 @@
                 <div class="form-group">
                     <s:label for="formCropSearch_idCrop" cssClass="control-label" value="%{getText('text.searchnumcrop.crop')}:"></s:label>
                     <div class="controls">
-                        <s:textfield name="idCrop" />
+                        <s:textfield name="idCrop" type="number" />
                     </div>
                 </div>
             </div>
@@ -134,7 +134,7 @@
                 <div class="form-group">
                     <s:label for="formCropSearch_num_farm" cssClass="control-label" value="%{getText('text.searchnumfarm.crop')}:"></s:label>
                     <div class="controls">
-                        <s:textfield name="num_farm" />
+                        <s:textfield name="num_farm" type="number" />
                     </div>                          
                 </div>                          
             </div>                          
@@ -152,7 +152,7 @@
                 <div class="form-group">
                     <s:label for="formCropSearch_num_field" cssClass="control-label" value="%{getText('text.searchnumfield.crop')}:"></s:label>
                     <div class="controls">
-                        <s:textfield name="num_field" />
+                        <s:textfield name="num_field" type="number" />
                     </div>                          
                 </div>                          
             </div>                          

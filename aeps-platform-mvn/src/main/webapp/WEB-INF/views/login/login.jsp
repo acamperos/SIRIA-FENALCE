@@ -209,7 +209,7 @@
                                 <div class="col-md-5">
                                     <label class="control-label" for="formNewUser_celphoneUser"><s:property value="getText('text.celphoneuser.login')" />:</label>
                                     <div class="controls">
-                                        <s:textfield class="form-control" id="formNewUser_celphoneUser" name="celphoneUser"/>                                   
+                                        <s:textfield class="form-control" type="number" id="formNewUser_celphoneUser" name="celphoneUser"/>                                   
                                     </div>
                                 </div>
                             </div>
@@ -340,7 +340,7 @@
                                     <s:property value="getText('text.codvalidation.login')" />
                                 </label>
                                 <div class="controls">
-                                    <s:textfield id="formVerify_codVal" name="codVal"/>
+                                    <s:textfield id="formVerify_codVal" type="number" name="codVal"/>
                                 </div>                         
                             </div>                                            
                         </div> 
@@ -392,7 +392,7 @@
                                     <s:property value="getText('text.codvalidation.login')" />
                                 </label>
                                 <div class="controls">
-                                    <s:textfield id="formChangePass_codVal" name="codVal"/>
+                                    <s:textfield id="formChangePass_codVal" type="number" name="codVal"/>
                                 </div>                         
                             </div>                                            
                         </div> 

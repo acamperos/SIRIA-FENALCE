@@ -226,7 +226,7 @@
                             <i class="icon-info-sign s2b_tooltip pop-over" data-content="<s:property value="getText('desc.telephone.producer')" />." data-title="<s:property value="getText('help.telephone.producer')" />" data-placement="right" data-trigger="hover"></i>
                         </label>
                         <div class="controls col-md-6">
-                            <s:textfield name="telephone_producer" cssClass="form-control"/>
+                            <s:textfield name="telephone_producer" type="number" cssClass="form-control"/>
                         </div>  
                     </div>
                     <div class="form-group">
@@ -235,7 +235,7 @@
                             <i class="icon-info-sign s2b_tooltip pop-over" data-content="<s:property value="getText('desc.celphone.producer')" />." data-title="<s:property value="getText('help.celphone.producer')" />" data-placement="right" data-trigger="hover"></i>
                         </label>
                         <div class="controls col-md-6">
-                            <s:textfield name="celphone_producer" cssClass="form-control"/>
+                            <s:textfield name="celphone_producer" type="number" cssClass="form-control"/>
                         </div>  
                     </div>
                     <div class="form-group">

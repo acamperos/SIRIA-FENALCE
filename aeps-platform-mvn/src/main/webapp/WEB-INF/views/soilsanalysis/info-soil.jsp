@@ -64,7 +64,10 @@
                 <th><s:property value="getText('td.texture.soilanalysis')" /></th>
                 <th><s:property value="getText('td.phvalue.soilanalysis')" /></th>
                 <th><s:property value="getText('td.cicesoil.soilanalysis')" /></th>
-                <th><s:property value="getText('td.datecreated.soilanalysis')" /></th>
+                <th>
+                    <s:property value="getText('td.datecreated.soilanalysis')" />
+                    <span>[mm/dd/yyyy]</span>
+                </th>
                 <% if (usrSoilDao.getPrivilegeUser(userSoil.getIdUsr(), "soil/modify") || (usrSoilDao.getPrivilegeUser(userSoil.getIdUsr(), "soil/delete"))) { %>                
                     <% if (value == "soil" || value.equals("soil")) {%>
                         <th><s:property value="getText('td.action.soilanalysis')" /></th>

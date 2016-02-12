@@ -66,7 +66,7 @@
                                     <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                                 </label>
                                 <div class="controls col-md-6">
-                                    <s:textfield name="con.costInputCon" cssClass="form-control" maxlength="14"/>
+                                    <s:textfield name="con.costInputCon" type="number" cssClass="form-control" maxlength="14"/>
                                 </div>                         
                             </div>                          
                         </div> 
@@ -78,7 +78,7 @@
                                     <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                                 </label>
                                 <div class="controls col-md-6">
-                                    <s:textfield name="con.costAppCon" maxlength="14" cssClass="form-control"/>                                       
+                                    <s:textfield name="con.costAppCon" type="number" maxlength="14" cssClass="form-control"/>                                       
                                 </div>                         
                             </div>                          
                         </div> 

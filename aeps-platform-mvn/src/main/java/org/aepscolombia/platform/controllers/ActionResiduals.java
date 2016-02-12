@@ -310,8 +310,8 @@ public class ActionResiduals extends BaseAction {
         Boolean costRes = Boolean.valueOf(String.valueOf(prod.get("costCrop")));
         if (costRes) setCostCrop(1);
         else setCostCrop(2);
-        System.out.println("mjk: CostRes=>"+costRes);
-        System.out.println("mjk2: CostCroo=>"+getCostCrop());
+//        System.out.println("mjk: CostRes=>"+costRes);
+//        System.out.println("mjk2: CostCroo=>"+getCostCrop());
         try {
             this.setIdResMan(Integer.parseInt(this.getRequest().getParameter("idResMan")));
         } catch (NumberFormatException e) {

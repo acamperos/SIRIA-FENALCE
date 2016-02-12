@@ -129,7 +129,7 @@
                 <div class="form-group">
                     <s:label for="formFieldSearch_latitude_lot" cssClass="control-label" value="%{getText('text.searchlatitude.field')}:"></s:label>
                     <div class="controls">
-                        <s:textfield name="latitude_lot" />
+                        <s:textfield name="latitude_lot" type="number" />
                     </div>                          
                 </div>
             </div>
@@ -137,7 +137,7 @@
                 <div class="form-group">
                     <s:label for="formFieldSearch_length_lot" cssClass="control-label" value="%{getText('text.searchlongitude.field')}:"></s:label>
                     <div class="controls">
-                        <s:textfield name="length_lot" />
+                        <s:textfield name="length_lot" type="number" />
                     </div>                          
                 </div>
             </div>  
@@ -147,7 +147,7 @@
                 <div class="form-group">
                     <s:label for="formFieldSearch_altitude_lot" cssClass="control-label" value="%{getText('text.searchaltitude.field')}:"></s:label>
                     <div class="controls">
-                        <s:textfield name="altitude_lot" />
+                        <s:textfield name="altitude_lot" type="number" />
                     </div>                          
                 </div>
             </div>
@@ -155,7 +155,7 @@
                 <div class="form-group">
                     <s:label for="formFieldSearch_area_lot" cssClass="control-label" value="%{getText('text.searcharea.field')}:"></s:label>
                     <div class="controls">
-                        <s:textfield name="area_lot" />
+                        <s:textfield name="area_lot" type="number" />
                     </div>                          
                 </div>
             </div>         

@@ -72,7 +72,7 @@
                         </label>
                         <div class="controls col-md-6">
                             <s:number name="event.expectedProductionProEve" maximumFractionDigits="9" type="number" var="performanceCrop" />
-                            <s:textfield name="event.expectedProductionProEve" cssClass="form-control" value="%{#performanceCrop}"/>
+                            <s:textfield name="event.expectedProductionProEve" type="number" cssClass="form-control" value="%{#performanceCrop}"/>
                         </div>                  
                     </div>                          
                 </div>                          
@@ -101,7 +101,7 @@
                             <% }%>                        
                         </label>
                         <div class="controls col-md-6">
-                            <s:textfield name="sowing.seedsNumberSow" cssClass="form-control" />
+                            <s:textfield name="sowing.seedsNumberSow" type="number" cssClass="form-control" />
                         </div>                          
                     </div>                          
 
@@ -117,7 +117,7 @@
                                 :
                             </label>
                             <div class="controls col-md-6">
-                                <s:textfield name="sowing.costSeedSow" cssClass="form-control" maxlength="14"/>
+                                <s:textfield name="sowing.costSeedSow" type="number" cssClass="form-control" maxlength="14"/>
                             </div>                         
                         </div>                          
                     </div> 
@@ -191,7 +191,7 @@
                             <s:property value="getText('text.furrowdistance.crop')" /> <button type="button" class="btn btn-initial"><b>(m)</b></button>:
                         </label>
                         <div class="controls col-md-6">
-                            <s:textfield name="sowing.furrowsDistanceSow" cssClass="form-control"/>
+                            <s:textfield name="sowing.furrowsDistanceSow" type="number" cssClass="form-control"/>
                         </div>                         
                     </div>                          
                 </div>                          
@@ -201,7 +201,7 @@
                             <s:property value="getText('text.sitesdistance.crop')" /> <button type="button" class="btn btn-initial"><b>(m)</b></button>:
                         </label>
                         <div class="controls col-md-6">
-                            <s:textfield name="sowing.sitesDistanceSow" cssClass="form-control"/>
+                            <s:textfield name="sowing.sitesDistanceSow" type="number" cssClass="form-control"/>
                         </div>
                     </div>
                 </div>
@@ -215,7 +215,7 @@
                             <s:property value="getText('text.seednumbersite.crop')" />:
                         </label>
                         <div class="controls col-md-6">
-                            <s:textfield name="maize.seedsNumberSiteMai" cssClass="form-control"/>
+                            <s:textfield name="maize.seedsNumberSiteMai" type="number" cssClass="form-control"/>
                         </div>                         
                     </div>                          
                 </div>
@@ -267,7 +267,7 @@
                             <s:property value="getText('text.seednumbersite.crop')" />:
                         </label>
                         <div class="controls col-md-6">
-                            <s:textfield name="beans.seedsNumberSiteBea" cssClass="form-control"/>
+                            <s:textfield name="beans.seedsNumberSiteBea" type="number" cssClass="form-control"/>
                         </div>                         
                     </div>                          
                 </div>    
@@ -434,7 +434,7 @@
                                 <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                             </label>
                             <div class="controls col-md-6">
-                                <s:textfield name="sowing.costSow" maxlength="14" cssClass="form-control"/>
+                                <s:textfield name="sowing.costSow" type="number" maxlength="14" cssClass="form-control"/>
                             </div>
                         </div>
                     </div>   
