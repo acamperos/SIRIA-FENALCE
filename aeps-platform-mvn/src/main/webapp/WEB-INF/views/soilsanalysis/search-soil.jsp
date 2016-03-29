@@ -78,7 +78,7 @@
                 <div class="form-group">
                     <s:label for="formSoilSearch_sample_number" cssClass="control-label" value="%{getText('text.searchnumsoil.soilanalysis')}:"></s:label>
                     <div class="controls">
-                        <s:textfield name="sample_number" type="number" />
+                        <s:textfield name="sample_number" />
                     </div>                          
                 </div>                          
             </div>                          

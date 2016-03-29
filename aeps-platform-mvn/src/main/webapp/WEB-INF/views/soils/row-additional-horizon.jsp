@@ -20,13 +20,13 @@
         <%= valHorizon %>
     </td>
     <td style="padding: 3px 0.5em;">
-        <s:textfield cssClass="form-control extendHorizon" type="number" name="%{#attr.formDoc}.espesorHorRas" value="%{#attr.espesorHorRas}"/>
+        <s:textfield cssClass="form-control extendHorizon" name="%{#attr.formDoc}.espesorHorRas" value="%{#attr.espesorHorRas}"/>
     </td>
     <td style="padding: 3px 0.5em;">
-        <s:textfield cssClass="form-control extendHorizon" type="number" name="%{#attr.formDoc}.colorSecoHorRas" value="%{#attr.colorSecoHorRas}"/>
+        <s:textfield cssClass="form-control extendHorizon" name="%{#attr.formDoc}.colorSecoHorRas" value="%{#attr.colorSecoHorRas}"/>
     </td>
     <td style="padding: 3px 0.5em;">
-        <s:textfield cssClass="form-control extendHorizon" type="number" name="%{#attr.formDoc}.colorHumedoHorRas" value="%{#attr.colorHumedoHorRas}"/>
+        <s:textfield cssClass="form-control extendHorizon" name="%{#attr.formDoc}.colorHumedoHorRas" value="%{#attr.colorHumedoHorRas}"/>
     </td>
     <td style="padding: 3px 0.5em;">
         <s:select

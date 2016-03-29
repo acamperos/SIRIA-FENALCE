@@ -73,7 +73,7 @@
                                    <button type="button" class="btn btn-initial"><b>(Ha.)</b></button> :
                                </label>
                                <div class="controls col-md-6">
-                                   <s:textfield name="resMan.costResMan" type="number" cssClass="form-control" maxlength="14"/>
+                                   <s:textfield name="resMan.costResMan" cssClass="form-control" maxlength="14"/>
                                </div>
 
                            </div>        

@@ -30,7 +30,7 @@ public class ProductsControls  implements java.io.Serializable {
     private Pests pests;
     private Weeds weeds;
     private ControlsTypes controlsTypes;
-    private Double dosisProCon;
+    private String dosisProCon;
     private String otherPestProCon;
     private String otherDiseaseProCon;
     private String otroWeedProCon;
@@ -47,7 +47,7 @@ public class ProductsControls  implements java.io.Serializable {
         this.controlsTypes = controlsTypes;
     }
     
-    public ProductsControls(Controls controls, OrganicControls organicControls, DoseUnits doseUnits, Diseases diseases, ChemicalsControls chemicalsControls, TargetsTypes targetsTypes, Pests pests, Weeds weeds, ControlsTypes controlsTypes, Double dosisProCon, String otherPestProCon, String otherDiseaseProCon, String otroWeedProCon, String otherChemicalProductProCon, String otherOrganicProductProCon, Boolean status, Integer createdBy) {
+    public ProductsControls(Controls controls, OrganicControls organicControls, DoseUnits doseUnits, Diseases diseases, ChemicalsControls chemicalsControls, TargetsTypes targetsTypes, Pests pests, Weeds weeds, ControlsTypes controlsTypes, String dosisProCon, String otherPestProCon, String otherDiseaseProCon, String otroWeedProCon, String otherChemicalProductProCon, String otherOrganicProductProCon, Boolean status, Integer createdBy) {
        this.controls = controls;
        this.organicControls = organicControls;
        this.doseUnits = doseUnits;
@@ -168,12 +168,12 @@ public class ProductsControls  implements java.io.Serializable {
     }
 
     
-    @Column(name="dosis_pro_con", precision=22, scale=0)
-    public Double getDosisProCon() {
+    @Column(name="dosis_pro_con", length=65535)
+    public String getDosisProCon() {
         return this.dosisProCon;
     }
     
-    public void setDosisProCon(Double dosisProCon) {
+    public void setDosisProCon(String dosisProCon) {
         this.dosisProCon = dosisProCon;
     }
 

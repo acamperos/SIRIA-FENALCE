@@ -102,7 +102,7 @@
                 <div class="form-group">
                     <s:label for="formFarmSearch_latitude_property" cssClass="control-label" value="%{getText('text.searchlatitude.farm')}:"></s:label>
                     <div class="controls">
-                        <s:textfield name="latitude_property" type="number" />
+                        <s:textfield name="latitude_property" />
                     </div>                          
                 </div>
             </div>
@@ -110,7 +110,7 @@
                 <div class="form-group">
                     <s:label for="formFarmSearch_length_property" cssClass="control-label" value="%{getText('text.searchlongitude.farm')}:"></s:label>
                     <div class="controls">
-                        <s:textfield name="length_property" type="number" />
+                        <s:textfield name="length_property" />
                     </div>                          
                 </div>
             </div>  
@@ -120,7 +120,7 @@
                 <div class="form-group">
                     <s:label for="formFarmSearch_altitude_property" cssClass="control-label" value="%{getText('text.searchaltitude.farm')}:"></s:label>
                     <div class="controls">
-                        <s:textfield name="altitude_property" type="number" />
+                        <s:textfield name="altitude_property" />
                     </div>                          
                 </div>
             </div>             

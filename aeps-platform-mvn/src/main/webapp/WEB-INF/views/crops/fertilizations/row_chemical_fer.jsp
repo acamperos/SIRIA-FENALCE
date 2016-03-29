@@ -172,7 +172,7 @@
                                         <div class="form-group">
                                             <div class="controls" style="margin-left:0">
                                                 <span class="add-on"><s:property value="nameCheEle" /></span>
-                                                <s:textfield name="%{#attr.formChe}.additionalsElem[%{#estatus.index}].valueCheEle" type="number" value="%{#attr.valueCheEle}" cssClass="input-degrees form-control"/>
+                                                <s:textfield name="%{#attr.formChe}.additionalsElem[%{#estatus.index}].valueCheEle" value="%{#attr.valueCheEle}" cssClass="input-degrees form-control"/>
                                                 <s:hidden name="%{#attr.formChe}.additionalsElem[%{#estatus.index}].idCheEle" value="%{#attr.idCheEle}"/>
                                             </div>
                                         </div>
@@ -191,8 +191,8 @@
                                         <div class="form-group">
                                             <div class="controls" style="margin-left:0">
                                                 <span class="add-on"><s:property value="nameCheEle" /></span>
-                                                <s:textfield id="%{#attr.formCheId}__additionalsElem_%{#estatus.index}__valueCheEle" type="number" name="%{#attr.formChe}.additionalsElem[%{#estatus.index}].valueCheEle" value="%{#attr.valueCheEle}" cssClass="input-degrees form-control"/>
-                                                <s:hidden id="%{#attr.formCheId}__additionalsElem_%{#estatus.index}__idCheEle" name="%{#attr.formChe}.additionalsElem[%{#estatus.index}].idCheEle" value="%{#attr.idCheEle}"/>
+                                                <s:textfield name="%{#attr.formChe}.additionalsElem[%{#estatus.index}].valueCheEle" value="%{#attr.valueCheEle}" cssClass="input-degrees form-control"/>
+                                                <s:hidden name="%{#attr.formChe}.additionalsElem[%{#estatus.index}].idCheEle" value="%{#attr.idCheEle}"/>
                                             </div>
                                         </div>
                                     </div>
@@ -227,7 +227,7 @@
                             <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                         </label>
                         <div class="controls col-md-6">
-                            <s:textfield cssClass="form-control" name="%{#attr.formChe}.costAppCheFer" type="number" id="%{#attr.formCheId}__costAppCheFer" value="%{#attr.costAppCheFer}" maxlength="14"/>
+                            <s:textfield cssClass="form-control" name="%{#attr.formChe}.costAppCheFer" id="%{#attr.formCheId}__costAppCheFer" value="%{#attr.costAppCheFer}" maxlength="14"/>
                         </div>                         
                     </div>                          
                 </div> 
@@ -239,7 +239,7 @@
                         <s:property value="getText('text.amountproductchem.fertilization')" />:
                     </label>
                     <div class="controls col-md-6">
-                        <s:textfield cssClass="form-control" name="%{#attr.formChe}.amountProductUsedCheFer" type="number" id="%{#attr.formCheId}__amountProductUsedCheFer" value="%{#attr.amountProductUsedCheFer}"/>
+                        <s:textfield cssClass="form-control" name="%{#attr.formChe}.amountProductUsedCheFer" id="%{#attr.formCheId}__amountProductUsedCheFer" value="%{#attr.amountProductUsedCheFer}"/>
                     </div>                         
                 </div>                          
             </div>   
@@ -283,7 +283,7 @@
                             <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                         </label>
                         <div class="controls col-md-6">
-                            <s:textfield cssClass="form-control" name="%{#attr.formChe}.costProductCheFer" type="number" id="%{#attr.formCheId}__costProductCheFer" value="%{#attr.costProductCheFer}" maxlength="14"/>
+                            <s:textfield cssClass="form-control" name="%{#attr.formChe}.costProductCheFer" id="%{#attr.formCheId}__costProductCheFer" value="%{#attr.costProductCheFer}" maxlength="14"/>
                         </div>                         
                     </div>                          
                 </div> 

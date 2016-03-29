@@ -88,7 +88,7 @@
                                 <button type="button" class="btn btn-initial"><b>(Ha.)</b></button> :
                             </label>
                             <div class="controls col-md-6">
-                                <s:textfield cssClass="form-control" name="%{#attr.formOrg}.costAppOrgFer" type="number" id="%{#attr.formOrgId}__costAppOrgFer" value="%{#attr.costAppOrgFer}" maxlength="14"/>
+                                <s:textfield cssClass="form-control" name="%{#attr.formOrg}.costAppOrgFer" id="%{#attr.formOrgId}__costAppOrgFer" value="%{#attr.costAppOrgFer}" maxlength="14"/>
                             </div>                         
                         </div>                          
                     </div> 
@@ -104,7 +104,7 @@
                             <% }%>
                         </label>
                         <div class="controls col-md-6">
-                            <s:textfield cssClass="form-control" name="%{#attr.formOrg}.amountProductUsedOrgFer" type="number" value="%{#attr.amountProductUsedOrgFer}"/>
+                            <s:textfield cssClass="form-control" name="%{#attr.formOrg}.amountProductUsedOrgFer" value="%{#attr.amountProductUsedOrgFer}"/>
                         </div>                         
                     </div>                          
                 </div> 
@@ -119,7 +119,7 @@
                                 <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                             </label>
                             <div class="controls col-md-6">
-                                <s:textfield cssClass="form-control" name="%{#attr.formOrg}.costProductOrgFer" type="number" id="%{#attr.formOrgId}__costProductOrgFer" value="%{#attr.costProductOrgFer}" maxlength="14"/>
+                                <s:textfield cssClass="form-control" name="%{#attr.formOrg}.costProductOrgFer" id="%{#attr.formOrgId}__costProductOrgFer" value="%{#attr.costProductOrgFer}" maxlength="14"/>
                             </div>                         
                         </div>                          
                     </div> 

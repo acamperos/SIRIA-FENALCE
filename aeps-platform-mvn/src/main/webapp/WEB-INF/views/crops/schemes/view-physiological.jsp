@@ -32,7 +32,7 @@
                     <% } %>
                 </label>
                 <div class="controls col-md-3">
-                    <s:textfield name="phys.daysPopulationMonFis" type="number" cssClass="form-control"/>
+                    <s:textfield name="phys.daysPopulationMonFis" cssClass="form-control"/>
                 </div>
             </div>
             <div class="form-group">
@@ -64,7 +64,7 @@
                     <s:property value="getText('text.percentagereseeding.monitoring')" /> <button type="button" class="btn btn-initial"><b>(%)</b></button>:
                 </label>
                 <div class="controls col-md-3">
-                    <s:textfield name="phys.percentageReseedingPhyMon" type="number" cssClass="form-control" />
+                    <s:textfield name="phys.percentageReseedingPhyMon" cssClass="form-control" />
                 </div>                          
             </div>
             <fieldset>

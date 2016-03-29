@@ -271,9 +271,9 @@ public class ActionHarvest extends BaseAction {
             
             if (harv.getYieldHar()!=null && harv.getYieldHar()!=0) {
                 if (typeCrop==1) {
-                    if (harv.getYieldHar()<800 || harv.getYieldHar()>30000) {
-                        addFieldError("harv.yieldHar", "Dato invalido valor entre 800 y 30000");
-                        addActionError("Se ingreso un rendimiento invalido, por favor ingresar un valor entre 800 y 30000");
+                    if (harv.getYieldHar()<800 || harv.getYieldHar()>70000) {
+                        addFieldError("harv.yieldHar", "Dato invalido valor entre 800 y 70000");
+                        addActionError("Se ingreso un rendimiento invalido, por favor ingresar un valor entre 800 y 70000");
                     }
                 }
                 

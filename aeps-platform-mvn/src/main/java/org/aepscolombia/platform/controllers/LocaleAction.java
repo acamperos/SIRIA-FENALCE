@@ -77,6 +77,7 @@ public class LocaleAction extends BaseAction
             lang = "esco";
             countryCode = "CO";
         }
+//        lang = "en";
         
         Users user = (Users) this.getSession().get(APConstants.SESSION_USER);
         if (user!=null) {        

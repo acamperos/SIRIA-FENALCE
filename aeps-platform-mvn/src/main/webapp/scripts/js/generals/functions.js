@@ -1244,7 +1244,7 @@ function searchDecimalNumber(formId) {
     $('#'+formId+' *').filter(':input').each(function(key, elem){
         var decimal=  /^[-+]?[0-9]+\.[0-9]+$/;   
         var valTemp = elem.value;
-        if (elem.value!='' && valTemp.match(decimal)) elem.value = settingVal(lanSel, elem.value);
+        if (elem.value!='' && valTemp.match(decimal)) elem.value = settingVal(lanSel, elem.value, elem.name);
     });
     
 }
@@ -1259,11 +1259,13 @@ function restoreDecimalNumber(formId) {
     
 }
 
-function settingVal(lanSel, valSel) {
-    if(lanSel==='es') {
+function settingVal(lanSel, valSel, valName) {
+//    var str = navigator.language;
+//    var langBrowser = str.substring(0, 2);
+    var pos = valName.indexOf("cost");
+    if(lanSel==='es' && pos<0) {
         valSel = valSel.replace(',','.');
-//        valSel = valSel.replace('.',',');
-    } else if(lanSel==='en') {
+    } else if(lanSel==='en' && pos<0) {
         valSel = valSel.replace(',','.');
     }    
     return valSel;
@@ -2270,13 +2272,13 @@ function removeRowHorizon(rowId, tbPrin, tableId)
 
 function getCountry () {
     var deferred = $.Deferred();
-//    $.getJSON("http://ip-api.com/json", function(result){
-//        countryCode = result.countryCode;
-        countryCode = "CO";
+    $.getJSON("http://ip-api.com/json", function(result){
+        countryCode = result.countryCode;
+//        countryCode = "CO";
 //                    alert('Country: ' + result.country_name + '\n' + 'Code: ' + result.country_code);
         deferred.resolve();
 //                    doAction();
-//    });
+    });
     return deferred;
 }
 

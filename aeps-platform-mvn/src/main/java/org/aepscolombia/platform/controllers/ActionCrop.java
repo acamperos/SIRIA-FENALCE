@@ -722,6 +722,10 @@ public class ActionCrop extends BaseAction {
         return valId;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String getValName() {
         return valName;
     }

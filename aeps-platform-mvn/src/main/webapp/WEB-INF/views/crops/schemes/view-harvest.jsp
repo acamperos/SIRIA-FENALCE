@@ -81,7 +81,7 @@
                             <% } %>
                         </label>
                         <div class="controls col-md-6">
-                            <s:textfield name="harv.yieldHar" type="number" maxlength="14" cssClass="form-control" />
+                            <s:textfield name="harv.yieldHar" maxlength="14" cssClass="form-control" />
                         </div>
                     </div>                                      
                 </div>                          
@@ -96,7 +96,7 @@
                             <% } %>
                         </label>
                         <div class="controls col-md-6">
-                            <s:textfield name="harv.productionHar" type="number" maxlength="14" cssClass="form-control" />
+                            <s:textfield name="harv.productionHar" maxlength="14" cssClass="form-control" />
                         </div>                          
                     </div>    
                 </div>
@@ -108,7 +108,7 @@
                              <button type="button" class="btn btn-initial"><b>(%)</b></button> <s:property value="getText('text.humiditypercentage.harvest')" />:
                         </label>
                         <div class="controls col-md-6">
-                            <s:textfield name="harv.humidityPercentageHar" type="number" maxlength="14" cssClass="form-control" />
+                            <s:textfield name="harv.humidityPercentageHar" maxlength="14" cssClass="form-control" />
                         </div>                          
                     </div>                                          
                 </div>       
@@ -137,7 +137,7 @@
                             <s:property value="getText('text.numberbags.harvest')" />:
                         </label>
                         <div class="controls col-md-6">
-                            <s:textfield name="harv.numberSacksSow" type="number" maxlength="14" cssClass="form-control" />
+                            <s:textfield name="harv.numberSacksSow" maxlength="14" cssClass="form-control" />
                         </div>                          
                     </div>                                          
                 </div>       
@@ -150,7 +150,7 @@
                             <s:property value="getText('text.weightavgbags.harvest')" />:
                         </label>
                         <div class="controls col-md-6 radioSelect">
-                            <s:textfield name="harv.weightAvgSacksSow" type="number" maxlength="14" cssClass="form-control" />
+                            <s:textfield name="harv.weightAvgSacksSow" maxlength="14" cssClass="form-control" />
                         </div>                         
                     </div>
                 </div>
@@ -161,7 +161,7 @@
                         <s:property value="getText('text.loadhectare.harvest')" />: 
                     </label>
                     <div class="controls col-md-3">
-                        <s:textfield name="harv.loadHectareSow" type="number" maxlength="14" cssClass="form-control" />
+                        <s:textfield name="harv.loadHectareSow" maxlength="14" cssClass="form-control" />
                     </div>					 
                 </div>
             </s:if>
@@ -190,7 +190,7 @@
                                                             <s:property value="getText('text.hervestpvp.harvest')"  /> <button type="button" class="btn btn-initial"><b>(Tn/Ha)</b></button>:
                                                         </label>
                                                         <div class="controls col-md-6">
-                                                            <s:textfield name="harv.costSalepriceHar" type="number" maxlength="14" cssClass="form-control" />
+                                                            <s:textfield name="harv.costSalepriceHar" maxlength="14" cssClass="form-control" />
                                                         </div>                         
                                                     </div>                          
                                                 </div> 
@@ -200,7 +200,7 @@
                                                             <s:property value="getText('text.hervestnamecliente.harvest')" />:
                                                         </label>
                                                         <div class="controls col-md-6">
-                                                            <s:textfield name="harv.costNamebuyerHar" type="number" maxlength="80" cssClass="form-control" />
+                                                            <s:textfield name="harv.costNamebuyerHar" maxlength="80" cssClass="form-control" />
                                                         </div>                         
                                                     </div>        
 
@@ -236,7 +236,7 @@
                                             <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                                         </label>
                                         <div class="controls col-md-6">
-                                            <s:textfield name="harv.costPackingHar" type="number" cssClass="form-control" maxlength="14"/>
+                                            <s:textfield name="harv.costPackingHar" cssClass="form-control" maxlength="14"/>
                                         </div>                         
                                     </div>                          
                </div> 
@@ -267,7 +267,7 @@
                                                             <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                                                         </label>
                                                         <div class="controls col-md-6">
-                                                            <s:textfield name="harv.costTractorHar" type="number" cssClass="form-control" maxlength="14"/>
+                                                            <s:textfield name="harv.costTractorHar" cssClass="form-control" maxlength="14"/>
                                                         </div>                         
                                                     </div>                          
                                                 </div> 
@@ -278,7 +278,7 @@
                                                             <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                                                         </label>
                                                         <div class="controls col-md-6">
-                                                            <s:textfield name="harv.costGranaleroTrailerHar" type="number" cssClass="form-control" maxlength="14"/>
+                                                            <s:textfield name="harv.costGranaleroTrailerHar" cssClass="form-control" maxlength="14"/>
                                                         </div>                         
                                                     </div>        
 
@@ -294,7 +294,7 @@
                                                             <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                                                         </label>
                                                         <div class="controls col-md-6">
-                                                            <s:textfield name="harv.costZorreoHar" type="number" cssClass="form-control" maxlength="14"/>
+                                                            <s:textfield name="harv.costZorreoHar" cssClass="form-control" maxlength="14"/>
                                                         </div>                         
                                                     </div>                          
                                                 </div> 
@@ -310,7 +310,7 @@
                                                         <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                                                     </label>
                                                     <div class="controls col-md-6">
-                                                        <s:textfield name="harv.costCombineHar" type="number" cssClass="form-control" maxlength="14"/>
+                                                        <s:textfield name="harv.costCombineHar" cssClass="form-control" maxlength="14"/>
                                                     </div>                         
                                             </div>  
                                           </div>
@@ -326,7 +326,7 @@
                                                                         <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                                                                     </label>
                                                                     <div class="controls col-md-6">
-                                                                        <s:textfield name="harv.costStorageHar" type="number" cssClass="form-control" maxlength="14"/>
+                                                                        <s:textfield name="harv.costStorageHar" cssClass="form-control" maxlength="14"/>
                                                                     </div>                         
                                                                 </div>        
 
@@ -343,7 +343,7 @@
                                             <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                                         </label>
                                         <div class="controls col-md-6">
-                                            <s:textfield name="harv.costWorkforceHar" type="number" cssClass="form-control" maxlength="14"/>
+                                            <s:textfield name="harv.costWorkforceHar" cssClass="form-control" maxlength="14"/>
                                         </div>                         
                                     </div>                          
                </div> 
@@ -354,7 +354,7 @@
                                             <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                                         </label>
                                         <div class="controls col-md-6">
-                                            <s:textfield name="harv.costTransportWorkforceHar" type="number" cssClass="form-control" maxlength="14"/>
+                                            <s:textfield name="harv.costTransportWorkforceHar" cssClass="form-control" maxlength="14"/>
                                         </div>                         
                                     </div>        
 
@@ -368,7 +368,7 @@
                                             <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                                         </label>
                                         <div class="controls col-md-6">
-                                            <s:textfield name="harv.costShellerHar" type="number" cssClass="form-control" maxlength="14"/>
+                                            <s:textfield name="harv.costShellerHar" cssClass="form-control" maxlength="14"/>
                                         </div>                         
                                     </div>                          
                </div> 
@@ -379,7 +379,7 @@
                                             <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                                         </label>
                                         <div class="controls col-md-6">
-                                            <s:textfield name="harv.costWorkforceShellerHar" type="number" cssClass="form-control" maxlength="14"/>
+                                            <s:textfield name="harv.costWorkforceShellerHar" cssClass="form-control" maxlength="14"/>
                                         </div>                         
                                     </div>        
 
@@ -397,7 +397,7 @@
                                             <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                                         </label>
                                         <div class="controls col-md-6">
-                                            <s:textfield name="harv.costCabuyaHar" type="number" cssClass="form-control" maxlength="14"/>
+                                            <s:textfield name="harv.costCabuyaHar" cssClass="form-control" maxlength="14"/>
                                         </div>                         
                                     </div>                          
                </div> 
@@ -408,7 +408,7 @@
                                             <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                                         </label>
                                         <div class="controls col-md-6">
-                                            <s:textfield name="harv.costTransportCollectioncenterHar" type="number" cssClass="form-control" maxlength="14"/>
+                                            <s:textfield name="harv.costTransportCollectioncenterHar" cssClass="form-control" maxlength="14"/>
                                         </div>                         
                                     </div>        
 

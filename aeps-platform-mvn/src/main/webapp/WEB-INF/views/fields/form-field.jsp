@@ -67,7 +67,7 @@
                                 <i class="icon-info-sign s2b_tooltip pop-over" data-content="<s:property value="getText('desc.latitudedecimal.field')" />." data-title="<s:property value="getText('help.latitudedecimal.field')" />" data-placement="right" data-trigger="hover"></i>
                             </label>
                             <div class="controls col-md-6">
-                                <s:textfield cssClass="form-control" type="number" id="formField_latitude_lot" name="latitude_lot" onkeyup="generateDegrees('formField_latitude_lot', 'formField_latitude_degrees_lot', 'formField_latitude_minutes_lot', 'formField_latitude_seconds_lot')"/>
+                                <s:textfield cssClass="form-control" id="formField_latitude_lot" name="latitude_lot" onkeyup="generateDegrees('formField_latitude_lot', 'formField_latitude_degrees_lot', 'formField_latitude_minutes_lot', 'formField_latitude_seconds_lot')"/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -98,7 +98,7 @@
                                 <i class="icon-info-sign s2b_tooltip pop-over" data-content="<s:property value="getText('desc.longitudedecimal.field')" />." data-title="<s:property value="getText('help.longitudedecimal.field')" />" data-placement="right" data-trigger="hover"></i>
                             </label>
                             <div class="controls col-md-6">
-                                <s:textfield cssClass="form-control" type="number" id="formField_length_lot" name="length_lot" onkeyup="generateDegrees('formField_length_lot', 'formField_length_degrees_lot', 'formField_length_minutes_lot', 'formField_length_seconds_lot')"/>
+                                <s:textfield cssClass="form-control" id="formField_length_lot" name="length_lot" onkeyup="generateDegrees('formField_length_lot', 'formField_length_degrees_lot', 'formField_length_minutes_lot', 'formField_length_seconds_lot')"/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -132,7 +132,7 @@
                                 <i class="icon-info-sign s2b_tooltip pop-over" data-content="<s:property value="getText('desc.altitudemeters.field')" />." data-title="<s:property value="getText('help.altitudemeters.field')" />" data-placement="right" data-trigger="hover"></i>
                             </label>
                             <div class="controls col-md-6">
-                                <s:textfield name="altitude_lot" type="number" cssClass="form-control" />
+                                <s:textfield name="altitude_lot" cssClass="form-control" />
                             </div>
                         </div>
                         <div class="form-group">
@@ -141,7 +141,7 @@
                                 <i class="icon-info-sign s2b_tooltip pop-over" data-content="<s:property value="getText('desc.areafield.field')" />." data-title="<s:property value="getText('help.areafield.field')" />" data-placement="right" data-trigger="hover"></i>
                             </label>
                             <div class="controls col-md-6">
-                                <s:textfield name="area_lot" type="number" cssClass="form-control" requiredLabel="true" />
+                                <s:textfield name="area_lot" cssClass="form-control" requiredLabel="true" />
                             </div>         
                         </div>         
                     </fieldset>		

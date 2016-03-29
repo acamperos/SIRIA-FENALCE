@@ -51,13 +51,13 @@
                                                 <div class="col-sm-6 form-group">
                                                     <label for="formContact_celphone" class="col-sm-5 control-label"><s:property value="getText('text.cellphone.contact')" /> :</label>
                                                     <div class="controls col-sm-8">
-                                                        <s:textfield cssClass="form-control" type="number" id="formContact_celphone" name="celphone"/>
+                                                        <s:textfield cssClass="form-control" id="formContact_celphone" name="celphone"/>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6 form-group">
                                                     <label for="formContact_telephone" class="col-sm-5 control-label"><s:property value="getText('text.phone.contact')" /> :</label>
                                                     <div class="controls col-sm-8">
-                                                        <s:textfield cssClass="form-control" type="number" id="formContact_telephone" name="telephone"/>
+                                                        <s:textfield cssClass="form-control" id="formContact_telephone" name="telephone"/>
                                                     </div>
                                                 </div>
                                             </div>

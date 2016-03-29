@@ -459,6 +459,9 @@ public class ActionCon extends BaseAction {
             }
 
             sowing=null;            
+            if (prodCon.size()<=0) {
+                addActionError(getText("message.missingfields.control")+" Se debe ingresar alguna aplicacion de control");
+            }
         }
     }     
     
@@ -811,6 +814,8 @@ public class ActionCon extends BaseAction {
             prod.setOtherChemicalProductProCon(null);
         } 
         
+        System.out.println("doseCant=>"+prod.getDosisProCon());
+        
         DoseUnits dosUn = new DoseUnitsDao().objectById(prod.getDoseUnits().getIdDosUni());
         prod.setDoseUnits(dosUn); 
         
@@ -842,7 +847,7 @@ public class ActionCon extends BaseAction {
             required.put("prod.controlsTypes.idConTyp", prod.getControlsTypes().getIdConTyp());
         }
         
-        if (prod.getDosisProCon()!=null) {
+        if (!prod.getDosisProCon().isEmpty()) {
             required.put("prod.dosisProCon", prod.getDosisProCon());
         } else {
             required.put("prod.dosisProCon", "");
@@ -925,7 +930,7 @@ public class ActionCon extends BaseAction {
 
         if (prod.getControlsTypes()!=null) {
             Integer conSel = prod.getControlsTypes().getIdConTyp();
-            Double dosis = prod.getDosisProCon();
+            Double dosis = Double.parseDouble(prod.getDosisProCon());
             if ((conSel==2 || conSel==6) && (dosis!=null) && (dosis<0.1 || dosis>1000)) {
                 addFieldError("prod.dosisProCon", getText("message.datainvalidrankchem.control"));                
                 addActionError(getText("desc.datainvalidrankchem.control"));
@@ -1000,12 +1005,13 @@ public class ActionCon extends BaseAction {
                         prodTemp.setIdProCon(null);
                         prodTemp.setControls(con);
                         prodTemp.setStatus(true);
+                        System.out.println("dosis=>"+prodNew.getDosisProCon());
                         if (coCode.equals("NI")) {                
-                            prodTemp.setDosisProCon(prodNew.getDosisProCon()*65.7143);
+                            prodTemp.setDosisProCon((Double.parseDouble(prodNew.getDosisProCon())*65.7143)+"");
                         } else {
                             prodTemp.setDosisProCon(prodNew.getDosisProCon());
                         }
-                        dosisTotal += prodNew.getDosisProCon();
+                        dosisTotal += Double.parseDouble(prodNew.getDosisProCon());
                         prodTemp.setDoseUnits(prodNew.getDoseUnits());
                         prodTemp.setControlsTypes(prodNew.getControlsTypes());
                         prodTemp.setTargetsTypes(prodNew.getTargetsTypes());

@@ -85,7 +85,7 @@
                                 <button type="button" class="btn btn-initial"><b>(Ha.)</b></button> :
                             </label>
                             <div class="controls col-md-6">
-                                <s:textfield cssClass="form-control" type="number" name="%{#attr.formAmen}.costAppAmeFer" id="%{#attr.formAmeId}__costAppAmeFer" value="%{#attr.costAppAmeFer}" maxlength="14"/>
+                                <s:textfield cssClass="form-control" name="%{#attr.formAmen}.costAppAmeFer" id="%{#attr.formAmeId}__costAppAmeFer" value="%{#attr.costAppAmeFer}" maxlength="14"/>
                             </div>                         
                         </div>                          
                     </div>
@@ -101,7 +101,7 @@
                             <% }%>                    
                         </label>
                         <div class="controls col-md-6">
-                            <s:textfield cssClass="form-control" type="number" name="%{#attr.formAmen}.amountProductUsedAmeFer" value="%{#attr.amountProductUsedAmeFer}" maxlength="14"/>
+                            <s:textfield cssClass="form-control" name="%{#attr.formAmen}.amountProductUsedAmeFer" value="%{#attr.amountProductUsedAmeFer}" maxlength="14"/>
                         </div>                         
                     </div>                          
                 </div>   
@@ -117,7 +117,7 @@
                                 <button type="button" class="btn btn-initial"><b>(Ha.)</b></button> :
                             </label>
                             <div class="controls col-md-6">
-                                <s:textfield name="%{#attr.formAmen}.costProductAmeFer" type="number" cssClass="form-control" id="%{#attr.formAmeId}__costProductAmeFer" value="%{#attr.costProductAmeFer}"/>
+                                <s:textfield name="%{#attr.formAmen}.costProductAmeFer" cssClass="form-control" id="%{#attr.formAmeId}__costProductAmeFer" value="%{#attr.costProductAmeFer}"/>
                             </div>                         
                         </div>                          
                     </div>

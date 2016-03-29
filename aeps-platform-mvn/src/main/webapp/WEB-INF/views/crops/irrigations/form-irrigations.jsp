@@ -104,7 +104,7 @@
                                                 <s:property value="getText('text.thicknessheetirr.irrigation')" /> <button type="button" class="btn btn-initial"><b>(cm)</b></button>:
                                             </label>
                                             <div class="controls col-md-6">
-                                                <s:textfield name="irr.thicknessSheetIrr" type="number" cssClass="form-control"/>
+                                                <s:textfield name="irr.thicknessSheetIrr" cssClass="form-control"/>
                                             </div>
                                         </div>
                                     </div>
@@ -134,7 +134,7 @@
                                             <s:property value="getText('text.durationirr.irrigation')" /> <button type="button" class="btn btn-initial"><b>(horas)</b></button>:
                                         </label>
                                         <div class="controls col-md-6">
-                                            <s:textfield name="irr.durationIrr" type="number" cssClass="form-control"/>
+                                            <s:textfield name="irr.durationIrr" cssClass="form-control"/>
                                         </div>
                                     </div>
                                 </div>
@@ -148,7 +148,7 @@
                                             <s:property value="getText('text.amountirr.irrigation')" /> <button type="button" class="btn btn-initial"><b>(metros cúbicos)</b></button>:
                                         </label>
                                         <div class="controls col-md-6">
-                                            <s:textfield name="irr.amountIrr" type="number" cssClass="form-control"/>
+                                            <s:textfield name="irr.amountIrr" cssClass="form-control"/>
                                         </div>
                                     </div>
                                 </div>                           
@@ -172,7 +172,7 @@
                                             <button type="button" class="btn btn-initial"><b>(Ha.)</b></button> :
                                         </label>
                                         <div class="controls col-md-6">
-                                            <s:textfield name="irr.costWaterIrr" type="number" cssClass="form-control" maxlength="14"/>
+                                            <s:textfield name="irr.costWaterIrr" cssClass="form-control" maxlength="14"/>
                                         </div>
                                         
                                         
@@ -187,7 +187,7 @@
                                             <button type="button" class="btn btn-initial"><b>(Ha.)</b></button> :
                                         </label>
                                         <div class="controls col-md-6">
-                                            <s:textfield name="irr.costWorkforceIrr" type="number" cssClass="form-control" maxlength="14"/>
+                                            <s:textfield name="irr.costWorkforceIrr" cssClass="form-control" maxlength="14"/>
                                         </div>
                                     </div>
                                 </div>  
@@ -202,7 +202,7 @@
                                             <button type="button" class="btn btn-initial"><b>(Ha.)</b></button> :
                                         </label>
                                         <div class="controls col-md-6">
-                                            <s:textfield name="irr.costDitchesIrr" type="number" cssClass="form-control" maxlength="14"/>
+                                            <s:textfield name="irr.costDitchesIrr" cssClass="form-control" maxlength="14"/>
                                         </div>
                                     </div>
                                 </div>  
@@ -214,7 +214,7 @@
                                               <button type="button" class="btn btn-initial"><b>(Ha.)</b></button> :
                                             </label>
                                             <div class="controls col-md-6">
-                                                <s:textfield name="irr.costDrainageIrr" type="number" cssClass="form-control" maxlength="14"/>
+                                                <s:textfield name="irr.costDrainageIrr" cssClass="form-control" maxlength="14"/>
                                             </div>
                                       </div>
                                 </div>  
@@ -229,7 +229,7 @@
                                             <button type="button" class="btn btn-initial"><b>(Ha.)</b></button> :
                                         </label>
                                         <div class="controls col-md-6">
-                                            <s:textfield name="irr.costFuelIrr" type="number" cssClass="form-control" maxlength="14"/>
+                                            <s:textfield name="irr.costFuelIrr" cssClass="form-control" maxlength="14"/>
                                         </div>
                                     </div>
                                 </div>  
@@ -241,7 +241,7 @@
                                             <button type="button" class="btn btn-initial"><b>(Ha.)</b></button> :
                                         </label>
                                         <div class="controls col-md-6">
-                                            <s:textfield name="irr.costElectricpowerIrr" type="number" cssClass="form-control" maxlength="14"/>
+                                            <s:textfield name="irr.costElectricpowerIrr" cssClass="form-control" maxlength="14"/>
                                         </div>
                                       </div>
                                 </div>  
@@ -271,7 +271,7 @@
                                                                           <button type="button" class="btn btn-initial"><b>(Ha.)</b></button> :
                                                                       </label>
                                                                       <div class="controls col-md-6">
-                                                                          <s:textfield name="irr.costDepreciationIrr" type="number" cssClass="form-control" maxlength="14"/>
+                                                                          <s:textfield name="irr.costDepreciationIrr" cssClass="form-control" maxlength="14"/>
                                                                       </div>
                                                                   </div>
                                                               </div>  
@@ -283,7 +283,7 @@
                                                                           <button type="button" class="btn btn-initial"><b>(Ha.)</b></button> :
                                                                       </label>
                                                                       <div class="controls col-md-6">
-                                                                          <s:textfield name="irr.costRentedIrr" type="number" cssClass="form-control" maxlength="14"/>
+                                                                          <s:textfield name="irr.costRentedIrr" cssClass="form-control" maxlength="14"/>
                                                                       </div>
                                                                   </div>
                                                               </div>  

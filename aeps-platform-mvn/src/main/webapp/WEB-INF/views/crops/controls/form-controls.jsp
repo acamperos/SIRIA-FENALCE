@@ -66,7 +66,7 @@
                                     <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                                 </label>
                                 <div class="controls col-md-6">
-                                    <s:textfield name="con.costInputCon" type="number" cssClass="form-control" maxlength="14"/>
+                                    <s:textfield name="con.costInputCon" cssClass="form-control" maxlength="14"/>
                                 </div>                         
                             </div>                          
                         </div> 
@@ -78,7 +78,7 @@
                                     <button type="button" class="btn btn-initial"><b>(Ha.)</b></button>:
                                 </label>
                                 <div class="controls col-md-6">
-                                    <s:textfield name="con.costAppCon" type="number" maxlength="14" cssClass="form-control"/>                                       
+                                    <s:textfield name="con.costAppCon" maxlength="14" cssClass="form-control"/>                                       
                                 </div>                         
                             </div>                          
                         </div> 
@@ -127,7 +127,7 @@
                 <div id="divBtCon">
                     <% String actExe = String.valueOf(request.getAttribute("actExe")); %>
                     <% if ((actExe.equals("create") && usrDao.getPrivilegeUser(user.getIdUsr(), "crop/create")) || (actExe.equals("modify") && usrDao.getPrivilegeUser(user.getIdUsr(), "crop/modify"))) { %>
-                    <sj:submit type="button" cssClass="btn btn-initial btn-lg" onclick="removeMaskControls();searchDecimalNumber('formCropCon'); addMessageProcess()" targets="divMessage" onCompleteTopics="completeCon" validate="true" validateFunction="validationForm"><i class="icon-save"></i>  <s:property value="getText('button.controlsave.crop')" /></sj:submit>
+                    <sj:submit type="button" cssClass="btn btn-initial btn-lg" onclick="removeMaskControls(); searchDecimalNumber('formCropCon'); addMessageProcess()" targets="divMessage" onCompleteTopics="completeCon" validate="true" validateFunction="validationForm"><i class="icon-save"></i>  <s:property value="getText('button.controlsave.crop')" /></sj:submit>
                     <% }%>
                     <button class="btn btn-default btn-lg" onclick="resetForm('formCropCon'); closeWindow();"><i class="icon-ban-circle"></i>  <s:property value="getText('button.cancel')" /></button>
                 </div>             

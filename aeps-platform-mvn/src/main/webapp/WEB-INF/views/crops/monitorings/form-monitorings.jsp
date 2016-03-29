@@ -66,7 +66,7 @@
                                                     headerValue="---"
                                                     onchange="showOtherElement(this.value, 'divNewObjControlPes')"
                                                 />
-                                                <s:textfield name="mon.perImpactPestMon" type="number" cssClass="form-control" placeholder="%{getText('text.percentimpactpest.monitoring')}" />
+                                                <s:textfield name="mon.perImpactPestMon" cssClass="form-control" placeholder="%{getText('text.percentimpactpest.monitoring')}" />
                                             </div>
                                         </div>
                                     </td>
@@ -86,7 +86,7 @@
                                                     headerValue="---"
                                                     onchange="showOtherElement(this.value, 'divNewObjControlDis')"
                                                 />
-                                                <s:textfield name="mon.perImpactDiseaseMon" type="number" cssClass="form-control" placeholder="%{getText('text.percentimpactdis.monitoring')}" />
+                                                <s:textfield name="mon.perImpactDiseaseMon" cssClass="form-control" placeholder="%{getText('text.percentimpactdis.monitoring')}" />
                                             </div>
                                         </div>
                                     </td>
@@ -106,7 +106,7 @@
                                                     headerValue="---"
                                                     onchange="showOtherElement(this.value, 'divNewObjControlWee')"
                                                 />
-                                                <s:textfield name="mon.perImpactWeedMon" type="number" cssClass="form-control" placeholder="%{getText('text.percentimpactweed.monitoring')}" />                                            
+                                                <s:textfield name="mon.perImpactWeedMon" cssClass="form-control" placeholder="%{getText('text.percentimpactweed.monitoring')}" />                                            
                                             </div>
                                         </div>
                                     </td>
@@ -134,6 +134,9 @@
                         optSel('mon.monitorWeedsMon', 'divMonWeed');
                         $("#formCropMonGen_mon_dateMon").datepicker({dateFormat: 'mm/dd/yy'});
                         $("#formCropMonGen_mon_dateMon").mask("99/99/9999", {placeholder: " "});
+                        $("#formCropMonGen_mon_perImpactPestMon").numeric({negative: false});
+                        $("#formCropMonGen_mon_perImpactDiseaseMon").numeric({negative: false});
+                        $("#formCropMonGen_mon_perImpactWeedMon").numeric({negative: false});
                     </script>
                     <div id="divBtMon">
                         <% String actExe   = String.valueOf(request.getAttribute("actExe")); %>

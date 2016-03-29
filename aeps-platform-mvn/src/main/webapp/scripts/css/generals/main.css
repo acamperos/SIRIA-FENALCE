@@ -200,8 +200,8 @@ li {
 
 .input-degrees {
     font-size: 14px !important;
-    max-height: 12px;
-    max-width: 30px;
+/*    max-height: 12px;
+    max-width: 30px;*/
     padding: 8px !important;
 }
 

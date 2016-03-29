@@ -1718,6 +1718,7 @@ public class ProductionEventsDao
         sql += " viewComposition(ferq.id_che_fer, 1) as N,";
         sql += " viewComposition(ferq.id_che_fer, 2) as P,";
         sql += " viewComposition(ferq.id_che_fer, 3) as K, ";
+        sql += " dos.name_dos_uni, ";
         sql += " ap.name_app_typ, ";
         sql += " p.comment_fer ";
 
@@ -1740,6 +1741,7 @@ public class ProductionEventsDao
         sql += " inner join farms_producers fp on f.id_far = fp.id_farm_far_pro";
         sql += " inner join producers pd on pd.id_pro = fp.id_producer_far_pro";
         sql += " inner join entities ent on ent.id_ent = pd.id_entity_pro";
+        sql += " left join dose_units dos on dos.id_dos_uni = fq.unit_che_fer";
 
         sql += " left join fertilizations_types tp on tp.id_fer_typ=p.fertilization_type_fer ";
         sql += " inner join log_entities le on le.id_object_log_ent=p.id_fer and le.table_log_ent='fertilizations' ";
@@ -1798,6 +1800,7 @@ public class ProductionEventsDao
         sql += " viewComposition(0, 1) as N,";
         sql += " viewComposition(0, 2) as P,";
         sql += " viewComposition(0, 3) as K,";
+        sql += " 'kg/ha', ";
         sql += " 'NA', ";
         sql += " p.comment_fer ";
 
@@ -1870,6 +1873,7 @@ public class ProductionEventsDao
         sql += " viewComposition(0, 1) as N,";
         sql += " viewComposition(0, 2) as P,";
         sql += " viewComposition(0, 3) as K, ";
+        sql += " 'kg/ha', ";
         sql += " 'NA', ";
         sql += " p.comment_fer ";
 
@@ -1884,7 +1888,7 @@ public class ProductionEventsDao
         sql += " inner join farms_producers fp on f.id_far = fp.id_farm_far_pro";
         sql += " inner join producers pd on pd.id_pro = fp.id_producer_far_pro";
         sql += " inner join entities ent on ent.id_ent = pd.id_entity_pro";
-
+        
         sql += " left join fertilizations_types tp on tp.id_fer_typ=p.fertilization_type_fer ";
         sql += " inner join log_entities le on le.id_object_log_ent=p.id_fer and le.table_log_ent='fertilizations' ";
         sql += " inner join entities e on le.id_entity_log_ent = e.id_ent";
@@ -1944,7 +1948,7 @@ public class ProductionEventsDao
             if (events.size()>0) {
                 sheet = workbook.createSheet("Fertilizaciones");
                 Object[] val = {
-                    "USUARIO","ID_EVENTO","PRODUCTOR","PROD_CEDULA","ID_PROD","FECHA_FERT","ID_FER","TIPO_FERTILIZACION","TIPO_APLICACION","CANTIDAD_PROD_FERTI","PROD_QUI","PROD_ORG","PROD_ENM","DESC","N","P","K"
+                    "USUARIO","ID_EVENTO","PRODUCTOR","PROD_CEDULA","ID_PROD","FECHA_FERT","ID_FER","TIPO_FERTILIZACION","TIPO_APLICACION","CANTIDAD_PROD_FERTI","PROD_QUI","PROD_ORG","PROD_ENM","DESC","N","P","K","Unidad"
                 };
                 dataSheet.put("1", val);
             }
@@ -1961,15 +1965,16 @@ public class ProductionEventsDao
                     data[5],
                     data[6],                    
                     data[7], 
-                    data[15],                    
+                    data[16],                    
                     data[8],                    
                     data[9],                    
                     data[10],                    
                     data[11],                   
-                    data[16],                   
+                    data[17],                   
                     data[12],                  
                     data[13],                   
-                    data[14]                   
+                    data[14],                   
+                    data[15]                   
                 };
                 dataSheet.put(""+cont, valTemp);
                 cont++;

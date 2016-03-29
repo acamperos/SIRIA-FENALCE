@@ -78,7 +78,7 @@
                 <div class="form-group">
                     <s:label for="formRastaSearch_num_rasta" cssClass="control-label" value="%{getText('text.searchnumrasta.soil')}:"></s:label>
                     <div class="controls">
-                        <s:textfield name="num_rasta" type="number" />
+                        <s:textfield name="num_rasta" />
                     </div>                          
                 </div>                          
             </div>                          
@@ -98,7 +98,7 @@
                 <div class="form-group">
                     <s:label for="formRastaSearch_pendant" cssClass="control-label" value="%{getText('text.searchpendant.soil')}:"></s:label>
                     <div class="controls">
-                        <s:textfield name="pendant" type="number" />
+                        <s:textfield name="pendant" />
                     </div>                          
                 </div>                          
             </div>                          
@@ -106,7 +106,7 @@
                 <div class="form-group">
                     <s:label for="formRastaSearch_altitude" cssClass="control-label" value="%{getText('text.searchaltitude.soil')}:"></s:label>
                     <div class="controls">
-                        <s:textfield name="altitude" type="number" />
+                        <s:textfield name="altitude" />
                     </div>
                 </div>
             </div>
@@ -116,7 +116,7 @@
                 <div class="form-group">
                     <s:label for="formRastaSearch_latitude" cssClass="control-label" value="%{getText('text.searchlatitude.soil')}:"></s:label>
                     <div class="controls">
-                        <s:textfield name="latitude" type="number" />
+                        <s:textfield name="latitude" />
                     </div>
                 </div>
             </div>
@@ -124,7 +124,7 @@
                 <div class="form-group">
                     <s:label for="formRastaSearch_length" cssClass="control-label" value="%{getText('text.searchlongitude.soil')}:"></s:label>
                     <div class="controls">
-                        <s:textfield name="length" type="number" />
+                        <s:textfield name="length" />
                     </div>  
                 </div>  
             </div>  
@@ -160,7 +160,7 @@
                 <div class="form-group">
                     <s:label for="formRastaSearch_ph" cssClass="control-label" value="%{getText('text.searchph.soil')}:"></s:label>
                     <div class="controls">
-                        <s:textfield name="ph" type="number" />
+                        <s:textfield name="ph" />
                     </div>
                 </div>
             </div>
