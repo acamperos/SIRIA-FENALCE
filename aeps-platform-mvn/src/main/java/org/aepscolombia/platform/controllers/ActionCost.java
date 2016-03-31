@@ -40,9 +40,9 @@ import org.hibernate.Transaction;
 /**
  * Clase ActionHarvest
  *
- * Contiene los metodos para interactuar con el modulo de Cosecha
+ * Contiene los metodos para interactuar con el modulo de Costos
  *
- * @author Juan Felipe Rodriguez
+ * @author Alfredo Camperos
  * @version 1.0
  */
 public class ActionCost extends BaseAction {

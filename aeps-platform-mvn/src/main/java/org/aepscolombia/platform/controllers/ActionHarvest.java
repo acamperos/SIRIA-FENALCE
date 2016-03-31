@@ -110,8 +110,7 @@ public class ActionHarvest extends BaseAction {
     
     /**
      * Atributos generales de clase
-     */
-    
+     */    
     private ProductionEventsDao cropDao    = new ProductionEventsDao();
     private HarvestsDao harDao    = new HarvestsDao();
     private SowingDao sowDao      = new SowingDao();
@@ -155,6 +154,9 @@ public class ActionHarvest extends BaseAction {
         return SUCCESS;
     }       
     
+    /**
+     * Metodo encargado de cargar toda la informacion previa antes de realizar cualquier accion
+     */
     @Override
     public void prepare() throws Exception {
         user = (Users) this.getSession().get(APConstants.SESSION_USER);
@@ -322,7 +324,7 @@ public class ActionHarvest extends BaseAction {
 
     /**
      * Encargado de guardar la informacion suministrada por el usuario para una cosecha
-     * @return Estado del proceso
+     * @return String Estado del proceso
      */
     public String saveData() {
         if (!usrDao.getPrivilegeUser(idUsrSystem, "crop/create") || !usrDao.getPrivilegeUser(idUsrSystem, "crop/modify")) {

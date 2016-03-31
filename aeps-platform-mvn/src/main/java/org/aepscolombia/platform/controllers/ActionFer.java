@@ -253,8 +253,7 @@ public class ActionFer extends BaseAction {
     
     /**
      * Atributos generales de clase
-     */
-    
+     */    
     private ProductionEventsDao cropDao    = new ProductionEventsDao();
     private FertilizationsDao ferDao       = new FertilizationsDao();
     private SowingDao sowDao      = new SowingDao();
@@ -366,6 +365,9 @@ public class ActionFer extends BaseAction {
         return SUCCESS;
     }       
     
+    /**
+     * Metodo encargado de cargar toda la informacion previa antes de realizar cualquier accion
+     */
     @Override
     public void prepare() throws Exception {
         user   = (Users) this.getSession().get(APConstants.SESSION_USER);

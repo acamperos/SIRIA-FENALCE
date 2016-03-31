@@ -387,6 +387,9 @@ public class ActionCon extends BaseAction {
         return SUCCESS;
     }       
     
+    /**
+     * Metodo encargado de cargar toda la informacion previa antes de realizar cualquier accion
+     */
     @Override
     public void prepare() throws Exception {
         user = (Users) this.getSession().get(APConstants.SESSION_USER);
@@ -670,6 +673,7 @@ public class ActionCon extends BaseAction {
     
     /**
     * Accion que permite cargar una nueva fila en el formulario de Controles
+    * @return prod Objeto de fila adicional
     *
     */
     public String showRowAdditionalControl()
@@ -740,6 +744,9 @@ public class ActionCon extends BaseAction {
         return SUCCESS;
     }
     
+    /**
+     * Objeto general para el despliegue de informacion en formato JSON    
+     */
     private JSONObject jRes;
 
     public JSONObject getjRes() {
@@ -837,6 +844,12 @@ public class ActionCon extends BaseAction {
         return SUCCESS;
     }
     
+    /**
+     * Metodo encargado de validar la información de un producto de control que se va
+     * a adicionar a un control
+     * @param prod Objeto de un producto
+     * @return HashMap Resultado de la validacion
+     */
     public HashMap validateInfoControl(ProductsControls prod) 
     {
         boolean enter = false;

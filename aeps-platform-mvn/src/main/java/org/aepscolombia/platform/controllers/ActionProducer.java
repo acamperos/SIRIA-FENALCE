@@ -445,6 +445,9 @@ public class ActionProducer extends BaseAction {
         this.date_end = date_end;
     }
 
+    /**
+     * Metodo encargado de cargar toda la informacion previa antes de realizar cualquier accion
+     */
     @Override
     public void prepare() throws Exception {
         user = (Users) this.getSession().get(APConstants.SESSION_USER);
@@ -617,6 +620,10 @@ public class ActionProducer extends BaseAction {
         this.entReg = entReg;
     }   
     
+    /**
+     * Metodo encargado de obtener los datos de un productor dado el numero de documento
+     * @return Entities Datos del productor 
+     */
     public String checkDocumentNumber() 
     {
         String typeDoc = ""; 
@@ -769,6 +776,12 @@ public class ActionProducer extends BaseAction {
         return fileName;
     }   
 
+    /**
+     * Metodo encargado de generar el reporte en formato Excel de todos los productores vinculados
+     * a un usuario del sistema
+     * @return String Estado del proceso
+     * @throws Exception
+     */
     public String viewReport() throws Exception {
         if (!usrDao.getPrivilegeUser(idUsrSystem, "producer/list")) {
             return BaseAction.NOT_AUTHORIZED;
@@ -890,7 +903,7 @@ public class ActionProducer extends BaseAction {
 
     /**
      * Encargado de guardar la informacion suministrada por el usuario para un
-     * lote
+     * productor
      *
      * @return Estado del proceso
      */

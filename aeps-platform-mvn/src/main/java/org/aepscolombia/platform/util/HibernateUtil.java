@@ -9,6 +9,9 @@ public class HibernateUtil {
 
     private static final SessionFactory sessionFactory = buildSessionFactory();
 
+    /**
+     * Metodo encargado de crear la sesion con el ORM de Hibernate
+     */
     private static SessionFactory buildSessionFactory() {
         try {
             return new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
@@ -24,7 +27,7 @@ public class HibernateUtil {
         return sessionFactory;
     }
 
-    // Database configuration
+    // Configuracion de la base de datos
     public static String url = "jdbc:mysql://localhost:3306/ciat_ext";
     public static String dbdriver = "com.mysql.jdbc.Driver";
     public static String username = "ciat";
@@ -32,6 +35,10 @@ public class HibernateUtil {
     static Connection conn;
     static Statement st;
     
+    /**
+     * Metodo encargado de obtener una coneccion ya establecida con la base de datos con los datos ya
+     * pre-establecidos
+     */
     public static Connection getInstanceConnection() {
         if (!(conn instanceof Connection)) {
 //            System.out.println("Conectando a la BD.");
@@ -48,6 +55,9 @@ public class HibernateUtil {
         return conn;
     }
     
+    /**
+     * Metodo encargado de cerrar la coneccion preestablecida
+     */
     public static void closeConnection() {
         try {
             if (conn instanceof Connection) {
@@ -63,6 +73,9 @@ public class HibernateUtil {
         }
     }
 
+    /**
+     * Metodo encargado de realizar la consulta SQL ya establecida
+     */
     public static void setup(String sql) {
         try {
             createStatement();

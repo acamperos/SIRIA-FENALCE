@@ -251,7 +251,8 @@ public class ProductsControlsDao
                 if (data.getOtherChemicalProductProCon()!=null && !data.getOtherChemicalProductProCon().equals("")) data.setChemicalsControls(new ChemicalsControls(1000000, "Otro"));
                 if (data.getOtherOrganicProductProCon()!=null && !data.getOtherOrganicProductProCon().equals("")) data.setOrganicControls(new OrganicControls(1000000, "Otro"));
                 if (coCode.equals("NI")) {
-                    data.setDosisProCon(data.getDosisProCon()*0.01522);
+                    double res = Double.parseDouble(data.getDosisProCon())*0.01522;
+                    data.setDosisProCon(""+res);
                 }
                 result.add(data);
             }

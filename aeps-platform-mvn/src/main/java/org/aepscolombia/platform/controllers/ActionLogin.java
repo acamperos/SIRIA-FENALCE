@@ -257,6 +257,10 @@ public class ActionLogin extends BaseAction {
     
     private String coCode="";
     
+    /**
+     * Metodo encargado de cargar toda la informacion previa antes de realizar cualquier accion
+     * @throws Exception
+     */
     @Override
     public void prepare() throws Exception {
         this.setAssociation_list(new AssociationDao().findAll());

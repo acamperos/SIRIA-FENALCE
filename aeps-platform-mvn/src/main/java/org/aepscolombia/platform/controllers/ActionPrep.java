@@ -202,6 +202,9 @@ public class ActionPrep extends BaseAction {
         return SUCCESS;
     }       
     
+    /**
+     * Metodo encargado de cargar toda la informacion previa antes de realizar cualquier accion
+     */
     @Override
     public void prepare() throws Exception {
         user = (Users) this.getSession().get(APConstants.SESSION_USER);

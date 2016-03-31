@@ -192,6 +192,9 @@ public class ActionIssues extends BaseAction {
         return SUCCESS;
     }       
     
+    /**
+     * Metodo encargado de cargar toda la informacion previa antes de realizar cualquier accion
+     */
     @Override
     public void prepare() throws Exception {
         user = (Users) this.getSession().get(APConstants.SESSION_USER);
@@ -259,7 +262,7 @@ public class ActionIssues extends BaseAction {
      * @param valName:  Nombre del valor a buscar
      * @param valId:    Identificacion del valor a buscar
      * @param selected: Valor seleccionado
-     * @return lista de observaciones en un cultivo
+     * @return lista de problemas registrados en un cultivo
      */
     public String search() {
         if (!usrDao.getPrivilegeUser(idUsrSystem, "crop/list")) {
@@ -472,6 +475,11 @@ public class ActionIssues extends BaseAction {
         this.resultImage = resultImage;
     }   
     
+    /**
+     * Metodo encargado de cargar la imagen suministrada por el usuario, de un reporte de un problema
+     * @return lista de materiales geneticos
+     * @throws Exception
+     */
     public String loadImage() throws Exception
     {
         String fileDirection = "";

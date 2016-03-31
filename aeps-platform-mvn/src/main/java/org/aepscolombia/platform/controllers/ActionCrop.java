@@ -101,7 +101,7 @@ import org.json.simple.JSONObject;
 /**
  * Clase ActionCrop
  *
- * Contiene los metodos para interactuar con el modulo de Cultivo
+ * Contiene los metodos para interactuar con el modulo general del evento productivo
  *
  * @author Juan Felipe Rodriguez
  * @version 1.0
@@ -816,6 +816,9 @@ public class ActionCrop extends BaseAction {
         this.lanSel = lanSel;
     }
     
+    /**
+     * Metodo encargado de cargar toda la informacion previa antes de realizar cualquier accion
+     */
     @Override
     public void prepare() throws Exception {
         user = (Users) this.getSession().get(APConstants.SESSION_USER);
@@ -919,12 +922,19 @@ public class ActionCrop extends BaseAction {
         }
     }
     
+    /**
+     * Metodo encargado de cargar toda la informacion previa antes de realizar cualquier accion
+     */
     private int numRows=0;
 
     public Integer getNumRows() {
         return numRows;
     }
 
+    /**
+     * Metodo encargado de asignar el valor respectivo de paginas a desplegar en la aplicacion
+     * @param numRows numero de filas a paginar
+     */
     public void setNumRows(Integer numRows) {
         this.numRows = numRows;
     }       
@@ -935,7 +945,11 @@ public class ActionCrop extends BaseAction {
         return pageReq;
     }
     
-    
+    /**
+     * Metodo encargado de asignar los valores necesarios al momento de ver el formulario
+     * de un evento productivo
+     * @param idCrop ID del Evento productivo
+     */
     private void setValuesCrop(Integer idCrop) {
         HashMap cropInfo = cropDao.findById(idCrop);
         this.setNameField(String.valueOf(cropInfo.get("nameField")));
@@ -981,6 +995,10 @@ public class ActionCrop extends BaseAction {
         }
     }
     
+    /**
+     * Metodo encargado de desplegar el formulario de un evento productivo
+     * @return String Estado del proceso
+     */
     public String showDataCrop() 
     {
         if (!usrDao.getPrivilegeUser(idUsrSystem, "crop/list")) {
@@ -1000,7 +1018,7 @@ public class ActionCrop extends BaseAction {
     
     /**
     * Accion que permite visualizar la informacion general de un cultivo
-    *
+    * @return String Estado del proceso
     */
     public String view()
     {     
@@ -1119,6 +1137,9 @@ public class ActionCrop extends BaseAction {
         return SUCCESS;
     }
     
+    /**
+     * Objeto general para el despliegue de informacion en formato JSON     * 
+     */
     private JSONObject objInfo;
 
     public JSONObject getObjInfo() {
@@ -1129,6 +1150,11 @@ public class ActionCrop extends BaseAction {
         this.objInfo = objInfo;
     }   
     
+    /**
+     * Metodo encargado de mostrar la linea de tiempo que cuenta un evento productivo una ves se alla
+     * se tenga una siembra asociada a un evento productivo
+     * @return String Estado del proceso
+     */
     public String viewInfoTime() {
         if (!usrDao.getPrivilegeUser(idUsrSystem, "crop/create") || !usrDao.getPrivilegeUser(idUsrSystem, "crop/modify")) {
             return BaseAction.NOT_AUTHORIZED;
@@ -1267,6 +1293,10 @@ public class ActionCrop extends BaseAction {
         return "combo";
     }
     
+    /**
+     * Atributos y metodos necesarios para mostrar todos y cada uno de los agronomos que hacen parte de un 
+     * gremio o asociacion vinculado a un evento productivo
+     */
     private String name_agronomist;
     private String selectAllname_agronomist;
     private String selectItemname_agronomist;      
@@ -1384,6 +1414,12 @@ public class ActionCrop extends BaseAction {
         return fileName;
     }   
     
+    /**
+     * Metodo encargado de generar el reporte en formato Excel de todos los eventos productivos vinculados
+     * a un usuario del sistema
+     * @return String Estado del proceso
+     * @throws Exception
+     */
     public String viewReport() throws Exception {
         if (!usrDao.getPrivilegeUser(idUsrSystem, "crop/list")) {
             return BaseAction.NOT_AUTHORIZED;
