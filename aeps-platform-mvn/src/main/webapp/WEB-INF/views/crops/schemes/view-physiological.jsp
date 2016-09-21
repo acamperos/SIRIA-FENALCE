@@ -35,6 +35,7 @@
                     <s:textfield name="phys.daysPopulationMonFis" cssClass="form-control"/>
                 </div>
             </div>
+            <% if (typeCrop!=6){ %>     
             <div class="form-group">
                 <label for="formCropMon_phys_floweringDatePhyMon" class="col-md-3">
                     <s:property value="getText('text.floweringdate.monitoring')" />:
@@ -46,6 +47,32 @@
                     <span class="add-on"><i class="icon-calendar"></i></span>
                 </div>                          
             </div>
+                    <% } %>
+             <% if (typeCrop==6){ %>        
+             <div class="form-group">
+                <label for="formCropMon_phys_floweringDateUno" class="col-md-3">
+                    <s:property value="getText('text.floweringdater1.monitoring')" />:
+                </label>
+                <div class="date col-md-3 controls">
+                    <s:date name="phys.floweringDateUno" format="MM/dd/yyyy" var="dateTransformFlowr1"/>
+                    <s:textfield name="phys.floweringDateUno" cssClass="form-control" value="%{#dateTransformFlowr1}" readonly="true"/>
+                    <span class="prefix sec">&nbsp;[mm/dd/yyyy]</span>
+                    <span class="add-on"><i class="icon-calendar"></i></span>
+                </div>                          
+            </div>
+                    
+              <div class="form-group">
+                <label for="formCropMon_phys_floweringDateCinco" class="col-md-3">
+                    <s:property value="getText('text.floweringdater5.monitoring')" />:
+                </label>
+                <div class="date col-md-3 controls">
+                    <s:date name="phys.floweringDateCinco" format="MM/dd/yyyy" var="dateTransformFlowr5"/>
+                    <s:textfield name="phys.floweringDateCinco" cssClass="form-control" value="%{#dateTransformFlowr5}" readonly="true"/>
+                    <span class="prefix sec">&nbsp;[mm/dd/yyyy]</span>
+                    <span class="add-on"><i class="icon-calendar"></i></span>
+                </div>                          
+            </div>
+               <% } %>       
             <% if (coCode.equals("NI")) { %>
                 <div class="form-group">
                     <label for="formCropMon_phys_iniPrimorPhyMon" class="col-md-3">
@@ -59,6 +86,7 @@
                     </div>                          
                 </div>
             <% } %>
+            <%if (typeCrop!=6) {%>
             <div class="form-group">
                 <label for="formCropMon_phys_percentageReseedingPhyMon" class="col-md-3">
                     <s:property value="getText('text.percentagereseeding.monitoring')" /> <button type="button" class="btn btn-initial"><b>(%)</b></button>:
@@ -67,6 +95,7 @@
                     <s:textfield name="phys.percentageReseedingPhyMon" cssClass="form-control" />
                 </div>                          
             </div>
+                <% } %>
             <fieldset>
             <legend>Observaciones</legend>                   
                 <div class="row">
@@ -88,6 +117,10 @@
                 $("#formCropMon_phys_emergencePhyMon").mask("99/99/9999", {placeholder: " "});
                 $("#formCropMon_phys_floweringDatePhyMon").datepicker({dateFormat: 'mm/dd/yy'});
                 $("#formCropMon_phys_floweringDatePhyMon").mask("99/99/9999", {placeholder: " "});
+                $("#formCropMon_phys_floweringDateUno").datepicker({dateFormat: 'mm/dd/yy'});
+                $("#formCropMon_phys_floweringDateUno").mask("99/99/9999", {placeholder: " "});
+                $("#formCropMon_phys_floweringDateCinco").datepicker({dateFormat: 'mm/dd/yy'});
+                $("#formCropMon_phys_floweringDateCinco").mask("99/99/9999", {placeholder: " "});                
                 $("#formCropMon_phys_iniPrimorPhyMon").datepicker({dateFormat: 'mm/dd/yy'});
                 $("#formCropMon_phys_iniPrimorPhyMon").mask("99/99/9999", {placeholder: " "});
                 $("#formCropMon_phys_daysPopulationMonFis").numeric({ decimal: false, negative: false });

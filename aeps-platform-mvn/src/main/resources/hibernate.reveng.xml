@@ -128,4 +128,5 @@
   <table-filter match-name="cost_indirect_production_event"/>
   <table-filter match-name="agents_association"/>
   <table-filter match-name="products_controls"/>
+  <table-filter match-name="soja"/>  
 </hibernate-reverse-engineering>

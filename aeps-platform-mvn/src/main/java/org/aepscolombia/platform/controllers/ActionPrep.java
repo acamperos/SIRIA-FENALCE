@@ -495,7 +495,9 @@ public class ActionPrep extends BaseAction {
             log.setActionTypeLogEnt("D");
             session.saveOrUpdate(log);
 //            logDao.save(log);
-            tx.commit();         
+            session.flush();
+            tx.commit();      
+            
             state = "success";
             info  = getText("message.successdelete.preparation");
         } catch (HibernateException e) {
@@ -506,7 +508,8 @@ public class ActionPrep extends BaseAction {
             state = "failure";
             info  = getText("message.faildelete.preparation");
         } finally {
-            session.close();
+                session.close();                
+            
         }      
         
         return "states";

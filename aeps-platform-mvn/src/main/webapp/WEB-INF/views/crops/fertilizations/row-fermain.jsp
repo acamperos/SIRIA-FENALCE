@@ -15,7 +15,7 @@
         <% if (entTypeFerId!=3) { %>
             <div class="btn-group">
                 <% if (usrFerDao.getPrivilegeUser(userFer.getIdUsr(), "crop/modify")) { %>
-                    <a class="btn btn-small btn-default btn-edit" title="<s:property value="getText('link.fertedit.fertilization')" />" onclick="viewForm('/crop/showFer.action?action=modify&idCrop=${idCrop}', 'idFer', ${idFer}, '<s:property value="getText('title.fertedit.fertilization')" />', 1050, 550);"><i class="icon-pencil"></i></a>
+                    <a class="btn btn-small btn-default btn-edit" title="<s:property value="getText('link.fertedit.fertilization')" />" onclick="viewFormFer('/crop/showFer.action?action=modify&idCrop=${idCrop}', 'idFer', ${idFer},'typeCrop', '${typeCrop}', '<s:property value="getText('title.fertedit.fertilization')" />', 1050, 550);"><i class="icon-pencil"></i></a>
                 <% } %>
                 <% if (usrFerDao.getPrivilegeUser(userFer.getIdUsr(), "crop/delete")) { %>
                     <a class="btn btn-small btn-default delete_rows_dt btn-delete" title="<s:property value="getText('link.fertdelete.fertilization')" />" onclick="showDialogDelete(this, 'confirm_dialog_fergen', '/crop/deleteFer.action?idFer=${idFer}', '/crop/searchFer.action?idCrop=${idCrop}', 'divFerGen', 'divListFer'); $('.confirm_yes').click(function(){setTimeout(function() {showTimeline('/crop/viewInfoTime.action?idCrop=${idCrop}', 'divInfoTimeline', 'timeline')}, 2000);});"><i class="icon-trash"></i></a>

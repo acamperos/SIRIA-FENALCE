@@ -14,8 +14,8 @@
                         <ul class="nav nav-tabs">
                             <li class="active"><a href="#tb3_a" aria-controls="tb3_a" role="tab" data-toggle="tab"><s:property value="getText('link.mision.aboutus')" /></a></li>
                             <li><a href="#tb3_b" aria-controls="tb3_b" role="tab" data-toggle="tab"><s:property value="getText('link.vision.aboutus')" /></a></li>
-                            <li><a href="#tb3_c" aria-controls="tb3_c" role="tab" data-toggle="tab"><s:property value="getText('link.projects.aboutus')" /></a></li>
-                            <li><a href="#tb3_d" aria-controls="tb3_d" role="tab" data-toggle="tab"><s:property value="getText('link.ourteam.aboutus')" /></a></li>
+                           <!-- <li><a href="#tb3_c" aria-controls="tb3_c" role="tab" data-toggle="tab"><s:property value="getText('link.projects.aboutus')" /></a></li>
+                            <li><a href="#tb3_d" aria-controls="tb3_d" role="tab" data-toggle="tab"><s:property value="getText('link.ourteam.aboutus')" /></a></li> !-->
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane active" id="tb3_a">

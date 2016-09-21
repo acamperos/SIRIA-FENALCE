@@ -54,6 +54,7 @@ import org.aepscolombia.platform.models.dao.SeedsInoculationsDao;
 import org.aepscolombia.platform.models.dao.SeedsOriginsDao;
 import org.aepscolombia.platform.models.dao.SeedsTypesDao;
 import org.aepscolombia.platform.models.dao.SfGuardUserDao;
+import org.aepscolombia.platform.models.dao.SojaDao;
 import org.aepscolombia.platform.models.dao.SowingDao;
 import org.aepscolombia.platform.models.dao.SowingTypesDao;
 import org.aepscolombia.platform.models.dao.UsersDao;
@@ -83,6 +84,7 @@ import org.aepscolombia.platform.models.entity.SeedsColors;
 import org.aepscolombia.platform.models.entity.SeedsInoculations;
 import org.aepscolombia.platform.models.entity.SeedsOrigins;
 import org.aepscolombia.platform.models.entity.SeedsTypes;
+import org.aepscolombia.platform.models.entity.Soja;
 import org.aepscolombia.platform.models.entity.Sowing;
 import org.aepscolombia.platform.models.entity.SowingTypes;
 import org.aepscolombia.platform.models.entity.Users;
@@ -179,7 +181,8 @@ public class ActionCrop extends BaseAction {
     private Cassavas cass = new Cassavas();
     private Harvests harv = new Harvests();
     private CostIndirectProductionEvent costo = new CostIndirectProductionEvent();
-    private Maize maize   = new Maize();
+    private Maize maize     = new Maize();
+    private Soja soja       = new Soja();
     private Rice rice     = new Rice();
     private PhysiologicalMonitoring phys = new PhysiologicalMonitoring();
     private Sowing sowing = new Sowing();
@@ -238,6 +241,14 @@ public class ActionCrop extends BaseAction {
 
     public void setMaize(Maize maize) {
         this.maize = maize;
+    }
+    
+    public Soja getSoja() {
+        return soja;
+    }
+
+    public void setSoja(Soja soja) {
+        this.soja = soja;
     }
 
     public Rice getRice() {
@@ -702,6 +713,7 @@ public class ActionCrop extends BaseAction {
     private CostIndirectProductionEventDao costDao    = new CostIndirectProductionEventDao();
     private IrrigationDao irrDao  = new IrrigationDao();
     private MaizeDao maizeDao     = new MaizeDao();
+    private SojaDao sojaDao     = new SojaDao();
     private RiceDao riceDao       = new RiceDao();
     private MonitoringDao monDao     = new MonitoringDao();
     private PhysiologicalMonitoringDao physDao     = new PhysiologicalMonitoringDao();
@@ -1052,6 +1064,7 @@ public class ActionCrop extends BaseAction {
             harv   = harDao.objectById(this.getIdCrop());
             costo  = costDao.objectById(this.getIdCrop());
             maize  = maizeDao.objectById(this.getIdCrop());
+            soja  = sojaDao.objectById(this.getIdCrop());
             rice   = riceDao.objectById(this.getIdCrop());
             phys   = physDao.objectById(this.getIdCrop());
             sowing = sowDao.objectById(this.getIdCrop());
@@ -1090,7 +1103,10 @@ public class ActionCrop extends BaseAction {
                     this.setType_genotypes(new GenotypesDao().findAllByTypeCrop(typeCrop, 0, coCode));
                 } else if(typeCrop==4) {
                     this.setType_genotypes(new GenotypesDao().findAllByTypeCrop(typeCrop, 0, coCode));
+                } else if(typeCrop==6) {
+                    this.setType_genotypes(new GenotypesDao().findAllByTypeCrop(typeCrop, 0, coCode));
                 }  
+                 
                  
             }
             
@@ -1113,8 +1129,10 @@ public class ActionCrop extends BaseAction {
             this.setType_rice_system(new RiceSystemDao().findAll(coCode));
             this.setType_seed_org(new SeedsOriginsDao().findAllByTypeCrop(typeCrop));
             this.setType_seed_type(new SeedsTypesDao().findAll(coCode));           
-            this.setType_sow_types(new SowingTypesDao().findAll(coCode));           
-            
+            if (typeCrop!=6)
+                    this.setType_sow_types(new SowingTypesDao().findAll(coCode));           
+            else 
+                    this.setType_sow_types(new SowingTypesDao().findAllByCropType(coCode, typeCrop));
         }       
         return SUCCESS;
     }
@@ -1195,6 +1213,9 @@ public class ActionCrop extends BaseAction {
                     } else if(typeCrop==4) {
                         classHar      = "rice";
                         imageHar      = "../img/rice.png";
+                    }else if(typeCrop==6) {
+                        classHar      = "soja";
+                        imageHar      = "../img/soja.png";
                     }
 //                    result += "{\"content\": \"Se hizo cosecha en "+diffHarvest+" dias <br> despues de siembra\", \"start\": \""+dateSowing+"\", \"end\": \""+dateHarvest+"\"},";
                     result += "{\"content\": \"<div>Cosecha</div><img src='"+imageHar+"' style='width:32px; height:32px;'>\", \"start\": \""+dateHarvest+"\", \"className\": \""+classHar+"\", \"title\": \"Se hizo cosecha en "+diffHarvest+" dias despues de siembra\"},";
@@ -1516,6 +1537,7 @@ public class ActionCrop extends BaseAction {
             } else {
                 lot.setTotallyAreaFie(false);
             }
+            lot.setTotallyAreaFie(this.getTotallyArea());
             lot.setAvailableAreaFie(availableArea);
             session.saveOrUpdate(lot);            
 //            throw new HibernateException("Perros");
@@ -1544,26 +1566,38 @@ public class ActionCrop extends BaseAction {
             beans  = beansDao.objectById(idCrop);
             cass   = cassDao.objectById(idCrop);
             maize  = maizeDao.objectById(idCrop);
+            soja  = sojaDao.objectById(idCrop);
             rice   = riceDao.objectById(idCrop);
             if (action.equals("M")) {
                 if (idCrop>0) {                    
                     if (typeCrop==1) {
                         if (beans!=null) session.delete(beans);
                         if (cass!=null) session.delete(cass);                    
-                        if (rice!=null) session.delete(rice);                    
+                        if (rice!=null) session.delete(rice);  
+                        if (soja!=null) session.delete(soja);
                     } else if (typeCrop==2) {
                         if (cass!=null) session.delete(cass);
                         if (maize!=null) session.delete(maize);
                         if (rice!=null) session.delete(rice);
+                        if (soja!=null) session.delete(soja);
                     } else if (typeCrop==3) {
                         if (maize!=null) session.delete(maize);
                         if (beans!=null) session.delete(beans);
                         if (rice!=null) session.delete(rice);
+                        if (soja!=null) session.delete(soja);
+                        
                     } else if (typeCrop==4) {
                         if (maize!=null) session.delete(maize);
                         if (beans!=null) session.delete(beans);
                         if (cass!=null) session.delete(cass);
+                        if (soja!=null) session.delete(soja);
+                    }else if (typeCrop==6) {
+                        if (maize!=null) session.delete(maize);
+                        if (beans!=null) session.delete(beans);
+                        if (cass!=null) session.delete(cass);
+                        if (rice!=null) session.delete(rice);
                     }
+                    
                 }
             } 
             
@@ -1587,11 +1621,17 @@ public class ActionCrop extends BaseAction {
                 ri.setIdRi(null);
                 ri.setProductionEvents(pro);
                 session.saveOrUpdate(ri);            
+            }else if (typeCrop==6 && soja==null) {
+                Soja soja = new Soja();
+                soja.setIdSoja(null);
+                soja.setProductionEvents(pro);
+                session.saveOrUpdate(soja);  
             }
             
             beans = null;
             cass  = null;
             maize = null;
+            soja = null;
             rice  = null;
             
             LogEntities log = null;            
@@ -1685,10 +1725,13 @@ public class ActionCrop extends BaseAction {
             Fields lot = lotDao.objectById(pro.getFields().getIdFie());   
             double areaOld = lot.getAreaFie();
             double availableArea = lot.getAvailableAreaFie();
-            if (typeArea==1) {
-                areaCrop = ((areaOld*areaCrop)/100);
-            }  
-            availableArea += areaCrop;
+            if (typeArea!=null){
+                if (typeArea==1) {
+                    areaCrop = ((areaOld*areaCrop)/100);
+                }  
+            }
+            if (areaCrop!=null){
+            availableArea += areaCrop;}
             lot.setAvailableAreaFie(availableArea);
             session.saveOrUpdate(lot);
             

@@ -15,6 +15,7 @@ import org.aepscolombia.platform.models.dao.MaizeDao;
 import org.aepscolombia.platform.models.dao.ProductionEventsDao;
 import org.aepscolombia.platform.models.dao.RiceDao;
 import org.aepscolombia.platform.models.dao.SfGuardUserDao;
+import org.aepscolombia.platform.models.dao.SojaDao;
 import org.aepscolombia.platform.models.dao.SowingDao;
 import org.aepscolombia.platform.models.dao.UsersDao;
 import org.aepscolombia.platform.models.entity.Beans;
@@ -24,6 +25,7 @@ import org.aepscolombia.platform.models.entity.LogEntities;
 import org.aepscolombia.platform.models.entity.Maize;
 import org.aepscolombia.platform.models.entity.ProductionEvents;
 import org.aepscolombia.platform.models.entity.Rice;
+import org.aepscolombia.platform.models.entity.Soja;
 import org.aepscolombia.platform.models.entity.Sowing;
 import org.aepscolombia.platform.models.entity.Users;
 import org.aepscolombia.platform.models.entityservices.SfGuardUser;
@@ -59,6 +61,7 @@ public class ActionSowing extends BaseAction {
     private Beans beans   = new Beans();
     private Cassavas cass = new Cassavas();
     private Maize maize   = new Maize();
+    private Soja soja   = new Soja();
     private Rice rice     = new Rice();
     private Sowing sowing = new Sowing();
     private ProductionEvents event = new ProductionEvents();
@@ -107,7 +110,15 @@ public class ActionSowing extends BaseAction {
     public void setMaize(Maize maize) {
         this.maize = maize;
     }
+    
+    public Soja getSoja() {
+        return soja;
+    }
 
+    public void setSoja(Soja soja) {
+        this.soja = soja;
+    }
+    
     public Sowing getSowing() {
         return sowing;
     }
@@ -156,6 +167,7 @@ public class ActionSowing extends BaseAction {
     private BeansDao beansDao     = new BeansDao();
     private CassavasDao cassDao   = new CassavasDao();
     private MaizeDao maizeDao     = new MaizeDao();
+    private SojaDao sojaDao     = new SojaDao();
     private RiceDao riceDao       = new RiceDao();
     private SowingDao sowDao      = new SowingDao();
     private LogEntitiesDao logDao = new LogEntitiesDao();
@@ -232,7 +244,7 @@ public class ActionSowing extends BaseAction {
             required.put("sowing.treatedSeedsSow", sowing.isTreatedSeedsSow());
             required.put("sowing.genotypes.idGen", sowing.getGenotypes().getIdGen());                
 //            required.put("event.expected_production_pro_eve", event.getExpectedProductionProEve()); 
-            if (typeCrop!=4) {        
+            if (typeCrop!=4 && typeCrop!=6) {        
                 required.put("sowing.furrowsDistanceSow", sowing.getFurrowsDistanceSow());
                 required.put("sowing.sitesDistanceSow", sowing.getSitesDistanceSow());
             }
@@ -275,7 +287,7 @@ public class ActionSowing extends BaseAction {
                 addActionError(getText("message.missingfields.sowing"));
             }
             
-            if (typeCrop!=4) {        
+            if (typeCrop!=4 ) {        
                 required.put("sowing.furrowsDistanceSow", sowing.getFurrowsDistanceSow());
                 if (sowing.getFurrowsDistanceSow()!=null && sowing.getFurrowsDistanceSow()!=null && sowing.getFurrowsDistanceSow()!=0 && (sowing.getFurrowsDistanceSow()<0.1 || sowing.getFurrowsDistanceSow()>10)) {
                     addFieldError("sowing.furrowsDistanceSow", getText("message.invaliddatafurrowsdistance.sowing"));
@@ -402,6 +414,9 @@ public class ActionSowing extends BaseAction {
             Maize maizeOld  = maizeDao.objectById(this.getIdCrop());
             if(maizeOld!=null) session.delete(maizeOld);
             
+            Soja sojaOld  = sojaDao.objectById(this.getIdCrop());
+            if(sojaOld!=null) session.delete(sojaOld);
+            
             Beans beansOld  = beansDao.objectById(this.getIdCrop());
             if(beansOld!=null) session.delete(beansOld);
             
@@ -428,6 +443,10 @@ public class ActionSowing extends BaseAction {
                 rice.setProductionEvents(new ProductionEvents(idCrop));
                 rice.setStatus(true);
                 session.saveOrUpdate(rice);
+            }else if (typeCrop==6) {        
+                soja.setProductionEvents(new ProductionEvents(idCrop));
+                soja.setStatus(true);
+                session.saveOrUpdate(soja);
             }
             
             LogEntities log = null;            

@@ -130,5 +130,7 @@
     <mapping class="org.aepscolombia.platform.models.entity.CostIndirectProductionEvent"/>
     <mapping class="org.aepscolombia.platform.models.entity.AgentsAssociation"/>
     <mapping class="org.aepscolombia.platform.models.entity.ProductsControls"/>
+    <mapping class="org.aepscolombia.platform.models.entity.Soja"/>
+    
   </session-factory>
 </hibernate-configuration>

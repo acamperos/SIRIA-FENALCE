@@ -260,9 +260,22 @@ public class GlobalFunctions extends BaseAction {
 //        props.setProperty("mail.smtp.host", host); 
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", "smtp-mail.outlook.com");
+        props.put("mail.smtp.host", "smtp.gmail.com");
 //        props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.port", "587");
+        
+        
+        /*
+                                pSend.setProperty("mail.transport.protocol", this.protocol);
+				pSend.setProperty("mail.smtp.port", this.port);
+				pSend.setProperty("mail.smtp.auth", this.auth);
+				pSend.setProperty("mail.smtp.starttls.enable", this.starttls);
+				pSend.setProperty("mail.host", this.host);
+				pSend.setProperty("mail.user", this.user);
+				pSend.setProperty("mail.password", this.password);
+				pSend.setProperty("mail.debug", this.debug);*/
+
+        
 //        props.put("mail.transport.protocol", "smtps");
 //        Session session  = Session.getDefaultInstance(props, null);
         final String fromAdressVal = fromAdress;
@@ -283,7 +296,7 @@ public class GlobalFunctions extends BaseAction {
 //            BodyPart messageBodyPart = new MimeBodyPart();
             messageBodyPart.setText(msgBody, "UTF-8", "html");
             multipart.addBodyPart(messageBodyPart);
-            if (archivo!=null) {
+            if (archivo!=null && archivo.exists() ) {
                 MimeBodyPart attachPart = new MimeBodyPart();
                 attachPart.attachFile(archivo);            
                 multipart.addBodyPart(attachPart);
@@ -523,11 +536,12 @@ public class GlobalFunctions extends BaseAction {
         // Cadena de caracteres original a sustituir.
         String original = "áàäéèëíìïóòöúùuñÁÀÄÉÈËÍÌÏÓÒÖÚÙÜÑçÇ";
         // Cadena de caracteres ASCII que reemplazarán los originales.
-        String ascii = "aaaeeeiiiooouuunAAAEEEIIIOOOUUUNcC";
+        String ascii =    "aaaeeeiiiooouuunAAAEEEIIIOOOUUUNcC";
         String output = input;
         for (int i = 0; i < input.length(); i++) {
             // Reemplazamos los caracteres especiales.
-            output = output.replace(original.charAt(i), ascii.charAt(i));
+          if( output.contains(String.valueOf(original.charAt(i))) ){
+                output = output.replace(original.charAt(i), ascii.charAt(i));}
         }
         return output;
     }

@@ -222,7 +222,7 @@ public class ActionIssues extends BaseAction {
             HashMap required = new HashMap();
             required.put("issRep.nameIss", issRep.getNameIss());
             required.put("issRep.descriptionIss", issRep.getDescriptionIss());
-            required.put("archivo", archivo);
+            //required.put("archivo", archivo);
             
             for (Iterator it = required.keySet().iterator(); it.hasNext();) {
                 String sK = (String) it.next();
@@ -352,7 +352,10 @@ public class ActionIssues extends BaseAction {
                     fileDirection  = ""+getText("file.imageissueunix");
                 }
                 File newFile = new File(fileDirection+archivoFileName);
-                if(!newFile.exists()) Files.move(archivo.toPath(), newFile.toPath());
+                if(!newFile.exists()) 
+                {
+                    if (archivo!=null)
+                        Files.move(archivo.toPath(), newFile.toPath());}
                 session.saveOrUpdate(issRep);
             
                 LogEntities log = null;            
@@ -380,8 +383,10 @@ public class ActionIssues extends BaseAction {
                 EntitiesDao entDao = new EntitiesDao();
                 Entities entTemp   = entDao.findById(idEntSystem);
                 GlobalFunctions.sendEmail(getText("email.fromContact"), getText("email.from"), getText("email.fromPass"), getText("email.subjectContact"), GlobalFunctions.reportToSend(entTemp.getNameEnt(), entTemp.getEmailEnt(), issRep.getNameIss(), issRep.getDescriptionIss()), newFile);
-                this.getSession().put("routeImage", fileDirection+archivoFileName);
-                archivo.delete();
+               
+                if (archivoFileName!=null)
+                    this.getSession().put("routeImage", fileDirection+archivoFileName);
+                if (archivo!=null) archivo.delete();
             } catch (HibernateException e) {
                 if (tx != null) {
                     tx.rollback();

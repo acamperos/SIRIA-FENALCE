@@ -2507,11 +2507,11 @@ public class ProductionEventsDao
         String sql = "";
         String state = "failure";         
 
-        sql += "select ep.id_pro_eve, ep.id_field_pro_eve, ep.id_crop_type_pro_eve, ep.comment_pro_eve, ep.id_project_pro_eve, ep.status,"; 	
+        sql += "select ep.id_pro_eve, ep.id_field_pro_eve, ep.id_crop_type_pro_eve, ep.comment_pro_eve,ep.comment_performance_pro_eve, ep.id_project_pro_eve, ep.status,"; 	
         sql += "ep.expected_production_pro_eve, ep.former_crop_pro_eve, ep.draining_pro_eve, ep.data_capture_date_pro_eve, ep.did_soil_analysis_pro_eve,";
         sql += "ep.reason_soil_analysis_pro_eve, ep.irrigate_pro_eve, ep.main_pest_pro_eve, ep.main_disease_pro_eve, ep.main_weed_pro_eve,";
         sql += "ep.other_former_crop_pro_eve, ep.other_main_pest_pro_eve, ep.other_main_disease_pro_eve, ep.other_main_weed_pro_eve,";
-        sql += "ep.num_cycles_before_pro_eve, ep.main_crop_problem_pro_eve, ep.created_by, ep.quant_area_pro_eve, ep.type_area_pro_eve";
+        sql += "ep.num_cycles_before_pro_eve, ep.main_crop_problem_pro_eve,ep.cost_pro_eve ,ep.created_by, ep.quant_area_pro_eve, ep.type_area_pro_eve";
         sql += " from production_events ep";
         if (!valSel.equals("")) sql += " where ep.status=1 and ep.id_pro_eve in ("+valSel+")";
 //        System.out.println("sql=>"+sql);          

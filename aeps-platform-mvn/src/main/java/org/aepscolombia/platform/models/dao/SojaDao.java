@@ -1,32 +1,47 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package org.aepscolombia.platform.models.dao;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import org.hibernate.Transaction;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.aepscolombia.platform.models.entity.Weeds;
+import org.aepscolombia.platform.models.entity.Soja;
 import org.aepscolombia.platform.util.HibernateUtil;
 
 /**
- * Clase WeedsDao
  *
- * Contiene los metodos para interactuar con la tabla Weeds de la base de datos (BD)
- *
- * @author Juan Felipe Rodriguez
- * @version 1.0
+ * @author acamperos
  */
-public class WeedsDao 
-{        
-    public List<Weeds> findAll() {
+public class SojaDao {
+    
+    
+     public HashMap findById(Integer id) {
         SessionFactory sessions = HibernateUtil.getSessionFactory();
         Session session = sessions.openSession();
-        List<Weeds> events = null;
+        
+        List<Object[]> events = null;
+        Transaction tx = null;
+        HashMap result = new HashMap();
+        return result;
+    }
+    
+    public List<Soja> findAll() {
+        SessionFactory sessions = HibernateUtil.getSessionFactory();
+        Session session = sessions.openSession();
+        List<Soja> events = null;
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            Query query = session.createQuery("from Weeds");
+            Query query = session.createQuery("from Soja");
             events = query.list();
             tx.commit();
         } catch (HibernateException e) {
@@ -39,35 +54,32 @@ public class WeedsDao
         }
         return events;
     }
+
+    public List findByParams(HashMap args) {
+        SessionFactory sessions = HibernateUtil.getSessionFactory();
+        Session session = sessions.openSession();
+        List<Object[]> eventsTotal = null;
+        List<Object[]> events = null;
+        Transaction tx = null;
+        List<HashMap> result = new ArrayList<HashMap>();
+        return result;
+    }    
     
-    public List<Weeds> findAllByTypeCrop(Integer idTypeCrop, String countryCode) {
+    public Soja objectById(Integer id) {
         SessionFactory sessions = HibernateUtil.getSessionFactory();
         Session session = sessions.openSession();
 
         String sql  = "";        
-        List<Weeds> event = null;
+        Soja event = null;
         Transaction tx = null;
 				
-        sql += "select ms.id_wee, ms.name_wee, ms.status_wee from weeds ms";
-        sql += " inner join weeds_country cheCon on cheCon.id_selwee_wee_co=ms.id_wee";
-        sql += " inner join weeds_crops_types t on t.id_weed_wee_cro=ms.id_wee";
-        sql += " where ms.status_wee=1";
-        if (idTypeCrop!=null && idTypeCrop!=6) {
-            sql += " and t.id_crop_type_wee_cro="+idTypeCrop;
-        }
-        if (countryCode!=null && !countryCode.equals("")) {
-            sql += " and cheCon.country_wee_co='"+countryCode+"'";
-        }
-        sql += " order by ms.name_wee ASC";
-				
+        sql += "select p.id_soja, p.id_production_events, p.id_variety, p.seeds_number_metro, p.status, p.created_by";
+        sql += " from soja p";
+        sql += " where p.id_production_events="+id;
         try {
             tx = session.beginTransaction();
-            Query query = session.createSQLQuery(sql).addEntity("ms", Weeds.class);
-            event = query.list();
-            Weeds temp = new Weeds();
-            temp.setIdWee(1000000);
-            temp.setNameWee("Otro");
-            event.add(temp);
+            Query query = session.createSQLQuery(sql).addEntity("p", Soja.class);
+            event = (Soja)query.uniqueResult();
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) {
@@ -79,35 +91,8 @@ public class WeedsDao
         }
         return event;
     }
-    
-    public Weeds objectById(Integer id) {
-        SessionFactory sessions = HibernateUtil.getSessionFactory();
-        Session session = sessions.openSession();
 
-        String sql  = "";        
-        Weeds event = null;
-        Transaction tx = null;
-				
-        sql += "select p.id_wee, p.name_wee, p.status_wee";
-        sql += " from weeds p";
-        sql += " where p.id_wee="+id;
-        try {
-            tx = session.beginTransaction();
-            Query query = session.createSQLQuery(sql).addEntity("p", Weeds.class);
-            event = (Weeds)query.uniqueResult();
-            tx.commit();
-        } catch (HibernateException e) {
-            if (tx != null) {
-                tx.rollback();
-            }
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-        return event;
-    }    
-
-    public void save(Weeds event) {
+    public void save(Soja event) {
         SessionFactory sessions = HibernateUtil.getSessionFactory();
         Session session = sessions.openSession();
 
@@ -126,7 +111,7 @@ public class WeedsDao
         }
     }
 
-    public void delete(Weeds event) {
+    public void delete(Soja event) {
         SessionFactory sessions = HibernateUtil.getSessionFactory();
         Session session = sessions.openSession();
 

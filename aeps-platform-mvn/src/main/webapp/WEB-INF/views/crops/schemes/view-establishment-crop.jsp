@@ -53,7 +53,9 @@
                                 listKey="idSowTyp" 
                                 listValue="nameSowTyp"            
                                 headerKey="-1" 
-                                headerValue="---" />
+                                headerValue="---"
+                                onchange="showSowingType(this.value, 'showSowingTypea','showSowingTypeb',typeCrop=%{typeCrop})"
+                                />
                         </div> 
                     </div>
                 </div>
@@ -91,7 +93,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="formCropSow_sowing_seedsNumberSow" class="col-md-6 req">
-                            <% if (typeCrop == 1) { %>
+                            <% if (typeCrop == 1 || typeCrop == 6) { %>
                             <s:property value="getText('text.kgseedha.crop')" />:
                             <i class="icon-info-sign s2b_tooltip pop-over" data-content="<s:property value="getText('desc.kgseedha.crop')" />." data-title="<s:property value="getText('help.kgseedha.crop')" />" data-placement="right" data-trigger="hover"></i> 
                             <% } else if (typeCrop == 2) { %>
@@ -106,8 +108,6 @@
                     </div>                          
 
                 </div>   
-
-
                 <div class="<%= classCostSow%>">       
                     <div class="col-md-6">
                         <div class="form-group">
@@ -159,10 +159,13 @@
                                     listValue="nameCheSow"            
                                     headerKey="-1" 
                                     headerValue="---"
+                                    onchange="showOtherElement(this.value, 'divNewProductSowing')"
                                     />
                             </div>                         
                         </div>                          
                     </div>      
+                            
+                            
                     <% String classProSow = "hideInfo"; %>
                     <s:set name="chemicalSowing" value="sowing.chemicalsSowing.idCheSow"/>
                     <s:if test="%{#chemicalSowing==1000000}">
@@ -185,8 +188,15 @@
 
             <% if (coCode.equals("CO")) { %>
             <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
+                <% String classshowSowingTypea = "hideInfo"; %>
+                <s:set name="sowingTypSela" value="sowing.sowingTypes.idSowTyp"/>
+                <s:if test="%{#sowingTypSela==11}">
+                    <% classshowSowingTypea = "";%>
+                </s:if>      
+                
+                <div id="showSowingTypea">
+                <div class="col-md-6 ">
+                    <div class="form-group ">
                         <label for="formCropSow_sowing_furrowsDistanceSow" class="col-md-6 req">
                             <s:property value="getText('text.furrowdistance.crop')" /> <button type="button" class="btn btn-initial"><b>(m)</b></button>:
                         </label>
@@ -194,10 +204,34 @@
                             <s:textfield name="sowing.furrowsDistanceSow" cssClass="form-control"/>
                         </div>                         
                     </div>                          
-                </div>                          
+                </div> 
+               </div>
+               <% String classshowSowingTypeb = "hideInfo"; %>
+                <s:set name="sowingTypSelb" value="sowing.sowingTypes.idSowTyp"/>
+                <s:if test="%{#sowingTypSelb==12}">
+                    <% classshowSowingTypeb = "";%>
+                </s:if>         
+                <div id="showSowingTypeb">
+                <% if (typeCrop == 6) { %>
+                <div class="col-md-6 ">
+                    <div class="form-group">
+                        <label for="formCropSow_soja_seedsNumberSiteMetro" class="col-md-6 req">
+                            <s:property value="getText('text.seednumbermetro.crop')" /><button type="button" class="btn btn-initial"><b>(m2)</b></button>:
+                        </label>
+                        <div class="controls col-md-6">                            
+                        
+                            <s:textfield name="soja.seedsNumberSiteMetro" cssClass="form-control" />
+                        </div>                         
+                    </div>                          
+                </div>
+                <% } %>        
+               </div>    
+                        
+                        
+               <% if (typeCrop != 6) { %>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="formCropSow_sowing_sitesDistanceSow" class="col-md-6 req">
+                        <label for="formCropSow_sowing_sitesDistanceSow" class="col-md-6 ">
                             <s:property value="getText('text.sitesdistance.crop')" /> <button type="button" class="btn btn-initial"><b>(m)</b></button>:
                         </label>
                         <div class="controls col-md-6">
@@ -205,6 +239,7 @@
                         </div>
                     </div>
                 </div>
+                         <% } %>
             </div>
             <% } %>
             <% if (typeCrop == 1) { %>
@@ -425,6 +460,61 @@
                 </div>
 
             </div>
+             <% if (typeCrop == 6) { %>        
+               <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="formCropSow_soja_idVariety" class="col-md-6 req">
+                            <s:property value="getText('select.variety.crop')" />:
+                        </label>
+                          
+                        
+                        <div class="controls col-md-6">
+                                    <s:select
+                                        id="soja__idVariety"
+                                        name="soja.idVariety"
+                                        value="soja.idVariety"             
+                                        list="#{'0':'---','1':'Intermedio', '2':'Semi determinado','3':'Determinado'}"            
+                                        headerKey="-1" 
+                                        cssClass="form-control"
+                                        />
+                                </div> 
+                    </div>                          
+                </div>  
+               </div>   
+              
+              <div class="row">
+                  <div class="col-md-6">
+                   <div class="form-group">
+                        <label for="formCropSow_sowing_germinationPercentageSow" class="col-md-6 req">
+                            <s:property value="getText('text.germination.crop')" /> 
+                           
+                            <button type="button" class="btn btn-initial"><b>(%)</b></button>:
+                                                      
+                        </label>
+                        <div class="controls col-md-6">
+                            <s:number name="sowing.germinationPercentageSow" maximumFractionDigits="9" var="germinationSow" />
+                            <s:textfield name="sowing.germinationPercentageSow" cssClass="form-control" value="%{#germinationSow}"/>
+                        </div>                  
+                    </div>
+                   </div>
+                </div>  
+                                
+             <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="formCropSow_sowing_prefertilizerSow" class="col-md-6 req">
+                            <s:property value="getText('radio.prefertilizer.crop')" />:
+                        </label>
+                        <div class="controls col-md-6 radioSelect">
+                            <s:radio list="#{'true':'Si', 'false':'No'}" name="sowing.prefertilizerSow" onclick="showPreFertilizer(this.value, idCrop=%{idCrop});" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+                                
+                                
+                 <% } %> 
             <div class="<%= classCostSow%>"> 
                 <div id="costsowing" class="row">
                     <div class="col-md-6">
@@ -459,6 +549,7 @@
             <% } %>
             <script>
                 $("#formCropSow_event_expectedProductionProEve").mask("9?99999", {placeholder: ""});
+                //$("#formCropSow_sowing_germinationPercentageSow").mask("9?999", {placeholder: ""});
     //            $("#formCropSow_sowing_seedsNumberSow").mask("9?99999999",{placeholder:""});
                 $("#formCropSow_maize_seedsNumberSiteMai").mask("9?99999999", {placeholder: ""});
                 $("#formCropSow_sowing_dateSow").datepicker({dateFormat: 'mm/dd/yy'});
@@ -466,6 +557,8 @@
                 $("#formCropSow_sowing_costSeedSow").maskMoney({prefix: ' $'});
                 $("#formCropSow_sowing_costSow").maskMoney({prefix: ' $'});
                 $("#formCropSow_event_expected_production_pro_eve").numeric({negative: false});
+                $("#formCropSow_sowing_germinationPercentageSow").numeric({negative: false});          
+                $("#formCropSow_soja_seedsNumberSiteMetro").numeric({negative: false}); 
                 showReSowing('sow.resow', 'divNoReSow', 'divYesReSow');
                 showTypeReSowing('sow.typeresow', 'divReSowPartial', 'divReSowTotal');
 
@@ -477,6 +570,7 @@
     //            $("#formCropSow_sowing_seedsNumberSow").val(parsePointSeparated($("#formCropSow_sowing_seedsNumberSow").val())); 
                 $("#formCropSow_sowing_furrowsDistanceSow").val(parsePointSeparated($("#formCropSow_sowing_furrowsDistanceSow").val()));
                 $("#formCropSow_sowing_sitesDistanceSow").val(parsePointSeparated($("#formCropSow_sowing_sitesDistanceSow").val()));
+                
                 if ($('.pop-over').length) {
                     $('.pop-over').popover();
                 }
@@ -494,9 +588,13 @@
 </div>
 <script>
     var idCropSow = $("#formCropSow_idCrop").val();
+    var typecrop    = $("#formCropSow_typeCrop").val();
+    var varsel  = $("#formCropSow_sowing_sowingTypes_idSowTyp").val();
+    showSowingType(varsel, 'showSowingTypea','showSowingTypeb',typecrop);
     if (idCropSow != null && idCropSow != "" && idCropSow != "null") {
         showTimeline("/crop/viewInfoTime.action?idCrop=" + idCropSow, "divInfoTimeline", "timeline");
     }
+    
     $.subscribe('completeSowing', function(event, data) {
         if (idCropSow != null && idCropSow != "" && idCropSow != "null") {
             completeFormCrop('', 'formCropSow', 'divMessSowing', event.originalEvent.request.responseText);
@@ -506,6 +604,7 @@
         }
         $("#formCropSow_sowing_costSeedSow").maskMoney({prefix: ' $'});
         $("#formCropSow_sowing_costSow").maskMoney({prefix: ' $'});
+       
     });
 
     function removerMask() {

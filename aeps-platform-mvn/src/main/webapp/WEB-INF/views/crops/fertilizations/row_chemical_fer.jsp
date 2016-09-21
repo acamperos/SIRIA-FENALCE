@@ -6,6 +6,7 @@
 <%@page import="java.util.List"%>
 <%@page import="org.aepscolombia.platform.util.APConstants"%>
 <% String valChe = String.valueOf(request.getAttribute("numRows")); %>
+
 <% int numRowsChe = Integer.parseInt(valChe); %>
 <% if (numRowsChe == 0) { %>
 <% numRowsChe = Integer.parseInt(String.valueOf(request.getParameter("numRows"))); %>

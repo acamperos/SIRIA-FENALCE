@@ -434,6 +434,7 @@ public class ActionCon extends BaseAction {
             
             HashMap prod  = cropDao.findById(idCrop);
             Integer tyCro = Integer.parseInt(String.valueOf(prod.get("typeCrop")));
+            this.setTypeCrop(Integer.parseInt(String.valueOf(prod.get("typeCrop"))));  
             Date dateSowing = null;
 //            if (sowing.getDateSow()!=null) {
             if (sowing != null) {
@@ -556,10 +557,10 @@ public class ActionCon extends BaseAction {
 //            LOG.error("There was an error trying to parse the activityId parameter");
             this.setIdCrop(-1);
         }
-        
+                
         HashMap prodInfo  = cropDao.findById(idCrop);
         Integer tyCro = Integer.parseInt(String.valueOf(prodInfo.get("typeCrop")));
-        this.setTypeCrop(tyCro);
+        setTypeCrop(tyCro);
         Boolean costRes = Boolean.valueOf(String.valueOf(prodInfo.get("costCrop")));
         if (costRes) setCostCrop(1);
         else setCostCrop(2);
@@ -696,7 +697,7 @@ public class ActionCon extends BaseAction {
             this.setNumRows(1);
         }
         
-        this.setTypeCrop(tyCro);
+        setTypeCrop(tyCro);
         type_prod_org_con = new OrganicControlsDao().findAllByTargetType(0, tyCro);
         type_prod_che_con = new ChemicalsControlsDao().findAllByTargetType(0, tyCro, coCode);
         this.setType_tar_typ(new TargetsTypesDao().findAll(coCode));
@@ -758,8 +759,8 @@ public class ActionCon extends BaseAction {
     {     
         actExe   = (String)(this.getRequest().getParameter("action"));
         position = (String)(this.getRequest().getParameter("position"));
-        prod.setStatus(true);
-        
+        typeCrop =Integer.parseInt(this.getRequest().getParameter("typeCrop"));
+        System.out.print("Type crop MJK:"+typeCrop);
         try {
             this.setIdCrop(Integer.parseInt(this.getRequest().getParameter("idCrop")));
         } catch (NumberFormatException e) {

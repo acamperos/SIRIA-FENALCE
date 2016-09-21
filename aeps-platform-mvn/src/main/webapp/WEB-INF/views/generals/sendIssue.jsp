@@ -44,7 +44,7 @@
                         </div>	
                         <div class="row">
                             <div class="col-xs-12 col-md-3 form-group">
-                                <label for="formReport_archivo" class="control-label req"><s:property value="getText('file.loadpicture.issue')" />:</label>
+                                <label for="formReport_archivo" class="control-label "><s:property value="getText('file.loadpicture.issue')" />:</label>
                                 <div class="controls">
                                     <s:file name="archivo" cssClass="col-xs-12" accept="image/jpeg,image/jpg,image/png" onchange="showImageToSend('loadImage.action', 'formReport_archivo', 'imagenDinamica')"/>
                                 </div>                            

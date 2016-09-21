@@ -778,13 +778,17 @@ public class ActionProducer extends BaseAction {
         if (selectAllname_agronomist != null) {
             selAll = "true";
         }
+        
 
         HashMap findParams = new HashMap();
         findParams.put("selAll", selAll);
         findParams.put("selItem", selectItemname_agronomist);
+        
+        System.out.println("mjk id user: "+user.getIdUsr());
         Integer entTypeId = entDao.getEntityTypeId(user.getIdUsr());
         findParams.put("entType", entTypeId);
         findParams.put("idEntUser", idEntSystem);
+         System.out.println("mjk idEntSystem :"+idEntSystem);
         String OS = System.getProperty("os.name").toLowerCase();
         if (OS.indexOf("win") >= 0) {
             fileName  = ""+getText("file.docproducerwin");
@@ -793,19 +797,10 @@ public class ActionProducer extends BaseAction {
             fileName  = ""+getText("file.docproducerunix");
             findParams.put("fileName", ""+getText("file.tempproducerunix"));
         }
-//        fileName = ""+getText("file.docproducer");
-//        String fileName  = "producersInfo.csv";
-
-//        CSVWriter writer = new CSVWriter(new FileWriter(fileName), ';');
-//        ResultSet proRes = proDao.getProducers(findParams, fileName);
+        
         proDao.getProducers(findParams, fileName);
-//        writer.writeAll(proRes, true);
-//        writer.writeNext(entries);  
-//        writer.close();  
-
         File f = new File(fileName);
         inputStream = new FileInputStream(f);
-//        f.delete();
         return "OUTPUTCSV";
     }
 

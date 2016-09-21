@@ -21,11 +21,12 @@
                 <div class="col-md-3">	
                     <img src="img/logoAEPS.png">
                 </div>  
-                <div class="col-md-5 visible-md-block visible-lg-block">	
+                <div class="col-md-25 visible-md-block visible-lg-block">	
                     <label class="titlePrin">
                         <s:property value="getText('title.aepsmeans.header')" />
                     </label>
-                    <label class="titleSec"><%=nameCountry %></label>
+                    
+                    <label class="titleSec"><%//=nameCountry %>Cereales y leguminosas</label>
                 </div>
                 <div class="col-md-4 visible-md-block visible-lg-block">
                     <img src="img/header.png">

@@ -53,7 +53,7 @@ public class PestsDao
         sql += " inner join pests_country cheCon on cheCon.id_selpes_pes_co=ms.id_pes";
         sql += " inner join pests_crops_types t on t.id_pest_pes_cro_typ=ms.id_pes";
         sql += " where ms.status_pes=1";
-        if (idTypeCrop!=null) {
+        if (idTypeCrop!=null && idTypeCrop!=6) {
             sql += " and t.id_crop_type_pes_cro_typ="+idTypeCrop;
         }
         

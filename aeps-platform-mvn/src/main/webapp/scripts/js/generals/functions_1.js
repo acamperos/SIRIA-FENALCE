@@ -568,7 +568,7 @@ function listInfoLot(url, nameData, valData, valName, valId, title, width, heigh
 }
 
 var requestSent = false;
-function deleteItem(url, urlAction, divTable, divShow)
+function deleteItema(url, urlAction, divTable, divShow)
 {
     $('#'+divTable).find("div.alert-success").remove();
     $('#'+divTable).find("div.error").removeClass("error");

@@ -438,7 +438,7 @@ public class ActionResiduals extends BaseAction {
 
         try {
             tx = session.beginTransaction();            
-            ResidualsManagement pr = resDao.objectById(idResMan);      
+            ResidualsManagement pr = resDao.objectById(idResMan);                  
             pr.setStatus(false);
 //            session.delete(pro);        
             session.saveOrUpdate(pr);
@@ -452,7 +452,8 @@ public class ActionResiduals extends BaseAction {
             log.setActionTypeLogEnt("D");
             session.saveOrUpdate(log);
 //            logDao.save(log);
-            tx.commit();         
+            session.flush();
+            tx.commit();     
             state = "success";
             info  = getText("message.successdelete.residual");
         } catch (HibernateException e) {
@@ -462,9 +463,9 @@ public class ActionResiduals extends BaseAction {
             e.printStackTrace();
             state = "failure";
             info  = getText("message.faildelete.residual");
-        } finally {
-            session.close();
-        }      
+        } finally {           
+                session.close();           
+         }      
         
         return "states";
 //        return SUCCESS;

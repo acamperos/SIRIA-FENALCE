@@ -65,6 +65,8 @@ public class GenotypesDao
             sql += " and t.id_growing_environment_gen_gro_env="+idFilter;
         } else if (idTypeCrop==3) {
             sql += " and (mg.crop_type_gen="+idTypeCrop+" or mg.id_gen=1000000)";
+        } else if (idTypeCrop==6) {
+            sql += " and (mg.crop_type_gen="+idTypeCrop+" or mg.id_gen=1000000)";
         }
         
         if (countryCode!=null && !countryCode.equals("")) {

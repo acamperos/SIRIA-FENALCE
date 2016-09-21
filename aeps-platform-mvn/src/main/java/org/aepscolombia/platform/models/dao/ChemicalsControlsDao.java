@@ -52,7 +52,7 @@ public class ChemicalsControlsDao
             sql += "select ms.id_che_con, ms.name_che_con, ms.comer_name_che_con, ms.target_name_che_con from chemicals_controls ms";
             sql += " inner join chemicals_controls_country cheCon on cheCon.id_selche_che_con_co=ms.id_che_con";
             sql += " inner join chemicals_controls_crops_types t on t.id_che_controls_che_con_cro_typ=ms.id_che_con";
-            if (idTypeCrop!=null) {
+            if (idTypeCrop!=null && idTypeCrop!=6) {
                 sql += " where t.id_crop_type_che_con_cro_typ="+idTypeCrop;
             }
             if (idTargetType!=null && idTargetType!=0) {

@@ -74,8 +74,9 @@
         <% UsersDao usrDao = new UsersDao(); %>
         <% Integer entTypeId = new EntitiesDao().getEntityTypeId(user.getIdUsr()); %>
         <% //String coCode     = user.getCountryUsr().getAcronymIdCo(); %>
-        <% String coCode     = (String) session.getAttribute(APConstants.COUNTRY_CODE); %>
+        <% String coCode    = (String) session.getAttribute(APConstants.COUNTRY_CODE); %>
         <% Boolean costCrop =  Boolean.valueOf(String.valueOf(request.getAttribute("costCrop")));  %>
+        <% //Integer typeCrop =  Integer.parseInt(String.valueOf(request.getAttribute("typeCrop")));  %>
 
         <div class="container" id="divDataInfoCrop">
             <%@ include file="../generals/data-crops.jsp" %>                 
@@ -133,6 +134,7 @@
                         </div>
                     </div>  
                     <% } else if (coCode.equals("CO")) { %>
+                        <% if (typeCrop!=6) { %> 
                     <div class="accordion-group">
                         <div class="accordion-heading">
                             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseSix">
@@ -145,6 +147,7 @@
                             </div>
                         </div>
                     </div>
+                              <% } %>    
                     <% } %>
                     <div class="accordion-group">
                         <div class="accordion-heading">
@@ -158,7 +161,9 @@
                             </div>
                         </div>
                     </div>
+                                          
                     <% if (coCode.equals("NI")) { %>
+                    <% if (typeCrop!=6) { %>  
                     <div class="accordion-group">
                         <div class="accordion-heading">
                             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseSix">
@@ -171,6 +176,7 @@
                             </div>
                         </div>
                     </div>
+                       <% } %>           
                     <% } else if (coCode.equals("CO")) { %>
                     <div class="accordion-group">
                         <div class="accordion-heading">
@@ -236,7 +242,6 @@
                             </div>
                         </div>   
                     <% } %>       
-
 
                 </div>               
             </div>               

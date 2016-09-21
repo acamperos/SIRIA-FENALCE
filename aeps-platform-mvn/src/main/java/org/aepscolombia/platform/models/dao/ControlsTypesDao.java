@@ -46,7 +46,10 @@ public class ControlsTypesDao
     public List<ControlsTypes> findAllByTypeCrop(Integer idTypeCrop, String countryCode) {
         SessionFactory sessions = HibernateUtil.getSessionFactory();
         Session session = sessions.openSession();
-
+        
+        if (idTypeCrop==6)
+            idTypeCrop=1;
+        
         String sql  = "";        
         List<ControlsTypes> event = null;
         Transaction tx = null;
@@ -54,7 +57,7 @@ public class ControlsTypesDao
         sql += "select ms.id_con_typ, ms.name_con_type, ms.status_con_typ, ms.country_con_typ from controls_types ms";
         sql += " inner join controls_types_crops_types t on t.id_control_type_con_typ_cro=ms.id_con_typ";
         sql += " where ms.status_con_typ=1";
-        if (idTypeCrop!=null) {
+        if (idTypeCrop!=null ) {
             sql += " and t.id_crop_type_con_typ_cro="+idTypeCrop;
         }
 	if (countryCode!=null && !countryCode.equals("")) {

@@ -33,12 +33,14 @@ public class PhysiologicalMonitoring  implements java.io.Serializable {
      private Boolean status;
      private Integer createdBy;
      private Double percentageReseedingPhyMon;
+     private Date floweringDateUno;
+     private Date floweringDateCinco;
      private String commentPhyMon;
 
     public PhysiologicalMonitoring() {
     }
 
-    public PhysiologicalMonitoring(ProductionEvents productionEvents, Monitoring monitoring, Date emergencePhyMon, Integer daysPopulationMonFis, Date floweringDatePhyMon,String commentPhyMon ,Double percentageReseedingPhyMon, Boolean status, Integer createdBy) {
+    public PhysiologicalMonitoring(ProductionEvents productionEvents, Monitoring monitoring, Date emergencePhyMon, Integer daysPopulationMonFis, Date floweringDatePhyMon,String commentPhyMon ,Double percentageReseedingPhyMon, Boolean status,Date floweringDateUno,Date floweringDateCinco, Integer createdBy) {
        this.productionEvents = productionEvents;
        this.monitoring = monitoring;
        this.emergencePhyMon = emergencePhyMon;
@@ -48,6 +50,8 @@ public class PhysiologicalMonitoring  implements java.io.Serializable {
        this.commentPhyMon=commentPhyMon;
        this.status = status;
        this.createdBy = createdBy;
+       this.floweringDateUno=floweringDateUno;
+       this.floweringDateCinco=floweringDateCinco;
     }
    
      @Id @GeneratedValue(strategy=IDENTITY)
@@ -123,6 +127,27 @@ public class PhysiologicalMonitoring  implements java.io.Serializable {
     public void setCommentPhyMon(String commentPhyMon) {
         this.commentPhyMon = commentPhyMon;
     }
+
+    @Column(name="flowering_date_uno")
+     @Temporal(javax.persistence.TemporalType.DATE)
+    public Date getFloweringDateUno() {
+        return floweringDateUno;
+    }
+
+    public void setFloweringDateUno(Date floweringDateUno) {
+        this.floweringDateUno = floweringDateUno;
+    }
+    
+    @Column(name="flowering_date_cinco")
+     @Temporal(javax.persistence.TemporalType.DATE)
+    public Date getFloweringDateCinco() {
+        return floweringDateCinco;
+    }
+
+    public void setFloweringDateCinco(Date floweringDateCinco) {
+        this.floweringDateCinco = floweringDateCinco;
+    }
+        
     
     @Column(name="status")
     public Boolean getStatus() {
@@ -151,7 +176,6 @@ public class PhysiologicalMonitoring  implements java.io.Serializable {
     public void setIniPrimorPhyMon(Date iniPrimorPhyMon) {
         this.iniPrimorPhyMon = iniPrimorPhyMon;
     }
-
 
 }
 

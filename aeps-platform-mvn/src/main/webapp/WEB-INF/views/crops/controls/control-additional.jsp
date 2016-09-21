@@ -2,10 +2,12 @@
 <%@ taglib prefix="sj" uri="/struts-jquery-tags" %>
 <s:form id="formProCon" action="addControlAdditional" cssClass="form-horizontal">
     <%--<s:hidden name="prodCon"/>--%>
+     <% int typeCrop = (request.getAttribute("typeCrop") != null) ? Integer.parseInt(String.valueOf(request.getAttribute("typeCrop"))) : 1;%>    
     <s:hidden name="idCrop"/>
     <s:hidden name="prod.controls.idCon"/>
     <s:hidden name="numRows"/>
     <s:hidden name="actExe"/>
+    <s:hidden name="typeCrop"/>
     <s:hidden name="position"/>
     <s:hidden name="prod.idProCon"/>
     <div class="row">
@@ -181,8 +183,31 @@
                 </div>                         
             </div>                          
         </div>   
-    </div>                        
+    </div>       
+        
+                          
     <div id="divChemicalCon" class="hideInfo">
+       <% if (typeCrop==6) {%>        
+       <div class="row">         
+       <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="formCropSow_soja_idVariety" class="col-md-6 req">
+                            Tipo:
+                        </label>                   
+                        <div class="controls col-md-6">
+                                    <s:select
+                                        id="soja__idVariety"
+                                        name="soja.idVariety"
+                                        value="soja.idVariety"             
+                                        list="#{'0':'---','1':'Pre emergencia', '2':'Post emergencia','3':'Desecación'}"            
+                                        headerKey="-1" 
+                                        cssClass="form-control"
+                                        />
+                                </div> 
+                    </div>                          
+       </div>  
+        </div>
+        <% } %>
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">

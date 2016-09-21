@@ -24,12 +24,9 @@ public class Version {
 	private static final String APPVERSION	= "version";
 	private static final String VFORMAT		= " %-20s %s ";
 	private static final String VLINE		= " -------------------- --------------------";
-
-
-
+        
 	private String				version	= "";
 	private String				productName	= "";
-
 	private ArrayList<Version>	products = null;
 
 	public Version(boolean bprint) {
@@ -48,7 +45,6 @@ public class Version {
 
 
 	public void printVersion(Log llog) {
-		//llog.info("Product Name [" + getProductName() + "] Global Version -->" + getVersion());
 		llog.info(String.format(VFORMAT, getProductName(), getVersion()));
 	}
 
@@ -102,7 +98,7 @@ public class Version {
 
 	public void printProductsLines() {
 		Calendar c = Calendar.getInstance();
-		log.info("2016 - "+c.get(Calendar.YEAR)+" CIAT - Fenalce ");
+		log.info("2016 - "+c.get(Calendar.YEAR)+" Fenalce ");
 		log.info(String.format(VFORMAT, "ProductName", "Version"));
 		log.info(VLINE);
 		if (products!=null) {
@@ -124,7 +120,7 @@ public class Version {
 			}
 		}
 		Calendar c = Calendar.getInstance();
-		sLine += " | ProductName(Version) | 2016 - "+c.get(Calendar.YEAR)+" CIAT - Fenalce. ";
+		sLine += " | ProductName(Version) - "+c.get(Calendar.YEAR)+"Fenalce. ";
 		log.info(sLine);
 	}
 

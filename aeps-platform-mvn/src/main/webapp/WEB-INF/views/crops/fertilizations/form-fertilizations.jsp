@@ -3,6 +3,7 @@
 <%@ taglib prefix="sj" uri="/struts-jquery-tags" %>
 <%@ taglib prefix="sb" uri="/struts-bootstrap-tags" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="org.aepscolombia.platform.models.dao.EntitiesDao"%>
 <%@page import="org.aepscolombia.platform.models.entity.Users"%>
 <%@page import="org.aepscolombia.platform.models.dao.UsersDao"%>
 <%@page import="org.aepscolombia.platform.util.APConstants"%>
@@ -24,8 +25,11 @@
                         <div class="col-md-6">
                             <% String actionOpt = String.valueOf(request.getAttribute("actExe"));%>
                             <% String rowNew    = String.valueOf(request.getAttribute("rowNew"));%>
+                            <% String costCrop    = String.valueOf(request.getAttribute("costCrop"));%>
+                           <% int typeCrop = (request.getAttribute("typeCrop") != null) ? Integer.parseInt(String.valueOf(request.getAttribute("typeCrop"))) : 1;%>    
                             <s:hidden name="idCrop"/>
-                            <s:hidden name="typeCrop"/>
+                            
+                            <s:hidden name="costCrop"/>
                             <%--<s:hidden name="lanSel"/>--%>
                             <s:hidden name="actExe"/>
                             <s:hidden name="fer.idFer"/>
@@ -44,6 +48,21 @@
                                     
                                         
                     </div>
+                <% if (typeCrop==6){ %> 
+                   <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="formCropFer_fer_teamFer" class="col-md-6 ">
+                                <s:property value="getText('title.team.fertilization')" />:
+                            </label>
+                            <div class="controls col-md-6">
+                                <s:textfield cssClass="form-control" name="fer.teamFer" maxlength="60"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>                 
+                <% } %>                
                     <% if (coCode.equals("NI")) { %>
                         <div class="row">
                             <div class="col-md-6">
@@ -74,7 +93,7 @@
                     </div>            
                     <fieldset>
                         <div>
-                            <button type="button" class="btn btn-chemical btn-lg" onclick="showRowAdditionalFert('../crop/showRowAddFer?action=<%=actionOpt%>', '1', 'tableAditFertChem', 'tableAditFertOrg', 'tableAditFertAmen')"><i class="icon-plus"></i> <s:property value="getText('button.addchemfert.fertilization')" /></button>
+                            <button type="button" class="btn btn-chemical btn-lg" onclick="showRowAdditionalFert('../crop/showRowAddFer?action=<%=actionOpt%>', '1','${costCrop}', 'tableAditFertChem', 'tableAditFertOrg', 'tableAditFertAmen')"><i class="icon-plus"></i> <s:property value="getText('button.addchemfert.fertilization')" /></button>
                         </div>
                         <div>
                             <table class="table table-condensed">
@@ -84,6 +103,7 @@
                                             <s:include value="row_chemical_fer.jsp">
                                                 <s:param name="numRows" value="#estatus.index+1" />
                                                 <s:param name="actionOpt" value="{request.actExe}" />
+                                                <s:param name="costCrop" value="{request.costCrop}" />
                                             </s:include>
                                         </s:iterator>
                                     </s:if>   
@@ -97,7 +117,7 @@
                     </fieldset>
                     <fieldset>
                         <div>
-                            <button type="button" class="btn btn-organic btn-lg" onclick="showRowAdditionalFert('../crop/showRowAddFer?action=<%=actionOpt%>', '2', 'tableAditFertChem', 'tableAditFertOrg', 'tableAditFertAmen')"><i class="icon-plus"></i> <s:property value="getText('button.addorgfert.fertilization')" /></button>
+                            <button type="button" class="btn btn-organic btn-lg" onclick="showRowAdditionalFert('../crop/showRowAddFer?action=<%=actionOpt%>', '2','${costCrop}', 'tableAditFertChem', 'tableAditFertOrg', 'tableAditFertAmen')"><i class="icon-plus"></i> <s:property value="getText('button.addorgfert.fertilization')" /></button>
                         </div>
                         <div>
                             <table class="table table-condensed">
@@ -120,7 +140,7 @@
                     </fieldset>
                     <fieldset>
                         <div>
-                            <button type="button" class="btn btn-amendment btn-lg" onclick="showRowAdditionalFert('../crop/showRowAddFer?action=<%=actionOpt%>', '3', 'tableAditFertChem', 'tableAditFertOrg', 'tableAditFertAmen')"><i class="icon-plus"></i> <s:property value="getText('button.addamendfert.fertilization')" /></button>
+                            <button type="button" class="btn btn-amendment btn-lg" onclick="showRowAdditionalFert('../crop/showRowAddFer?action=<%=actionOpt%>', '3', '${costCrop}','tableAditFertChem', 'tableAditFertOrg', 'tableAditFertAmen')"><i class="icon-plus"></i> <s:property value="getText('button.addamendfert.fertilization')" /></button>
                         </div>
                         <div>
                             <table class="table table-condensed">

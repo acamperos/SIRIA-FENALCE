@@ -25,7 +25,7 @@
         <legend><s:property value="getText('title.fertilizationlist.fertilization')" /></legend>        
         <% if (usrFerDao.getPrivilegeUser(userFer.getIdUsr(), "crop/create")) { %>
             <% if (entTypeFerId!=3) { %>
-                <button type="button" class="btn btn-initial btn-space" onclick="viewForm('/crop/showFer.action?action=create', 'idCrop', '${idCrop}', '<s:property value="getText('title.addfertilization.fertilization')" />', 1050, 550);">
+                <button type="button" class="btn btn-initial btn-space" onclick="viewFormFer('/crop/showFer.action?action=create', 'idCrop', '${idCrop}','typeCrop', '${typeCrop}', '<s:property value="getText('title.addfertilization.fertilization')" />', 1050, 550);">
                     <i class="icon-plus"></i> <s:property value="getText('button.addfertilization.fertilization')" />
                 </button>
             <% } %>

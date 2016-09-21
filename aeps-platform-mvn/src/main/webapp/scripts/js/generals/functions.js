@@ -47,6 +47,32 @@ function showOtherElementChemical(idSel, idAppTyp, divShow) {
     }
 }
 
+function showSowingType(valSel, divShowa,divShowb,typecrop) {
+    
+    if (valSel==11) {
+        $("#" + divShowa).show();
+        $("#" + divShowa).removeClass("showSowingTypea");
+    } else if ( typecrop==6){
+        $("#" + divShowa).hide();
+        $("#" + divShowa).addClass("showSowingTypea");
+    }
+    if (valSel==12 ) {
+        $("#" + divShowb).show();
+        $("#" + divShowb).removeClass("showSowingTypeb");
+    } else if ( typecrop==6) {
+        $("#" + divShowb).hide();
+        $("#" + divShowb).addClass("showSowingTypeb");
+    }
+}
+
+function showPreFertilizer(valSel, idCrop) {
+   
+    if (valSel=='true') {
+        
+        viewForm('/crop/showFer.action?action=create', 'idCrop',idCrop, 'Agregar fertilizantes pre abono', 1050, 550);
+    } 
+}
+
 function showProductUse(valSel, divShow) {
     if (valSel=='true') {
         $("#" + divShow).show();
@@ -405,10 +431,33 @@ function changeTitleWindow(title) {
     $("#dialog-form").dialog("option", "title", title);
 }
 
+function viewFormFer(url, nameData, valData, typeCrop,valueTypeCrop,title, width, height) {
+//    showWindow(title, width, height, '<label>Entreee</label>');
+    //url = "/aeps"+url;  
+    
+    addMessageProcess();
+    $.ajax({
+        type: "GET",
+        url: url,
+//        data: nameData + '=' + $("#" + valData).val(),
+        data: nameData + '=' + valData+'&'+typeCrop+'='+valueTypeCrop,
+        success: function(information) {
+//            var obj = jQuery.parseJSON(information);
+//            if (obj.state == 'failure') {
+//                $('#' + message).html(obj.info);
+//            } else if (obj.state == 'success') {
+                // alert(obj.info);
+                $.unblockUI();
+                showWindow(title, width, height, information);
+//            }
+        }
+    });
+}
+
 
 function viewForm(url, nameData, valData, title, width, height) {
 //    showWindow(title, width, height, '<label>Entreee</label>');
-    //url = "/aeps"+url;
+    //url = "/aeps"+url;    
     addMessageProcess();
     $.ajax({
         type: "GET",
@@ -488,6 +537,7 @@ function deleteItem(url, urlAction, divTable, divShow)
     $('#'+divTable).find("span.s2_help_inline").remove();
     $('#'+divTable).find("div.s2_validation_errors").remove();
     //url = "/aeps"+url;
+    
     if(!requestSent) {
         requestSent = true;
         $.ajax({
@@ -521,6 +571,97 @@ function deleteItem(url, urlAction, divTable, divShow)
         });        
     }
 }
+
+
+var requestSent = false;
+function deleteItemRes(url, urlAction, divTable, divShow)
+{
+    $('#'+divTable).find("div.alert-success").remove();
+    $('#'+divTable).find("div.has-error").removeClass("has-error");
+    $('#'+divTable).find("span.s2_help_inline").remove();
+    $('#'+divTable).find("div.s2_validation_errors").remove();
+    //url = "/aeps"+url;
+   
+    if(!requestSent) {
+        requestSent = true;
+        $.ajax({
+            type: "POST",
+            url: url,
+            complete: function() {
+                requestSent = false;
+            },
+            success: function(obj) {
+    //            var obj = jQuery.parseJSON(information);
+                if (obj.state == 'failure') {
+                    showMessError(divTable,obj.info);       
+                } else if (obj.state == 'success') {
+                    showMessInfo(divTable, obj.info);
+                    setTimeout( function() {
+                        showInfo(urlAction, divShow);
+//                        if(requestSent) $.ajax().abort();
+                    }, 3000);
+//                    showInfo(urlAction, divShow);
+    //                    $("#" + trSel).remove();
+    //                    var numChild = $("#" + tblBody).children().size();
+    //                    if (numChild <= 0) {
+    //                        $("#" + tblPrincipal).hide();
+    //                        $("#" + lblId).show();
+    //                    } else {
+    //                        $("#" + tblPrincipal).show();
+    //                        $("#" + lblId).hide();
+    //                    }
+                }
+            }
+        });        
+    }
+}
+
+
+var requestSent = false;
+function deleteItemPre(url, urlAction, divTable, divShow)
+{
+    $('#'+divTable).find("div.alert-success").remove();
+    $('#'+divTable).find("div.has-error").removeClass("has-error");
+    $('#'+divTable).find("span.s2_help_inline").remove();
+    $('#'+divTable).find("div.s2_validation_errors").remove();
+    //url = "/aeps"+url;
+  
+    if(!requestSent) {
+        requestSent = true;
+        $.ajax({
+            type: "POST",
+            url: url,
+            complete: function() {
+                requestSent = false;
+            },
+            success: function(obj) {
+    //            var obj = jQuery.parseJSON(information);
+                if (obj.state == 'failure') {
+                    showMessError(divTable,obj.info);       
+                } else if (obj.state == 'success') {
+                    showMessInfo(divTable, obj.info);
+                    setTimeout( function() {
+                        showInfo(urlAction, divShow);
+//                        if(requestSent) $.ajax().abort();
+                    }, 3000);
+//                    showInfo(urlAction, divShow);
+    //                    $("#" + trSel).remove();
+    //                    var numChild = $("#" + tblBody).children().size();
+    //                    if (numChild <= 0) {
+    //                        $("#" + tblPrincipal).hide();
+    //                        $("#" + lblId).show();
+    //                    } else {
+    //                        $("#" + tblPrincipal).show();
+    //                        $("#" + lblId).hide();
+    //                    }
+                }
+            }
+        });        
+    }
+}
+
+
+
 
 function showMessInfo(idLoc, info)
 {
@@ -724,6 +865,117 @@ function showDialogDelete(divDialog, hRef, url, urlAction, divTable, divShow) {
     });      
 //    jQuery.colorbox.resize({width:'90%', height:'90%'});
 }
+
+function showDialogDeletePre(divDialog, hRef, url, urlAction, divTable, divShow) {
+//    $('#'+hRef).dialog({
+//        autoOpen: true,
+////        title: title,
+//        height: 200,
+//        width: 300,
+//        modal: true,
+//        open: function() {
+//            $('.confirm_yes').click(function(e){
+//                deleteItem(url, urlAction, divTable, divShow);
+//                $('#'+hRef).dialog("close");
+////                $('#'+hRef).close();
+//            });
+//            $('.confirm_no').click(function(e){
+//                $('#'+hRef).dialog("close");
+////                $('#'+hRef).close();
+//            });
+//            
+//         },
+//        close: function() {
+//            // allFields.val( "" ).removeClass( "ui-state-error" );
+//        }
+//    });
+
+    $(divDialog).colorbox({
+        initialHeight: '0',
+        initialWidth: '0',
+        href: "#"+hRef,
+        maxWidth:'95%',
+        maxHeight:'95%',
+        inline: true,        
+        opacity: '0.3',        
+        onComplete: function(){
+            $('.confirm_yes').click(function(e){
+                e.preventDefault();
+                deleteItemPre(url, urlAction, divTable, divShow);
+//                $('input[name=row_sel]:checked', oTable.fnGetNodes()).closest('tr').fadeTo(300, 0, function () {
+//                    $(this).remove();
+//                    oTable.fnDeleteRow( this );
+//                    $('.select_rows','#'+tableid).attr('checked',false);
+//                });
+                $.colorbox.close();
+            });
+            $('.confirm_no').click(function(e){
+                e.preventDefault();
+                $.colorbox.close(); 
+//                $.colorbox.remove();
+            });
+        }
+
+    });      
+//    jQuery.colorbox.resize({width:'90%', height:'90%'});
+}
+
+
+function showDialogDeleteRes(divDialog, hRef, url, urlAction, divTable, divShow) {
+//    $('#'+hRef).dialog({
+//        autoOpen: true,
+////        title: title,
+//        height: 200,
+//        width: 300,
+//        modal: true,
+//        open: function() {
+//            $('.confirm_yes').click(function(e){
+//                deleteItem(url, urlAction, divTable, divShow);
+//                $('#'+hRef).dialog("close");
+////                $('#'+hRef).close();
+//            });
+//            $('.confirm_no').click(function(e){
+//                $('#'+hRef).dialog("close");
+////                $('#'+hRef).close();
+//            });
+//            
+//         },
+//        close: function() {
+//            // allFields.val( "" ).removeClass( "ui-state-error" );
+//        }
+//    });
+
+    $(divDialog).colorbox({
+        initialHeight: '0',
+        initialWidth: '0',
+        href: "#"+hRef,
+        maxWidth:'95%',
+        maxHeight:'95%',
+        inline: true,        
+        opacity: '0.3',        
+        onComplete: function(){
+            $('.confirm_yes').click(function(e){
+                e.preventDefault();
+               
+                deleteItemRes(url, urlAction, divTable, divShow);
+//                $('input[name=row_sel]:checked', oTable.fnGetNodes()).closest('tr').fadeTo(300, 0, function () {
+//                    $(this).remove();
+//                    oTable.fnDeleteRow( this );
+//                    $('.select_rows','#'+tableid).attr('checked',false);
+//                });
+                $.colorbox.close();
+            });
+            $('.confirm_no').click(function(e){
+                e.preventDefault();
+                $.colorbox.close(); 
+//                $.colorbox.remove();
+            });
+        }
+
+    });      
+//    jQuery.colorbox.resize({width:'90%', height:'90%'});
+}
+
 
 
 function chargeValuesControls(url, valName, valSendId, valNameCon, valSenIdCon, valFillChe, valFillOrg, message)
@@ -1519,7 +1771,7 @@ function showRowAdditionalItem(url, tablePrin, divUpdate)
     });
 }
 
-function showRowAdditionalFert(url, idTypeApp, divUpdateChe, divUpdateOrg, divUpdateAme)
+function showRowAdditionalFert(url, idTypeApp,costCrop, divUpdateChe, divUpdateOrg, divUpdateAme)
 {
 //    var valTypeApp  = $('#'+idTypeApp).val();
     var valTypeApp  = idTypeApp;
@@ -1543,7 +1795,7 @@ function showRowAdditionalFert(url, idTypeApp, divUpdateChe, divUpdateOrg, divUp
     }
 //    var data  = $('#'+formId).serialize();
     var data;
-    data  += '&numRows='+numRows+'&appTyp='+valTypeApp;
+    data  += '&numRows='+numRows+'&appTyp='+valTypeApp+'&costCrop='+costCrop;
     $.ajax({
         type: "POST",
         url: url,

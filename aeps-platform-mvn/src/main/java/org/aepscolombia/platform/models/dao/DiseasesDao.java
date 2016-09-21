@@ -53,7 +53,7 @@ public class DiseasesDao
         sql += " inner join diseases_country cheCon on cheCon.id_seldis_dis_co=ms.id_dis";
         sql += " inner join diseases_crops_types t on t.id_disease_dis_cro_typ=ms.id_dis";
         sql += " where ms.status_dis=1";
-        if (idTypeCrop!=null) {
+        if (idTypeCrop!=null && idTypeCrop!=6) {
             sql += " and t.id_crop_type_dis_cro_typ="+idTypeCrop;
         }
         if (countryCode!=null && !countryCode.equals("")) {

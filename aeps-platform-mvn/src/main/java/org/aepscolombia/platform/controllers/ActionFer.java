@@ -80,7 +80,7 @@ public class ActionFer extends BaseAction {
     private Users user;
     private Integer idEntSystem;    
     private Integer idUsrSystem;    
-
+    private ProductionEvents event = new ProductionEvents();
     private Fertilizations fer = new Fertilizations();
     private ChemicalFertilizations ferChe = new ChemicalFertilizations();
     private OrganicFertilizations ferOrg = new OrganicFertilizations();
@@ -364,7 +364,17 @@ public class ActionFer extends BaseAction {
     @Override
     public String execute() throws Exception {
         return SUCCESS;
-    }       
+    }   
+
+    public ProductionEvents getEvent() {
+        return event;
+    }
+
+    public void setEvent(ProductionEvents event) {
+        this.event = event;
+    }
+    
+    
     
     @Override
     public void prepare() throws Exception {
@@ -379,6 +389,7 @@ public class ActionFer extends BaseAction {
         idUsrSystem = user.getIdUsr();
         String lanTemp = (String) this.getSession().get(APConstants.SESSION_LANG);
         lanSel = lanTemp.replace(coCode.toLowerCase(), "");
+        
     }
     
     /**
@@ -387,7 +398,8 @@ public class ActionFer extends BaseAction {
     public String showRowAdditional()
     {     
         actExe = (String)(this.getRequest().getParameter("action"));
-        appTyp = Integer.parseInt(this.getRequest().getParameter("appTyp"));
+        appTyp =    Integer.parseInt(this.getRequest().getParameter("appTyp"));
+        costCrop =  Integer.parseInt(this.getRequest().getParameter("costCrop"));
         this.setNumRows(Integer.parseInt((this.getRequest().getParameter("numRows")))+1);
         String resAdd = "";
         this.setType_fer_typ(new FertilizationsTypesDao().findAll(coCode));
@@ -396,7 +408,7 @@ public class ActionFer extends BaseAction {
         this.setType_prod_che(new ChemicalFertilizersDao().findAllByStatus(coCode));
         this.setType_prod_org(new OrganicFertilizersDao().findAllByStatus());
         this.setType_prod_ame(new AmendmentsFertilizersDao().findAllByStatus(coCode));
-        
+
         if (appTyp==1) {
             ChemicalFertilizationsObj ferCheTemp = new ChemicalFertilizationsObj();
             for (int i=0;i<this.getNumRows();i++) {
@@ -448,7 +460,7 @@ public class ActionFer extends BaseAction {
             if (chemFert.size()<=0 && orgFert.size()<=0 && amenFert.size()<=0) {
                 addActionError(getText("message.insertsomefert.fertilization"));
             }
-            
+             
             Double amountTotal = 0.0;
             
             int contFer = 0;
@@ -535,6 +547,7 @@ public class ActionFer extends BaseAction {
             Date dateSowing = null;
             HashMap prod  = cropDao.findById(idCrop);
             Integer tyCro = Integer.parseInt(String.valueOf(prod.get("typeCrop")));
+           
 //            if (sowing.getDateSow()!=null) {
             if (sowing != null) {
                 dateSowing = sowing.getDateSow();
@@ -645,7 +658,17 @@ public class ActionFer extends BaseAction {
         }
         
         HashMap prod  = cropDao.findById(idCrop);
-        Integer tyCro = Integer.parseInt(String.valueOf(prod.get("typeCrop")));
+        //typeCrop = Integer.parseInt(String.valueOf(prod.get("typeCrop")));
+        try {
+            this.setTypeCrop(Integer.parseInt(this.getRequest().getParameter("typeCrop")));
+        } catch (NumberFormatException e) {
+//            LOG.error("There was an error trying to parse the activityId parameter");
+            //this.setIdCrop(-1);
+        }
+        //setTypeCrop(tyCro);
+        //event  = cropDao.objectById(this.getIdCrop());
+        //typeCrop = event.getCropsTypes().getIdCroTyp();
+        
 //        System.out.println("tyCro=>"+tyCro);
         
         try {

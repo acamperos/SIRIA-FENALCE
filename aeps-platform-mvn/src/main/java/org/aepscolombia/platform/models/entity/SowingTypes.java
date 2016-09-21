@@ -26,6 +26,7 @@ public class SowingTypes  implements java.io.Serializable {
      private Integer idSowTyp;
      private String nameSowTyp;
      private boolean statusSowTyp;
+     private Integer idCropType;
      private IdiomCountry countrySowTyp;
 
     public SowingTypes() {
@@ -36,9 +37,10 @@ public class SowingTypes  implements java.io.Serializable {
     }
 
 	
-    public SowingTypes(String nameSowTyp, boolean statusSowTyp) {
+    public SowingTypes(String nameSowTyp, boolean statusSowTyp, Integer idCropType) {
         this.nameSowTyp = nameSowTyp;
         this.statusSowTyp = statusSowTyp;
+        this.idCropType=idCropType;
     }
    
      @Id @GeneratedValue(strategy=IDENTITY)
@@ -78,6 +80,15 @@ public class SowingTypes  implements java.io.Serializable {
     
     public void setCountrySowTyp(IdiomCountry countrySowTyp) {
         this.countrySowTyp = countrySowTyp;
+    }
+    
+    @Column(name="id_crop_type")
+    public Integer getIdCropType() {
+        return this.idCropType;
+    }
+    
+    public void setIdCropType(Integer idCropType) {
+        this.idCropType = idCropType;
     }
 
 }

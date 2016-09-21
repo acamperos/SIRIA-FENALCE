@@ -43,8 +43,39 @@ public class SowingTypesDao
             tx = session.beginTransaction();
 //            Query query = session.createQuery("from SowingTypes");
 //            Query query = session.createSQLQuery(sql).addEntity("d", SowingTypes.class);
-            Query query = session.createQuery("from SowingTypes WHERE countrySowTyp.acronymIdCo = :country_code");
+            Query query = session.createQuery("from SowingTypes WHERE countrySowTyp.acronymIdCo = :country_code AND idCropType =0" );
             query.setParameter("country_code", countryCode);
+            events = query.list();
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return events;
+    }
+    
+    public List<SowingTypes> findAllByCropType(String countryCode,Integer cropType) {
+        SessionFactory sessions = HibernateUtil.getSessionFactory();
+        Session session = sessions.openSession();
+        List<SowingTypes> events = null;
+        Transaction tx = null;
+        String sql  = "";        
+//        sql += " select d.id_sow_typ, d.name_sow_typ, d.country_sow_typ, d.status_sow_typ from sowing_types d";
+//        sql += " where d.status_sow_type=1";
+//        if (countryCode!=null && !countryCode.equals("")) {
+//            sql += " and d.country_sow_type='"+countryCode+"'";
+//        }
+        try {
+            tx = session.beginTransaction();
+//            Query query = session.createQuery("from SowingTypes");
+//            Query query = session.createSQLQuery(sql).addEntity("d", SowingTypes.class);
+            Query query = session.createQuery("from SowingTypes WHERE countrySowTyp.acronymIdCo = :country_code AND idCropType = :cropType" );
+            query.setParameter("country_code", countryCode);
+            query.setParameter("cropType", cropType);
             events = query.list();
             tx.commit();
         } catch (HibernateException e) {
@@ -68,7 +99,7 @@ public class SowingTypesDao
 				
         sql += " select d.id_sow_typ, d.name_sow_typ, d.status_sow_typ, d.country_sow_typ from sowing_types d";
         sql += " inner join sowing_types_crops_types pm on pm.id_sowing_type_sow_typ_cro=d.id_sow_typ";
-        sql += " where d.status_sow_type=1";
+        sql += " where d.status_sow_typ=1";
         sql += " and pm.id_crop_type_sow_typ_cro="+idTypeCrop;
         if (countryCode!=null && !countryCode.equals("")) {
             sql += " and d.country_sow_type='"+countryCode+"'";

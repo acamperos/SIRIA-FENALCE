@@ -43,16 +43,16 @@
                             <% } else if (coCode.equals("CO")) { %>
                                 <s:select
                                     name="typeCrop"
-                                    list="#{'1':'Maiz', '2':'Frijol'}" 
+                                    list="#{'1':'Maiz', '2':'Frijol','6':'Soya'}" 
                                     cssClass="form-control"
                                     headerKey="-1" 
                                     headerValue="---" />
                             <% }%>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <s:label for="formCrop_totallyArea" cssClass="col-md-3 req" value="Se va a sembrar la totalidad del lote disponible:"></s:label>
-                        <div class="controls col-md-6 radioSelect">
+                    <div class="form-group">   
+                        <s:label for="formCrop_totallyArea" id="formCrop_totallyArea" cssClass="col-md-3 req" value="Se va a sembrar la totalidad del lote disponible:"></s:label>
+                        <div class="controls col-md-6 radioSelect">                                             
                             <s:radio list="#{'true':'Si', 'false':'No'}" name="totallyArea" onclick="checkArea('totallyArea', 'divAreaField')" />
                         </div>
                     </div>

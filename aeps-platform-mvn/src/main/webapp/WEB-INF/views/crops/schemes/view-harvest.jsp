@@ -187,7 +187,7 @@
                                                     <div class="form-group">
 
                                                         <label for="formCropHar_harv_costSalepriceHar" class="col-md-6">
-                                                            <s:property value="getText('text.hervestpvp.harvest')"  /> <button type="button" class="btn btn-initial"><b>(Tn/Ha)</b></button>:
+                                                            <s:property value="getText('text.hervestpvp.harvest')"  /> <button type="button" class="btn btn-initial"><b>(Tn)</b></button>:
                                                         </label>
                                                         <div class="controls col-md-6">
                                                             <s:textfield name="harv.costSalepriceHar" maxlength="14" cssClass="form-control" />

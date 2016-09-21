@@ -43,8 +43,10 @@ public class Sowing  implements java.io.Serializable {
      private String freeSeedOriginSow;
      private String otherGenotypeSow;
      private String otherChemicalUsedSow;
+     private Boolean prefertilizerSow;
      private BigDecimal costSow;
      private BigDecimal costSeedSow;
+     private Double germinationPercentageSow;
      private String commentSow;
      private Boolean status;
      private Integer createdBy;
@@ -58,7 +60,7 @@ public class Sowing  implements java.io.Serializable {
         this.dateSow = dateSow;
         this.treatedSeedsSow = treatedSeedsSow;
     }
-    public Sowing(Genotypes genotypes, DoseUnits doseUnits, TreatmentTypes treatmentTypes, ChemicalsSowing chemicalsSowing, ProductionEvents productionEvents, SowingTypes sowingTypes, GenotypesSowing genotypesSowing, SeedsOrigins seedsOrigins, Date dateSow, Double seedsNumberSow, boolean treatedSeedsSow, String reasonTreatmentSow, Double seedTreatmentDosisSow, Double furrowsDistanceSow, Double sitesDistanceSow, String freeSeedOriginSow, String otherGenotypeSow, String otherChemicalUsedSow, BigDecimal costSow ,BigDecimal costSeedSow,String commentSow, Boolean status, Integer createdBy) {
+    public Sowing(Genotypes genotypes, DoseUnits doseUnits, TreatmentTypes treatmentTypes, ChemicalsSowing chemicalsSowing, ProductionEvents productionEvents, SowingTypes sowingTypes, GenotypesSowing genotypesSowing, SeedsOrigins seedsOrigins, Date dateSow, Double seedsNumberSow, boolean treatedSeedsSow, String reasonTreatmentSow, Double seedTreatmentDosisSow, Double furrowsDistanceSow, Double sitesDistanceSow, String freeSeedOriginSow, String otherGenotypeSow, String otherChemicalUsedSow, BigDecimal costSow ,BigDecimal costSeedSow,String commentSow, Double germinationPercentajeSow,Boolean status, Integer createdBy) {
        this.genotypes = genotypes;
        this.doseUnits = doseUnits;
        this.treatmentTypes = treatmentTypes;
@@ -77,6 +79,7 @@ public class Sowing  implements java.io.Serializable {
        this.freeSeedOriginSow = freeSeedOriginSow;
        this.otherGenotypeSow = otherGenotypeSow;
        this.otherChemicalUsedSow = otherChemicalUsedSow;
+       this.germinationPercentageSow=germinationPercentajeSow;
        this.costSow =   costSow;
        this.costSeedSow=costSeedSow;
        this.commentSow=commentSow;
@@ -257,6 +260,16 @@ public class Sowing  implements java.io.Serializable {
         this.otherChemicalUsedSow = otherChemicalUsedSow;
     }   
     
+    @Column(name="germination_percentage_sow")
+    public Double getGerminationPercentageSow() {
+        return germinationPercentageSow;
+    }
+
+    public void setGerminationPercentageSow(Double germinationPercentageSow) {
+        this.germinationPercentageSow = germinationPercentageSow;
+    }   
+    
+    
     @Column(name="cost_sow")
     public BigDecimal getCostSow() {
         return this.costSow;
@@ -300,6 +313,14 @@ public class Sowing  implements java.io.Serializable {
     
     public void setCreatedBy(Integer createdBy) {
         this.createdBy = createdBy;
+    }
+    @Column(name="prefertilizer_sow")
+    public Boolean isPrefertilizerSow() {
+        return prefertilizerSow;
+    }
+
+    public void setPrefertilizerSow(Boolean prefertilizerSow) {
+        this.prefertilizerSow = prefertilizerSow;
     }
 
 
