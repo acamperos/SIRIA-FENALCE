@@ -8,7 +8,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
         <meta http-equiv="refresh" content="10; url=signin.action">
         <link rel="icon" type="image/ico" href="img/logoAEPS.ico">
-        <title>AEPS</title>
+        <title>SIRIA</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">       
         <sj:head jqueryui="true"/>

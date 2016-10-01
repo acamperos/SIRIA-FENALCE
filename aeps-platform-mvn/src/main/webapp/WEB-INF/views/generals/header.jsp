@@ -26,10 +26,11 @@
                         <s:property value="getText('title.aepsmeans.header')" />
                     </label>
                     
-                    <label class="titleSec"><%//=nameCountry %>Cereales y leguminosas</label>
+                    
                 </div>
                 <div class="col-md-4 visible-md-block visible-lg-block">
-                    <img src="img/header.png">
+                   <label class="titleSec"><%//=nameCountry %>Cereales y leguminosas</label>
+                   
                 </div>
             </div>	
         </div>
