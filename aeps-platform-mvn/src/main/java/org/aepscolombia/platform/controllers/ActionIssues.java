@@ -1,4 +1,3 @@
-
 package org.aepscolombia.platform.controllers;
 
 import com.opensymphony.xwork2.ActionContext;

@@ -140,6 +140,11 @@ public class BaseAction extends ActionSupport implements Preparable, SessionAwar
     public BaseAction() {
     }    
 
+    /**
+     * Metodo encargado de arrojar el resultado por cada accion realizada por el usuario
+     *
+     * @return Estado de la acción
+     */
     @Override
     public String execute() throws Exception {
         if (save) {

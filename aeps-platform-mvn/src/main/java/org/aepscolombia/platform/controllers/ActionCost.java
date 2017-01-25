@@ -1,4 +1,3 @@
-
 package org.aepscolombia.platform.controllers;
 
 import static com.opensymphony.xwork2.Action.SUCCESS;
@@ -1274,5 +1273,4 @@ public class ActionCost extends BaseAction {
 //        return ERROR;
         return "states";
     }
-
 }

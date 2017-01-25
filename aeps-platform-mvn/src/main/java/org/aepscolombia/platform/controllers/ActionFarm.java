@@ -449,6 +449,9 @@ public class ActionFarm extends BaseAction {
         this.date_end = date_end;
     }
     
+    /**
+     * Metodo encargado de cargar toda la informacion previa antes de realizar cualquier accion
+     */
     @Override
     public void prepare() throws Exception {
         user = (Users) ActionContext.getContext().getSession().get(APConstants.SESSION_USER);
@@ -506,7 +509,11 @@ public class ActionFarm extends BaseAction {
     }
     
     
-    
+    /**
+     * Metodo encargado de validar la posicion geografica de una finca, y determinar si esta
+     * se encuentra en tierra. En caso de encontrarse en agua se le envia un mensaje de error al usuario
+     * @return Datos con errores
+     */
     public String viewPosition() {
         Double latPro = (latitude_property==null || latitude_property.isEmpty() || latitude_property.equals("")) ? 0.0 : Double.parseDouble(latitude_property.replace(',','.'));
         Double lonPro = (length_property==null || length_property.isEmpty() || length_property.equals("")) ? 0.0 : Double.parseDouble(length_property.replace(',','.'));
@@ -880,6 +887,12 @@ public class ActionFarm extends BaseAction {
         return fileName;
     }
     
+    /**
+     * Metodo encargado de generar el reporte en formato Excel de todas las fincas vinculadas
+     * a un usuario del sistema
+     * @return String Estado del proceso
+     * @throws Exception
+     */
     public String viewReport() throws Exception {
         if (!usrDao.getPrivilegeUser(idUsrSystem, "farm/list")) {
             return BaseAction.NOT_AUTHORIZED;

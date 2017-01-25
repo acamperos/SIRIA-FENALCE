@@ -35,7 +35,7 @@ import org.hibernate.Transaction;
 /**
  * Clase ActionDescriptions
  *
- * Contiene los metodos para interactuar con el modulo de observaciones en un cultivo
+ * Contiene los metodos para interactuar con el modulo de observaciones en un evento productivo
  *
  * @author Juan Felipe Rodriguez
  * @version 1.0
@@ -158,6 +158,9 @@ public class ActionDescriptions extends BaseAction {
         return SUCCESS;
     }       
     
+    /**
+     * Metodo encargado de cargar toda la informacion previa antes de realizar cualquier accion
+     */
     @Override
     public void prepare() throws Exception {
         user = (Users) this.getSession().get(APConstants.SESSION_USER);

@@ -24,7 +24,7 @@
         <div id="divMessage" style="display:none;"></div>
         <div id="login-wrapper" class="container col-md-3">  
             <div class="panel-heading">
-                <a href="initial.action" class="img-responsive"><img src="img/logoAEPS.png"/></a>
+                <a href="initial.action" class="img-responsive"><img src="img/logoAEPS_login.png"/></a>
             </div>
             <div class="panel-body">
                 <s:actionerror theme="bootstrap"/>

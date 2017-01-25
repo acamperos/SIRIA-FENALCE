@@ -1,10 +1,5 @@
-//ActionFer.java
-
-
 package org.aepscolombia.platform.controllers;
 
-import com.opensymphony.xwork2.ActionContext;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -1029,5 +1024,4 @@ public class ActionFer extends BaseAction {
         
         return "states";
     }
-    
 }

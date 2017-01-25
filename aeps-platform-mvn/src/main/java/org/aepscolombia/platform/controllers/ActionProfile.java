@@ -38,9 +38,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Clase ActionLogin
+ * Clase ActionProfile
  *
- * Contiene los metodos necesarios al momento de identificar un usuario o crear uno nuevo
+ * Contiene los metodos para interactuar con el modulo del perfil
  *
  * @author Juan Felipe Rodriguez
  * @version 1.0
@@ -342,7 +342,9 @@ public class ActionProfile extends BaseAction {
         this.lanSel = lanSel;
     }
     
-    
+    /**
+     * Metodo encargado de cargar toda la informacion previa antes de realizar cualquier accion
+     */
     @Override
     public void prepare() throws Exception {
         user = (Users) ActionContext.getContext().getSession().get(APConstants.SESSION_USER);
@@ -479,6 +481,11 @@ public class ActionProfile extends BaseAction {
         }
     }
     
+    /**
+     * Metodo encargado de obtener la cantidad de datos en campo que ha realizado un usuario
+     * dentro del sistema
+     * @return Cantidad de datos ingresados
+     */
     public String getValues() {
         HashMap findParams = new HashMap();
         findParams.put("idEntUser", idEntSystem);

@@ -413,6 +413,9 @@ public class ActionField extends BaseAction {
         return SUCCESS;
     }
     
+    /**
+     * Metodo encargado de cargar toda la informacion previa antes de realizar cualquier accion
+     */
     @Override
     public void prepare() throws Exception {
         user = (Users) this.getSession().get(APConstants.SESSION_USER);
@@ -441,7 +444,11 @@ public class ActionField extends BaseAction {
     }
     
     
-    
+    /**
+     * Metodo encargado de validar la posicion geografica de un lote, y determinar si esta
+     * se encuentra en tierra. En caso de encontrarse en agua se le envia un mensaje de error al usuario
+     * @return Datos con errores
+     */
     public String viewPosition() {
         Double lonLot = (length_lot.equals("")) ? 0.0 : Double.parseDouble(length_lot.replace(',','.'));
         Double latLot = (latitude_lot.equals("")) ? 0.0 : Double.parseDouble(latitude_lot.replace(',','.'));
@@ -767,6 +774,12 @@ public class ActionField extends BaseAction {
         return fileName;
     }
     
+    /**
+     * Metodo encargado de generar el reporte en formato Excel de todos los lotes vinculados
+     * a un usuario del sistema
+     * @return String Estado del proceso
+     * @throws Exception
+     */
     public String viewReport() throws Exception {
         if (!usrDao.getPrivilegeUser(idUsrSystem, "field/list")) {
             return BaseAction.NOT_AUTHORIZED;
