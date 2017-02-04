@@ -1,4 +1,3 @@
-
 package org.aepscolombia.platform.util;
 
 import com.mongodb.BasicDBList;
@@ -62,6 +61,15 @@ import org.renjin.sexp.StringArrayVector;
  */
 public class GlobalFunctions extends BaseAction {
 
+    /**
+     * Metodo encargado de verificar si una fecha se encuentra en el rango antes o despues
+     * de realizar una siembra en un evento productivo
+     * @param start:  Fecha inicio
+     * @param end:    Fecha final
+     * @param evaluame: Fecha a evaluar
+     * @param whatIs: Que se evaluar (1-Antes de siembra, 2-Despues de siembra)
+     * @return Valida si una fecha se encuentra o no en ese rango
+     */
     public static Integer check_in_range(Date start, Date end, Date evaluame, Integer whatIs) 
     {
         Integer result = 2;
@@ -101,6 +109,14 @@ public class GlobalFunctions extends BaseAction {
 //        }
     }
 
+    /**
+     * Metodo encargado de establecer el rango que se encuentra antes de una fecha de siembra 
+     * (6 meses)
+     * @param date1:  Fecha inicio
+     * @param date2:  Fecha final
+     * @param cropType: Tipo de cultivo
+     * @return Llamada del metodo que comprueba el rango de fechas
+     */
     public static Integer compareDateBeforeSowing(Date date1, Date date2, Integer cropType) 
     {
         Date dateOld = (Date) date2.clone();
@@ -124,6 +140,14 @@ public class GlobalFunctions extends BaseAction {
 //		return self::check_in_range($dateBefore, $date2, $date1);
     }
 
+    /**
+     * Metodo encargado de establecer el rango que se encuentra despues de una fecha de siembra 
+     * (18 meses para la yuca y 10 meses para el resto de cultivos)
+     * @param date1:  Fecha inicio
+     * @param date2:  Fecha final
+     * @param cropType: Tipo de cultivo
+     * @return Llamada del metodo que comprueba el rango de fechas
+     */
     public static Integer compareDateAfterSowing(Date date1, Date date2, Integer cropType) 
     {
         Date dateOld = (Date) date2.clone();
@@ -151,6 +175,12 @@ public class GlobalFunctions extends BaseAction {
 //  return self::check_in_range($date2, $dateAfter, $date1);
     }
     
+    /**
+     * Metodo encargado de obtener la diferencia de dias entre dos fechas
+     * @param date1:  Fecha uno
+     * @param date2:  Fecha dos
+     * @return Numero de días de diferencia entre dos fechas
+     */
     public static Integer diffDays(Date date1, Date date2) 
     {
         Integer oneDay  = 24*60*60*1000;
@@ -161,10 +191,19 @@ public class GlobalFunctions extends BaseAction {
         return diffDays;
     }
     
+    /**
+     * Metodo encargado de establecer el rango que se encuentra antes de una fecha de siembra 
+     * dependiendo al tipo de accion que se realice un evento productivo
+     * @param date1:  Fecha inicio
+     * @param date2:  Fecha final
+     * @param cropType: Tipo de cultivo
+     * @param typeAction: Tipo de accion
+     * @return Llamada del metodo que comprueba el rango de fechas
+     */
     public static Integer compareDateBeforeSowingByAction(Date date1, Date date2, Integer cropType, Integer typeAction) 
     {
         /*
-            typeAction:
+            Tipos de accion:
             1-Irrigation
             2-Fertilization
             3-Control
@@ -194,6 +233,15 @@ public class GlobalFunctions extends BaseAction {
         return check_in_range(dateBefore, date2, date1, 1);
     }   
 
+    /**
+     * Metodo encargado de establecer el rango que se encuentra despues de una fecha de siembra 
+     * dependiendo al tipo de accion que se realice un evento productivo
+     * @param date1:  Fecha inicio
+     * @param date2:  Fecha final
+     * @param cropType: Tipo de cultivo
+     * @param typeAction: Tipo de accion
+     * @return Llamada del metodo que comprueba el rango de fechas
+     */
     public static Integer compareDateAfterSowingByAction(Date date1, Date date2, Integer cropType, Integer typeAction) 
     {
         /*
@@ -261,22 +309,9 @@ public class GlobalFunctions extends BaseAction {
 //        props.setProperty("mail.smtp.host", host); 
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.host", "smtp-mail.outlook.com");
 //        props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.port", "587");
-        
-        
-        /*
-                                pSend.setProperty("mail.transport.protocol", this.protocol);
-				pSend.setProperty("mail.smtp.port", this.port);
-				pSend.setProperty("mail.smtp.auth", this.auth);
-				pSend.setProperty("mail.smtp.starttls.enable", this.starttls);
-				pSend.setProperty("mail.host", this.host);
-				pSend.setProperty("mail.user", this.user);
-				pSend.setProperty("mail.password", this.password);
-				pSend.setProperty("mail.debug", this.debug);*/
-
-        
 //        props.put("mail.transport.protocol", "smtps");
 //        Session session  = Session.getDefaultInstance(props, null);
         final String fromAdressVal = fromAdress;
@@ -297,7 +332,7 @@ public class GlobalFunctions extends BaseAction {
 //            BodyPart messageBodyPart = new MimeBodyPart();
             messageBodyPart.setText(msgBody, "UTF-8", "html");
             multipart.addBodyPart(messageBodyPart);
-            if (archivo!=null && archivo.exists() ) {
+            if (archivo!=null) {
                 MimeBodyPart attachPart = new MimeBodyPart();
                 attachPart.attachFile(archivo);            
                 multipart.addBodyPart(attachPart);
@@ -390,6 +425,12 @@ public class GlobalFunctions extends BaseAction {
         return generatedPassword;
     }
 
+    /**
+     * Metodo encargado de generar una llave aleatoria cuando una persona se registro en el sistema con un numero de celular,
+     * para luego ser enviado como mensaje de texto
+     *
+     * @return llave aleatoria de 5 caracteres
+     */
     public static String getRandomKey() 
     {
         String[] vocabulary = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
@@ -401,6 +442,12 @@ public class GlobalFunctions extends BaseAction {
         return randomKey;
     }
 
+    /**
+     * Metodo encargado de generar una llave aleatoria cuando una persona se registro en el sistema con un correo electrónico
+     *
+     * @return llave aleatoria de 5 caracteres
+     * @throws NoSuchAlgorithmException, NoSuchProviderException 
+     */
     public static String getSalt() throws NoSuchAlgorithmException, NoSuchProviderException 
     {
         SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
@@ -537,16 +584,22 @@ public class GlobalFunctions extends BaseAction {
         // Cadena de caracteres original a sustituir.
         String original = "áàäéèëíìïóòöúùuñÁÀÄÉÈËÍÌÏÓÒÖÚÙÜÑçÇ";
         // Cadena de caracteres ASCII que reemplazarán los originales.
-        String ascii =    "aaaeeeiiiooouuunAAAEEEIIIOOOUUUNcC";
+        String ascii = "aaaeeeiiiooouuunAAAEEEIIIOOOUUUNcC";
         String output = input;
         for (int i = 0; i < input.length(); i++) {
             // Reemplazamos los caracteres especiales.
-          if( output.contains(String.valueOf(original.charAt(i))) ){
-                output = output.replace(original.charAt(i), ascii.charAt(i));}
+            output = output.replace(original.charAt(i), ascii.charAt(i));
         }
         return output;
     }
 
+    /**
+     * Metodo encargado de verificar por cada campo si este es numerico para luego añadir un que elimina acentos y caracteres especiales de una cadena de
+     * texto.
+     *
+     * @param input
+     * @return cadena de texto limpia de acentos y caracteres especiales.
+     */
     public static String checkDataRasta(String input) {
         String result = "";
         if (input.matches("[0-9]*") || input.equals("ND") || input.equals("NA") || input.equals("null")) {

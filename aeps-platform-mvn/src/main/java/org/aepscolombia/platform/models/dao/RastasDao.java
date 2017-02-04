@@ -686,8 +686,12 @@ public class RastasDao
                 dataGeneral   += "\"valIn\": \""+data[5]+"\"";
             }           
             dataGeneral   += "}],";    
+           String[] infoMaterials=  {"", ""};
             String valOrganic      = (String) valInf.get("organic");
-            String[] infoMaterials = valOrganic.split(",");     
+            if (valOrganic!=null)
+                infoMaterials = valOrganic.split(",");     
+            
+                
             dataGeneral   += this.getInfoHorizontes(id, infoMaterials);    
             dataGeneral   += "}";                      
             tx.commit();
@@ -1345,14 +1349,11 @@ public class RastasDao
                 /*BasicDBObject queryMongo = new BasicDBObject();
                 queryMongo.put("InsertedId", ""+ras.getIdRas());
                 queryMongo.put("form_id", "6");
-
                 DB db = mongo.getDB("ciat");
                 DBCollection col = db.getCollection("log_form_records");
                 WriteResult result = null;
-
                 System.out.println("borro mongo");
                 result = col.remove(queryMongo);
-
                 if (result.getError()!=null) {
                     throw new HibernateException("");
                 }*/

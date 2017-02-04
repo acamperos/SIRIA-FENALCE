@@ -708,7 +708,8 @@ public class ActionReport extends BaseAction {
 //                    System.out.println("rasta.getIdRas()=>"+rasta.getIdRas());
                     if (rasta.getProfundidadEfectivaRas()==null || true) {
                         HashMap res = glo.getResultRasta(rasta.getIdRas());     
-                        rasta.setProfundidadEfectivaRas(Double.parseDouble(String.valueOf(res.get("depth"))));
+                        if (res.get("depth")!=null)
+                            rasta.setProfundidadEfectivaRas(Double.parseDouble(String.valueOf(res.get("depth"))));
                         rastaDao.save(rasta);
                     }
                     

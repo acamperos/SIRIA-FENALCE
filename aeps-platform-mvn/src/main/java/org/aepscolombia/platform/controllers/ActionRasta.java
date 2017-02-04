@@ -517,15 +517,25 @@ public class ActionRasta extends BaseAction {
             //TODO Establecer una funcion que actualice todas las profundidades efectivas de todos los Rastas en el sistema
             if (rasTemp.getProfundidadEfectivaRas()!=null && false) {
                 res.put("depth", rasTemp.getProfundidadCarbonatosRas());
+                
+            if (rasTemp.getMateriaOrganicaRas()!=null && false ) 
                 res.put("organic", rasTemp.getMateriaOrganicaRas());
+             if (rasTemp.getDrenajeInternoRas()!=null && false ) 
                 res.put("internal", rasTemp.getDrenajeInternoRas());
+               if (rasTemp.getDranajeExternoRas()!=null && false ) 
                 res.put("external", rasTemp.getDranajeExternoRas());
             } else {
                 res = glo.getResultRasta(this.getIdRasta());
-                rasTemp.setProfundidadEfectivaRas(Double.parseDouble(String.valueOf(res.get("depth"))));
-                rasTemp.setMateriaOrganicaRas(String.valueOf(res.get("organic")));
-                rasTemp.setDrenajeInternoRas(String.valueOf(res.get("internal")));
-                rasTemp.setDranajeExternoRas(String.valueOf(res.get("external")));
+               
+                if (res.get("depth")!=null)
+                    rasTemp.setProfundidadEfectivaRas(Double.parseDouble(String.valueOf(res.get("depth"))));
+               
+                  if (res.get("organic")!=null)
+                        rasTemp.setMateriaOrganicaRas(String.valueOf(res.get("organic")));
+                 if (res.get("internal")!=null)
+                        rasTemp.setDrenajeInternoRas(String.valueOf(res.get("internal")));
+                 if (res.get("external")!=null)
+                 rasTemp.setDranajeExternoRas(String.valueOf(res.get("external")));
                 rastaDao.save(rasTemp);
             }
 //            info = (String) res.get("info");           
@@ -1356,7 +1366,6 @@ public class ActionRasta extends BaseAction {
             }
             DB db = mongo.getDB("ciat");
             DBCollection col = db.getCollection("log_form_records");
-
             DBCursor cursor    = col.find(query);
             WriteResult result = null;
             BasicDBObject jsonField = null;
@@ -1378,14 +1387,10 @@ public class ActionRasta extends BaseAction {
             tx.commit();   
             GlobalFunctions glo = new GlobalFunctions();
             HashMap res = glo.getResultRasta(rasta.getIdRas()); 
-            if (res.get("depth")!=null)
-            {rasta.setProfundidadEfectivaRas(Double.parseDouble(String.valueOf(res.get("depth"))));}
-            if (res.get("organic")!=null)
-            {rasta.setMateriaOrganicaRas(String.valueOf(res.get("organic")));}
-            if (res.get("internal")!=null)
-            {rasta.setDrenajeInternoRas(String.valueOf(res.get("internal")));}
-            if (res.get("external")!=null)
-            {rasta.setDranajeExternoRas(String.valueOf(res.get("external")));}
+            rasta.setProfundidadEfectivaRas(Double.parseDouble(String.valueOf(res.get("depth"))));
+            rasta.setMateriaOrganicaRas(String.valueOf(res.get("organic")));
+            rasta.setDrenajeInternoRas(String.valueOf(res.get("internal")));
+            rasta.setDranajeExternoRas(String.valueOf(res.get("external")));
             session.saveOrUpdate(rasta);
             state = "success";
             if (action.equals("C")) {
