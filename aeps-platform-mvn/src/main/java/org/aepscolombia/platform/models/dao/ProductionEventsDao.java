@@ -736,7 +736,7 @@ public class ProductionEventsDao
         }
         sql += " where le.action_type_log_ent = 'C'";
         sql += " and ep.status=1 and l.status=1 and f.status=1 and ent.status=1";
-        sql += " and ep.id_crop_type_pro_eve in (1,2,4)";
+        sql += " and ep.id_crop_type_pro_eve in (1,2,4,6)";
         if (!entType.equals("3") && args.containsKey("idEntUser")) {
             sql += " and le.id_entity_log_ent="+args.get("idEntUser");
         } else {
@@ -995,7 +995,7 @@ public class ProductionEventsDao
         }
         sql += " where le.action_type_log_ent = 'C'";
         sql += " and p.status=1 and ep.status=1 and l.status=1 and ent.status=1";
-        sql += " and ep.id_crop_type_pro_eve in (1,2,4)";
+        sql += " and ep.id_crop_type_pro_eve in (1,2,4,6)";
         
         if (!entType.equals("3") && args.containsKey("idEntUser")) {
             sql += " and le.id_entity_log_ent="+args.get("idEntUser");
@@ -1135,7 +1135,7 @@ public class ProductionEventsDao
         }
         sql += " where le.action_type_log_ent = 'C'";
         sql += " and p.status=1 and ep.status=1 and l.status=1 and ent.status=1";
-        sql += " and ep.id_crop_type_pro_eve in (1,2,4)";
+        sql += " and ep.id_crop_type_pro_eve in (1,2,4,6)";
         
         if (!entType.equals("3") && args.containsKey("idEntUser")) {
             sql += " and le.id_entity_log_ent="+args.get("idEntUser");
@@ -1276,7 +1276,7 @@ public class ProductionEventsDao
         }                
         sql += " where le.action_type_log_ent = 'C'"; 
         sql += " and p.status=1 and ep.status=1 and l.status=1 and ent.status=1"; 
-        sql += " and ep.id_crop_type_pro_eve in (1,2,4)"; 
+        sql += " and ep.id_crop_type_pro_eve in (1,2,4,6)"; 
         
         if (!entType.equals("3") && args.containsKey("idEntUser")) {
             sql += " and le.id_entity_log_ent="+args.get("idEntUser");
@@ -1434,7 +1434,7 @@ public class ProductionEventsDao
         
         sql += " where le.action_type_log_ent = 'C'";        
         sql += " and p.status=1 and ep.status=1 and l.status=1 and ent.status=1";
-        sql += " and ep.id_crop_type_pro_eve in (1,2,4)";       
+        sql += " and ep.id_crop_type_pro_eve in (1,2,4,6)";       
         
         if (!entType.equals("3") && args.containsKey("idEntUser")) {
             sql += " and le.id_entity_log_ent="+args.get("idEntUser");
@@ -1582,7 +1582,7 @@ public class ProductionEventsDao
 
         sql += " where le.action_type_log_ent = 'C'";
         sql += " and m.status=1 and ep.status=1 and l.status=1 and ent.status=1";
-        sql += " and ep.id_crop_type_pro_eve in (1,2,4)";
+        sql += " and ep.id_crop_type_pro_eve in (1,2,4,6)";
                
         if (!entType.equals("3") && args.containsKey("idEntUser")) {
             sql += " and le.id_entity_log_ent="+args.get("idEntUser");
@@ -1754,7 +1754,7 @@ public class ProductionEventsDao
         }        
         
         sql += " where le.action_type_log_ent = 'C'";
-        sql += " and ep.id_crop_type_pro_eve in (1,2,4)";
+        sql += " and ep.id_crop_type_pro_eve in (1,2,4,6)";
         sql += " and p.status=1 and ep.status=1 and l.status=1 and ent.status=1";
         
         if (!entType.equals("3") && args.containsKey("idEntUser")) {
@@ -1827,7 +1827,7 @@ public class ProductionEventsDao
         }        
         
         sql += " where le.action_type_log_ent = 'C'";
-        sql += " and ep.id_crop_type_pro_eve in (1,2,4)";
+        sql += " and ep.id_crop_type_pro_eve in (1,2,4,6)";
         sql += " and p.status=1 and ep.status=1 and l.status=1 and ent.status=1";
         
         if (!entType.equals("3") && args.containsKey("idEntUser")) {
@@ -1900,7 +1900,7 @@ public class ProductionEventsDao
         }     
         
         sql += " where le.action_type_log_ent = 'C'";
-        sql += " and ep.id_crop_type_pro_eve in (1,2,4)";
+        sql += " and ep.id_crop_type_pro_eve in (1,2,4,6)";
         sql += " and p.status=1 and ep.status=1 and l.status=1 and ent.status=1";
         
         if (!entType.equals("3") && args.containsKey("idEntUser")) {
@@ -2049,7 +2049,7 @@ public class ProductionEventsDao
         }
         sql += " where le.action_type_log_ent = 'C'";
         sql += " and p.status=1 and ep.status=1 and l.status=1 and ent.status=1";
-        sql += " and ep.id_crop_type_pro_eve in (1,2,4)";
+        sql += " and ep.id_crop_type_pro_eve in (1,2,4,6)";
         
         if (!entType.equals("3") && args.containsKey("idEntUser")) {
             sql += " and le.id_entity_log_ent="+args.get("idEntUser");
