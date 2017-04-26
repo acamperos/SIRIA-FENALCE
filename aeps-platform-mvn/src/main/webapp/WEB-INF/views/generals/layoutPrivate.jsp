@@ -8,7 +8,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <link rel="icon" type="image/ico" href="img/logoAEPS.ico">
-        <title>AEPS</title>
+        <title>SIRIA</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="Cache-control: max-age=86400" content="public">
@@ -67,7 +67,7 @@
                 activeOption('ulOptionsMenu', actionName+'Cls');
             }
             if (actionName=='dashboard' || actionName=='') {
-//                bootbox.alert("Se ha cambiado el sistema AEPS, para tener una mejor experiencia, si le llegase a presentar algún fallo, por favor escribanos en la sección de reportar problema!", function() {
+//                bootbox.alert("Se ha cambiado el sistema SIRIA, para tener una mejor experiencia, si le llegase a presentar algún fallo, por favor escribanos en la sección de reportar problema!", function() {
 //                    console.log("Alert Callback");
 //                });
                 $.when(getCountry()).then(doAction);

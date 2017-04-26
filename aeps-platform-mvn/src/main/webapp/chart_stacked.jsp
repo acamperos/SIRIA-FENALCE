@@ -8,7 +8,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<link rel="icon" type="image/ico" href="img/logoAEPS.ico">
-		<title>AEPS</title>
+		<title>SIRIA</title>
 		<meta name="description" content="">
 		<meta name="viewport" content="width=device-width"> 							
         <sj:head jqueryui="false"/>

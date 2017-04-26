@@ -10,6 +10,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.UnknownHostException;
 import java.sql.Timestamp;
@@ -702,7 +703,10 @@ public class ProductionEventsDao
         sql += "DATE_FORMAT(cs.date_har,'%Y-%m-%d') as FECHA_COSECHA, cs.method_har as METODO_COSECHA, cs.yield_har as RDT, pres.name_res_pro as PROD_COSECHADO, ";
         sql += "l.name_fie as NOMBRE_LOTE, so.name_see_ori as ORIGEN_SEMILLA, si.name_see_ino, fr.otro_inoculation_bea, cheSo.name_che_sow, geSo.name_gen_sow, sie.other_genotype_sow, ep.other_former_crop_pro_eve, ";
         sql += "mf.percentage_reseeding_phy_mon, cs.production_har, cs.humidity_percentage_har, IF(cs.storage_har=true,'SI','NO') as ALMACENAMIENTO_FINCA, cs.comment_har, ";
-        sql += "d.name_dep, m.name_mun";
+        sql += "d.name_dep, m.name_mun ,sie.cost_seed_sow as COSTO_SEMILLA, sie.cost_sow as COSTO_SIEMBRA, ";
+        sql += "cs.cost_saleprice_har as PRECIO_VENTA, cs.cost_namebuyer_har as NOMBRE_COMPRADOR,cs.cost_packing_har as COSTO_DEL_EMPAQUE,cs.cost_type_har as TIPO_COSECHA,cs.cost_combine_har as COSTO_COSECHADORA,cs.cost_storage_har as COSTO_ALMACENAMIENTO,cs.cost_tractor_har as COSTO_TRACTOR, ";
+        sql += "cs.cost_granalero_trailer_har as COSTO_TRAILER_GRANALERO, cs.cost_zorreo_har as COSTO_ZORREO_POR_BULTO,cs.cost_cabuya_har as COSTO_CABUYA, cs.cost_transport_collectioncenter_har as COSTO_TRANSPORTE_CENTRO_ACOPIO,cs.cost_workforce_har as COSTO_MANO_OBRA,";
+        sql += "cs.cost_transport_workforce_har as COSTO_TRANSPORTE_SITIO_DESGRANE,cs.cost_sheller_har as COSTO_DESGRANADORA";
         sql += " from production_events ep";
         sql += " inner join fields l on ep.id_field_pro_eve = l.id_fie";
         sql += " inner join farms f on l.id_farm_fie=f.id_far";
@@ -813,6 +817,8 @@ public class ProductionEventsDao
                 "LAT_LOTE",
                 "LONG_LOTE",
                 "FECHA_SIEMBRA",
+                "COSTO_SEMILLA",
+                "COSTO_SIEMBRA",
                 "TIPO_SIEMBRA",
                 "NUM_SEMILLAS",
                 "SEM_TRATADAS",
@@ -845,7 +851,22 @@ public class ProductionEventsDao
                 "CANTIDAD_TOTAL",
                 "%_HUMEDAD",
                 "ALMACENAMIENTO_FINCA",
-                "OBSERVACIONES_COSECHA"
+                "OBSERVACIONES_COSECHA",
+                "PRECIO_VENTA",
+                "NOMBRE_COMPRADOR",
+                "COSTO_DEL_EMPAQUE",
+                "TIPO_COSECHA",
+                "COSTO_COSECHADORA",
+                "COSTO_ALMACENAMIENTO",
+                "COSTO_TRACTOR",
+                "COSTO_TRAILER_GRANALERO",
+                "COSTO_ZORREO_POR_BULTO",
+                "COSTO_CABUYA",
+                "COSTO_TRANSPORTE_CENTRO_ACOPIO",
+                "COSTO_MANO_OBRA",
+                "COSTO_TRANSPORTE_SITIO_DESGRANE",
+                "COSTO_DESGRANADORA"
+            
             };
             dataSheet.put("1", val);
             Integer cont = 2;
@@ -867,6 +888,8 @@ public class ProductionEventsDao
                     data[8],
                     data[9],
                     data[10],
+                    data[47],
+                    data[48],
                     data[11],
                     data[12],
                     data[13],
@@ -899,7 +922,21 @@ public class ProductionEventsDao
                     data[41],
                     data[42],
                     data[43],
-                    data[44]
+                    data[44],
+                    data[49],
+                    data[50],
+                    data[51],
+                    data[52],
+                    data[53],
+                    data[54],
+                    data[55],
+                    data[56],
+                    data[57],
+                    data[58],
+                    data[59],
+                    data[60],
+                    data[61],
+                    data[62]
                 };
                 dataSheet.put(""+cont, valTemp);
                 cont++;
@@ -929,6 +966,8 @@ public class ProductionEventsDao
                     } else if (obj instanceof Integer) {
                         cell.setCellValue((Integer) obj);
                     } else if (obj instanceof BigInteger) {   
+                        cell.setCellValue((String) obj.toString());
+                    } else if (obj instanceof BigDecimal) {   
                         cell.setCellValue((String) obj.toString());
                     } 
                 }
@@ -975,7 +1014,7 @@ public class ProductionEventsDao
         String sql = "";
         String entType = String.valueOf(args.get("entType"));
         
-        sql += "select e.name_ent as USUARIO, ep.id_pro_eve as ID_EVENTO, ent.name_ent as PRODUCTOR, concat(ent.document_type_ent, ':', ent.document_number_ent) as PROD_CEDULA, pd.id_pro as ID_PROD, DATE_FORMAT(p.date_res_man,'%Y-%m-%d') as FECHA_RES, cr.name_res_cla as TYPE_RES, p.comment_res_man as DESCRIP";  
+        sql += "select e.name_ent as USUARIO, ep.id_pro_eve as ID_EVENTO, ent.name_ent as PRODUCTOR, concat(ent.document_type_ent, ':', ent.document_number_ent) as PROD_CEDULA, pd.id_pro as ID_PROD, DATE_FORMAT(p.date_res_man,'%Y-%m-%d') as FECHA_RES, cr.name_res_cla as TYPE_RES, p.comment_res_man as DESCRIP,p.cost_res_man";  
         sql += " from residuals_management p"; 
         sql += " inner join production_events ep on ep.id_pro_eve=p.id_production_event_res_man"; 
 
@@ -1042,7 +1081,7 @@ public class ProductionEventsDao
             if (events.size()>0) {
                 sheet = workbook.createSheet("Rastrojos");
                 Object[] val = {
-                    "USUARIO","ID_EVENTO","PRODUCTOR","PROD_CEDULA","ID_PROD","FECHA_RAS","TIPO_RAS","DESC"
+                    "USUARIO","ID_EVENTO","PRODUCTOR","PROD_CEDULA","ID_PROD","FECHA_RAS","TIPO_RAS","DESC","COSTO_MANEJO_RASTROJO"
                 };
                 dataSheet.put("1", val);
             }
@@ -1058,7 +1097,8 @@ public class ProductionEventsDao
                     data[4],
                     data[5],
                     data[6],                    
-                    data[7]                    
+                    data[7],
+                    data[8]
                 };
                 dataSheet.put(""+cont, valTemp);
                 cont++;
@@ -1089,6 +1129,8 @@ public class ProductionEventsDao
                         cell.setCellValue((Integer) obj);
                     } else if (obj instanceof BigInteger) {   
                         cell.setCellValue((String) obj.toString());
+                    } else if (obj instanceof BigDecimal) {   
+                        cell.setCellValue((String) obj.toString());
                     } 
                 }
             }
@@ -1114,7 +1156,7 @@ public class ProductionEventsDao
         String sql = "";
         String entType = String.valueOf(args.get("entType"));
         
-        sql += "select e.name_ent as Usuario, ep.id_pro_eve as ID_EVENTO, ent.name_ent as PRODUCTOR, concat(ent.document_type_ent, ':', ent.document_number_ent) as PROD_CEDULA, pd.id_pro as ID_PROD, DATE_FORMAT(p.date_prep,'%Y-%m-%d') as FECHA_PREP, p.depth_prep as PROF_PREP, p.comment_prep as DESCRIP";  
+        sql += "select e.name_ent as Usuario, ep.id_pro_eve as ID_EVENTO, ent.name_ent as PRODUCTOR, concat(ent.document_type_ent, ':', ent.document_number_ent) as PROD_CEDULA, pd.id_pro as ID_PROD, DATE_FORMAT(p.date_prep,'%Y-%m-%d') as FECHA_PREP, p.depth_prep as PROF_PREP, p.comment_prep as DESCRIP,p.cost_prep";  
         sql += " from preparations p"; 
         sql += " inner join production_events ep on ep.id_pro_eve=p.id_production_event_prep"; 
 
@@ -1182,7 +1224,7 @@ public class ProductionEventsDao
             if (events.size()>0) {
                 sheet = workbook.createSheet("Preparaciones");
                 Object[] val = {
-                    "USUARIO","ID_EVENTO","PRODUCTOR","PROD_CEDULA","ID_PROD","FECHA_PREP","PROF_PREP","DESC"
+                    "USUARIO","ID_EVENTO","PRODUCTOR","PROD_CEDULA","ID_PROD","FECHA_PREP","PROF_PREP","DESC","COSTO_PREPARACION"
                 };
                 dataSheet.put("1", val);
             }
@@ -1198,7 +1240,8 @@ public class ProductionEventsDao
                     data[4],
                     data[5],
                     data[6],                    
-                    data[7]                    
+                    data[7],
+                    data[8]
                 };
                 dataSheet.put(""+cont, valTemp);
                 cont++;
@@ -1228,6 +1271,8 @@ public class ProductionEventsDao
                     } else if (obj instanceof Integer) {
                         cell.setCellValue((Integer) obj);
                     } else if (obj instanceof BigInteger) {   
+                        cell.setCellValue((String) obj.toString());
+                    } else if (obj instanceof BigDecimal) {   
                         cell.setCellValue((String) obj.toString());
                     } 
                 }

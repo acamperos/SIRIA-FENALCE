@@ -469,7 +469,7 @@ public class GlobalFunctions extends BaseAction {
         String msg = "<html> \n"
                 + "<body> \n"
                 + "<h3>El Usuario: " + nameUser + "</h3> \n"
-                + "<p>Se requiere validar para el ingreso a la plataforma AEPS.</p> \n"
+                + "<p>Se requiere validar para el ingreso a la plataforma SIRIA.</p> \n"
                 + "<p>Proceder con la respectiva validacion y enviar una respuesta oportuna al usuario.</p> "
                 + "</body> \n"
                 + "</html>";
@@ -493,7 +493,7 @@ public class GlobalFunctions extends BaseAction {
                 //                + "</head> \n"
                 + "<body> \n"
                 + "<h3>Hola Usuario: " + nameUser + "</h3> \n"
-                + "<p>Bienvenido a la plataforma AEPS.</p> \n"
+                + "<p>Bienvenido a la plataforma SIRIA.</p> \n"
                 + "<p>Para validar su registro por favor dar click en el siguiente enlace:</p> "
                 + "<a href='http://" + host + ":8080/verifyUser.action?codVal=" + codValidation + "&nameUser=" + nameUser + "'>http://" + host + ":8080/verifyUser.action?codVal=" + codValidation + "&nameUser=" + nameUser + "</a>\n"
 //                + "<a href='http://" + host + ":8080/aeps/verifyUser.action?codVal=" + codValidation + "&nameUser=" + nameUser + "'>http://" + host + ":8080/aeps/verifyUser.action?codVal=" + codValidation + "&nameUser=" + nameUser + "</a>\n"

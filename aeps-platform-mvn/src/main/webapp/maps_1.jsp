@@ -7,7 +7,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
         <link rel="icon" type="image/ico" href="img/logoAEPS.ico">
-        <title>AEPS</title>
+        <title>SIRIA</title>
         <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
         <sj:head jqueryui="false"/>
         <script type="text/javascript" src="scripts/js/geoxml/geoxml3.js"></script>
