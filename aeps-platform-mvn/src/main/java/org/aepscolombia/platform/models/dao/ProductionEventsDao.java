@@ -981,6 +981,7 @@ public class ProductionEventsDao
             getMonitorings(session, args, workbook);
             getFertilizations(session, args, workbook);
             getDescriptions(session, args, workbook);
+            getCostIndirectos(session, args, workbook);
             File myFile = new File(fileName);
             if (!myFile.exists()) myFile.createNewFile();
             FileOutputStream out = new FileOutputStream(myFile);
@@ -1146,6 +1147,150 @@ public class ProductionEventsDao
 //        return result;
     }
     
+    
+     public void getCostIndirectos(Session session, HashMap args, HSSFWorkbook workbook) throws HibernateException
+    {        
+//        SessionFactory sessions = HibernateUtil.getSessionFactory();
+//        Session session = sessions.openSession();
+        List<Object[]> events = null;
+        Transaction tx = null;    
+
+        String sql = "";
+        String entType = String.valueOf(args.get("entType"));
+        
+        sql += "select ep.id_pro_eve as ID_EVENTO,p.cost_vigilant_pro as COSTO_VIGILANTE, p.cost_rent_pro as COSTO_ARRIENDO, p.cost_technical_assistance_pro as COSTO_ASISTENCIA_TECNICA,";
+        sql += "p.cost_impuesto_pro as COSTO_IMPUESTOS, p.cost_administration_pro as COSTO_ADMINISTRACION, p.cost_others_pro as OTROS_COSTOS, p.cost_interests_pro as COSTO_INTERESES"; 
+        sql += " from cost_indirect_production_event p"; 
+        sql += " inner join production_events ep on ep.id_pro_eve=p.id_production_event_cost_ind"; 
+
+       // sql += " inner join fields l on ep.id_field_pro_eve = l.id_fie";
+        //sql += " inner join farms f on l.id_farm_fie=f.id_far";
+        //sql += " inner join farms_producers fp on f.id_far = fp.id_farm_far_pro";
+        //sql += " inner join producers pd on pd.id_pro = fp.id_producer_far_pro";
+        //sql += " inner join entities ent on ent.id_ent = pd.id_entity_pro";
+
+        sql += " left join log_entities le on le.id_object_log_ent = ep.id_pro_eve AND le.table_log_ent = 'production_events'";
+        sql += " inner join entities e on le.id_entity_log_ent = e.id_ent";
+        if (entType.equals("3")) {
+            sql += " inner join extension_agents ext on (ext.id_entity_ext_age=e.id_ent)";
+            sql += " inner join agents_association agAsc on (agAsc.id_agent_age_asc=ext.id_ext_age)";
+            sql += " inner join association ass on (ass.id_asc=agAsc.id_asso_age_asc)";
+        }
+        sql += " where le.action_type_log_ent = 'C'";
+        sql += " and ep.status=1 ";
+        sql += " and ep.id_crop_type_pro_eve in (1,2,4,6)";
+        if (!entType.equals("3") && args.containsKey("idEntUser")) {
+            sql += " and le.id_entity_log_ent="+args.get("idEntUser");
+        } else {
+            String selAll  = String.valueOf(args.get("selAll"));
+            if (selAll.equals("true")) {
+                sql += " and ass.id_entity_asc="+args.get("idEntUser");
+            } else {
+                sql += " and le.id_entity_log_ent in ("+args.get("selItem")+")";
+            }
+        }
+        sql += " and le.id_object_log_ent not in (";
+        sql += "	select le.id_object_log_ent from log_entities le ";
+        if (entType.equals("3")) {
+            sql += "	inner join entities entLe on (le.id_entity_log_ent=entLe.id_ent)";
+            sql += "	inner join extension_agents ext on (ext.id_entity_ext_age=entLe.id_ent)";
+            sql += " inner join agents_association agAsc on (agAsc.id_agent_age_asc=ext.id_ext_age)";
+            sql += " inner join association ass on (ass.id_asc=agAsc.id_asso_age_asc)";
+        }
+        sql += "	where le.action_type_log_ent = 'D' AND le.table_log_ent = 'production_events'";
+        if (!entType.equals("3") && args.containsKey("idEntUser")) {
+            sql += " and le.id_entity_log_ent="+args.get("idEntUser");
+        } else {
+            String selAll  = String.valueOf(args.get("selAll"));
+            if (selAll.equals("true")) {
+                sql += " and ass.id_entity_asc="+args.get("idEntUser");
+            } else {
+                sql += " and le.id_entity_log_ent in ("+args.get("selItem")+")";
+            }
+        }
+        sql += ")";
+        
+        sql += " order by ep.id_pro_eve";
+
+//        System.out.println("sql=>"+sql);
+//        HSSFWorkbook workbook = null;
+        /*try {
+            tx = session.beginTransaction();*/
+            
+            Map<String, Object[]> dataSheet = new TreeMap<String, Object[]>();
+            Query query  = session.createSQLQuery(sql);
+            events = query.list();
+        
+            HSSFSheet sheet = null;
+            if (events.size()>0) {
+                sheet = workbook.createSheet("CostosIndirectos");
+                Object[] val = {
+                    "ID_CULTIVO","COSTO_VIGILANTE","COSTO_ARRIENDO","COSTO_ASISTENCIA_TECNICA","COSTO_IMPUESTOS","COSTO_ADMINISTRACION","OTROS_COSTOS","COSTO_INTERESES"
+                };
+                dataSheet.put("1", val);
+            }
+            Integer cont = 2;
+            
+//            writer.writeNext(val);
+            for (Object[] data : events) {
+                Object[] valTemp = {
+                    data[0],
+                    data[1],
+                    data[2],
+                    data[3],
+                    data[4],
+                    data[5],
+                    data[6],                    
+                    data[7]
+                };
+                dataSheet.put(""+cont, valTemp);
+                cont++;
+//                writer.writeNext(valTemp);
+            }
+            //Iterate over data and write to sheet
+            Set<String> keyset = dataSheet.keySet();
+            int rownum = 0;
+            for (String key : keyset)
+            {
+                Row row = sheet.createRow(rownum++);
+                Object [] objArr = dataSheet.get(key);
+                int cellnum = 0;
+                for (Object obj : objArr)
+                {
+                    Cell cell = row.createCell(cellnum++);
+                    if (obj instanceof String) {
+                        cell.setCellValue((String) obj);
+                    } else if (obj instanceof Boolean) {
+                        cell.setCellValue((Boolean) obj);
+                    } else if (obj instanceof Timestamp) {
+                        cell.setCellValue((Timestamp) obj);
+                    } else if (obj instanceof Date) {
+                        cell.setCellValue((Date) obj);
+                    } else if (obj instanceof Double) {
+                        cell.setCellValue((Double) obj);
+                    } else if (obj instanceof Integer) {
+                        cell.setCellValue((Integer) obj);
+                    } else if (obj instanceof BigInteger) {   
+                        cell.setCellValue((String) obj.toString());
+                    } else if (obj instanceof BigDecimal) {   
+                        cell.setCellValue((String) obj.toString());
+                    } 
+                }
+            }
+            /*tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }*/
+//        return result;
+    }
+    
+    
+    
     public void getPreparations(Session session, HashMap args, HSSFWorkbook workbook) throws HibernateException
     {        
 //        SessionFactory sessions = HibernateUtil.getSessionFactory();
@@ -1300,7 +1445,10 @@ public class ProductionEventsDao
         String entType = String.valueOf(args.get("entType"));
         
         sql += "select e.name_ent as Usuario, ep.id_pro_eve as ID_EVENTO, ent.name_ent as PRODUCTOR, concat(ent.document_type_ent, ':', ent.document_number_ent) as PROD_CEDULA, pd.id_pro as ID_PROD, "; 
-        sql += " IF(p.irrigation_type_irr in (1,2,3),'SI','NO') as APLICA_RIEGO, DATE_FORMAT(p.date_irr,'%Y-%m-%d') as date_irrGO, p.amount_irr as CANTIDAD_APORTADA, it.name_irr_typ as FORMA_APLICACION, p.comment_irr as DESCRIP"; 
+        sql += " IF(p.irrigation_type_irr in (1,2,3),'SI','NO') as APLICA_RIEGO, DATE_FORMAT(p.date_irr,'%Y-%m-%d') as date_irrGO, p.amount_irr as CANTIDAD_APORTADA, it.name_irr_typ as FORMA_APLICACION, p.comment_irr as DESCRIP,"; 
+        sql += " p.cost_water_irr as COSTO_DEL_AGUA, p.cost_workforce_irr as COSTO_MANO_DE_OBRA, p.cost_ditches_irr as COSTO_CONSTRU_ACEQUIAS, p.cost_drainage_irr as COSTO_CONSTRU_DRENAJE, "; 
+        sql += " p.cost_fuel_irr as COSTO_COMBUSTIBLE, p.cost_electricpower_irr as COSTO_ENERGIA_ELECTRI, p.cost_rentedquestion_irr as COSTO_EQUIPO_RIEGO, "; 
+        sql += " p.cost_depreciation_irr as COSTO_DEPRECIACION, p.cost_rented_irr as COSTO_ALQUILER "; 
         sql += " from irrigation p "; 
         sql += " inner join production_events ep on ep.id_pro_eve=p.id_production_event_irr"; 
         sql += " left join irrigations_types it on it.id_irr_typ=p.irrigation_type_irr"; 
@@ -1369,6 +1517,15 @@ public class ProductionEventsDao
                 sheet = workbook.createSheet("Riegos");
                 Object[] val = {
                     "USUARIO","ID_EVENTO","PRODUCTOR","PROD_CEDULA","ID_PROD","APLICA_RIEGO","FECHA_RIEGO","CANTIDAD_APORTADA","FORMA_APLICACION","DESC"
+                    ,"COSTO_DEL_AGUA"   
+                    ,"COSTO_MANO_DE_OBRA"    
+                    ,"COSTO_CONSTRU_ACEQUIAS"    
+                    ,"COSTO_CONSTRU_DRENAJE"    
+                    ,"COSTO_COMBUSTIBLE"    
+                    ,"COSTO_ENERGIA_ELECTRI"   
+                    ,"COSTO_EQUIPO_RIEGO"
+                    ,"COSTO_DEPRECIACION"    
+                    ,"COSTO_ALQUILER"         
                 };
                 dataSheet.put("1", val);
             }
@@ -1386,7 +1543,16 @@ public class ProductionEventsDao
                     data[6],                    
                     data[7],                   
                     data[8],                    
-                    data[9]                    
+                    data[9],
+                    data[10],
+                    data[11],
+                    data[12],
+                    data[13],
+                    data[14],
+                    data[15],
+                    data[16],
+                    data[17],
+                    data[18]
                 };
                 dataSheet.put(""+cont, valTemp);
                 cont++;
@@ -1417,7 +1583,9 @@ public class ProductionEventsDao
                         cell.setCellValue((Integer) obj);
                     } else if (obj instanceof BigInteger) {   
                         cell.setCellValue((String) obj.toString());
-                    } 
+                    } else if (obj instanceof BigDecimal) {   
+                        cell.setCellValue((String) obj.toString());
+                    }                     
                 }
             }
             /*tx.commit();
@@ -1446,7 +1614,7 @@ public class ProductionEventsDao
         sql += " pd.id_pro as ID_PROD, DATE_FORMAT(p.date_con,'%Y-%m-%d') as FECHA_CONTROL, tob.name_tar_typ as TIPO_OBJETIVO, tc.name_con_type as TIPO_CONTROL,";
         sql += " IF (pc.chemical_product_used_pro_con, qc.name_che_con, IF(pc.other_chemical_product_pro_con!='', pc.other_chemical_product_pro_con, ";
         sql += " IF (pc.organic_product_used_pro_con, bc.name_org_con, IF(pc.other_organic_product_pro_con!='', pc.other_organic_product_pro_con, '')))) as MOLECULA_ACTIVA, ";
-        sql += " p.id_con, pc.dosis_pro_con, p.comment_con";
+        sql += " p.id_con, pc.dosis_pro_con, p.comment_con, p.cost_input_con as COSTO_INSUMO,p.cost_app_con as COSTO_APLICACION";
         sql += " from products_controls pc ";
         sql += " inner join controls p on p.id_con=pc.id_control_pro_con"; 
         sql += " inner join production_events ep on ep.id_pro_eve=p.id_production_event_con"; 
@@ -1526,7 +1694,7 @@ public class ProductionEventsDao
             if (events.size()>0) {
                 sheet = workbook.createSheet("Controles");
                 Object[] val = {
-                    "USUARIO","ID_EVENTO","PRODUCTOR","PROD_CEDULA","ID_PROD","ID_ORG","FECHA_CONTROL","DOSIS","TIPO_OBJETIVO","TIPO_CONTROL","MOLECULA_ACTIVA","DESC"
+                    "USUARIO","ID_EVENTO","PRODUCTOR","PROD_CEDULA","ID_PROD","ID_ORG","FECHA_CONTROL","DOSIS","TIPO_OBJETIVO","TIPO_CONTROL","MOLECULA_ACTIVA","DESC","COSTO_INSUMO","COSTO_APLICACION"
                 };
                 dataSheet.put("1", val);
             }
@@ -1546,7 +1714,9 @@ public class ProductionEventsDao
                     data[6],                    
                     data[7],                   
                     data[8],                    
-                    data[11]                    
+                    data[11],
+                    data[12],
+                    data[13]
                 };
                 dataSheet.put(""+cont, valTemp);
                 cont++;
@@ -1576,6 +1746,8 @@ public class ProductionEventsDao
                     } else if (obj instanceof Integer) {
                         cell.setCellValue((Integer) obj);
                     } else if (obj instanceof BigInteger) {   
+                        cell.setCellValue((String) obj.toString());
+                    } else if (obj instanceof BigDecimal) {   
                         cell.setCellValue((String) obj.toString());
                     } 
                 }
@@ -1765,7 +1937,7 @@ public class ProductionEventsDao
         sql += " viewComposition(ferq.id_che_fer, 3) as K, ";
         sql += " dos.name_dos_uni, ";
         sql += " ap.name_app_typ, ";
-        sql += " p.comment_fer ";
+        sql += " p.comment_fer,fq.cost_app_che_fer as COSTO_APLICACION, fq.cost_product_che_fer as COSTO_PRODUCTO ";
 
         sql += " from chemical_fertilizations fq";
 
@@ -1847,7 +2019,7 @@ public class ProductionEventsDao
         sql += " viewComposition(0, 3) as K,";
         sql += " 'kg/ha', ";
         sql += " 'NA', ";
-        sql += " p.comment_fer ";
+        sql += " p.comment_fer ,fen.cost_app_ame_fer as COSTO_APLICACION, fen.cost_product_ame_fer as COSTO_PRODUCTO";
 
         sql += " from amendments_fertilizations fen";
 
@@ -1920,7 +2092,7 @@ public class ProductionEventsDao
         sql += " viewComposition(0, 3) as K, ";
         sql += " 'kg/ha', ";
         sql += " 'NA', ";
-        sql += " p.comment_fer ";
+        sql += " p.comment_fer ,forg.cost_app_org_fer as COSTO_APLICACION, forg.cost_product_org_fer as COSTO_PRODUCTO";
 
         sql += " from organic_fertilizations forg";
 
@@ -1993,7 +2165,7 @@ public class ProductionEventsDao
             if (events.size()>0) {
                 sheet = workbook.createSheet("Fertilizaciones");
                 Object[] val = {
-                    "USUARIO","ID_EVENTO","PRODUCTOR","PROD_CEDULA","ID_PROD","FECHA_FERT","ID_FER","TIPO_FERTILIZACION","TIPO_APLICACION","CANTIDAD_PROD_FERTI","PROD_QUI","PROD_ORG","PROD_ENM","DESC","N","P","K","Unidad"
+                    "USUARIO","ID_EVENTO","PRODUCTOR","PROD_CEDULA","ID_PROD","FECHA_FERT","ID_FER","TIPO_FERTILIZACION","TIPO_APLICACION","CANTIDAD_PROD_FERTI","PROD_QUI","PROD_ORG","PROD_ENM","DESC","N","P","K","Unidad","COSTO_APLICACION","COSTO_PRODUCTO"
                 };
                 dataSheet.put("1", val);
             }
@@ -2019,7 +2191,9 @@ public class ProductionEventsDao
                     data[12],                  
                     data[13],                   
                     data[14],                   
-                    data[15]                   
+                    data[15],
+                    data[18],
+                    data[19]
                 };
                 dataSheet.put(""+cont, valTemp);
                 cont++;
@@ -2049,6 +2223,8 @@ public class ProductionEventsDao
                     } else if (obj instanceof Integer) {
                         cell.setCellValue((Integer) obj);
                     } else if (obj instanceof BigInteger) {   
+                        cell.setCellValue((String) obj.toString());
+                    } else if (obj instanceof BigDecimal) {   
                         cell.setCellValue((String) obj.toString());
                     } 
                 }
@@ -2186,6 +2362,8 @@ public class ProductionEventsDao
                     } else if (obj instanceof Integer) {
                         cell.setCellValue((Integer) obj);
                     } else if (obj instanceof BigInteger) {   
+                        cell.setCellValue((String) obj.toString());
+                    } else if (obj instanceof BigDecimal) {   
                         cell.setCellValue((String) obj.toString());
                     } 
                 }
