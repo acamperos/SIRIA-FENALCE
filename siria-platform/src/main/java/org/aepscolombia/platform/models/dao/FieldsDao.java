@@ -233,7 +233,7 @@ public class FieldsDao
         
         if (args.containsKey("selected")) {
             String valSel = String.valueOf(args.get("selected"));
-            if (valSel.equals("crop")) sql += " and l.available_area_fie>0";
+           // if (valSel.equals("crop")) sql += " and l.available_area_fie>0";
         }
         
         if (args.containsKey("search_field")) {
@@ -317,7 +317,7 @@ public class FieldsDao
 //        sql += " order by e.name_ent ASC";
         sql += " order by l.name_fie ASC";
 //        events.toArray();
-//        System.out.println("sql->"+sql);
+        System.out.println("sql->"+sql);
         try {
             tx = session.beginTransaction();
 //            Query query = session.createSQLQuery(sql);
