@@ -810,7 +810,7 @@ public class ActionCon extends BaseAction {
             prod.setTargetsTypes(tarTy);
         }
         
-        if (prod.getOrganicControls()!=null && prod.getOrganicControls().getIdOrgCon()!=1000000) {
+        if (prod.getOrganicControls()!=null && prod.getOrganicControls().getIdOrgCon()!=null && prod.getOrganicControls().getIdOrgCon()!=1000000) {
             OrganicControls orgCon = new OrganicControlsDao().objectById(prod.getOrganicControls().getIdOrgCon());
             prod.setOrganicControls(orgCon);
             prod.setOtherOrganicProductProCon(null);
@@ -944,7 +944,9 @@ public class ActionCon extends BaseAction {
 
         if (prod.getControlsTypes()!=null) {
             Integer conSel = prod.getControlsTypes().getIdConTyp();
-            Double dosis = Double.parseDouble(prod.getDosisProCon());
+            Double dosis=null;
+            if (prod.getDosisProCon()!=null)
+             dosis = Double.parseDouble(prod.getDosisProCon());
             if ((conSel==2 || conSel==6) && (dosis!=null) && (dosis<0.1 || dosis>1000)) {
                 addFieldError("prod.dosisProCon", getText("message.datainvalidrankchem.control"));                
                 addActionError(getText("desc.datainvalidrankchem.control"));
