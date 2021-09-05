@@ -1301,7 +1301,7 @@ public class ProductionEventsDao
         String sql = "";
         String entType = String.valueOf(args.get("entType"));
         
-        sql += "select e.name_ent as Usuario, ep.id_pro_eve as ID_EVENTO, ent.name_ent as PRODUCTOR, concat(ent.document_type_ent, ':', ent.document_number_ent) as PROD_CEDULA, pd.id_pro as ID_PROD, DATE_FORMAT(p.date_prep,'%Y-%m-%d') as FECHA_PREP, p.depth_prep as PROF_PREP, p.comment_prep as DESCRIP,p.cost_prep";  
+        sql += "select e.name_ent as Usuario, tp.name_prep_typ, p.passings_number_prep, ep.id_pro_eve as ID_EVENTO, ent.name_ent as PRODUCTOR, concat(ent.document_type_ent, ':', ent.document_number_ent) as PROD_CEDULA, pd.id_pro as ID_PROD, DATE_FORMAT(p.date_prep,'%Y-%m-%d') as FECHA_PREP, p.depth_prep as PROF_PREP, p.comment_prep as DESCRIP,p.cost_prep";  
         sql += " from preparations p"; 
         sql += " inner join production_events ep on ep.id_pro_eve=p.id_production_event_prep"; 
 
@@ -1774,7 +1774,7 @@ public class ProductionEventsDao
         String sql = "";
         String entType = String.valueOf(args.get("entType"));
         
-        sql += "select e.name_ent as Usuario, ep.id_pro_eve as ID_EVENTO, ent.name_ent as PRODUCTOR, concat(ent.document_type_ent, ':', ent.document_number_ent) as PROD_CEDULA, ";
+        sql += "select e.name_ent as Usuario, ep.id_pro_eve as ID_EVENTO, dis.name_dis, pes.name_pes, wee.name_wee, ent.name_ent as PRODUCTOR, concat(ent.document_type_ent, ':', ent.document_number_ent) as PROD_CEDULA, ";
         sql += " pd.id_pro as ID_PROD, DATE_FORMAT(m.date_mon,'%Y-%m-%d') as DATE_MONITOREO, IF(monitor_pests_mon, 'SI', 'NO') as TIPO_PLAGA, percentage_impact_pest_mon as INCIDENCIA_PLAGA,";
         sql += " IF(monitor_diseases_mon, 'SI', 'NO') as TIPO_ENFERMEDAD, percentage_impact_disease_mon as INCIDENCIA_ENFERMEDAD, IF(monitor_weeds_mon, 'SI', 'NO') as TIPO_MALEZA, percentage_impact_weed_mon as INCIDENCIA_MALEZA,";
         sql += " m.comment_mon";
@@ -1787,6 +1787,9 @@ public class ProductionEventsDao
         sql += " inner join farms_producers fp on f.id_far = fp.id_farm_far_pro";
         sql += " inner join producers pd on pd.id_pro = fp.id_producer_far_pro";
         sql += " inner join entities ent on ent.id_ent = pd.id_entity_pro";
+        sql += " inner join diseases dis on dis.id_dis = pd.id_disease_mon";
+        sql += " inner join pests pes on pes.id_pes = pd.id_pest_mon";
+        sql += " inner join weeds wee on wee.id_wee = pd.id_weed_mon";
 
         sql += " inner join log_entities le on le.id_object_log_ent=m.id_mon and le.table_log_ent='monitoring' ";
         sql += " inner join entities e on le.id_entity_log_ent = e.id_ent";
